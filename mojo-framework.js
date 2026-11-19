@@ -1,9 +1,8 @@
 /* Campaigns app framework: a feed, a campaign dashboard, a rule library, and a strategy memo. */
 (() => {
   const page = (location.pathname.split('/').pop() || 'HomeSystem.html').replace(/\.html$/, '');
-  const boot = () => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(init)));
-  if (document.readyState === 'complete') boot();
-  else document.addEventListener('DOMContentLoaded', boot, {once:true});
+  if (document.readyState === 'complete') init();
+  else document.addEventListener('DOMContentLoaded', init, {once:true});
 
   function init() {
     if (page === 'HomeSystem' || page === 'index') feed();
