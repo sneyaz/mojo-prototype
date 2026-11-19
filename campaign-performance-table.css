@@ -1,0 +1,26 @@
+.ia-campaign-performance-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:8px}
+.ia-campaign-performance-heading h2{margin:4px 0 0!important}
+.ia-campaign-performance-heading>span{color:#807888;font:600 11px/1.3 var(--sans,Arial,sans-serif);white-space:nowrap}
+.ia-campaign-performance-block{max-width:920px;margin:26px 0 0}
+.ia-campaign-performance-block h3{margin:0 0 4px;color:var(--ink);font:400 21px/1.25 var(--serif,Georgia,serif)}
+.ia-campaign-performance-block>p,.ia-campaign-performance-note{margin:0 0 13px;color:var(--ink-55);font:400 12px/1.5 var(--sans,Arial,sans-serif)}
+.ia-campaign-table-scroll{max-width:100%;overflow-x:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ia-campaign-performance-table{width:100%;min-width:480px;border-collapse:collapse;text-align:left;font-family:var(--sans,Arial,sans-serif)}
+.ia-campaign-performance-table caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.ia-campaign-performance-table thead{background:#f8f6f9}
+.ia-campaign-performance-table th,.ia-campaign-performance-table td{padding:11px 14px;border-bottom:1px solid #ebe6ed;vertical-align:middle}
+.ia-campaign-performance-table tr:last-child th,.ia-campaign-performance-table tr:last-child td{border-bottom:0}
+.ia-campaign-performance-table thead th{color:#706777;font-size:10px;font-weight:700;letter-spacing:.065em;text-transform:uppercase}
+.ia-campaign-performance-table tbody th{width:38%;color:#38313d;font-size:12px;font-weight:600}
+.ia-campaign-performance-table tbody td{font-size:12px}
+.ia-campaign-account-table{min-width:720px}
+.ia-campaign-account-table tbody th{width:auto}
+.ia-campaign-account-table tbody td{white-space:nowrap;font-variant-numeric:tabular-nums}
+.ia-campaign-performance-value{width:25%;color:#2c2530;font-weight:700;font-variant-numeric:tabular-nums}
+.ia-campaign-performance-basis{color:#827a88}
+.ia-campaign-performance-foot{display:flex;justify-content:space-between;gap:18px;max-width:920px;margin:27px 0 0;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:500 12px/1.4 var(--sans,Arial,sans-serif)}
+.ia-campaign-performance-foot strong{color:#38313d}
+.ia-campaign-performance-foot span{color:#827a88;text-align:right}
+.ia-campaign-evidence-head>a{display:inline-block;margin:0 0 16px;color:var(--accent);font:600 12px/1.4 var(--sans,Arial,sans-serif);text-decoration:none}
+.ia-campaign-evidence-head>a:hover{text-decoration:underline}
+@media(max-width:600px){.ia-campaign-tabs{gap:18px;overflow-x:auto;white-space:nowrap}.ia-campaign-tabs a{flex:none}.ia-campaign-performance-heading{align-items:start;flex-direction:column;gap:4px}.ia-campaign-performance-table th,.ia-campaign-performance-table td{padding:10px}.ia-campaign-performance-foot{flex-direction:column;gap:4px}.ia-campaign-performance-foot span{text-align:left}}

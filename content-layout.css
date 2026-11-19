@@ -1,0 +1,26 @@
+/* Keep every canvas on one centered reading width; navigation stays in the shell. */
+.panes > main.canvaspane {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, min(100%, 1120px)) minmax(0, 1fr);
+  align-content: start;
+}
+.panes > main.canvaspane > * {
+  grid-column: 2;
+  min-width: 0;
+}
+.panes > main.canvaspane > .mojo-scope-chip {
+  justify-self: start;
+}
+.panes > main.canvaspane > .mp-page {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+/* Performance can hide its canvas with the existing Canvas toggle. */
+#canvasOn:not(:checked) ~ .work .panes > main.canvaspane {
+  display: none;
+}
+#canvasOn:checked ~ .work .panes > main.canvaspane {
+  display: grid;
+}

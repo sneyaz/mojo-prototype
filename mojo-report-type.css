@@ -1,0 +1,15 @@
+/* Report has one typography system: Lora for editorial headings, Inter for UI. */
+@font-face{font-family:Inter;src:url('assets/inter.woff2') format('woff2');font-display:swap}
+@font-face{font-family:Lora;src:url('assets/lora-regular.woff2') format('woff2');font-display:swap}
+@font-face{font-family:Lora;src:url('assets/lora-italic.woff2') format('woff2');font-style:italic;font-display:swap}
+.ia-portfolio{--serif:Lora,Georgia,serif;--sans:Inter,Arial,sans-serif;font-family:Inter,Arial,sans-serif}
+.ia-portfolio :is(.ia-pagehead h1,.ia-context-head h1,.ia-sectionhead h2,.md-platform-head h2,.md-table-head h2,.md-compare-head h2,.md-compare-section h3,.md-account-visual h3,.mso-lb-cover h2,.mso-lb-chapter-head h3,.source-data-heading h2){font-family:Lora,Georgia,serif!important;font-weight:400!important}
+.ia-portfolio :is(button,input,select,textarea,th,td){font-family:Inter,Arial,sans-serif}
+.ia-portfolio .ia-pagehead h1,.ia-portfolio .canvaspane>h1{font:500 clamp(22px,2.4vw,25px)/1.2 Lora,Georgia,serif!important;letter-spacing:-.02em!important}
+.ia-portfolio .mg-head h1{font:500 clamp(22px,2.4vw,25px)/1.2 Lora,Georgia,serif!important;letter-spacing:-.02em!important}
+.ia-portfolio #ia-panel-quarterly .mqr-page-heading h1,
+.ia-portfolio #ia-panel-goals .mg-head h1,
+.ia-portfolio #ia-panel-channels .mrc-head h1,
+.ia-portfolio #ia-panel-campaigns .md-omni-view>.md-table-head h2,
+.ia-portfolio #ia-panel-accounts #mojo-accounts-portfolio .aq-quick .md-table-head h2,
+.ia-portfolio #ia-panel-creative>.md-table-head h2{color:#302936!important;font:500 clamp(22px,2.4vw,25px)/1.2 Lora,Georgia,serif!important;letter-spacing:-.02em!important}

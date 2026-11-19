@@ -1,0 +1,63 @@
+/* Task conversations live in the existing left-hand Chat pane. */
+.app .chatpane{width:370px;max-width:42vw;background:#fff!important;border-right:1px solid #e8e3eb!important}
+.app .chathead{height:51px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-bottom:1px solid #ece8ef;color:#342d3d;font:600 13px var(--sans)}
+.app .chatbody{padding:16px 17px 22px;gap:11px;background:#fff}
+.app .chatfoot{padding:12px 15px 10px;background:#fff;border-top:1px solid #eae6ed}
+.task-chat-close{width:25px;height:25px;border:0;border-radius:5px;background:transparent;color:#817889;cursor:pointer;font:400 22px/1 var(--sans)}
+.task-chat-close:hover{background:#f3f0f6;color:#483d55}
+.task-chat-context{display:flex;flex-direction:column;gap:3px;margin-bottom:3px;padding:0 0 12px;border-bottom:1px solid #ece8ef}
+.task-chat-context strong{color:#4e3b75;font:650 11px/1.35 var(--sans)}
+.task-chat-context span{color:#8a8191;font:400 10.5px/1.35 var(--sans)}
+.task-chat-message{max-width:94%;padding:10px 12px;border:1px solid #e9e4ed;border-radius:12px 12px 12px 3px;background:#faf9fc;color:#3d3545;font:400 12px/1.5 var(--sans)}
+.task-chat-message.task-chat-you{align-self:flex-end;max-width:88%;border-color:#e6def3;border-radius:12px 12px 3px 12px;background:#f1ecfa;color:#3e305a}
+.task-chat-message .task-chat-speaker{display:block;margin-bottom:4px;color:#6748a6;font:700 10px/1.2 var(--sans)}
+.task-chat-message.task-chat-you .task-chat-speaker{color:#6e5b8a}
+.task-chat-message p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.task-chat-progress{display:block;margin:0 0 6px;color:#795cb2;font:700 9px/1.2 var(--sans);letter-spacing:.07em}
+.task-chat-replies{display:flex;flex-wrap:wrap;gap:6px;margin:1px 0 4px}
+.task-chat-replies button{max-width:100%;padding:7px 10px;border:1px solid #dcd2e9;border-radius:999px;background:#fff;color:#604596;cursor:pointer;font:600 10.5px/1.25 var(--sans);text-align:left}
+.task-chat-replies button:hover{background:#f6f2fb;border-color:#bfaedf}
+.task-chat-replies button:focus-visible,.task-chat-send:focus-visible,.task-chat-close:focus-visible,.task-chat-evidence:focus-visible{outline:2px solid #7957b9;outline-offset:2px}
+.task-chat-summary{max-width:96%;margin-top:2px;padding:12px 13px;border:1px solid #e5ddeb;border-radius:9px;background:#fff;color:#3d3545}
+.task-chat-summary>strong{display:block;margin-bottom:8px;font:650 12px/1.3 var(--sans)}
+.task-chat-summary-row{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-top:1px solid #eeeaf1;font:400 10.5px/1.35 var(--sans)}
+.task-chat-summary-row span{color:#817889;flex:none}
+.task-chat-summary-row b{text-align:right;color:#433b4b;font-weight:600;overflow-wrap:anywhere}
+.task-chat-evidence{margin-top:8px;padding:0;border:0;background:transparent;color:#6447a2;text-decoration:underline;text-decoration-color:#c9b9e1;text-underline-offset:3px;cursor:pointer;font:600 11px/1.35 var(--sans)}
+.task-chat-restart{display:block;margin-top:10px;padding:0;border:0;background:transparent;color:#80748f;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:500 10.5px/1.3 var(--sans)}
+.app .chatfoot .composer{display:flex;align-items:flex-end;gap:8px;min-height:62px;padding:9px 10px;background:#fff!important}
+.app .chatfoot .composer textarea{min-height:40px;max-height:110px;line-height:1.4;flex:1}
+.task-chat-send{display:grid;place-items:center;width:27px;height:27px;flex:none;border:0;border-radius:7px;background:#6646b0;color:#fff;cursor:pointer;font:700 17px/1 var(--sans)}
+.task-chat-send:hover{background:#523594}
+.task-chat-composer-hint{margin:7px 2px 0;color:#9a919f;font:400 10px/1.3 var(--sans)}
+@media(max-width:760px){.app .panes{position:relative}.app .chatpane{position:absolute;top:0;bottom:0;left:0;z-index:25;width:min(370px,calc(100vw - 55px));max-width:none;box-shadow:8px 0 30px rgba(41,29,56,.12)}}
+
+/* Match the product chat anatomy: open transcript, quiet composer, no card stack. */
+.app .chatpane{width:398px;max-width:43vw;border-right:1px solid #e7e5e8!important;box-shadow:5px 0 14px rgba(39,35,46,.035)}
+.app .chathead{height:60px;padding:0 23px;border-bottom:1px solid #ece9ec;color:#28252c;font:500 14px/1.3 var(--sans)}
+.app .chatbody{padding:27px 28px 34px;gap:0}
+.app .chatbody>.bubble{padding:0;border:0;border-radius:0;background:transparent;color:#4c4752;font:400 14px/1.58 var(--sans)}
+.task-chat-context{gap:2px;margin:0 0 26px;padding:0;border:0}
+.task-chat-context strong{color:#61586a;font:600 11.5px/1.4 var(--sans)}
+.task-chat-context span{color:#918995;font:400 11px/1.4 var(--sans)}
+.task-chat-message{align-self:stretch;max-width:none;margin:0 0 20px;padding:0;border:0;border-radius:0;background:transparent;color:#4c4752;font:400 14px/1.58 var(--sans)}
+.task-chat-message.task-chat-you{align-self:flex-end;max-width:88%;margin:0 0 24px;padding:10px 14px;border:0;border-radius:14px 14px 4px 14px;background:#f4f2f6;color:#38333f;font:400 13.5px/1.5 var(--sans)}
+.task-chat-message .task-chat-speaker{display:none}
+.task-chat-message p{line-height:inherit}
+.task-chat-progress{margin:0 0 7px;color:#82798a;font:600 10px/1.3 var(--sans);letter-spacing:.025em}
+.task-chat-replies{gap:7px;margin:0 0 22px}
+.task-chat-replies button{padding:8px 12px;border-color:#ded9e3;background:#fff;color:#5b4d70;font:500 11.5px/1.3 var(--sans)}
+.task-chat-replies button:hover{background:#f7f5f9;border-color:#bdb3cb}
+.task-chat-summary{max-width:none;margin:0 0 18px;padding:0;border:0;border-radius:0;background:#fff}
+.task-chat-summary>strong{font:600 13px/1.4 var(--sans)}
+.task-chat-summary-row{font-size:12px}
+.app .chatfoot{padding:14px 27px 21px;border-top:0;background:#fff}
+.app .chatfoot .composer{display:grid;grid-template-columns:minmax(0,1fr) 32px;grid-template-rows:minmax(58px,auto) auto;column-gap:8px;row-gap:8px;min-height:130px;padding:13px 14px 12px;border:1px solid #e2dee4;border-radius:13px;background:#fff!important;box-shadow:0 3px 12px rgba(35,28,43,.08)}
+.app .chatfoot .composer:focus-within{border-color:#b7a6d1;box-shadow:0 0 0 3px rgba(101,75,156,.08),0 3px 12px rgba(35,28,43,.08)}
+.app .chatfoot .composer textarea{grid-column:1/3;grid-row:1;min-height:50px;max-height:130px;padding:0;line-height:1.5;color:#39343e;font-size:13px}
+.task-chat-composer-meta{grid-column:1;grid-row:2;min-width:0;color:#a09aa3;font:400 10.5px/1.3 var(--sans)}
+.task-chat-composer-tools{display:flex;align-items:center;gap:13px;margin-top:10px;color:#77717d;font:500 11px/1.2 var(--sans)}
+.task-chat-composer-tools span:last-child{font-size:15px;line-height:1}
+.task-chat-send{grid-column:2;grid-row:2;align-self:end;width:29px;height:29px;border-radius:50%;background:#f0edf3;color:#514658;font-size:17px}
+.task-chat-send:hover{background:#e4dcea;color:#4d376c}
+@media(max-width:760px){.app .chatpane{width:min(398px,calc(100vw - 55px));max-width:none}.app .chatbody{padding:22px 20px 28px}.app .chatfoot{padding:12px 17px 17px}}

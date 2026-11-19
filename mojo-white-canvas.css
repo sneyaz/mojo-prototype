@@ -1,0 +1,31 @@
+/* White is the canvas. Cream is reserved for quiet supporting detail. */
+:root{
+  --mojo-cream:#f8f6f3;
+  --surface-2:var(--mojo-cream);
+  --tint:var(--mojo-cream);
+}
+html,body,body>div[style*="padding:20px"],.trust-frame{
+  background:#fff!important;
+}
+.app,.trust-app,.work,.canvaspane,.trust-canvas,
+.topbar,.modulenav,.trust-topbar,.trust-nav{
+  background-color:#fff!important;
+}
+.rail,.trust-rail{
+  background:linear-gradient(180deg,#d7e2ef 0%,#e5edf5 27%,#f1f1f2 52%,#f7f5f2 76%,#f8f7f5 100%)!important;
+  border-right-color:#d9dde2!important;
+}
+.rail i,.trust-rail>a,.trust-rail>button{color:#555a64!important}
+.rail i:hover,.trust-rail>a:hover,.trust-rail>button:hover{
+  background:rgba(255,255,255,.72)!important;color:#674495!important;
+}
+.rail i.on,.trust-rail>a.on{
+  background:#fff!important;color:#674495!important;
+}
+.rail>div:last-child,.trust-avatar{background:#7d54bd!important;box-shadow:none!important}
+.canvaspane,.trust-canvas{
+  background-image:none!important;
+}
+.mc-finding-detail,.mojo-data-details-body,.mojo-panel-hint{
+  background:var(--mojo-cream)!important;
+}

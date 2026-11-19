@@ -1,0 +1,65 @@
+.mnc-section{margin:10px 0 34px;padding:28px;border:1px solid #e7e0ea;border-radius:18px;background:#fff;box-shadow:0 9px 28px #35254808;font-family:Inter,Arial,sans-serif}
+.mnc-head{display:flex;justify-content:space-between;align-items:start;gap:20px}
+.mnc-eyebrow{color:#6e4a92;font:750 10px/1.3 Inter,Arial,sans-serif;letter-spacing:.08em}
+.mnc-head h2{margin:9px 0 8px;color:#302839;font:400 clamp(24px,2.7vw,32px)/1.15 Lora,Georgia,serif;letter-spacing:-.02em}
+.mnc-head p{max-width:700px;margin:0;color:#5d5362;font:400 13px/1.55 Inter,Arial,sans-serif}
+.mnc-state{flex:none;margin-top:3px;color:#6c5680;font:700 10px/1 Inter,Arial,sans-serif}
+.mnc-signals{display:flex;flex-wrap:wrap;gap:8px;margin:19px 0 16px}
+.mnc-signals span{padding:8px 10px;border:1px solid #e7deeb;border-radius:9px;background:#fff;color:#74677a;font:500 11px/1.2 Inter,Arial,sans-serif}
+.mnc-signals b{color:#3c3047}
+.mnc-blueprint{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:22px;border-top:1px solid #e9e4eb;border-bottom:1px solid #e9e4eb}
+.mnc-blueprint>div{position:relative;display:flex;flex-direction:column;min-width:0;min-height:132px;padding:17px 86px 17px 0;background:#fff}
+.mnc-blueprint>div:nth-child(odd){border-right:1px solid #eee9ef}
+.mnc-blueprint>div:nth-child(even){padding-left:22px;padding-right:70px}
+.mnc-blueprint>div:nth-child(-n+2){border-bottom:1px solid #eee9ef}
+.mnc-blueprint small,.mnc-decision small{color:#8a71a0;font:750 9px/1.2 Inter,Arial,sans-serif;letter-spacing:.07em}
+.mnc-blueprint strong{display:block;margin:7px 0 4px;color:#352e3a;font:600 16px/1.25 Inter,Arial,sans-serif}
+.mnc-blueprint p{margin:0;color:#625969;font:500 11px/1.42 Inter,Arial,sans-serif}
+.mnc-blueprint em{display:block;margin-top:8px;color:#6e4b91;font:650 10px/1.35 Inter,Arial,sans-serif;font-style:normal}
+.mnc-blueprint a{margin-top:auto;padding-top:8px;color:#604183;font:700 11px Inter,Arial,sans-serif;text-decoration:none}
+.mnc-visual{position:absolute;top:24px;right:20px;display:flex;align-items:center;justify-content:center;color:#8d71b4}
+.mnc-roles{gap:3px;top:28px}
+.mnc-roles span{width:8px;height:8px;border:1px solid #b69bcf;border-radius:50%;background:#fff}
+.mnc-roles .reached{border-color:#7653a4;background:#7653a4}
+.mnc-creative-preview{display:block;width:53px;height:42px;padding:6px;border:1px solid #ddd2e8;border-radius:6px;background:#faf7fd;transform:rotate(3deg);box-shadow:2px 3px 0 #eee7f4}
+.mnc-creative-preview span{display:block;width:100%;height:8px;border-radius:2px;background:#bda5d7}
+.mnc-creative-preview i{display:block;width:74%;height:3px;margin-top:5px;border-radius:2px;background:#d7c7e6}
+.mnc-creative-preview i+i{width:52%;margin-top:3px}
+.mnc-creative-preview b{display:block;width:13px;height:4px;margin-top:4px;border-radius:3px;background:#7653a4}
+.mnc-platform-icons{gap:7px;right:18px}
+.mnc-platform-icons img{display:block;width:25px;height:25px;object-fit:contain}
+.mnc-budget-icon svg{display:block;width:36px;height:36px}
+.mnc-blueprint a:hover,.mnc-routine a:hover{text-decoration:underline}
+.mnc-decision{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:18px;padding:0;background:#fff}
+.mnc-decision strong{display:block;margin:5px 0;color:#372d40;font:650 13px/1.4 Inter,Arial,sans-serif}
+.mnc-decision span{color:#6d6072;font:500 11px/1.4 Inter,Arial,sans-serif}
+.mnc-actions,.mnc-editor-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mnc-actions{flex:none}
+.mnc-actions button,.mnc-editor-actions button,.mnc-receipt button{min-height:36px;padding:8px 14px;border:1px solid #d7c9e3;border-radius:8px;background:#fff;color:#5d3a85;font:700 11px Inter,Arial,sans-serif;cursor:pointer}
+.mnc-actions .mnc-primary,.mnc-editor-actions .mnc-primary{border-color:#604086;background:#604086;color:#fff}
+.mnc-actions button:hover,.mnc-editor-actions button:hover,.mnc-receipt button:hover{box-shadow:0 3px 10px #3d2b4f1f;transform:translateY(-1px)}
+.mnc-actions button:focus-visible,.mnc-editor :focus-visible,.mnc-receipt button:focus-visible{outline:2px solid #604086;outline-offset:2px}
+.mnc-why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:12px;padding:17px 19px;border:1px solid #e4dce8;border-radius:12px;background:#fff}
+.mnc-why b{color:#47394f;font:700 11px Inter,Arial,sans-serif}
+.mnc-why p{margin:6px 0 0;color:#706775;font:500 11px/1.45 Inter,Arial,sans-serif}
+.mnc-editor{margin-top:14px;padding:20px;border:1px solid #dcd0e5;border-radius:14px;background:#fff}
+.mnc-editor-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:17px}
+.mnc-editor h3{margin:0;color:#302a36;font:500 23px Lora,Georgia,serif}
+.mnc-editor-head span,.mnc-editor-actions span{color:#796e7d;font:500 11px Inter,Arial,sans-serif}
+.mnc-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.mnc-fields>label{display:grid;gap:6px;color:#63586a;font:700 11px Inter,Arial,sans-serif}
+.mnc-fields input:not([type=checkbox]),.mnc-fields select{width:100%;min-height:38px;padding:8px 10px;border:1px solid #dcd2e2;border-radius:8px;background:#fff;color:#332b3a;font:500 12px/1.3 Inter,Arial,sans-serif}
+.mnc-fields .mnc-wide{grid-column:1/-1}
+.mnc-fields fieldset{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:9px 12px;border:1px solid #e5dce9;border-radius:9px}
+.mnc-fields legend{padding:0 4px;color:#63586a;font:700 11px Inter,Arial,sans-serif}
+.mnc-fields fieldset label{display:inline-flex;align-items:center;gap:5px;color:#4c4254;font:600 11px Inter,Arial,sans-serif;cursor:pointer}
+.mnc-fields input[type=checkbox]{accent-color:#604086}
+.mnc-editor-actions{margin-top:17px}
+.mnc-editor-actions span{margin-left:auto}
+.mnc-routine{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:22px;padding-top:13px;border-top:1px solid #eee9ef;color:#746779;font:500 11px/1.4 Inter,Arial,sans-serif}
+.mnc-routine a{flex:none;color:#604183;font-weight:750;text-decoration:none}
+.mnc-receipt{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px;padding:13px 15px;border:1px solid #d3e8d7;border-radius:10px;background:#f5fbf5;color:#3d6948;font:500 11px Inter,Arial,sans-serif}
+.mnc-receipt strong{font-weight:750}.mnc-receipt button{margin-left:auto;border-color:#cfe0d1;color:#366446}
+@media(max-width:920px){.mnc-decision{align-items:flex-start;flex-direction:column}.mnc-why{grid-template-columns:1fr}}
+@media(max-width:560px){.mnc-section{padding:17px}.mnc-head{flex-direction:column;gap:6px}.mnc-blueprint{grid-template-columns:1fr}.mnc-blueprint>div,.mnc-blueprint>div:nth-child(even){min-height:0;padding:14px 72px 14px 0;border-right:0;border-bottom:1px solid #eee9ef}.mnc-blueprint>div:last-child{border-bottom:0}.mnc-visual{top:22px;right:8px}.mnc-fields{grid-template-columns:1fr}.mnc-routine{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.mnc-actions button:hover,.mnc-editor-actions button:hover,.mnc-receipt button:hover{transform:none}}

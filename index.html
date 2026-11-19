@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script id="mojo-route-compat">if(location.pathname!=='/'&&!/\.[a-z0-9]+$/i.test(location.pathname)){history.replaceState(history.state,'',location.pathname+'.html'+location.search+location.hash)}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mojo Demo</title>
+  <meta http-equiv="refresh" content="0; url=HomeSystem.html#feed-insights">
+  <script>
+    const landing = new URL('HomeSystem.html', location.href);
+    landing.search = location.search;
+    landing.hash = location.hash || '#feed-insights';
+    location.replace(landing.href);
+  </script>
+<link rel="stylesheet" href="mojo-segmented-controls.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-chat-messages.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-account-groups.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-column-headers.css?v=20261111whyfont2"></head>
+<body>
+  <p><a href="HomeSystem.html#feed-insights">Open the Mojo demo</a></p>
+  <p><a href="FirstRun.html?view=prospect">Walk through first-time setup</a></p>
+<script src="mojo-account-groups.js?v=20261111whyfont2" defer></script></body>
+</html>

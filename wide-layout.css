@@ -1,0 +1,38 @@
+/* Align primary navigation and canvas content to one shared left edge. */
+@media (min-width: 851px) {
+  .modulenav { padding-left: 43px !important; padding-right: 43px !important; }
+  .canvaspane:not(:has(.brief-ledger-layout)) { padding-left: 43px !important; padding-right: 43px !important; }
+}
+
+/* Keep the canvas readable as the app shell grows on large monitors. */
+@media (min-width: 1450px) {
+  .modulenav {
+    padding-left: 43px !important;
+    padding-right: 43px !important;
+  }
+
+  .canvaspane:not(:has(.brief-ledger-layout)) {
+    padding-left: 43px !important;
+    padding-right: 43px !important;
+  }
+
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout {
+    grid-template-columns: minmax(0, 1fr) 370px !important;
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    margin-inline: 0 !important;
+    border-right: 1px solid #eeeaf0;
+  }
+}
+
+@media (min-width: 1320px) {
+  .canvaspane:has(.brief-view-root) .brief-finding-list,
+  .canvaspane:has(.brief-view-root) .brief-view-needs > .brief-this-week,
+  .canvaspane:has(.brief-view-root) .brief-view-needs > .drow {
+    max-width: 880px;
+  }
+
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table {
+    max-width: 640px;
+  }
+}

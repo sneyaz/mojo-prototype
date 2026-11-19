@@ -1,0 +1,39 @@
+/* Home uses the same pane controls as the app workspaces. */
+.topbar .home-pane-controls{display:flex;align-items:center;gap:4px;margin-left:auto}
+.home-pane-controls button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:26px;padding:0 7px;border:0;border-radius:6px;background:transparent;color:#77717b;font:500 11px/1 Inter,Arial,sans-serif;cursor:pointer}
+.home-pane-controls button svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.home-pane-controls button:hover,.home-pane-controls button[aria-pressed="true"],.home-pane-controls button[aria-expanded="true"]{background:#f2f0f3;color:#39343d}
+.home-pane-controls button[aria-pressed="true"],.home-pane-controls button[aria-expanded="true"]{font-weight:600}
+.home-pane-controls button:focus-visible{outline:2px solid #7956bb;outline-offset:2px}
+.home-pane-controls .home-share-button{margin-left:8px;min-height:30px;padding:0 12px;border:1px solid #d9d2df;background:#fff;color:#655a6d;font-weight:600}
+.home-pane-controls .home-share-button:hover{background:#f8f5fa;color:#5e3892}
+.home-sidepane{display:none;min-width:0;overflow-y:auto;border-left:1px solid #e8e3e9;background:#fff}
+.home-sidepane-head{display:flex;align-items:center;height:46px;padding:0 17px;border-bottom:1px solid #e8e3e9;color:#302d35;font:600 13px Inter,Arial,sans-serif}
+.home-sidepane nav{display:grid;gap:3px;padding:14px}
+.home-sidepane nav a{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:8px;color:#51475c;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+.home-sidepane nav a:hover,.home-sidepane nav a:focus-visible{background:#f3eff8;color:#5e3892}
+#sidebarOn:checked~.app .work:has(>.home-tabs){display:grid;grid-template-columns:minmax(0,1fr) 290px;grid-template-rows:55px 48px minmax(0,1fr);height:100dvh;min-height:0;overflow:hidden}
+#sidebarOn:checked~.app .work>.topbar{grid-column:1;grid-row:1}
+#sidebarOn:checked~.app .work>.home-tabs{grid-column:1;grid-row:2}
+#sidebarOn:checked~.app .work>.home-scroll{grid-column:1;grid-row:3;min-height:0;height:100%;overflow-y:auto}
+#sidebarOn:checked~.app .work>.home-sidepane{display:block;grid-column:2;grid-row:1/4}
+@media(min-width:701px){#chatOn:checked~#sidebarOn:checked~.app .work:has(>.home-tabs){grid-template-columns:clamp(300px,29vw,390px) minmax(0,1fr) 290px}#chatOn:checked~#sidebarOn:checked~.app .work>.topbar,#chatOn:checked~#sidebarOn:checked~.app .work>.home-tabs,#chatOn:checked~#sidebarOn:checked~.app .work>.home-scroll{grid-column:2}#chatOn:checked~#sidebarOn:checked~.app .work>.home-sidepane{grid-column:3;grid-row:1/4}}
+@media(max-width:700px){
+  .home-pane-controls button{font-size:0;padding:0 8px}
+  .home-pane-controls button svg{width:16px;height:16px}
+  .home-pane-controls .home-share-button{margin-left:4px;padding:0 8px}
+  .home-pane-controls .home-share-button span{font-size:0}
+  #sidebarOn:checked~.app .work:has(>.home-tabs){grid-template-columns:minmax(0,1fr)}
+  #sidebarOn:checked~.app .work>.home-scroll{display:none}
+  #sidebarOn:checked~.app .work>.home-sidepane{grid-column:1}
+  #chatOn:checked~.app .work:has(>.home-tabs){display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:55px 48px minmax(0,1fr);height:100dvh;min-height:0;overflow:hidden}
+  #chatOn:checked~.app .work>.topbar{grid-column:1;grid-row:1}
+  #chatOn:checked~.app .work>.home-tabs{grid-column:1;grid-row:2}
+  #chatOn:checked~.app .work>.home-scroll{display:none}
+  #chatOn:checked~.app .work>.chatpane{display:flex;grid-column:1;grid-row:3;flex-direction:column;min-height:0}
+  #chatOn:checked~.app .work>.chatpane .chathead{display:flex;align-items:center;flex:none;height:46px;padding:0 17px;border-bottom:1px solid #e8e3e9;font:600 13px Inter,Arial,sans-serif}
+  #chatOn:checked~.app .work>.chatpane .chatbody{flex:1;min-height:0;overflow-y:auto;padding:17px}
+  #chatOn:checked~.app .work>.chatpane .chatfoot{flex:none;padding:14px}
+  #chatOn:checked~.app .work>.chatpane .composer{padding:12px;border:1px solid #e0dbd7;border-radius:14px}
+  #chatOn:checked~.app .work>.chatpane .composer textarea{width:100%;min-height:60px;resize:vertical;border:0;outline:0;font:400 13px/1.5 Inter,Arial,sans-serif}
+}

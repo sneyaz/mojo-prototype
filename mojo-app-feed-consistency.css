@@ -1,0 +1,45 @@
+/* One feed pattern for the installed Audiences and AEO apps. */
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-meta{order:0;display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:25px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-meta .aud-feed-type{order:0;margin:0}
+.aud-feed-byline{color:#746d76;font:500 12px/1.2 Inter,Arial,sans-serif}
+.aud-app-body .aud-content:has(.aud-feed-tabs a[href="#feed-decisions"][aria-current]) .aud-section-head h2,.aud-app-body .aud-content:has(.aud-feed-tabs a[href="#feed-receipts"][aria-current]) .aud-section-head h2{margin:0 0 5px;color:#282329;font:500 24px/1.18 Lora,Georgia,serif;letter-spacing:-.015em}
+.aud-decision-tag{display:inline-flex;align-items:center;min-height:25px;padding:5px 10px;border-radius:999px;background:#252329;color:#fff;font:750 10px/1 Inter,Arial,sans-serif;letter-spacing:.035em}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-decision-row h3{margin-top:12px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-choices{order:4;display:grid;gap:8px;width:100%;margin:0 0 14px;padding:0;border:0}
+.aud-feed-choices legend{margin:0 0 9px;color:#47414a;font:700 13px/1.3 Inter,Arial,sans-serif}
+.aud-feed-choices label{display:flex;align-items:center;gap:11px;min-height:44px;padding:10px 12px;border:1px solid #e5ded5;border-radius:10px;background:#fff;color:#2c2830;font:600 12px/1.35 Inter,Arial,sans-serif;cursor:pointer}
+.aud-feed-choices label:has(input:checked){padding:9px 11px;border:2px solid #65419a}
+.aud-feed-choices input{flex:none;width:16px;height:16px;margin:0;accent-color:#65419a}
+.aud-feed-choices em{margin-left:auto;padding:5px 8px;border-radius:99px;background:#f0eafa;color:#5a3b8a;font:700 10px/1 Inter,Arial,sans-serif;font-style:normal;white-space:nowrap}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-decision-row .aud-feed-actions{order:5}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-decision-row details{order:6}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feed-primary{min-height:34px;padding:8px 15px;border:0;border-radius:99px;background:#573599;color:#fff;font:700 12px/1.2 Inter,Arial,sans-serif;cursor:pointer}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feed-primary:hover{background:#452785}
+.aud-feed-primary:focus-visible,.aud-feed-choices input:focus-visible{outline:2px solid #6843a0;outline-offset:2px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feedback{display:flex;align-items:center;gap:3px;flex:none;margin:0 0 0 auto;opacity:0;pointer-events:none;transition:opacity .15s ease}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item:hover .aud-feed-actions .aud-feedback,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item:focus-within .aud-feed-actions .aud-feedback{opacity:1;pointer-events:auto}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feedback button{width:30px;height:30px;border-radius:8px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-detail .aud-feedback-ignore{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:4px 6px;border:0;border-radius:6px;background:transparent;color:#776b7f;font:600 11px Inter,Arial,sans-serif;cursor:pointer}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-detail .aud-feedback-ignore:hover{background:#f1ebf6;color:#5d3b96}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row){position:relative;padding-left:43px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row)::before{content:"";position:absolute;top:18px;bottom:36px;left:16px;width:1px;background:#f1ede8}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row{position:relative}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row::before{content:"✓";position:absolute;top:0;left:-43px;display:grid;place-items:center;width:33px;height:33px;border-radius:50%;background:#e5f4e5;color:#287a34;box-shadow:0 0 0 5px #fff;font:750 17px Inter,Arial,sans-serif}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feed-visual{display:none}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-empty{box-sizing:border-box;max-width:740px;margin:0;padding:22px 24px;border:1px solid #e8e1d8;border-radius:18px;background:#fff;box-shadow:0 2px 3px #2c243008,0 9px 28px #2c24300b}
+@media(hover:none){.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feedback{opacity:1;pointer-events:auto}}
+@media(max-width:700px){.aud-feed-choices em{display:none}.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row){padding-left:34px}.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row::before{left:-34px;width:28px;height:28px}.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row)::before{left:13px}}
+
+/* Shared receipt action row for AEO and Audiences. */
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-receipt-utility{display:inline-flex;align-items:center;gap:3px;flex:none;margin-left:auto;opacity:0;pointer-events:none;transition:opacity .15s ease}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row:hover .aud-receipt-utility,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row:focus-within .aud-receipt-utility{opacity:1;pointer-events:auto}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button{display:grid;place-items:center;flex:none;width:30px;height:30px;margin:0;padding:0;border:0;border-radius:8px;background:transparent;color:#69636e;cursor:pointer}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:hover{background:#f2eef7;color:#5d3b96}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:focus-visible{outline:2px solid #6a43b2;outline-offset:1px}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button[data-state="copied"]{color:#287b37;background:#e8f5e8}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feedback>button{position:relative}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button::after,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feedback>button::after{content:attr(aria-label);position:absolute;bottom:calc(100% + 7px);left:50%;z-index:10;width:max-content;padding:5px 7px;border-radius:5px;background:#302a36;color:#fff;font:600 11px/1.2 var(--sans);white-space:nowrap;box-shadow:0 3px 9px #302a3626;opacity:0;pointer-events:none;transform:translateX(-50%) translateY(3px);transition:opacity .12s ease,transform .12s ease}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:hover::after,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:focus-visible::after,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feedback>button:hover::after,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feedback>button:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-feed-actions .aud-feedback{margin:0!important}
+@media(hover:none){.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-receipt-utility{opacity:1;pointer-events:auto}}

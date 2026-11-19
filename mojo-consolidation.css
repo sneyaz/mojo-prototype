@@ -1,0 +1,27 @@
+.ia-priority{padding:24px 0 14px;border-bottom:1px solid #e8e4e9}
+.ia-priority strong{display:block;max-width:930px;color:#2f2833;font:400 clamp(23px,2.5vw,38px)/1.16 var(--serif)}
+.ia-priority p{margin:11px 0 0;color:#6e6671;font:400 13px/1.5 var(--sans)}
+.ia-priority a{color:#673a76;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.ia-pipeline-link{display:flex;align-items:center;gap:15px;padding:21px 0;border-bottom:1px solid #e8e4e9}
+.ia-pipeline-link img{width:29px;height:29px;object-fit:contain;flex:none}
+.ia-pipeline-link>div{display:grid;gap:3px;flex:1}
+.ia-pipeline-link strong{font:650 13px/1.3 var(--sans);color:#342e38}
+.ia-pipeline-link span{font:400 12px/1.4 var(--sans);color:#746c76}
+.ia-pipeline-link .mc-btn{white-space:nowrap}
+.ia-portfolio .ia-toolbar{margin-top:22px}
+.ia-portfolio .ia-sectionhead{margin-top:28px}
+.mojo-source-scope-hidden,.mojo-source-counts-hidden,.mojo-source-connect-duplicate{display:none!important}
+.ia-source-detail .mojo-scope-control{display:none!important}
+
+.mojo-companion-head{align-items:center;padding:9px 14px}
+.mojo-companion-head h2 img{width:52px;height:19px}
+.mojo-chat-purpose{display:block;margin-top:3px;color:#7c7380;font:400 11px/1.35 var(--sans)}
+.mojo-pattern-source{margin:18px 0 28px;border-bottom:1px solid #e8e4e9;padding-bottom:14px}
+.mojo-pattern-source summary{cursor:pointer;color:#653a72;font:650 13px/1.4 var(--sans)}
+.mojo-pattern-source>p{font:400 12px/1.5 var(--sans);color:#756d78}
+.mojo-pattern-source>p a{display:inline-block;margin-right:18px;color:#653a72;font-weight:650}
+.mojo-approval-rule{padding:12px 0;border-top:1px solid #e8e4e9;color:#615966;font:500 12px/1.5 var(--sans)}
+.mojo-work-choice-hidden,.mp-review[hidden]{display:none!important}
+.mojo-attribution-method{border-top:1px solid #e8e4e9;margin-top:22px;padding-top:12px;color:#655d69;font:400 12px/1.5 var(--sans)}
+.mojo-attribution-method summary{cursor:pointer;color:#653a72;font-weight:650}
+@media(max-width:650px){.ia-pipeline-link{flex-wrap:wrap}.ia-pipeline-link .mc-btn{margin-left:44px}.ia-priority strong{font-size:25px}}

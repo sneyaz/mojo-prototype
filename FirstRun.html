@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script id="mojo-route-compat">if(location.pathname!=='/'&&!/\.[a-z0-9]+$/i.test(location.pathname)){history.replaceState(history.state,'',location.pathname+'.html'+location.search+location.hash)}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mojo</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="first-run.css?v=20261118fix1">
+<link rel="stylesheet" href="mojo-column-headers.css?v=20261111whyfont2"><link rel="stylesheet" href="excerpt-ribbon.css?v=20261111allpages1"><link rel="stylesheet" href="mojo-checkmarks.css?v=20261111live40"><link rel="stylesheet" href="mojo-companion.css?v=20261111live40">
+</head>
+<body>
+  <div class="fr-app is-pre-feed">
+    <aside class="fr-rail" aria-label="Mojo navigation">
+      <div class="fr-logo"><button type="button" id="fr-logo-reset" aria-label="Restart Mojo" title="Restart Mojo"><img src="assets/moj-wordmark-black.svg" alt="Mojo"></button><button type="button" id="fr-nav-toggle" aria-label="Collapse navigation" aria-pressed="false"><span data-shell-icon="sidebar"></span></button></div>
+      <a class="fr-nav active" id="fr-home-link" href="FirstRun.html"><span class="fr-icon" data-shell-icon="home"></span>Home</a>
+      <a class="fr-nav" href="Company.html"><span class="fr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h2m4 0h2M8 12h2m4 0h2M10 21v-5h4v5"/></svg></span>Company</a>
+      <span class="fr-nav-divider" aria-hidden="true"></span>
+      <a class="fr-nav app-link" data-app-link="campaigns" href="HomeSystem.html#feed-insights"><span class="fr-icon" data-icon="campaigns"></span>Campaigns <i></i></a>
+      <a class="fr-nav app-link" data-app-link="aeo" href="AppWorkspace.html?app=aeo#feed"><span class="fr-icon" data-icon="aeo"></span>AEO <i></i></a>
+      <a class="fr-nav app-link" data-app-link="audiences" href="AppWorkspace.html?app=audience-builder#feed"><span class="fr-icon" data-icon="audience"></span>Audiences <i></i></a>
+      <span class="fr-nav-divider" aria-hidden="true"></span>
+      <button type="button" class="fr-nav fr-chat-nav" id="fr-nav-chat-link"><span class="fr-icon" data-shell-icon="chat"></span>Chats</button>
+      <div class="fr-spacer"></div>
+      <a class="fr-nav fr-secondary-link" href="Settings.html"><span class="fr-icon" data-shell-icon="settings"></span>Settings</a>
+    </aside>
+    <aside class="fr-conversation" id="fr-conversation" aria-label="Chats with Mojo"></aside>
+    <main class="fr-shell">
+      <nav class="fr-home-tabs" aria-label="Home sections"><button type="button" class="fr-home-tab" id="fr-feed-tab" aria-current="page">Home</button><div class="fr-pane-controls" role="group" aria-label="Workspace controls"><button type="button" id="fr-chat-toggle" aria-controls="fr-conversation" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z"/></svg>Chat</button><button type="button" id="fr-canvas-toggle" aria-controls="fr-workspace" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Canvas</button></div></nav>
+      <div class="fr-workspace" id="fr-workspace"><div class="fr-scroll" tabindex="-1"><div id="fr-view" aria-live="polite"></div></div></div>
+    </main>
+  </div>
+  <script src="mojo-app-registry.js?v=20261111whyfont2"></script>
+  <script src="first-run.js?v=20261118fix1"></script>
+<script src="excerpt-ribbon.js?v=20261111allpages1" defer></script>
+<script src="mojo-companions.js?v=20261111whyfont2" defer></script>
+<script src="mojo-companion.js?v=20261112launchnotice1" defer></script></body>
+</html>

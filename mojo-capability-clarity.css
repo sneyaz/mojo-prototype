@@ -1,0 +1,10 @@
+.mm-one-app .mm-section{margin-top:38px}
+.mm-one-app .mm-grid{grid-template-columns:minmax(0,560px)}
+.mm-one-app .mm-card{min-height:225px}
+.crm-readiness{margin:22px 0 28px;padding:22px 24px;border:1px solid #e2dce8;border-radius:10px;background:#fff;scroll-margin-top:24px}
+.crm-readiness h2{margin:0 0 10px;font:400 23px/1.2 var(--serif);color:#302b37}
+.crm-readiness ol{margin:0;padding-left:20px;color:#625b69;font:400 13px/1.55 var(--sans)}
+.crm-readiness li+li{margin-top:5px}
+.crm-readiness p{margin:12px 0 0;max-width:70ch;color:#756e7b;font:400 12px/1.5 var(--sans)}
+.crm-readiness .trust-action{margin-top:18px}
+@media(max-width:760px){.mm-one-app .mm-grid{grid-template-columns:1fr}.crm-readiness{padding:18px}}

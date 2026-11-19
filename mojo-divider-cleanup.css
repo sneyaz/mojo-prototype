@@ -1,0 +1,24 @@
+/* One boundary per transition. Keep row and table separators intact. */
+
+/* A tab underline is enough to close a page heading. */
+.ia-pagehead:has(+ .ia-tabs){border-bottom:0}
+.ia-work .ia-pagehead{padding-bottom:12px}
+
+/* The decision card's purple edge closes the queue summary. */
+.ia-work .ia-queue-context{border-bottom:0;padding-bottom:0}
+
+/* Adjacent Creative summaries share one rule instead of two. */
+.ia-creative-baseline + .ia-creative-signal{border-top:0;margin-top:0}
+
+/* Salesforce's bottom rule already separates it from the campaign table. */
+.ia-portfolio .ia-pipeline-link{margin-bottom:25px}
+.ia-portfolio .ia-pipeline-link + .mc-directory{border-top:0;padding-top:0}
+
+/* Creative is a copy-review list until real asset images are connected. */
+.ia-portfolio .ia-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}
+.ia-portfolio .ia-asset{padding:13px;border:1px solid #e3dfe5;border-radius:7px;background:#fff}
+.ia-portfolio .ia-asset-select[aria-pressed="true"] strong{color:#633b83}
+.ia-portfolio .ia-asset-select:focus-visible{outline:2px solid #744b94;outline-offset:3px}
+.ia-portfolio .ia-thumb{display:none!important}
+.ia-portfolio .ia-asset-select strong{margin-top:0}
+.mc-data-badge{display:inline-block!important;width:auto!important;margin-right:6px;padding:3px 6px;border-radius:4px;background:#f1edf3;color:#5c456b!important;font:600 10px var(--sans)!important}

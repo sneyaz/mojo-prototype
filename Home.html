@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script id="mojo-route-compat">if(location.pathname!=='/'&&!/\.[a-z0-9]+$/i.test(location.pathname)){history.replaceState(history.state,'',location.pathname+'.html'+location.search+location.hash)}</script>
+  <meta charset="utf-8">
+  <script>(function(){var onboarded=localStorage.getItem('mojo-board-demandbase-connected-v1')==='true';if(!onboarded){try{onboarded=JSON.parse(localStorage.getItem('mojo-board-app-seen-v1')||'[]').length>0;}catch(e){}}if(!onboarded)location.replace('FirstRun.html');})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mojo — Feed</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="mojo-left-nav.css?v=20261116camp1">
+  <link rel="stylesheet" href="mojo-app-flyout.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-nav-expanded.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-shared-chat.css?v=20261111chatrail1">
+  <link rel="stylesheet" href="mojo-refinements.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-home-feed.css?v=20261118greet3">
+  <link rel="stylesheet" href="mojo-home-strategy.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-companion.css?v=20261111live40">
+  <link rel="stylesheet" href="mojo-stories.css?v=20261111whyfont2">
+<link rel="stylesheet" href="mojo-canvas-chat.css?v=20261111whyfont2">
+<link rel="stylesheet" href="mojo-home-panes.css?v=20261111whyfont2">
+<link rel="stylesheet" href="mojo-feed-card-interactions.css?v=20261111whyfont2">
+<link rel="stylesheet" href="mojo-chat-shell.css?v=20261111whyfont2">
+<link rel="stylesheet" href="mojo-owner-filter.css?v=20261118clean2">
+<link rel="stylesheet" href="mojo-chat-messages.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-account-groups.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-feed-surface.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-share-export.css?v=20261111whyfont2"><link rel="stylesheet" href="excerpt-ribbon.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-insight-motion.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-connected-rail.css?v=20261117center1"><link rel="stylesheet" href="mojo-board-home.css?v=20261112links1"><link rel="stylesheet" href="mojo-board-connections.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-board-flow.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-demo-sequence.css?v=20261112tracking4">
+<link rel="stylesheet" href="mojo-column-headers.css?v=20261111whyfont2"><link rel="stylesheet" href="mojo-home-return-feed.css?v=20261111live25"><link rel="stylesheet" href="mojo-checkmarks.css?v=20261111live40">
+</head>
+<body>
+  <input type="checkbox" id="chatOn" class="home-chat-state" aria-hidden="true" tabindex="-1">
+  <input type="checkbox" id="sidebarOn" class="home-chat-state" aria-hidden="true" tabindex="-1">
+  <div class="app">
+    <nav class="rail" aria-label="Mojo navigation"></nav>
+    <div class="work">
+      <header class="topbar"><span id="home-topbar-label">Home</span><div class="home-pane-controls" role="group" aria-label="Workspace controls">
+        <button type="button" data-home-pane="chat" aria-controls="home-chat-pane" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z"/></svg>Chat</button>
+        <button type="button" data-home-pane="canvas" aria-controls="main-content" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Canvas</button>
+        <button type="button" data-home-pane="sidebar" aria-controls="home-sidepane" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/></svg>Sidebar</button>
+        <button type="button" class="home-share-button" aria-label="Copy Feed link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg><span>Share</span></button>
+      </div></header>
+      <nav class="home-tabs" aria-label="Feed views"><a href="#feed" data-home-view="feed" aria-current="page">Feed</a><a href="#strategy" data-home-view="strategy">Strategy</a></nav>
+      <aside class="chatpane" id="home-chat-pane"><div class="chathead">Chat</div><div class="chatbody"></div><div class="chatfoot"><div class="composer"><textarea rows="2" placeholder="Something else? Just ask…" aria-label="Message Mojo"></textarea></div></div></aside>
+      <main class="home-scroll canvaspane" id="main-content" tabindex="-1">
+        <div class="home-content" id="home-feed-view">
+          <h1 class="home-visually-hidden">Feed</h1>
+          <nav class="home-source-filter" aria-label="Filter feed by app">
+            <button type="button" data-home-source="all" aria-pressed="true">All <span data-home-count="all"></span></button>
+            <button type="button" data-home-source="Campaigns" aria-pressed="false">Campaigns <span data-home-count="Campaigns"></span></button>
+            <button type="button" data-home-source="Audiences" aria-pressed="false">Audiences <span data-home-count="Audiences"></span></button>
+            <button type="button" data-home-source="AEO" aria-pressed="false">AEO <span data-home-count="AEO"></span></button>
+          </nav>
+          <div id="home-feed" aria-live="polite"></div>
+        </div>
+        <div class="home-strategy" id="home-strategy-view" hidden>
+          <section class="hs-ecosystem" aria-label="From audiences to closed won">
+            <iframe class="hs-stage-frame" src="mojo-stage-path.html?v=20261118fullcycle6" title="Marketing to sales full cycle" scrolling="no"></iframe>
+          </section>
+
+          <section class="hs-priorities" aria-labelledby="hs-priorities-title">
+            <div class="hs-section-heading"><h2 id="hs-priorities-title">Three moves that close the loop</h2></div>
+            <div class="hs-priority-grid">
+              <article><span class="hs-source hs-audiences">Buying group</span><h3>Know who's in the deal, not just the account.</h3><p>Champion, budget owner, evaluator, approver — confirm all four.</p><a href="AppWorkspace.html?app=audience-builder#strategy">Plan buying-group coverage <span aria-hidden="true">→</span></a></article>
+              <article><span class="hs-source hs-aeo">AI answers</span><h3>Buyers ask AI before they ask you.</h3><p>Fix the answers that get you wrong before promoting one.</p><a href="AppWorkspace.html?app=aeo#strategy">Review buyer questions <span aria-hidden="true">→</span></a></article>
+              <article><span class="hs-source hs-campaigns">Proof</span><h3>Hold a group out so you can prove it worked.</h3><p>Same ads, comparable accounts, one held back as a control.</p><a href="Strategy.html#next-test">Plan the campaign test <span aria-hidden="true">→</span></a></article>
+            </div>
+          </section>
+
+          <section class="hs-test" aria-labelledby="hs-test-title">
+            <div><span class="hs-test-label">ONE SHARED TEST</span><h2 id="hs-test-title">One account group. One decision. Everyone watching the same numbers.</h2><p>Example: enterprise accounts evaluating AI for ABM.</p></div>
+            <ol><li><strong>Question</strong><span>What buyers need to believe</span></li><li><strong>Accounts</strong><span>Eligible list + a holdout</span></li><li><strong>Spend</strong><span>Budget, delivery, reach</span></li><li><strong>Outcome</strong><span>Engagement vs. opportunities</span></li></ol>
+          </section>
+
+          <section class="hs-proof" aria-labelledby="hs-proof-title"><div><h2 id="hs-proof-title">214 opportunities. 37 wins. Zero tied to an account.</h2><p>None of it is joined to which accounts saw ads yet.</p></div><a href="Strategy.html#mf-influence">See what data is needed <span aria-hidden="true">→</span></a></section>
+          <p class="hs-footer">A proposed plan from sample data — AEO checks, audiences and campaign numbers are illustrative.</p>
+        </div>
+      </main>
+      <aside class="home-sidepane" id="home-sidepane" aria-label="Home sidebar"><div class="home-sidepane-head">Sidebar</div><nav aria-label="Workspace links"><a href="HomeSystem.html">Campaigns <span aria-hidden="true">→</span></a><a href="AppWorkspace.html?app=audience-builder">Audiences <span aria-hidden="true">→</span></a><a href="AppWorkspace.html?app=aeo">AEO <span aria-hidden="true">→</span></a><a href="Routines.html">Routines <span aria-hidden="true">→</span></a><a href="Connections.html">Connections <span aria-hidden="true">→</span></a></nav></aside>
+    </div>
+  </div>
+  <script src="mojo-app-registry.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-left-nav.js?v=20261119fix1" defer></script>
+  <script src="mojo-app-flyout.js?v=20261119fix1" defer></script>
+  <script src="mojo-home-feed.js?v=20261118greet2" defer></script>
+  <script src="mojo-home-panes.js?v=20261111whyfont2" defer></script>
+<script src="mojo-stories.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-connected-rail.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-home-strategy.js?v=20261119fix2" defer></script>
+  <script src="chat-polish.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-companions.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-companion.js?v=20261112launchnotice1" defer></script>
+<script src="mojo-launch-celebration.js?v=20261112fish4" defer></script>
+<script src="mojo-chat-shell.js?v=20261111whyfont2" defer></script>
+<script src="mojo-owner-filter.js?v=20261117owner2" defer></script>
+<script src="mojo-account-groups.js?v=20261111whyfont2" defer></script><script src="mojo-share-export.js?v=20261111whyfont2" defer></script><script src="excerpt-ribbon.js?v=20261111allpages1" defer></script><script src="mojo-insight-motion.js?v=20261111whyfont2" defer></script><script src="mojo-board-home.js?v=20261118noapps2" defer></script><script src="mojo-board-connections.js?v=20261119why1" defer></script><script src="mojo-board-flow.js?v=20261111whyfont2" defer></script><script src="mojo-demo-sequence.js?v=20261119why1" defer></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* Tasks use one scannable list anatomy: heading, reason, action, evidence. */
+.task-list-enhanced>h1,.task-list-enhanced>p,.task-list-enhanced>section.panel{max-width:980px;margin-left:auto!important;margin-right:auto!important}
+.task-list-enhanced>h1{font-size:28px!important;line-height:1.2!important}
+.task-list-enhanced>p{font:400 13.5px/1.5 var(--sans)!important;color:#716b77!important}
+.task-list-enhanced>section.panel{border:0!important;border-top:1px solid #e7e3ea!important;border-radius:0!important;padding:0!important;margin-top:25px!important;background:#fff!important}
+.task-list-enhanced>section.panel>div:first-child:not(.task-list-row){display:flex;align-items:center;gap:9px;padding:16px 0 11px}
+.task-list-enhanced>section.panel>div:first-child:not(.task-list-row) svg{width:17px;height:17px;color:#6d50ad;flex:none}
+.task-list-enhanced>section.panel h2{font:650 15px/1.35 var(--sans)!important;letter-spacing:-.012em!important;color:#302a37!important}
+.task-list-enhanced .task-list-row,.task-list-enhanced>section.panel>.row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;column-gap:24px;padding:14px 0 15px!important;border:0!important;border-top:1px solid #ece8ee!important;border-radius:0!important;background:#fff;transition:background .15s ease}
+.task-list-enhanced .task-list-row:hover,.task-list-enhanced>section.panel>.row:hover{background:#fcfbfd}
+.task-list-enhanced .task-list-copy{min-width:0}
+.task-list-enhanced .task-list-copy h3{margin:0!important;padding:0!important;border:0!important;font:650 14.5px/1.35 var(--sans)!important;letter-spacing:-.008em;color:#302a37}
+.task-list-enhanced .task-list-copy>.d{margin:4px 0 0!important;max-width:70ch!important;font:400 12.5px/1.48 var(--sans)!important;color:#706a77!important}
+.task-list-enhanced .task-list-action{display:flex;align-items:flex-start;justify-content:flex-end;padding-top:2px}
+.task-list-enhanced .task-list-action .btn,.task-list-enhanced>section.panel>.row>.btn{min-width:112px;justify-content:center;white-space:nowrap;height:34px!important;margin:0!important;padding:0 12px!important;font:600 12px var(--sans)!important}
+.task-list-enhanced>section.panel>.row{align-items:center;min-height:63px;font:inherit!important}
+.task-list-enhanced>section.panel>.row>div:first-child{min-width:0;font:650 14px/1.35 var(--sans)!important;letter-spacing:-.005em;color:#322d39}
+.task-list-enhanced>section.panel>.row small{margin-top:4px;font:400 12.5px/1.4 var(--sans)!important;color:#77717d!important}
+.task-list-enhanced>section.panel>.row .evid{margin-top:6px!important}
+
+/* Receipts stay with their task and reveal in place. */
+.task-list-enhanced .evid{margin-top:7px!important}
+.task-list-enhanced .evid summary{display:inline-flex!important;align-items:center!important;gap:7px!important;min-height:26px;padding:2px 0!important;border:0!important;background:transparent!important;color:#5d439f!important;font:600 12px/1.4 var(--sans)!important;text-decoration:underline!important;text-decoration-color:#c6b8e0!important;text-underline-offset:3px;cursor:pointer}
+.task-list-enhanced .evid summary::before{content:none!important}
+.task-list-enhanced .evid summary::after{content:"";display:block;width:6px;height:6px;flex:none;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s ease}
+.task-list-enhanced .evid[open] summary::after{transform:translateY(2px) rotate(225deg)}
+.task-list-enhanced .evid summary:hover{color:#3f2b7c!important;text-decoration-color:currentColor!important}
+.task-list-enhanced .evid summary:focus-visible{outline:2px solid #7655b8;outline-offset:3px}
+.task-list-enhanced .evidbox{margin-top:8px;padding:12px 0 0!important;border:0!important;border-top:1px solid #e9e4ed!important;border-radius:0!important;background:transparent!important;color:#635d6a!important}
+.task-list-enhanced .evidbox table{max-width:560px}
+
+/* Completed work is a quiet receipt beneath the action lists. */
+.task-list-enhanced>section.panel:last-of-type{padding-top:16px!important}
+.task-list-enhanced>section.panel:last-of-type h2{display:flex;align-items:center;gap:8px;color:#4c6557!important}
+.task-list-enhanced>section.panel:last-of-type h2::before{content:"✓";display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#e8f4ed;color:#2f7752;font:700 12px var(--sans)}
+.task-list-enhanced>section.panel:last-of-type>.d{font:400 12.5px/1.5 var(--sans)!important;color:#77717d!important;max-width:75ch!important;margin-top:7px!important}
+@media(max-width:650px){.task-list-enhanced .task-list-row,.task-list-enhanced>section.panel>.row{grid-template-columns:1fr;gap:10px}.task-list-enhanced .task-list-action{justify-content:flex-start}.task-list-enhanced>section.panel>.row>.btn{justify-self:start}}

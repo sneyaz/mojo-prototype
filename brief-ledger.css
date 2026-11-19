@@ -1,0 +1,153 @@
+/* Selected Brief direction: an open decision ledger with a separate context rail. */
+.canvaspane:has(.brief-ledger-layout){padding:0!important;background:#fff!important}
+.canvaspane:has(.healthgrid) .layout.brief-ledger-layout{display:grid!important;grid-template-columns:minmax(0,1fr) 350px!important;gap:0!important;align-items:stretch!important;margin:0!important}
+.canvaspane:has(.healthgrid) .layout.brief-ledger-layout>section{min-width:0;padding:35px 42px 88px 43px}
+.canvaspane:has(.healthgrid) .layout.brief-ledger-layout>aside{min-width:0;padding:39px 29px 80px 31px;border-left:1px solid #e8e5ea;background:#fff}
+
+/* Masthead and one-line scan context. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div:first-child{align-items:flex-start!important;margin:0 0 11px}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section .eyebrow{font:700 10.5px/1.3 var(--sans)!important;letter-spacing:.09em!important;color:#6848ad!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section .pagehead{font:400 31px/1.2 var(--serif)!important;letter-spacing:-.035em!important;color:#211c2a!important;margin:4px 0 0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section .pagesub{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline){display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap;margin:0 0 34px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline) .livedot{width:6px;height:6px;background:#8d72c9}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline)>span:nth-child(2){font:400 12.5px/1.4 var(--sans)!important;color:#6f6877!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline) .lnk{margin-left:auto;font:600 11.5px/1.4 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>.scan-workline.brief-status-source{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-legacy-intro{display:none!important}
+
+/* The first decision reads like a story with a comparison table, not a tile. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead{border:0!important;border-bottom:1px solid #e7e3e9!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;padding:0 0 24px!important;margin:0 0 8px!important;gap:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead>div:first-child{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead>div:nth-child(2){gap:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead>div:nth-child(2)>div:first-child{margin:0 0 9px;gap:8px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dtag{padding:0!important;background:none!important;color:#6645ac!important;font:700 10.5px/1.2 var(--sans)!important;letter-spacing:.075em;text-transform:uppercase}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead>div:nth-child(2)>div:first-child>span:last-child{font:500 11.5px/1.3 var(--sans)!important;color:#8b8490!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dhead{font:400 30px/1.18 var(--serif)!important;letter-spacing:-.035em!important;color:#211c2a!important;max-width:29ch;margin:0 0 9px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dbody{font:400 13.5px/1.55 var(--sans)!important;color:#67616d!important;max-width:68ch;margin:0 0 14px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .ev{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:3px 0 15px;font-family:var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table th{padding:8px 0 9px;border-bottom:1px solid #dad6de;color:#817987;font:500 11.5px/1.3 var(--sans);letter-spacing:0;text-transform:none;text-align:left}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table th:first-child{width:54%}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td{padding:8px 0;border-bottom:1px solid #ece9ed;color:#37313f;font:500 13px/1.35 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td:first-child{font-weight:600}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table th:nth-child(n+2),
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact{display:flex!important;align-items:center!important;flex-wrap:wrap;gap:10px 20px!important;border:0!important;padding:0!important;margin:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .mojoline{flex:0 0 100%;color:#5f5668!important;font:400 13.5px/1.45 var(--sans)!important;margin:1px 0 3px}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact>div[style*="flex:1"]{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact>.btn{order:1;height:36px!important;padding:0 15px!important;font:650 12px/1 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact>a.btn{display:inline-flex;align-items:center;text-decoration:none}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact>button.lnk{order:2;font:600 12px/1.3 var(--sans)!important;color:#6d607e!important;text-decoration:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-snoozed{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-deferred-note{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;border-bottom:1px solid #e7e3e9;color:#625a6b;font:500 13px/1.4 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-deferred-note button{border:0;background:none;color:#5f42a2;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:650 12px var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-approved-note{order:2;color:#28724f;font:600 12px/1.4 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .cact>.btn:disabled{background:#e8f4ec!important;border-color:#e8f4ec!important;color:#28724f!important;cursor:default}
+.brief-approval-dialog{width:min(430px,calc(100vw - 32px));border:1px solid #e5deea;border-radius:12px;padding:24px;background:#fff;color:#292333;box-shadow:0 20px 70px rgba(31,24,43,.18)}
+.brief-approval-dialog::backdrop{background:rgba(29,23,37,.32)}
+.brief-approval-dialog h2{margin:0 0 9px;font:400 24px/1.22 var(--serif);letter-spacing:-.025em}
+.brief-approval-dialog p{margin:0;font:400 13px/1.5 var(--sans);color:#6c6373}
+.brief-approval-dialog .brief-approval-consequence{margin-top:13px;padding:11px 12px;border-radius:7px;background:#f7f4fb;color:#51425f;font-weight:500}
+.brief-client-confirmation{display:flex;align-items:flex-start;gap:9px;margin-top:17px;color:#3f3647;font:500 12.5px/1.45 var(--sans);cursor:pointer}
+.brief-client-confirmation input{flex:none;margin:2px 0 0;accent-color:#6844b2}
+.brief-approval-actions button:disabled{opacity:.45;cursor:not-allowed}
+.brief-approval-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:24px}
+.brief-approval-actions button{height:34px;padding:0 13px;border-radius:7px;border:1px solid #dcd5e2;background:#fff;color:#554d61;font:600 12px var(--sans);cursor:pointer}
+.brief-approval-actions button:last-child{background:#6147ad;border-color:#6147ad;color:#fff}
+
+/* Shared feed rows: one category, one question, one reveal cue. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout .grouphead.feed-section-head{margin:7px 0 0!important;padding:0 0 8px!important;border:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .feed-section-head .feed-section-title{font:600 12px/1.3 var(--sans)!important;letter-spacing:.02em;text-transform:uppercase;color:#7d6d8d}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .feed-section-head .feed-section-count{font:500 11.5px/1.3 var(--sans)!important;color:#968d9b}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .feed-section-head a{margin-left:auto;font:600 11.5px/1.3 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow{border-top:1px solid #e9e5eb!important;background:#fff!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow summary{display:grid!important;grid-template-columns:minmax(0,1fr) 19px!important;grid-template-rows:auto auto!important;gap:4px 12px!important;align-items:center!important;min-height:0!important;padding:12px 2px 13px!important;background:transparent!important;border-radius:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .tag.cat{grid-column:1;grid-row:1;color:#6547a9!important;font:700 10px/1.25 var(--sans)!important;letter-spacing:.065em!important;text-transform:uppercase!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .headline{grid-column:1;grid-row:2;color:#2f2936!important;font:400 18px/1.32 var(--serif)!important;letter-spacing:-.02em!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .feed-preview{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .chev{grid-column:2;grid-row:1/3;width:auto;height:auto;border:0;border-radius:0;background:none;color:#82768f!important;font:400 22px/1 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow[open] .chev{transform:rotate(90deg)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .drowbody{padding:4px 22px 17px 2px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .drowbody .dbody{font:400 13px/1.55 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>p:first-of-type{margin:17px 0!important;font:400 11.5px/1.45 var(--sans)!important;color:#89818d!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .chipr{margin:16px 0 22px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .healthgrid{margin:28px 0 25px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-status{margin:18px 0 22px!important}
+
+/* Context rail: real source marks, calm sections, and useful status chips. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox{border:0!important;border-bottom:1px solid #e9e5eb!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0 0 25px!important;padding:0 0 24px!important;color:#2e2935!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>span,
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>div:first-child>span:first-child{font:400 21px/1.25 var(--serif)!important;letter-spacing:-.025em;color:#27212e!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>p:first-of-type{font:400 12.5px/1.5 var(--sans)!important;color:#6d6674!important;margin:11px 0 18px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox .rt{border:0!important;min-height:39px;gap:8px!important;padding:7px 0!important;font:600 12.5px/1.3 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox .rt small{font:400 11px/1.35 var(--sans)!important;color:#89818f!important;margin-top:3px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt{min-height:44px}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt>div::before{border:0!important;background-color:transparent!important;background-size:23px 23px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt{min-height:55px;padding-left:16px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt::before{top:15px!important;left:0!important;width:6px!important;height:6px!important;border:0!important;background:#7654b6!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt>span{flex:none;max-width:none!important;min-width:55px;text-align:center!important;border-radius:999px!important;padding:4px 8px!important;background:#edf2ff!important;color:#315eaa!important;font:650 10.5px/1.25 var(--sans)!important;white-space:nowrap}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt:nth-child(4)>span{background:#e8f7ed!important;color:#1e7d4b!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt:nth-child(5)>span{background:#f1eafd!important;color:#6741b2!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt:nth-child(6)>span{background:#fff2e3!important;color:#aa5a13!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2) .rt:nth-child(7)>span{background:#ebf1ff!important;color:#3562ae!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:nth-child(2)>div:first-child>span:last-child{border-radius:999px;background:#e8f7ed;padding:4px 9px;color:#1e7d4b!important;font:650 10.5px/1.2 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox[style*="background:var(--ink)"] p{color:#6d6674!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox[style*="background:var(--ink)"]>span{color:#27212e!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox[style*="background:var(--ink)"] a{color:#6247a9!important}
+/* The source inventory is compact context, with small marks in circles. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child{margin-bottom:21px!important;padding-bottom:19px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child>span{font-size:19px!important;line-height:1.2!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child>p:first-of-type{margin:7px 0 9px!important;font:400 11.5px/1.4 var(--sans)!important;color:#78707e!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt{min-height:30px!important;padding:3px 0!important;font:600 11.5px/1.25 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt>div{gap:8px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt>div::before{width:22px!important;height:22px!important;border:1px solid #e9e4ee!important;border-radius:50%!important;background-color:#faf8fc!important;background-size:14px 14px!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child>a.lnk{margin-top:8px!important;font:600 11px/1.3 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-source-logos{display:flex;align-items:center;gap:8px;margin:11px 0 3px}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-source-logos .rt{display:grid;place-items:center;flex:none;width:29px;height:29px;min-height:29px!important;padding:0!important;border:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-source-mark{display:grid;place-items:center;width:27px;height:27px;border:1px solid #e9e4ee;border-radius:50%;background:#faf8fc}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-source-mark img{display:block;width:15px;height:15px;object-fit:contain}
+
+/* Lead with the marketer's missing answers; keep service names as context. */
+
+@media(max-width:1120px){
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout{grid-template-columns:minmax(0,1fr) 305px!important}
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout>section{padding:30px 29px 70px}
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout>aside{padding:34px 22px 70px}
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dhead{font-size:27px!important}
+}
+@media(max-width:850px){
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout{display:block!important}
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout>section{padding:26px 24px 50px}
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout>aside{border-left:0;border-top:1px solid #e9e5eb;margin:0!important;padding:26px 24px 50px}
+}
+@media(max-width:600px){
+  .canvaspane:has(.healthgrid) .layout.brief-ledger-layout>section{padding:22px 16px 44px}
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dhead{font-size:25px!important}
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table th:first-child{width:44%}
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td{font-size:11.5px!important}
+  .canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline) .lnk{margin-left:0}
+}
+.brief-budget-table .brief-campaign-link{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.brief-budget-table .brief-campaign-link:hover{color:#5c38a6;border-bottom-color:currentColor}
+.brief-budget-table .brief-campaign-link:focus-visible{outline:2px solid #6c43b7;outline-offset:3px;border-radius:2px}
+
+/* The rail uses one scope state and one status vocabulary. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-scope-state{display:block;margin:9px 0 0;color:#30283a;font:650 12.5px/1.3 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-scope-state[hidden],
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-connected-label{display:block;margin:13px 0 6px;color:#837b8b;font:600 10px/1.3 var(--sans);letter-spacing:.04em;text-transform:uppercase}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context{margin:10px 0 0}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context>summary{display:inline-flex;align-items:center;gap:7px;color:#6247a9;font:600 11px/1.3 var(--sans);text-decoration:none}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context>summary:hover{color:#4d348b;text-decoration:underline;text-underline-offset:3px}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context>summary::after{content:"";display:block;width:6px;height:6px;margin-left:0;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context[open]>summary::after{transform:translateY(2px) rotate(225deg)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-rail-context>p{margin:8px 0 0;color:#6f6875;font:400 11.5px/1.5 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box>div:first-child>span:last-child{padding:0!important;border-radius:0!important;background:transparent!important;color:#827988!important;font:500 10.5px/1.3 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status]>span{min-width:64px!important;border-radius:5px!important;padding:4px 7px!important;font:650 10.5px/1.25 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=needs]>span{background:#fbe8e5!important;color:#a13b37!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=found]>span{background:#f0ebfa!important;color:#6548a4!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=handled]>span{background:#e9f5ed!important;color:#28734e!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=watching]>span{background:#f1eff3!important;color:#706877!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=needs]::before{background:#c44c46!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=handled]::before{background:#47976b!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox.brief-routine-box .rt[data-status=watching]::before{background:#aaa3af!important}

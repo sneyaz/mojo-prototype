@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script id="mojo-route-compat">if(location.pathname!=='/'&&!/\.[a-z0-9]+$/i.test(location.pathname)){history.replaceState(history.state,'',location.pathname+'.html'+location.search+location.hash)}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mojo — Campaigns</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="mojo-strategy-base.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-theme.css?v=20261119dark1">
+  <link rel="stylesheet" href="mojo-left-nav.css?v=20261116camp1">
+  <link rel="stylesheet" href="mojo-nav-expanded.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-app-flyout.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-two-buckets.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-create-cta.css?v=20261111live17">
+  <link rel="stylesheet" href="mojo-chat-shell.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="chat-polish.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-board-tabs.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-pane-controls.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-canvas-chat.css?v=20261111whyfont2">
+  <link rel="stylesheet" href="mojo-companion.css?v=20261111live40">
+  <link rel="stylesheet" href="mojo-shared-chat.css?v=20261111chatrail2">
+  <link rel="stylesheet" href="mojo-see-why.css?v=20261119why8">
+  <link rel="stylesheet" href="mojo-lifecycle.css?v=20261111live37">
+  <link rel="stylesheet" href="mojo-build-editor.css?v=20261111live14">
+  <link rel="stylesheet" href="mojo-campaign-creator.css?v=20261111live39">
+<link rel="stylesheet" href="mojo-demo-sequence.css?v=20261112tracking4">
+<link rel="stylesheet" href="mojo-build-workspace.css?v=20261111live14"><link rel="stylesheet" href="mojo-build-checklist.css?v=20261111live37">
+<link rel="stylesheet" href="mojo-column-headers.css?v=20261111whyfont2"><link rel="stylesheet" href="excerpt-ribbon.css?v=20261111allpages1"><link rel="stylesheet" href="mojo-checkmarks.css?v=20261111live40">
+<link rel="stylesheet" href="mojo-build-journey.css?v=20261119dark1">
+<script src="mojo-initiative-model.js?v=20261112experience1" defer></script>
+</head>
+<body>
+  <input type="checkbox" id="chatOn" class="hidden-r">
+  <input type="checkbox" id="sidebarOn" class="hidden-r">
+  <div class="app mojo-lifecycle-app">
+    <nav class="rail" aria-label="Mojo"></nav>
+    <div class="work">
+      <div class="topbar">
+        <span class="wtitle">Campaigns</span>
+        <div class="paneToggles">
+          <label for="chatOn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z"/></svg>Chat</label>
+          <label class="mojo-lifecycle-canvas-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Canvas</label>
+          <label for="sidebarOn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/></svg>Sidebar</label>
+        </div>
+        <button class="btn outline" type="button">Share</button>
+      </div>
+      <nav class="modulenav" aria-label="Campaigns navigation"></nav>
+      <div class="panes">
+        <aside class="chatpane">
+          <div class="chathead">Chat</div>
+          <div class="chatbody"><div class="bubble">Tell me what you want to build or change.</div></div>
+          <div class="chatfoot"><div class="composer"><textarea rows="2" placeholder="Ask Mojo anything…"></textarea></div></div>
+        </aside>
+        <main class="canvaspane" id="lifecycle-content"></main>
+        <aside class="sidebarpane" hidden></aside>
+      </div>
+    </div>
+  </div>
+  <script src="mojo-app-registry.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-left-nav.js?v=20261119fix1" defer></script>
+  <script src="mojo-app-flyout.js?v=20261119fix1" defer></script>
+  <script src="mojo-two-buckets.js?v=20261111whyfont2" defer></script>
+  <script src="chat-polish.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-chat-shell.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-companions.js?v=20261111whyfont2" defer></script>
+  <script src="mojo-companion.js?v=20261112launchnotice1" defer></script>
+<script src="mojo-launch-celebration.js?v=20261112fish4" defer></script>
+  <script src="mojo-see-why.js?v=20261119why7" defer></script>
+  <script src="mojo-strategy-next-quarter.js?v=20261117dupe1" defer></script>
+  <script src="mojo-lifecycle.js?v=20261119why7" defer></script>
+  <script src="mojo-campaign-creator.js?v=20261111live25" defer></script>
+  <script src="mojo-build-editor.js?v=20261111live33" defer></script>
+  <script src="mojo-board-tabs.js?v=20261111whyfont2" defer></script>
+<script src="mojo-demo-sequence.js?v=20261119why1" defer></script>
+<script src="mojo-build-journey.js?v=20261112fixchat2" defer></script>
+<script src="excerpt-ribbon.js?v=20261111allpages1" defer></script></body>
+</html>

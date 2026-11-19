@@ -1,0 +1,78 @@
+/* Match all workspace pane controls, including the always-visible Canvas. */
+.topbar .paneToggles label[for="chatOn"],
+.topbar .paneToggles label[for="canvasOn"],
+.topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert),
+.topbar .paneToggles label[for="sidebarOn"] {
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:26px!important;
+  height:26px!important;
+  padding:0 7px!important;
+  border:0!important;
+  border-radius:6px;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#77717b!important;
+  font:500 11px/1 var(--sans)!important;
+  cursor:pointer!important;
+}
+.topbar .paneToggles label[for="chatOn"]:hover,
+.topbar .paneToggles label[for="canvasOn"]:hover,
+.topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert):hover,
+.topbar .paneToggles label[for="sidebarOn"]:hover {
+  background:#f2f0f3!important;
+  color:#39343d!important;
+}
+#chatOn:checked ~ .app .topbar .paneToggles label[for="chatOn"],
+#canvasOn:checked ~ .app .topbar .paneToggles label[for="canvasOn"],
+#chatOn:checked ~ .app .topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert),
+.app .topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert),
+#sidebarOn:checked ~ .app .topbar .paneToggles label[for="sidebarOn"],
+#chatOn:checked ~ .work .topbar .paneToggles label[for="chatOn"],
+#canvasOn:checked ~ .work .topbar .paneToggles label[for="canvasOn"],
+#sidebarOn:checked ~ .work .topbar .paneToggles label[for="sidebarOn"] {
+  background:#f2f0f3!important;
+  color:#39343d!important;
+  font-weight:600!important;
+}
+.app .panes > .sidebarpane,
+.work .panes > .sidebarpane {
+  box-sizing:border-box;
+  width:320px;
+  flex:0 0 320px;
+  padding:0;
+}
+#sidebarOn:checked ~ .app .panes > .sidebarpane,
+#sidebarOn:checked ~ .work .panes > .sidebarpane {display:block!important}
+.mojo-sidepane-head {
+  display:flex;
+  align-items:center;
+  height:46px;
+  padding:0 16px;
+  border-bottom:1px solid #e8e3e9;
+  color:#302d35;
+  font:600 13px var(--sans);
+}
+.mojo-sidepane-body {padding:16px}
+.mojo-sidepane-links {display:grid;gap:3px}
+.mojo-sidepane-links a {
+  display:block;
+  padding:10px 12px;
+  border-radius:8px;
+  color:#51475c;
+  font:600 12px var(--sans);
+  text-decoration:none;
+}
+.mojo-sidepane-links a:hover,
+.mojo-sidepane-links a:focus-visible,
+.mojo-sidepane-links a[aria-current="page"] {background:#f3eff8;color:#5e3892}
+.aud-app-body .aud-sidepane {flex-basis:320px;min-width:260px}
+@media(max-width:700px) {
+  #sidebarOn:checked ~ .app .panes .canvaspane,
+  #sidebarOn:checked ~ .work .panes .canvaspane {display:none!important}
+  #sidebarOn:checked ~ .app .panes > .sidebarpane,
+  #sidebarOn:checked ~ .work .panes > .sidebarpane,
+  #sidebarOn:checked ~ .app .panes > .aud-sidepane {width:auto;flex:1;min-width:0}
+}

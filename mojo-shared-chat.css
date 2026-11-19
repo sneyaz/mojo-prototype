@@ -1,0 +1,85 @@
+/* The fish is a compact view of the same Mojo conversation. */
+.mojo-companion-panel:has(#mojo-panel-views:not([hidden])){width:min(390px,calc(100vw - 28px))}
+.mojo-companion-panel:has(#mojo-panel-views:not([hidden])){height:min(610px,calc(100vh - 110px))}
+.mojo-companion-panel:has(#mojo-panel-views:not([hidden])) .mojo-panel-body{flex:1 1 auto;height:auto;min-height:0;max-height:none;overflow:hidden}
+#mojo-panel-views:not([hidden]){display:flex;flex-direction:column;height:100%;min-height:0;background:#fff}
+#mojo-panel-views .mojo-fish-chat-log{display:flex;flex:1;flex-direction:column;gap:20px;min-height:0;max-height:none;overflow-y:auto;padding:24px 22px 20px;background:#fff;scrollbar-width:thin}
+.mojo-fish-chat-head{display:flex;align-items:center;min-height:54px;padding:0 22px;border-bottom:1px solid #ebe8e7;color:#27232b;font:600 17px Inter,Arial,sans-serif}
+.mojo-fish-chat-head span{margin-left:4px;color:#716a74;font-size:15px}
+#mojo-panel-views .mojo-fish-chat-reply,#mojo-panel-views .mojo-fish-chat-user{max-width:90%;font:400 14px/1.5 Inter,Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere}
+#mojo-panel-views .mojo-fish-chat-reply{align-self:stretch;max-width:none;color:#4b4650}
+#mojo-panel-views .mojo-fish-chat-user{align-self:flex-end;padding:12px 14px;border-radius:15px 15px 5px 15px;background:#f1ece6;color:#29262d}
+#mojo-panel-views .mojo-fish-chat-log p{margin:0}
+#mojo-panel-views .mojo-fish-chat-empty{margin:auto 0;text-align:center;color:#342e37}
+#mojo-panel-views .mojo-fish-chat-empty strong{font:400 22px/1.25 Georgia,serif}
+#mojo-panel-views .mojo-fish-chat-empty p{margin-top:9px;color:#857e87;font:400 12px/1.4 Inter,Arial,sans-serif}
+#mojo-panel-views .mojo-fish-chat-form{display:grid;grid-template-columns:minmax(0,1fr) 38px;grid-template-rows:minmax(64px,auto) 38px;align-items:end;gap:6px;margin:0 15px 16px;padding:12px;border:1px solid #e0dbd7;border-radius:16px;background:#fff;box-shadow:0 8px 24px #362b3d18}
+#mojo-panel-views .mojo-fish-chat-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#mojo-panel-views .mojo-fish-chat-form textarea{grid-column:1/-1;grid-row:1;width:100%;min-height:64px;max-height:110px;box-sizing:border-box;resize:vertical;padding:0;border:0;outline:0;background:transparent;color:#302d35;font:400 14px/1.5 Inter,Arial,sans-serif}
+#mojo-panel-views .mojo-fish-chat-form:focus-within{border-color:#b9a4d2;box-shadow:0 8px 24px #362b3d18,0 0 0 2px #b9a4d250}
+#mojo-panel-views .mojo-fish-chat-tools{grid-column:1;grid-row:2;display:flex;align-items:center;gap:11px;min-width:0;color:#77717a;font:400 11px/1.2 Inter,Arial,sans-serif;white-space:nowrap}
+#mojo-panel-views .mojo-fish-chat-tools span{display:inline-flex;align-items:center;gap:4px}
+#mojo-panel-views .mojo-fish-chat-tools svg{width:15px;height:15px;color:#aaa3ac}
+#mojo-panel-views .mojo-fish-chat-tools .mojo-fish-tool-caret{display:block;width:11px;height:11px;flex:none;color:#aaa3ac}
+#mojo-panel-views .mojo-fish-chat-tools .mojo-fish-chat-plus{font-size:20px;color:#aaa3ac}
+#mojo-panel-views .mojo-fish-chat-form button{grid-column:2;grid-row:2;display:grid;place-items:center;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:#7438bd;color:#fff;cursor:pointer}
+#mojo-panel-views .mojo-fish-chat-form button:disabled{background:#e8e4eb;color:#8c8491;cursor:default}
+#mojo-panel-views .mojo-fish-chat-form button svg{width:17px;height:17px}
+.mojo-companion-panel:has(.mojo-customize:not([hidden])):has(#mojo-panel-views:not([hidden])) .mojo-panel-body{height:190px;min-height:110px}
+/* Pages outside the Campaigns canvas use the same full Chat treatment. */
+.trust-panes .mc-trust-chat.is-open{position:relative;z-index:2;flex-basis:min(390px,36vw);background:#fff!important;border-right:1px solid #e7e5e8;box-shadow:8px 0 22px #30243d14}
+.trust-panes .mc-trust-chat .chathead{display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:0 18px;border-bottom:1px solid #ece7ef;background:#fff;color:#342c3b}
+.trust-panes .mc-trust-chat .chathead strong{font:650 13px Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chathead small{color:#8b828f;font:500 10px Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatbody{display:flex;flex-direction:column;gap:13px;padding:18px 17px 25px;background:#fff}
+.trust-panes .mc-trust-chat .chatbody>.bubble.chat-polish-assistant,.trust-panes .mc-trust-chat .chatbody>.mc-chat-ack{align-self:flex-start;max-width:90%;padding:11px 13px!important;border:1px solid #e8e2ec!important;border-radius:14px 14px 14px 4px!important;background:#faf8fc!important;color:#3d3444!important;font:400 12px/1.5 Inter,Arial,sans-serif!important}
+.trust-panes .mc-trust-chat .chatbody>.chat-polish-user{align-self:flex-end;max-width:90%;padding:11px 13px;border:0;border-radius:14px 14px 4px 14px;background:#eee9f4;color:#332b3b;font:400 12px/1.5 Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatbody small{display:block;margin:0 0 5px;color:#756782;font:650 10px Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatbody p{margin:0}
+.trust-panes .mc-trust-chat .chatfoot{padding:12px 16px 16px;border-top:1px solid #ece7ef;background:#fff}
+.trust-panes .mc-trust-chat .chatfoot .composer{display:grid;grid-template-columns:minmax(0,1fr) 32px;grid-template-rows:minmax(58px,auto) 32px;gap:5px;min-height:100px;box-sizing:border-box;padding:12px;border:1px solid #dcd4e4;border-radius:15px;background:#fff}
+.trust-panes .mc-trust-chat .chatfoot .composer textarea{grid-column:1/-1;grid-row:1;min-height:52px;max-height:130px;padding:0;border:0;outline:0;resize:vertical;background:transparent;color:#342c3b;font:400 12px/1.5 Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatfoot .composer .chat-polish-send{grid-column:2;grid-row:2;display:grid;place-items:center;justify-self:end;align-self:end;width:31px;height:31px;padding:0;border:0;border-radius:50%;background:#6746b4;color:#fff;cursor:pointer}
+.trust-panes .mc-trust-chat .chatfoot .composer .chat-polish-send:disabled{background:#e8e4eb;color:#8c8491;cursor:default}
+.trust-panes .mc-trust-chat .chatfoot .composer .chat-polish-send svg{width:16px;height:16px}
+#chatOn:checked ~ .app .mf-feed-page .mf-feed-grid{grid-template-columns:minmax(0,1fr)!important}
+#chatOn:checked ~ .app .mf-feed-page .mf-rail{display:none}
+#chatOn:checked ~ .app .mf-feed-page .mf-lead-layout{grid-template-columns:minmax(0,1fr)!important}
+#chatOn:checked ~ .app .mf-feed-page .mf-lead-visual{max-width:360px}
+/* Full Chat follows the current Mojo conversation treatment. */
+.trust-panes .mc-trust-chat .chathead{min-height:68px;padding:0 24px}
+.trust-panes .mc-trust-chat .chathead strong{font:600 18px/1.2 Inter,Arial,sans-serif;color:#242229}
+.trust-panes .mc-trust-chat .chathead strong span{margin-left:5px;color:#68636d;font-size:15px}
+.trust-panes .mc-trust-chat .chatbody{gap:20px;padding:26px 24px 35px}
+.trust-panes .mc-trust-chat .chatbody>.bubble.chat-polish-assistant,.trust-panes .mc-trust-chat .chatbody>.mc-chat-ack{align-self:stretch;max-width:none;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#4b4650!important;font:400 15px/1.55 Inter,Arial,sans-serif!important}
+.trust-panes .mc-trust-chat .chatbody>.chat-polish-user{padding:13px 16px;border-radius:16px 16px 5px 16px;background:#f1ece6;color:#29262d;font:400 14px/1.5 Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatfoot{padding:12px 20px 20px;border-top:0}
+.trust-panes .mc-trust-chat .chatfoot .composer{grid-template-columns:minmax(0,1fr) 42px;grid-template-rows:minmax(72px,auto) 42px;gap:6px;min-height:140px;padding:15px;border:1px solid #e0dbd7;border-radius:17px;box-shadow:0 8px 24px #362b3d18}
+.trust-panes .mc-trust-chat .chatfoot .composer textarea{min-height:65px;color:#302d35;font:400 15px/1.5 Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatfoot .composer .mc-chat-composer-tools{grid-column:1;grid-row:2;display:flex;align-items:end;gap:14px;white-space:nowrap;color:#77717a;font:400 12px/1.3 Inter,Arial,sans-serif}
+.trust-panes .mc-trust-chat .chatfoot .composer .mc-chat-composer-tools>span:last-child{font-size:20px;line-height:1}
+.trust-panes .mc-trust-chat .chatfoot .composer .chat-polish-send{width:40px;height:40px;background:#7438bd;font-size:20px}
+.trust-panes .mc-trust-chat .chatfoot .composer .chat-polish-send:disabled{background:#e8e4eb}
+
+/* Compact, contextual follow-up prompts below Mojo's chat replies. */
+.mc-suggestion-holder{width:min(100%,560px);margin:0 auto 8px}.mc-suggestion-chips{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0}.mc-suggestion-chips button{width:max-content;max-width:100%;padding:8px 12px;border:1px solid #ded9e1;border-radius:999px;background:#fff;color:#403a45;font:500 11px/1.3 Inter,Arial,sans-serif;text-align:left;cursor:pointer}.mc-suggestion-chips button:hover{border-color:#b99fca;background:#f8f5fa;color:#68438d}.mc-suggestion-chips button:focus-visible{outline:2px solid #68438d;outline-offset:2px}.chatbody:has(.mfc-chat-seed,.mso-chat-flow)>.mc-suggestion-holder{display:none}
+
+/* The docked chat can be resized from its dividing edge. */
+.app .chatpane.mc-reference-chat{position:relative;z-index:2;width:var(--mojo-chat-width, 360px)!important;min-width:280px;max-width:760px;flex:none;overflow:visible}
+.mc-chat-resize-handle{position:absolute;z-index:30;top:0;right:-7px;bottom:0;width:14px;cursor:col-resize;touch-action:none;outline:none}
+.mc-chat-resize-handle::after{content:"";position:absolute;top:50%;left:3px;width:7px;height:40px;border:1px solid #d8cfdd;border-radius:6px;background:linear-gradient(#a598ac,#a598ac) center/2px 18px no-repeat #fff;box-shadow:0 1px 4px #39264616;transform:translateY(-50%);opacity:.9;transition:opacity .15s,border-color .15s}
+.mc-chat-resize-handle:hover::after,.mc-chat-resize-handle:focus-visible::after,.mc-chat-resize-handle.is-dragging::after{background:#7650a1;opacity:1}
+.mc-chat-resize-handle:focus-visible{outline:2px solid #7650a1;outline-offset:-2px}
+@media(max-width:700px){.app .chatpane.mc-reference-chat{max-width:calc(100% - 80px)}.mc-chat-resize-handle{display:none}}
+
+/* Keep the feed sections in their left rail when docked Chat is open. */
+@media(min-width:701px){
+  #chatOn:checked ~ .app .mf-feed-page .mf-shell:has(.mojo-feed-rail){grid-template-columns:146px minmax(0,1fr)!important}
+  #chatOn:checked ~ .app .mf-feed-page .mf-feed-toolbar>.mojo-feed-rail{grid-column:1!important;grid-row:1 / 3!important;position:sticky;top:18px;display:block;min-width:0;padding-right:11px;margin:0}
+  #chatOn:checked ~ .app .mf-feed-page .mojo-feed-rail .mojo-owner-control{display:block;width:auto;margin:0 0 13px}
+  #chatOn:checked ~ .app .mf-feed-page .mojo-feed-rail .mojo-owner-label{display:block}
+  #chatOn:checked ~ .app .mf-feed-page .mojo-feed-rail .mf-tabs{display:flex;flex-direction:column;gap:3px;min-width:0;margin:0;padding:0;overflow:visible}
+  #chatOn:checked ~ .app .mf-feed-page .mojo-feed-rail .mf-tabs button{width:100%;padding:10px 12px;border-radius:7px}
+  #chatOn:checked ~ .app .mf-feed-page .mf-feed-toolbar .mf-topline{grid-column:2!important;grid-row:1!important;width:auto;min-height:48px;margin:0 0 19px;padding:8px 0 0}
+  #chatOn:checked ~ .app .mf-feed-page .mf-shell>.mf-panel{grid-column:2!important;grid-row:2!important}
+}

@@ -1,0 +1,66 @@
+/* Marketplace layout: working spaces lead, workflow previews remain visibly secondary. */
+body.mojo-global-page .mojo-marketplace-page.ma-ready{max-width:1240px;margin:0 auto;padding:34px clamp(24px,4.5vw,60px) 84px;color:#302b35}
+.mojo-marketplace-page .ma-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:34px}
+.mojo-marketplace-page .ma-eyebrow{color:#765293;font-size:10px;letter-spacing:.15em}
+.mojo-marketplace-page .ma-head h1{margin:8px 0 8px;font-size:clamp(38px,4.1vw,58px);letter-spacing:-.045em}
+.mojo-marketplace-page .ma-head p{max-width:520px;font-size:14px;color:#766f79}
+.ma-head-count{display:flex;align-items:baseline;gap:7px;white-space:nowrap;padding:11px 14px;border:1px solid #e7e2e8;border-radius:10px;background:#fff;color:#736b7a;font:600 11px var(--sans,Arial)}
+.ma-head-count strong{font:600 19px/1 var(--serif,Georgia);color:#4a345c}
+.ma-head-count i{height:16px;width:1px;margin:0 6px;background:#ded7e2;align-self:center}
+.mojo-marketplace-page .ma-section{margin-top:27px}
+.mojo-marketplace-page .ma-section+.ma-section{margin-top:38px}
+.mojo-marketplace-page .ma-section-title{align-items:end;margin-bottom:15px;padding-bottom:12px;border-color:#e6e1e8}
+.mojo-marketplace-page .ma-section-title h2{font:400 27px/1.1 var(--serif,Georgia);letter-spacing:-.025em}
+.mojo-marketplace-page .ma-section-title span{font:500 11px var(--sans,Arial);color:#867d89}
+.ma-installed-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.ma-planned-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.mojo-marketplace-page .ma-card{position:relative;box-sizing:border-box;border:1px solid #e4dfe7;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 1px 2px #30253508;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.mojo-marketplace-page .ma-card:hover{transform:translateY(-3px);box-shadow:0 15px 30px #30253513;border-color:#cabdd5}
+.mojo-marketplace-page .ma-card:focus-within{border-color:#8a64aa;box-shadow:0 0 0 2px #8a64aa35}
+.mojo-marketplace-page .ma-card.ma-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(138px,38%);grid-template-rows:auto 1fr auto;min-height:264px;padding:0;background:#f7f3ec;border-color:#e9dfd2}
+.mojo-marketplace-page .ma-card.ma-hero.ma-app-audience-builder{background:#f2f5f8;border-color:#dce5ec}
+.ma-card-art{display:grid;place-items:center;color:#6b4b83;overflow:hidden}
+.ma-card-art svg{width:100%;height:100%;max-width:270px;transition:transform .3s ease}
+.ma-card:hover .ma-card-art svg{transform:translateY(-3px) scale(1.025)}
+.ma-hero .ma-card-art{grid-column:2;grid-row:1/4;align-self:stretch;margin:15px 15px 15px 0;border-radius:11px;background:radial-gradient(circle at 82% 13%,#ffffff99,transparent 35%),#e8decf}
+.ma-hero.ma-app-audience-builder .ma-card-art{background:radial-gradient(circle at 22% 13%,#ffffffbb,transparent 36%),#dfe8ef;color:#517398}
+.ma-hero .ma-card-top,.ma-hero .ma-card-copy,.ma-hero .ma-actions{grid-column:1;min-width:0}
+.ma-hero .ma-card-top{grid-row:1;padding:23px 21px 0 25px}
+.ma-hero .ma-card-copy{grid-row:2;margin:20px 21px 17px 25px}
+.ma-hero .ma-actions{grid-row:3;margin:0;padding:13px 20px 17px 25px;border-top:1px solid #e4dcd0;align-items:center}
+.ma-hero.ma-app-audience-builder .ma-actions{border-color:#dce5ec}
+.mojo-marketplace-page .ma-icon{width:38px;height:38px;border-radius:10px;background:#ffffffb3;color:#654384;border:1px solid #e3d9e6}
+.ma-hero.ma-app-audience-builder .ma-icon{color:#466e8e;border-color:#d8e2eb}
+.ma-icon svg{width:21px;height:21px}
+.mojo-marketplace-page .ma-status{padding:5px 8px;background:#f3f0f3;color:#746b77;font:650 10px/1 var(--sans,Arial)}
+.mojo-marketplace-page .ma-status.ma-installed{background:#e5f2e9;color:#32684a}
+.mojo-marketplace-page .ma-card-copy small{color:#796787;font:750 10px/1.2 var(--sans,Arial);letter-spacing:.1em}
+.mojo-marketplace-page .ma-hero h3{margin:8px 0 8px;font:500 clamp(26px,2.5vw,34px)/1.05 var(--serif,Georgia);letter-spacing:-.028em}
+.mojo-marketplace-page .ma-card p{color:#6d6570;font:400 13px/1.46 var(--sans,Arial)}
+.mojo-marketplace-page .ma-hero p{max-width:30ch}
+.mojo-marketplace-page .ma-open{display:inline-flex;align-items:center;gap:8px;color:#5e3b7c;font:700 12px/1.3 var(--sans,Arial);text-decoration:none}
+.mojo-marketplace-page .ma-open span,.mojo-marketplace-page .ma-preview span{display:inline-block;transition:transform .18s ease}
+.mojo-marketplace-page .ma-open:hover span,.mojo-marketplace-page .ma-preview:hover span{transform:translateX(4px)}
+.mojo-marketplace-page .ma-card.ma-planned{display:flex;flex-direction:column;min-height:300px;padding:0;background:#fff}
+.ma-planned .ma-card-art{height:107px;flex:none;margin:10px 10px 0;border-radius:9px;background:#f1edf4;color:#785e95}
+.ma-planned.ma-app-icp-builder .ma-card-art{background:#f0eff8;color:#6e63a3}
+.ma-planned.ma-app-creative-studio .ma-card-art{background:#f8efe6;color:#ad7952}
+.ma-planned.ma-app-lifecycle-journeys .ma-card-art{background:#edf4f0;color:#638a72}
+.ma-planned.ma-app-revenue-reporting .ma-card-art{background:#edf2f7;color:#5d789c}
+.ma-planned.ma-app-event-programs .ma-card-art{background:#f7f1e8;color:#a2845f}
+.ma-planned .ma-card-art svg{max-width:190px}
+.ma-planned .ma-card-top{align-items:center;margin:15px 17px 0}
+.ma-planned .ma-card-top .ma-icon{width:30px;height:30px;border:0;background:transparent;color:#765494}
+.ma-planned .ma-card-top .ma-icon svg{width:20px;height:20px}
+.ma-planned .ma-card-copy{margin:9px 20px 17px}
+.mojo-marketplace-page .ma-planned h3{margin:5px 0 7px;font:650 17px/1.2 var(--sans,Arial);letter-spacing:-.02em}
+.ma-planned .ma-actions{justify-content:space-between;gap:8px;margin:auto 20px 17px;padding-top:13px;border-top:1px solid #ece8ed}
+.mojo-marketplace-page .ma-preview{color:#654284;text-decoration:none;font:650 11px/1.3 var(--sans,Arial)}
+.mojo-marketplace-page .ma-actions button{padding:6px 10px;border:1px solid #ded3e7;border-radius:7px;background:#fff;color:#67468a;font:650 11px var(--sans,Arial)}
+.mojo-marketplace-page .ma-actions button:hover{background:#f4eff8}
+.ma-honesty{margin-top:18px}
+@media(max-width:980px){.ma-planned-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ma-hero .ma-card-art{margin:13px 13px 13px 0}}
+@media(max-width:680px){body.mojo-global-page .mojo-marketplace-page.ma-ready{padding:26px 20px 60px}.ma-installed-grid{grid-template-columns:1fr}.ma-head-count{display:none}.mojo-marketplace-page .ma-card.ma-hero{min-height:236px}.ma-planned-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:470px){.ma-planned-grid{grid-template-columns:1fr}.mojo-marketplace-page .ma-card.ma-hero{grid-template-columns:minmax(0,1fr) 32%}.ma-hero .ma-card-top{padding:18px 12px 0 18px}.ma-hero .ma-card-copy{margin:14px 10px 14px 18px}.ma-hero .ma-actions{padding:12px 10px 15px 18px}.ma-hero .ma-card-art{margin:10px 10px 10px 0}.ma-hero .ma-card-top .ma-status{display:none}}
+@media(prefers-reduced-motion:reduce){.mojo-marketplace-page .ma-card,.ma-card-art svg,.ma-open span,.ma-preview span{transition:none!important}}
+.mojo-marketplace-page .ma-job-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mojo-marketplace-page .ma-job-grid .ma-card{min-height:310px}.ma-job-grid .ma-card-art{height:78px}.ma-job-grid .ma-card-art svg{max-width:135px}.ma-planned.ma-app-abm-activation .ma-card-art{background:#e8f4ef;color:#1e8278}.ma-planned.ma-app-answer-readiness .ma-card-art{background:#edf0fb;color:#586eb2}@media(max-width:680px){.mojo-marketplace-page .ma-job-grid{grid-template-columns:1fr}}

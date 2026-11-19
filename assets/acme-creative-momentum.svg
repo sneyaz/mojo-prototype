@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">Acme Co native ad: Keep momentum moving</title>
+  <desc id="desc">Mint and ivory campaign artwork with stacked workflow cards.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e8f5f0"/><stop offset="1" stop-color="#c7e5de"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#1b5a52" flood-opacity=".16"/></filter></defs>
+  <rect width="640" height="400" rx="18" fill="url(#bg)"/>
+  <text x="40" y="54" fill="#205b56" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="-1">Acme Co</text>
+  <text x="40" y="140" fill="#193b3a" font-family="Georgia,serif" font-size="41">Keep momentum</text>
+  <text x="40" y="190" fill="#193b3a" font-family="Georgia,serif" font-size="41">moving.</text>
+  <text x="40" y="235" fill="#506967" font-family="Arial,sans-serif" font-size="18">Turn next steps into progress.</text>
+  <g filter="url(#shadow)"><rect x="388" y="105" width="185" height="67" rx="12" fill="#fff"/><rect x="406" y="126" width="24" height="24" rx="7" fill="#d9c7ee"/><path d="M444 135h97m-97 14h65" stroke="#c1bac9" stroke-width="5" stroke-linecap="round"/>
+  <rect x="362" y="185" width="211" height="67" rx="12" fill="#fff"/><rect x="380" y="206" width="24" height="24" rx="7" fill="#b6ded1"/><path d="M418 215h123m-123 14h81" stroke="#c1bac9" stroke-width="5" stroke-linecap="round"/>
+  <rect x="336" y="265" width="237" height="67" rx="12" fill="#fff"/><rect x="354" y="286" width="24" height="24" rx="7" fill="#b6ded1"/><path d="M392 295h149m-149 14h109" stroke="#c1bac9" stroke-width="5" stroke-linecap="round"/></g>
+  <rect x="40" y="294" width="145" height="45" rx="9" fill="#205b56"/>
+  <text x="62" y="323" fill="#fff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Learn more  →</text>
+</svg>

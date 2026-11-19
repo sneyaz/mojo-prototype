@@ -1,0 +1,67 @@
+/* A quiet, persistent source rail shared by Home, Campaigns, Audiences and AEO feeds. */
+.home-content{grid-template-columns:146px minmax(0,740px) minmax(146px,1fr);max-width:1110px}
+.home-content>.home-connected-rail{grid-column:3;grid-row:1 / span 2;align-self:stretch;min-width:0;padding-left:8px}
+.home-connected-rail .ms-connected{position:sticky;top:120px;width:max-content;margin-left:0;align-items:flex-start}
+.aud-content:has(>.aud-feed-tabs){grid-template-columns:104px minmax(0,700px) minmax(146px,1fr);max-width:1110px}
+.aud-content:has(>.aud-feed-tabs)>.app-connected-rail{grid-column:3;grid-row:1 / span 12;align-self:stretch;min-width:0;padding-left:8px}
+.app-connected-rail .ms-connected{position:sticky;top:120px;width:max-content;margin-left:0;align-items:flex-start}
+.mfc-feed{max-width:1100px;margin-inline:auto}
+.mfc-feed .mf-feed-grid,.mfc-feed #mf-decisions .mf-feed-grid,.mfc-feed #mf-receipts .mf-feed-grid{grid-template-columns:minmax(0,700px) minmax(146px,1fr)}
+.mfc-feed .mf-sources-rail{align-self:stretch;position:relative;top:auto}
+.mfc-feed .mf-sources{position:sticky;top:120px;width:max-content;margin-left:0;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:5px}
+.mfc-feed .mf-sources{
+  z-index:2;
+  transition:transform .25s ease;
+}
+.mfc-feed.mf-sources-floating .mf-sources{
+  transform:translateY(-3px);
+}
+.mfc-feed .mf-source-icons a{box-shadow:0 3px 10px rgba(49,33,66,.09);transition:transform .2s ease,box-shadow .2s ease}
+.mfc-feed.mf-sources-floating .mf-source-icons a{box-shadow:0 7px 16px rgba(49,33,66,.15)}
+.mfc-feed .mf-source-icons a:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(49,33,66,.13)}
+@media(prefers-reduced-motion:reduce){.mfc-feed .mf-sources,.mfc-feed .mf-source-icons a{transition:none}}
+.mfc-feed .mf-stream,.mfc-feed #mf-decisions .mf-stream,.mfc-feed #mf-receipts .mf-stream{grid-row:1}
+.mfc-feed .mf-sources-rail,.mfc-feed #mf-decisions .mf-rail,.mfc-feed #mf-receipts .mf-rail{grid-row:1;grid-column:2}
+@media(max-width:1050px){
+  .home-content{grid-template-columns:146px minmax(0,740px);max-width:904px}
+  .home-content>.home-connected-rail{grid-column:2;grid-row:1;justify-self:end;align-self:start;position:sticky;top:120px;z-index:2;padding:0;background:#fff}
+  .home-content>.ms-stories .ms-heading{padding-right:162px}
+  .aud-content:has(>.aud-feed-tabs){grid-template-columns:104px minmax(0,1fr)}
+  .aud-content:has(>.aud-feed-tabs)>.app-connected-rail{grid-column:2;grid-row:1;justify-self:end;align-self:start;position:sticky;top:120px;z-index:2;padding:0;background:#fff}
+  .aud-content:has(>.aud-feed-tabs)>.aud-feed-tabs{grid-row:1 / span 12}
+  .mfc-feed .mf-feed-grid,.mfc-feed #mf-decisions .mf-feed-grid,.mfc-feed #mf-receipts .mf-feed-grid{grid-template-columns:minmax(0,1fr)}
+  .mfc-feed .mf-sources-rail,.mfc-feed #mf-decisions .mf-rail,.mfc-feed #mf-receipts .mf-rail{grid-column:1;grid-row:1;justify-content:flex-end;position:static;margin:0 0 8px;padding:0}
+  .home-connected-rail .ms-connected,.app-connected-rail .ms-connected,.mfc-feed .mf-sources{margin-left:auto}
+  .mfc-feed .mf-sources{position:static;flex-direction:row;align-items:center}
+  .mfc-feed .mf-stream,.mfc-feed #mf-decisions .mf-stream,.mfc-feed #mf-receipts .mf-stream{grid-row:2}
+}
+@media(max-width:980px){
+  .home-content{grid-template-columns:minmax(0,1fr);max-width:740px}
+  .home-content>.home-connected-rail{grid-column:1;grid-row:1;position:sticky;top:110px;justify-self:end;background:#fff}
+  .home-content>.ms-stories{grid-row:2}
+  .home-content>.home-source-filter{grid-row:3}
+  .home-content>#home-feed{grid-row:4}
+  .aud-content:has(>.aud-feed-tabs){grid-template-columns:minmax(0,1fr)}
+  .aud-content:has(>.aud-feed-tabs)>.app-connected-rail{grid-column:1;grid-row:1;position:sticky;top:110px;justify-self:end;background:#fff}
+  .aud-content:has(>.aud-feed-tabs)>.aud-feed-tabs{grid-row:2}
+}
+@media(max-width:700px){
+  .home-content>.home-connected-rail,.aud-content:has(>.aud-feed-tabs)>.app-connected-rail{padding:4px 0 7px;width:100%;justify-self:stretch}
+  .home-connected-rail .ms-connected,.app-connected-rail .ms-connected{flex-direction:row;justify-content:flex-end;align-items:center;gap:9px}
+  .mfc-feed .mf-sources-rail,.mfc-feed #mf-decisions .mf-rail,.mfc-feed #mf-receipts .mf-rail{padding:4px 0 7px}
+}
+/* The owner picker wraps app feed tabs after the first render. */
+.aud-app-body .canvaspane>.aud-content:has(>.mojo-feed-rail){max-width:1110px;grid-template-columns:146px minmax(0,700px) minmax(146px,1fr)}
+.aud-content:has(>.mojo-feed-rail)>.app-connected-rail{grid-column:3;grid-row:1 / span 12;align-self:stretch;min-width:0;padding-left:8px}
+@media(max-width:1050px){
+  .aud-app-body .canvaspane>.aud-content:has(>.mojo-feed-rail){grid-template-columns:146px minmax(0,1fr)}
+  .aud-content:has(>.mojo-feed-rail)>.app-connected-rail{grid-column:2;grid-row:1;justify-self:end;align-self:start;position:sticky;top:120px;z-index:2;padding:0;background:#fff}
+}
+@media(max-width:980px){
+  .aud-app-body .canvaspane>.aud-content:has(>.mojo-feed-rail){grid-template-columns:minmax(0,1fr)}
+  .aud-content:has(>.mojo-feed-rail)>.app-connected-rail{grid-column:1;grid-row:1;position:sticky;top:110px;justify-self:end;background:#fff}
+  .aud-content:has(>.mojo-feed-rail)>.mojo-feed-rail{grid-row:2}
+}
+@media(max-width:700px){
+  .aud-content:has(>.mojo-feed-rail)>.app-connected-rail{padding:4px 0 7px;width:100%;justify-self:stretch}
+}

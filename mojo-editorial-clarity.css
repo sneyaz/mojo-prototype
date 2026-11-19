@@ -1,0 +1,78 @@
+/* Shared first-read hierarchy: headline, one useful line, detail on demand. */
+:root{--editorial-rule:#e8e4e9;--editorial-muted:#706a76}
+.canvaspane :is(h1,h2,h3),.trust-canvas :is(h1,h2,h3){text-wrap:balance}
+.canvaspane p,.trust-canvas p{text-wrap:pretty}
+
+/* Brief: the tab already names its view. One small section line is enough. */
+.canvaspane:has(.brief-view-root) .brief-view-root .brief-view-intro{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 4px!important;padding:0 0 11px!important;border-bottom:1px solid var(--editorial-rule)!important}
+.canvaspane:has(.brief-view-root) .brief-view-root .brief-view-intro{display:none!important}
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .chipr{margin-top:12px!important;margin-bottom:10px!important}
+.canvaspane:has(.brief-view-root) .brief-view-intro .brief-view-kicker,
+.canvaspane:has(.brief-view-root) .brief-view-intro>p:last-child{display:none!important}
+.canvaspane:has(.brief-view-root) .brief-view-intro h2{font:650 14px/1.3 var(--sans)!important;letter-spacing:0!important}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact{border:0!important;border-bottom:1px solid var(--editorial-rule)!important;padding:17px 2px!important}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact>div:nth-child(2)>div:last-child{font:400 clamp(18px,1.7vw,22px)/1.25 var(--serif)!important;max-width:46ch}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact .brief-watch-headline{margin:4px 0 0!important;color:#2d2733;font:400 clamp(18px,1.7vw,22px)/1.25 var(--serif)!important;letter-spacing:-.02em}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact .brief-watch-metric{margin:4px 0 0;color:var(--editorial-muted);font:400 12px/1.45 var(--sans)}
+.canvaspane:has(.brief-view-root) .brief-watch-cadence{justify-self:end;color:#665b70}
+.canvaspane:has(.brief-view-root) .brief-monitor-row,
+.canvaspane:has(.brief-view-root) .brief-watch-learning{margin:0!important;padding:17px 2px!important;border:0!important;border-bottom:1px solid var(--editorial-rule)!important;background:#fff!important}
+.canvaspane:has(.brief-view-root) .brief-story-label{display:block;color:#786b80;font:650 10px/1.3 var(--sans);letter-spacing:.035em;text-transform:uppercase}
+.canvaspane:has(.brief-view-root) .brief-monitor-row h3,
+.canvaspane:has(.brief-view-root) .brief-watch-learning h3{margin:5px 0!important;color:#2d2733;font:400 clamp(18px,1.7vw,22px)/1.25 var(--serif)!important;letter-spacing:-.02em}
+.canvaspane:has(.brief-view-root) .brief-monitor-row p,
+.canvaspane:has(.brief-view-root) .brief-watch-learning>p:not(.brief-extra-kicker){max-width:64ch;margin:4px 0 6px!important;color:var(--editorial-muted);font:400 12px/1.45 var(--sans)!important}
+.canvaspane:has(.brief-view-root) .brief-monitor-row a,
+.canvaspane:has(.brief-view-root) .brief-watch-learning a{font-size:11.5px!important}
+.canvaspane:has(.brief-view-root) .brief-view-cando>.drow summary{border-bottom:1px solid var(--editorial-rule)!important}
+
+/* Work: compact editorial sections and short, actionable rows. */
+.ia-work .task-masthead{padding-bottom:10px;border-bottom:0}
+.ia-work .task-masthead .task-kicker,
+.ia-work .task-masthead .task-coverage-note{display:none!important}
+.ia-work .task-masthead h1{font-size:clamp(26px,2.5vw,34px)!important}
+.ia-work .task-masthead-copy>p:not(.task-kicker):not(.task-coverage-note){max-width:62ch;margin:5px 0 0!important;color:var(--editorial-muted);font:400 12px/1.45 var(--sans)!important}
+.ia-work .task-work-main{gap:24px!important}
+.ia-work .task-work-main>section.panel>div:first-child:not(.task-list-row){padding:10px 12px!important;margin-bottom:0!important}
+.ia-work .task-work-main .task-list-row,.ia-work .task-work-main>section.panel>.row{padding:14px 2px!important}
+.ia-work .task-work-main .task-list-copy h3,.ia-work .task-work-main .task-row-title{font-size:clamp(18px,1.5vw,21px)!important;max-width:48ch}
+.ia-work .task-work-main .task-list-copy>.d,.ia-work .task-work-main>section.panel>.row small{font-size:11.5px!important;line-height:1.42!important}
+
+/* Campaigns: findings read as a lead and a concise list. */
+.ia-portfolio.mc-campaign-lens .ia-context-head{margin-bottom:14px}
+.ia-portfolio .mc-section-title{font-size:clamp(23px,2vw,29px)!important}
+.ia-portfolio .mc-section-intro{margin:2px 0 13px!important;max-width:65ch}
+.ia-portfolio .mc-finding{padding:16px 2px 17px}
+.ia-portfolio .mc-finding-copy h3{font-size:clamp(18px,1.65vw,22px);max-width:48ch;line-height:1.23}
+.ia-portfolio .mc-finding-context{margin-top:5px;max-width:65ch}
+.ia-portfolio .mc-finding-impact{font-size:13px;white-space:nowrap}
+.ia-portfolio .mc-finding-lower{margin-top:8px}
+.ia-portfolio .mc-resolved,.ia-portfolio .mc-win{padding:14px 17px 4px;background:#f8f6f3;border-left-width:2px}
+.ia-portfolio .mc-resolved .mc-section-title,.ia-portfolio .mc-win .mc-section-title{font-size:19px!important}
+.ia-portfolio .mc-directory-count{color:var(--editorial-muted);font-size:11px}
+.ia-campaign-detail .ia-campaign-section-head p,.ia-campaign-detail .ia-campaign-lead p{max-width:68ch}
+
+/* Strategy: summary first; source report is a deliberate second layer. */
+.mc-strategy>.mc-section-head:first-child .mc-strategy-intro{max-width:58ch}
+.mc-strategy .mc-section{margin-top:20px}
+.mc-strategy .mc-section h2{font-size:clamp(21px,2vw,25px)!important}
+.mc-strategy .mc-result-intro{max-width:68ch}
+.mc-strategy .mc-move-list li{padding-top:11px;padding-bottom:11px}
+.mc-strategy .mc-move-list strong{font-size:13px}
+.mc-strategy .mc-move-list span{font-size:11.5px}
+.mc-strategy .mc-callout{margin-top:19px}
+
+/* Routines and supporting pages: compact roster, one line of context. */
+.mr-head h1{font-size:clamp(32px,3vw,44px)}
+.mr-head p{font-size:12px}
+.mr-summary{margin-bottom:12px}
+.mr-routine>summary{min-height:62px;padding:9px 2px}
+.mr-name strong{font-size:12.5px}
+.mr-detail{padding-bottom:18px}
+.mojo-apps-page>h1{margin-bottom:4px}
+.mojo-apps-intro{margin-top:0;max-width:60ch}
+@media(max-width:700px){
+  .ia-portfolio .mc-finding-top{display:block}
+  .ia-portfolio .mc-finding-impact{display:block;margin-top:6px;text-align:left}
+  .canvaspane:has(.brief-view-root) .brief-watch-cadence{justify-self:start}
+}

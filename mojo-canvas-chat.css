@@ -1,0 +1,166 @@
+/* Chat occupies the left pane; navigation belongs to the canvas on the right. */
+.app .chatpane:has(.mc-chat-tools) .chatfoot > .modebar { display: none !important; }
+
+@media (min-width: 701px) {
+  #chatOn:checked ~ .app .work:has(> .panes > .chatpane) {
+    display: grid !important;
+    grid-template-columns: var(--mojo-chat-width, clamp(300px, 29vw, 390px)) minmax(0, 1fr) 0;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
+  }
+  #chatOn:checked ~ .app .work > .topbar { grid-column: 2 / 4; grid-row: 1; min-width: 0; }
+  #chatOn:checked ~ .app .work > .modulenav { grid-column: 2 / 4; grid-row: 2; min-width: 0; }
+  #chatOn:checked ~ .app .work > .panes { display: contents !important; }
+  #chatOn:checked ~ .app .work > .panes > .chatpane {
+    grid-column: 1; grid-row: 1 / 4;
+    display: flex !important; width: auto !important; min-width: 0; min-height: 0;
+    overflow: hidden; border-right: 1px solid #e7e3e6; background: #fff;
+  }
+  #chatOn:checked ~ .app .work > .panes > .canvaspane {
+    grid-column: 2; grid-row: 3; min-width: 0; min-height: 0;
+  }
+  #chatOn:checked ~ .app .work > .panes > :is(.sidebarpane, .aud-sidepane) {
+    grid-column: 3; grid-row: 3; min-width: 0;
+  }
+  #chatOn:checked ~ .app .work > .panes > .chatpane .chathead {
+    height: 55px !important; min-height: 55px !important;
+    padding: 0 20px !important; border-bottom: 1px solid #e9e5e7;
+    font: 600 14px/1 Inter, Arial, sans-serif !important;
+  }
+  #chatOn:checked ~ .app .work > .panes > .chatpane .chathead strong {
+    font: inherit !important;
+  }
+  #chatOn:checked ~ .app .work > .panes > .chatpane .chatbody { min-height: 0; }
+
+  #chatOn:checked ~ .app .work:has(> .home-tabs) {
+    display: grid !important;
+    grid-template-columns: var(--mojo-chat-width, clamp(300px, 29vw, 390px)) minmax(0, 1fr);
+    grid-template-rows: 55px 48px minmax(0, 1fr);
+    height: 100vh; min-height: 0; overflow: hidden;
+  }
+  #chatOn:checked ~ .app .work > .home-tabs { grid-column: 2; grid-row: 2; min-width: 0; }
+  #chatOn:checked ~ .app .work > .chatpane {
+    grid-column: 1; grid-row: 1 / 4; display: flex !important;
+    flex-direction: column; min-width: 0; min-height: 0;
+    border-right: 1px solid #e7e3e6; background: #fff;
+  }
+  #chatOn:checked ~ .app .work > .home-scroll {
+    grid-column: 2; grid-row: 3; min-height: 0; height: 100%; overflow-y: auto;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .chathead {
+    display: flex; align-items: center; flex: none; height: 55px;
+    padding: 0 20px; border-bottom: 1px solid #e9e5e7;
+    font: 600 14px/1 Inter, Arial, sans-serif;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .chatbody {
+    display: flex; flex: 1; flex-direction: column; gap: 16px;
+    min-height: 0; overflow-y: auto; padding: 22px 20px;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .chatfoot {
+    flex: none; padding: 16px; background: #fff;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .composer {
+    display: grid; grid-template-columns: minmax(0, 1fr) 34px;
+    grid-template-rows: minmax(56px, auto) 34px; gap: 6px;
+    padding: 13px; border: 1px solid #e0dbd7; border-radius: 15px;
+    background: #fff; box-shadow: 0 5px 18px #342b3615;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .composer textarea {
+    grid-column: 1 / -1; grid-row: 1; width: 100%; min-height: 56px;
+    resize: vertical; border: 0; outline: 0;
+    font: 400 13px/1.5 Inter, Arial, sans-serif;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .composer .mc-chat-composer-tools {
+    grid-column: 1; grid-row: 2; display: flex; align-items: center;
+    gap: 9px; color: #77717a; font: 400 10px/1 Inter, Arial, sans-serif;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .composer .chat-polish-send {
+    grid-column: 2; grid-row: 2; display: grid; place-items: center;
+    width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%;
+    background: #7438bd; color: #fff;
+  }
+  #chatOn:checked ~ .app .work > .chatpane .composer .chat-polish-send:disabled { background: #e8e4eb; color: #8c8491; }
+  #chatOn:checked ~ .app .work > .chatpane .composer .chat-polish-send svg { width: 16px; height: 16px; }
+}
+
+/* Portfolio keeps its pane toggles inside .app. Give that canvas the same
+   hierarchy as the other Campaigns pages when Chat is open. */
+@media (min-width: 701px) {
+  .app:has(> #chatOn:checked) .work:has(> .panes > .chatpane) {
+    display: grid !important;
+    grid-template-columns: var(--mojo-chat-width, clamp(300px, 29vw, 390px)) minmax(0, 1fr) 0;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
+  }
+  .app:has(> #chatOn:checked) .work > .topbar { grid-column: 2 / 4; grid-row: 1; min-width: 0; }
+  .app:has(> #chatOn:checked) .work > .modulenav { grid-column: 2 / 4; grid-row: 2; min-width: 0; }
+  .app:has(> #chatOn:checked) .work > .panes { display: contents !important; }
+  .app:has(> #chatOn:checked) .work > .panes > .chatpane {
+    grid-column: 1; grid-row: 1 / 4;
+    display: flex !important; width: auto !important; min-width: 0; min-height: 0;
+    overflow: hidden; border-right: 1px solid #e7e3e6; background: #fff;
+  }
+  .app:has(> #chatOn:checked) .work > .panes > .canvaspane {
+    grid-column: 2; grid-row: 3; min-width: 0; min-height: 0;
+  }
+  .app:has(> #chatOn:checked) .work > .panes > .chatpane .chathead {
+    height: 55px !important; min-height: 55px !important;
+    padding: 0 20px !important; border-bottom: 1px solid #e9e5e7;
+    font: 600 14px/1 Inter, Arial, sans-serif !important;
+  }
+  .app:has(> #chatOn:checked) .work > .panes > .chatpane .chathead strong { font: inherit !important; }
+  .app:has(> #chatOn:checked) .work > .panes > .chatpane .chatbody { min-height: 0; }
+
+  .app:has(> #chatOn:checked):has(> #sidebarOn:checked) .work {
+    grid-template-columns: var(--mojo-chat-width, clamp(300px, 29vw, 390px)) minmax(0, 1fr) 320px;
+  }
+  .app:has(> #chatOn:checked):has(> #sidebarOn:checked) .work > :is(.topbar, .modulenav) { grid-column: 2; }
+  .app:has(> #chatOn:checked):has(> #sidebarOn:checked) .work > .panes > .sidebarpane {
+    display: block !important; grid-column: 3; grid-row: 1 / 4;
+    width: auto !important; min-width: 0; min-height: 0; overflow-y: auto;
+  }
+}
+
+/* The right pane claims a column of the workspace, including the header rows. */
+@media (min-width: 701px) {
+  #sidebarOn:checked ~ .app .work:has(> .panes > :is(.sidebarpane, .aud-sidepane)) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
+  }
+  #sidebarOn:checked ~ .app .work > :is(.topbar, .modulenav) { grid-column: 1; min-width: 0; }
+  #sidebarOn:checked ~ .app .work > .topbar { grid-row: 1; }
+  #sidebarOn:checked ~ .app .work > .modulenav { grid-row: 2; }
+  #sidebarOn:checked ~ .app .work > .panes { display: contents !important; }
+  #sidebarOn:checked ~ .app .work > .panes > .canvaspane { grid-column: 1; grid-row: 3; min-width: 0; min-height: 0; }
+  #sidebarOn:checked ~ .app .work > .panes > :is(.sidebarpane, .aud-sidepane) {
+    display: block !important; grid-column: 2; grid-row: 1 / 4;
+    width: auto !important; min-width: 0; min-height: 0; overflow-y: auto;
+  }
+  #chatOn:checked ~ #sidebarOn:checked ~ .app .work:has(> .panes > .chatpane) {
+    grid-template-columns: var(--mojo-chat-width, clamp(300px, 29vw, 390px)) minmax(0, 1fr) 320px;
+  }
+  #chatOn:checked ~ #sidebarOn:checked ~ .app .work > :is(.topbar, .modulenav) { grid-column: 2; }
+  #chatOn:checked ~ #sidebarOn:checked ~ .app .work > .panes > .chatpane { grid-column: 1; grid-row: 1 / 4; }
+  #chatOn:checked ~ #sidebarOn:checked ~ .app .work > .panes > .canvaspane { grid-column: 2; }
+  #chatOn:checked ~ #sidebarOn:checked ~ .app .work > .panes > :is(.sidebarpane, .aud-sidepane) { grid-column: 3; }
+}
+
+/* Let the conversation fade gently into a cool tint behind the composer. */
+.app .work .chatpane{background:linear-gradient(180deg,#fff 0%,#fcfdff 52%,#eef4f9 100%)!important}
+.app .work .chatpane .chatbody,.app .work .chatpane .chatfoot{background:transparent!important}
+.app.mojo-chat-contextual .chatpane .chatbody > :is(.mc-chat-prompts,.bubble.chat-polish-assistant){display:none!important}
+@media (min-width:701px){
+  #chatOn:checked ~ .app .work > .panes > .chatpane,
+  .app:has(> #chatOn:checked) .work > .panes > .chatpane,
+  #chatOn:checked ~ .app .work > .chatpane{
+    position:relative;
+    z-index:2;
+    overflow:visible;
+    box-shadow:5px 0 13px rgba(47,33,59,.08);
+  }
+}

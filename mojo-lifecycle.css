@@ -1,0 +1,238 @@
+.mojo-lifecycle-app{min-height:0}
+.mojo-lifecycle-app .topbar{height:56px}
+.mojo-lifecycle-app .wtitle{font-weight:650;color:#302a35}
+.mojo-lifecycle-app .canvaspane{padding:32px clamp(24px,4vw,56px) 70px;background:#fff}
+.mojo-lifecycle-app .modulenav{overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.mojo-lifecycle-app .modulenav::-webkit-scrollbar{display:none}
+.mojo-lifecycle-app .paneToggles{display:flex;align-items:center;gap:2px;margin-left:auto}
+.mojo-lifecycle-app .paneToggles label.mojo-lifecycle-canvas-label{cursor:default}
+.ml-wrap{max-width:1050px;margin:0 auto}
+.ml-title{display:flex;align-items:baseline;justify-content:space-between;gap:18px;margin-bottom:9px}
+.ml-title h1{margin:0;color:#29242d;font:500 clamp(22px,2.4vw,25px)/1.2 Lora,Georgia,serif}
+.ml-title span{color:#786e80;font:600 12px/1.3 Inter,Arial,sans-serif}
+.ml-lede{margin:0 0 22px;color:#6b6470;font:400 14px/1.5 Inter,Arial,sans-serif}
+.ml-build-filters{display:flex;align-items:center;margin:0 0 30px}
+.ml-build-scope{position:relative;z-index:20}
+.ml-build-scope summary{box-sizing:border-box;display:flex;align-items:center;gap:9px;min-height:37px;max-width:min(100%,500px);padding:0 12px;border:1px solid #e4dbea;border-radius:9px;background:#fff;color:#3b2e50;box-shadow:0 1px 2px #30243b06;list-style:none;cursor:pointer}
+.ml-build-scope summary::-webkit-details-marker{display:none}
+.ml-build-scope summary>span:first-child{color:#82758d;font:700 10px/1 Inter,Arial,sans-serif;letter-spacing:.08em}
+.ml-build-scope summary strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:650 12px/1 Inter,Arial,sans-serif}
+.ml-build-scope-chevron{display:block;flex:none;width:14px;height:14px;margin-left:auto;fill:none;stroke:#7e6c8b;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.ml-build-scope[open] .ml-build-scope-chevron{transform:rotate(180deg)}
+.ml-build-scope[open] summary{border-color:#bd9edb;background:#fcf9ff}
+.ml-build-scope-menu{position:absolute;top:calc(100% + 7px);left:0;z-index:30;width:min(390px,calc(100vw - 48px));padding:12px;border:1px solid #e5ddeb;border-radius:14px;background:#fff;box-shadow:0 14px 34px #30243b20}
+.ml-build-scope-group{display:flex;flex-wrap:wrap;gap:6px;padding:4px 0 12px}
+.ml-build-scope-group+.ml-build-scope-group{padding-top:12px;padding-bottom:3px;border-top:1px solid #eee8f1}
+.ml-build-scope-group>b{flex:0 0 100%;margin:0 0 5px;color:#84788c;font:700 10px/1 Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.ml-build-scope-group button{min-height:30px;padding:6px 10px;border:1px solid #e5dcec;border-radius:999px;background:#fff;color:#625a68;font:650 11px/1 Inter,Arial,sans-serif;cursor:pointer}
+.ml-build-scope-group button[aria-pressed="true"]{border-color:#bf9ddd;background:#f2ebf9;color:#624192}
+.ml-build-initiative-options{display:flex;flex-wrap:wrap;gap:6px}
+.ml-build-filters :focus-visible{outline:2px solid #7147b8;outline-offset:2px}
+.ml-build-list{width:100%;border:1px solid #e8e1e9;border-radius:18px;background:#fff;box-shadow:0 2px 3px #2c243006,0 9px 28px #2c243008;overflow:hidden}
+.ml-build-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:18px;min-width:0;padding:19px 22px;border-bottom:1px solid #eee8ee;transition:background .18s ease}
+.ml-build-row:last-child{border-bottom:0}
+.ml-build-row:hover{background:#fcfafd}
+.ml-build-row[hidden]{display:none!important}
+.ml-build-row-icon{display:flex;align-items:flex-start;justify-content:center;align-self:start;padding-top:3px}
+.ml-build-row-icon img{display:block;width:25px;height:25px;object-fit:contain;border-radius:50%}
+.ml-build-row-main{min-width:0}
+.ml-build-row-meta{display:flex;align-items:center;gap:9px;margin-bottom:8px;color:#817887;font:500 11px/1.2 Inter,Arial,sans-serif}
+.ml-build-row-meta .ml-area{padding:3px 7px;border-radius:99px;background:#f3eff8;color:#684796;font:700 10px/1.2 Inter,Arial,sans-serif;text-transform:uppercase}
+.ml-build-row h3{margin:0 0 6px;color:#2c2730;font:700 16px/1.3 Inter,Arial,sans-serif;letter-spacing:-.015em}
+.ml-build-row p{margin:0;color:#6b6470;font:400 13px/1.45 Inter,Arial,sans-serif}
+.ml-build-row-stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ml-build-row-stats span{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid #eee7ef;border-radius:99px;background:#fbf9fc;color:#635b69;font:600 10px/1.2 Inter,Arial,sans-serif}
+.ml-build-row-actions{display:flex;align-items:center;justify-content:flex-end;gap:18px;min-width:220px}
+.ml-build-row-actions button{padding:4px 0;border:0;background:none;color:#6b6470;font:650 12px/1.3 Inter,Arial,sans-serif;cursor:pointer;white-space:nowrap}
+.ml-build-row-actions button.ml-primary{color:#5d3b96;font-weight:700}
+.ml-build-row-actions button:hover{text-decoration:underline;text-underline-offset:3px}
+.ml-build-empty{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px;color:#817887;font:400 13px/1.45 Inter,Arial,sans-serif}
+.ml-build-empty .ml-text-button{font:650 12px/1.3 Inter,Arial,sans-serif}
+.ml-wrap:has(.ml-build-filters) .ml-section{margin-bottom:30px}
+.ml-wrap:has(.ml-build-filters) .ml-toolbar{margin-bottom:12px}
+.ml-wrap:has(.ml-build-filters) .ml-toolbar>div{display:flex;align-items:baseline;gap:9px}
+.ml-wrap:has(.ml-build-filters) .ml-toolbar h2{margin:0;color:#39303f;font:600 21px/1.2 Lora,Georgia,serif}
+.ml-section-count{display:inline-flex;min-width:19px;height:19px;align-items:center;justify-content:center;border-radius:99px;background:#f2ecf8;color:#684796;font:700 11px/1 Inter,Arial,sans-serif}
+@media(max-width:720px){.ml-build-row{grid-template-columns:24px minmax(0,1fr);gap:12px;padding:18px}.ml-build-row-actions{grid-column:2;justify-content:flex-start;min-width:0;flex-wrap:wrap}.ml-build-empty{align-items:flex-start;flex-direction:column;gap:8px}}
+.ml-section-tabs{display:inline-flex;max-width:100%;gap:3px;margin:0 0 25px;padding:4px;border:1px solid #e9e2ea;border-radius:999px;background:#faf8fa;overflow-x:auto;scrollbar-width:none}
+.ml-section-tabs button{flex:none;padding:9px 15px;border:0;border-radius:999px;background:transparent;color:#726a78;font:650 12px/1 Inter,Arial,sans-serif;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s}
+.ml-section-tabs button[aria-selected="true"]{background:#fff;color:#5f3c91;box-shadow:0 1px 6px #36294218}
+.ml-section-tabs button:hover{color:#5f3c91}
+.ml-section[hidden]{display:none}
+.ml-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}
+.ml-toolbar h2{margin:0 0 5px;color:#3f3545;font:600 21px/1.2 Lora,Georgia,serif}
+.ml-toolbar p{margin:0;color:#786e80;font:400 12px/1.35 Inter,Arial,sans-serif}
+.ml-toolbar button,.ml-card button,.ml-card a{font:650 12px/1.25 Inter,Arial,sans-serif}
+.ml-text-button{padding:5px 0;border:0;background:transparent;color:#65449b;cursor:pointer}
+.ml-list{display:grid;gap:14px;max-width:700px}
+.ml-card{box-sizing:border-box;min-width:0;padding:21px 23px 0;border:1px solid #e8e1d8;border-radius:19px;background:#fff;box-shadow:0 2px 3px #2c243008,0 9px 28px #2c24300b}
+.ml-card-top{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.ml-card-top .ml-area{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#f3eff8;color:#684796;font:700 10px/1.2 Inter,Arial,sans-serif;text-transform:uppercase}
+.ml-card-top .ml-source{color:#77717b;font:500 12px/1.2 Inter,Arial,sans-serif}
+.ml-card h3{margin:0 0 9px;color:#2c2730;font:700 clamp(18px,2.3vw,22px)/1.23 Inter,Arial,sans-serif;letter-spacing:-.025em}
+.ml-card p{max-width:70ch;margin:0;color:#5c5660;font:400 14px/1.5 Inter,Arial,sans-serif}
+.ml-signal-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.ml-signal-row span{display:inline-flex;align-items:center;padding:7px 10px;border:1px solid #eee8e0;border-radius:999px;background:#fbf9f6;color:#5c5660;font:550 11px/1.2 Inter,Arial,sans-serif}
+.ml-card-footer{display:flex;align-items:center;gap:18px;min-height:55px;margin-top:14px;padding:12px 0;border-top:1px solid #eee9e2}
+.ml-card-footer button{border:0;background:none;padding:4px 0;color:#69636e;font:650 12px/1.2 Inter,Arial,sans-serif;cursor:pointer}
+.ml-card-footer button:hover,.ml-text-button:hover{text-decoration:underline;text-underline-offset:3px}
+.ml-card-footer button.ml-primary{color:#5d3b96;font-weight:700}
+.ml-card-footer .ml-arrow{margin-left:2px}
+.ml-empty{max-width:560px;padding:33px;border:1px dashed #d9cce4;border-radius:18px;background:#faf8fc;text-align:center}
+.ml-empty h2{margin:0 0 8px;font:500 24px Lora,Georgia,serif}
+.ml-empty p{margin:0 0 15px;color:#6e6570;font:400 13px/1.5 Inter,Arial,sans-serif}
+.ml-chat-card{margin:14px 0;padding:17px;border:1px solid #e7dfec;border-radius:14px;background:#fbf9fc;color:#3a323e;font-family:Inter,Arial,sans-serif}
+.ml-chat-card h2{margin:0 0 8px;font:650 15px/1.35 Inter,Arial,sans-serif}
+.ml-chat-card small{display:block;margin-bottom:8px;color:#76559f;font:700 10px/1.2 Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.ml-chat-evidence{display:grid;grid-template-columns:minmax(92px,auto) 1fr;gap:9px;margin:12px 0;padding:10px 12px;border-radius:9px;background:#f5f0f8;font:500 12px/1.35 Inter,Arial,sans-serif}
+.ml-chat-evidence b{color:#65439b}
+.ml-chat-source{margin-top:13px!important}
+.ml-chat-card p{margin:0 0 12px;font:400 13px/1.5 Inter,Arial,sans-serif}
+.ml-chat-card ul{margin:0 0 14px;padding-left:18px;font:400 12px/1.6 Inter,Arial,sans-serif}
+.ml-chat-card .ml-chat-actions{display:flex;gap:7px;flex-wrap:wrap}
+.ml-chat-card button{padding:8px 11px;border:1px solid #ddcfe9;border-radius:999px;background:#fff;color:#63418f;font:650 11px/1 Inter,Arial,sans-serif;cursor:pointer}
+.ml-chat-card button:hover{background:#f2ecf8}
+.ml-chat-qa{margin:15px 0;padding:14px 0;border-top:1px solid #e9e3df;border-bottom:1px solid #e9e3df;background:#fff}
+.ml-chat-qa strong{display:block;margin-bottom:5px;color:#332d36;font:650 13px/1.4 Inter,Arial,sans-serif}
+.ml-chat-qa p{margin:0 0 11px;color:#645b67;font:400 12px/1.5 Inter,Arial,sans-serif}
+.ml-chat-qa button[data-qa-approve]{padding:10px 14px;border:0;background:#67419d;color:#fff;font-size:12px}
+.ml-chat-qa button[data-qa-approve]:hover{background:#56348a}
+.ml-chat-card a{color:#63418f;font:650 11px/1.4 Inter,Arial,sans-serif}
+@media(max-width:760px){.mojo-lifecycle-app .canvaspane{padding:24px 16px 50px}.ml-title{align-items:start;flex-direction:column;gap:4px}.ml-card{padding:18px 16px 0}}
+
+/* Campaign recommendations read as compact blueprints, with the same card language as Feed. */
+.mojo-lifecycle-app .ml-build-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.mojo-lifecycle-app .ml-build-row{display:flex;flex-direction:column;align-items:stretch;gap:0;min-width:0;padding:18px 20px 0;border:1px solid #e8e1d8;border-radius:18px;background:#fff;box-shadow:0 2px 3px #2c243008,0 9px 28px #2c24300b}
+.mojo-lifecycle-app .ml-build-row:hover{background:#fff;border-color:#d7c5e6;box-shadow:0 4px 10px #2c24300a,0 14px 30px #2c243012}
+.ml-build-row-head{display:flex;align-items:center;gap:8px;min-height:28px;margin-bottom:13px}
+.ml-build-row-head .ml-build-row-icon{align-self:auto;padding:0}
+.ml-build-row-head .ml-build-row-icon img{width:22px;height:22px}
+.ml-build-channel{color:#6d6173;font:600 11px/1.25 Inter,Arial,sans-serif}
+.ml-build-row-head .ml-area{padding:4px 8px;border-radius:999px;background:#f2ebf8;color:#684796;font:700 10px/1 Inter,Arial,sans-serif;text-transform:uppercase}
+.ml-build-stage{margin-left:auto;color:#85788b;font:600 10px/1.2 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-row h3{font:650 17px/1.3 Inter,Arial,sans-serif;letter-spacing:-.02em}
+.mojo-lifecycle-app .ml-build-row p{min-height:38px;font-size:12px;line-height:1.45}
+.ml-build-blueprint{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:15px 0 16px;border:1px solid #eae3ed;border-radius:11px;background:#fbfafc;overflow:hidden}
+.ml-build-blueprint>div{min-width:0;min-height:58px;padding:11px 12px;border-right:1px solid #eae3ed;border-bottom:1px solid #eae3ed}
+.ml-build-blueprint>div:nth-child(even){border-right:0}
+.ml-build-blueprint>div:nth-last-child(-n+2){border-bottom:0}
+.ml-build-blueprint span,.ml-build-blueprint strong{display:block;overflow-wrap:anywhere}
+.ml-build-blueprint span{margin-bottom:4px;color:#867b8a;font:650 10px/1.2 Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.ml-build-blueprint strong{color:#443b4a;font:600 12px/1.35 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-row-actions{justify-content:flex-start;gap:18px;min-width:0;min-height:52px;margin-top:auto;padding:11px 0;border-top:1px solid #eee9e2}
+.mojo-lifecycle-app .ml-build-row-actions button{font-size:12px}
+.mojo-lifecycle-app .ml-build-row-actions button:last-child{color:#716875}
+.mojo-lifecycle-app .ml-build-empty{grid-column:1/-1;border:1px solid #e8e1e9;border-radius:14px}
+@media(max-width:760px){.mojo-lifecycle-app .ml-build-list{grid-template-columns:1fr}}
+
+/* Build scope contains initiative filters only. */
+.ml-build-scope-menu{width:min(290px,calc(100vw - 48px));padding:12px}
+.ml-build-scope-menu .ml-build-scope-group{padding:0}
+
+/* Build keeps ideas light. A saved draft reveals the working blueprint. */
+.mojo-lifecycle-app .ml-build-list{display:block;border:0;border-radius:0;background:#fff;box-shadow:none;overflow:visible}
+.mojo-lifecycle-app .ml-build-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px;padding:20px 2px;border:0;border-bottom:1px solid #e9e4e9;border-radius:0;background:#fff;box-shadow:none}
+.mojo-lifecycle-app .ml-build-row:hover{border-color:#e9e4e9;background:#fff;box-shadow:none}
+.mojo-lifecycle-app .ml-build-row:last-child{border-bottom:0}
+.mojo-lifecycle-app .ml-build-row-head{gap:9px;min-height:0;margin:0 0 7px}
+.mojo-lifecycle-app .ml-build-row-head .ml-area{padding:0;border:0;border-radius:0;background:none;color:#76549d;font:700 10px/1.2 Inter,Arial,sans-serif;letter-spacing:.06em}
+.mojo-lifecycle-app .ml-build-channel{display:flex;align-items:center;gap:5px}
+.mojo-lifecycle-app .ml-build-channel img{width:16px;height:16px;object-fit:contain}
+.mojo-lifecycle-app .ml-build-stage{margin-left:0;color:#918994;font:500 11px/1.2 Inter,Arial,sans-serif}
+.ml-build-recommendation{color:#6b4c9b;font:600 10px/1.2 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-row h3{margin:0 0 5px;color:#332c38;font:600 17px/1.3 Inter,Arial,sans-serif;letter-spacing:-.012em}
+.mojo-lifecycle-app .ml-build-row p{min-height:0;color:#77717a;font:400 12px/1.45 Inter,Arial,sans-serif}
+.ml-build-row-side{display:flex;align-items:center;gap:20px}
+.ml-build-creatives{display:flex;align-items:center;gap:5px}
+.ml-build-creatives img{width:46px;height:32px;border-radius:4px;object-fit:cover}
+.ml-build-budget{min-width:84px}
+.ml-build-budget span{display:block;color:#918994;font:500 10px/1.2 Inter,Arial,sans-serif}
+.ml-build-budget strong{display:block;color:#3c3343;font:500 17px/1.25 Lora,Georgia,serif}
+.mojo-lifecycle-app .ml-build-row-actions{display:flex;justify-content:flex-end;gap:13px;min-width:0;min-height:0;margin:0;padding:0;border:0}
+.mojo-lifecycle-app .ml-build-row-actions button{font:600 11px/1.25 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-draft{align-items:start}
+.mojo-lifecycle-app .ml-build-draft .ml-build-row-side{padding-top:18px}
+.mojo-lifecycle-app .ml-build-blueprint{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin:17px 0 0;border:0;border-top:1px solid #eee9ef;border-radius:0;background:none;overflow:visible}
+.mojo-lifecycle-app .ml-build-blueprint>div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:8px;min-height:0;padding:10px 0;border:0;border-bottom:1px solid #f1eef2}
+.mojo-lifecycle-app .ml-build-blueprint dt{color:#8b828f;font:600 10px/1.3 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-blueprint dd{margin:0;color:#4d4652;font:500 11px/1.4 Inter,Arial,sans-serif;overflow-wrap:anywhere}
+@media(max-width:900px){.mojo-lifecycle-app .ml-build-row{grid-template-columns:1fr;gap:12px}.ml-build-row-side{justify-content:space-between}.mojo-lifecycle-app .ml-build-row-actions{margin-left:auto}}
+@media(max-width:600px){.mojo-lifecycle-app .ml-build-blueprint{grid-template-columns:1fr}.ml-build-row-side{flex-wrap:wrap}.mojo-lifecycle-app .ml-build-row-actions{width:100%;justify-content:flex-start;margin:0}}
+
+/* Group recommendations by initiative so the list stays easy to scan. */
+.ml-build-group-title{display:flex;align-items:baseline;gap:12px;padding:30px 2px 8px}
+.ml-build-group-title:first-child{padding-top:3px}
+.ml-build-group-title[hidden]{display:none}
+.ml-build-group-title h3{margin:0;color:#3a3140;font:500 20px/1.25 Lora,Georgia,serif}
+.ml-build-group-title span{color:#938994;font:500 11px/1.3 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-row{padding:21px 2px 23px}
+.mojo-lifecycle-app .ml-build-row-head{margin-bottom:8px}
+.mojo-lifecycle-app .ml-build-recommended .ml-area{display:none}
+.mojo-lifecycle-app .ml-build-recommended h3{font-size:18px;font-weight:650;line-height:1.28}
+.mojo-lifecycle-app .ml-build-recommended p{font-size:13px;line-height:1.45}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-row-actions button{font-size:12px}
+.mojo-lifecycle-app .ml-build-budget strong{font-size:18px}
+
+/* Build section tools */
+.ml-wrap:has(.ml-build-filters) .ml-toolbar{align-items:center;margin-bottom:4px}
+.ml-wrap:has(.ml-build-filters) .ml-build-filters{margin:0}
+.ml-wrap:has(.ml-build-filters) .ml-build-scope summary{min-height:34px}
+.ml-wrap:has(.ml-build-filters) .ml-toolbar h2{font-size:23px}
+.ml-wrap:has(.ml-build-filters) .ml-section{scroll-margin-top:90px}
+@media(max-width:720px){.ml-wrap:has(.ml-build-filters) .ml-toolbar{align-items:flex-start;flex-wrap:wrap}}
+
+/* Respond to the canvas width when chat is open, not only the viewport. */
+#lifecycle-content{container-type:inline-size}
+@container (max-width:780px){
+ .mojo-lifecycle-app .ml-build-row{grid-template-columns:1fr;gap:11px}
+ .ml-build-row-side{justify-content:flex-start;flex-wrap:wrap;gap:14px}
+ .ml-build-budget{margin-left:auto}
+ .mojo-lifecycle-app .ml-build-row-actions{flex:0 0 100%;justify-content:flex-start;margin:0}
+ .ml-build-creatives img{width:52px;height:36px}
+}
+
+.ml-chat-support{margin:12px 0 15px;border-top:1px solid #ebe6ee;border-bottom:1px solid #ebe6ee}
+.ml-chat-support summary{padding:10px 0;color:#624393;font:650 11px/1.35 Inter,Arial,sans-serif;cursor:pointer}
+.ml-chat-support p{padding:0 0 5px}
+.ml-chat-support ul{margin:5px 0 12px!important}
+
+/* Channel marks belong with the campaign name, as in Plan. */
+.mojo-lifecycle-app .ml-build-row h3{display:block}
+.ml-build-title-channels{display:inline-flex;align-items:center;gap:4px;margin-left:9px;vertical-align:middle;white-space:nowrap}
+.ml-build-title-channels img{display:block;width:16px;height:16px;object-fit:contain}
+.mojo-lifecycle-app .ml-build-recommendation{display:inline-block;margin-left:8px;vertical-align:middle}
+.ml-build-blueprint-channels{display:flex;align-items:center;gap:6px}
+.ml-build-blueprint-channels img{width:17px;height:17px;object-fit:contain}
+/* Saved plans stay scannable; the full blueprint is available on demand. */
+.mojo-lifecycle-app .ml-build-draft{align-items:center;padding:15px 2px 17px}
+.mojo-lifecycle-app .ml-build-draft .ml-build-row-head{margin-bottom:4px}
+.mojo-lifecycle-app .ml-build-draft .ml-build-row-side{padding-top:0}
+.ml-build-blueprint-details{margin-top:8px}
+.ml-build-blueprint-details summary{display:inline-flex;align-items:center;gap:5px;width:max-content;color:#674997;font:650 11px/1.35 Inter,Arial,sans-serif;list-style:none;cursor:pointer}
+.ml-build-blueprint-details summary::-webkit-details-marker{display:none}
+.ml-build-blueprint-details summary::after{content:'⌄';font-size:15px;line-height:1;transition:transform .15s ease}
+.ml-build-blueprint-details[open] summary::after{transform:rotate(180deg)}
+.mojo-lifecycle-app .ml-build-blueprint-details .ml-build-blueprint{max-width:690px;margin:10px 0 0}
+@container (max-width:780px){.mojo-lifecycle-app .ml-build-draft{align-items:stretch}}
+
+/* Keep work in progress first and let marketers open one initiative at a time. */
+.mojo-lifecycle-app .ml-section[data-source-section="draft"]{margin-bottom:24px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-empty{padding:15px 18px;border:0;border-radius:10px;background:#f7f5f1}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft{padding:17px 0}
+.mojo-lifecycle-app .ml-section[data-source-section="qa"],
+.mojo-lifecycle-app .ml-section[data-source-section="ready"]{margin-bottom:19px}
+.mojo-lifecycle-app .ml-stage-empty{margin:0;padding:11px 0;border:0;background:transparent;color:#786f78;font:400 12px/1.45 Inter,Arial,sans-serif}
+.ml-build-group{border-bottom:1px solid #e8e3dd}
+.ml-build-group:last-child{border-bottom:0}
+.ml-build-group>summary{display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 2px;list-style:none;cursor:pointer}
+.ml-build-group>summary::-webkit-details-marker{display:none}
+.ml-build-group>summary:focus-visible{outline:2px solid #67419d;outline-offset:2px;border-radius:4px}
+.ml-build-group-name{color:#342c38;font:500 19px/1.25 Lora,Georgia,serif}
+.ml-build-group-count{color:#837b85;font:500 11px/1.3 Inter,Arial,sans-serif}
+.ml-build-group>summary svg{width:16px;height:16px;margin-left:auto;fill:none;stroke:#756b78;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s ease}
+.ml-build-group[open]>summary svg{transform:rotate(180deg)}
+.ml-build-group[open]>summary{border-bottom:1px solid #eee9e4}
+.ml-build-group .ml-build-row:last-child{border-bottom:0}
+.ml-build-group-list{padding:0 0 6px 16px}
+.mojo-lifecycle-app .ml-build-group .ml-build-row{padding:17px 2px}
+@container (max-width:780px){.ml-build-group-list{padding-left:0}}

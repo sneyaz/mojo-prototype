@@ -1,0 +1,18 @@
+/* Routine facts read as rows; decisions keep their visual boundary. */
+.ia-metrics{border:0;border-radius:0;border-bottom:1px solid #e7e2e9;margin:20px 0 24px}
+.ia-metrics>div{padding:8px 22px 17px 0;border-right:0}
+.ia-metrics>div+div{padding-left:22px;border-left:1px solid #e7e2e9}
+.ia-metrics strong .mojo-count{font:inherit;color:inherit}
+.ia-bars{border:0;border-radius:0;background:transparent;padding:0;margin:16px 0 30px;gap:0}
+.ia-bars>div{padding:13px 0;border-bottom:1px solid #ebe7ed}
+.ia-bars>div:first-child{border-top:1px solid #ebe7ed}
+.ia-creative-baseline{border:0;border-top:1px solid #e7e2e9;border-bottom:1px solid #e7e2e9;border-radius:0;background:transparent;padding:17px 0}
+.mp-page .mp-grid:not(.mp-options):not(.mp-guide) .mp-tile{border:0;border-right:1px solid #e5e0e9;border-radius:0;background:transparent;padding:4px 18px 8px 0}
+.mp-page .mp-grid:not(.mp-options):not(.mp-guide) .mp-tile+.mp-tile{padding-left:18px}
+.mp-page .mp-grid:not(.mp-options):not(.mp-guide) .mp-tile:last-child{border-right:0}
+.trust-canvas .mp-section>.mp-eyebrow{display:none}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .brief-source-mark{border:0;background:transparent}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox:first-child .rt>div::before{border:0!important;background-color:transparent!important}
+.canvaspane .brief-scope-scan-row .brief-scan-summary::before{display:none}
+.ia-sectionhead.no-kicker h2{margin-top:0}
+@media(max-width:560px){.ia-metrics>div,.ia-metrics>div+div{padding:12px 0;border-left:0;border-bottom:1px solid #e7e2e9}.ia-metrics>div:last-child{border-bottom:0}.mp-page .mp-grid:not(.mp-options):not(.mp-guide) .mp-tile,.mp-page .mp-grid:not(.mp-options):not(.mp-guide) .mp-tile+.mp-tile{padding:10px 0;border-right:0;border-bottom:1px solid #e5e0e9}}

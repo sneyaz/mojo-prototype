@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">Acme Co display ad: Every buyer, one flow</title>
+  <desc id="desc">Pale lilac artwork with a simple connected buying group illustration.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f7f2ff"/><stop offset="1" stop-color="#ded5ee"/></linearGradient></defs>
+  <rect width="640" height="400" rx="18" fill="url(#bg)"/>
+  <circle cx="549" cy="35" r="155" fill="#fff" opacity=".4"/>
+  <text x="40" y="54" fill="#4b3476" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="-1">Acme Co</text>
+  <text x="40" y="142" fill="#281f37" font-family="Georgia,serif" font-size="44">Every buyer.</text>
+  <text x="40" y="193" fill="#281f37" font-family="Georgia,serif" font-size="44">One flow.</text>
+  <text x="40" y="238" fill="#62546f" font-family="Arial,sans-serif" font-size="18">Keep the whole buying group moving.</text>
+  <path d="M420 290l65-84 75 51-65 75z" fill="none" stroke="#7958ac" stroke-width="3" opacity=".7"/>
+  <circle cx="420" cy="290" r="21" fill="#664299"/><circle cx="485" cy="206" r="21" fill="#a789cf"/><circle cx="560" cy="257" r="21" fill="#664299"/><circle cx="495" cy="332" r="21" fill="#a789cf"/>
+  <circle cx="420" cy="284" r="5" fill="#fff"/><path d="M410 298c2-8 18-8 20 0" fill="none" stroke="#fff" stroke-width="3"/>
+  <circle cx="485" cy="200" r="5" fill="#fff"/><path d="M475 214c2-8 18-8 20 0" fill="none" stroke="#fff" stroke-width="3"/>
+  <circle cx="560" cy="251" r="5" fill="#fff"/><path d="M550 265c2-8 18-8 20 0" fill="none" stroke="#fff" stroke-width="3"/>
+  <rect x="40" y="295" width="142" height="45" rx="9" fill="#65439c"/>
+  <text x="62" y="324" fill="#fff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Explore  →</text>
+</svg>

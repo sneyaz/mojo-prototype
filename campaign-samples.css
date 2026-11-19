@@ -1,0 +1,12 @@
+
+.ia-campaign-sample-overview,.ia-campaign-sample-delivery{margin:22px 0;padding:18px;border:1px solid #e4dfe8;border-radius:8px;background:#faf9fb}
+.ia-campaign-sample-overview .ia-campaign-section-head,.ia-campaign-sample-delivery .ia-campaign-section-head{margin-bottom:12px}
+.ia-campaign-sample-overview .ia-campaign-section-head h3,.ia-campaign-sample-delivery .ia-campaign-section-head h3{margin:0;font:400 22px/1.2 var(--serif)}
+.ia-sample-creative-list{border-top:1px solid #e1dce5;margin:18px 0}
+.ia-sample-creative{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;border-bottom:1px solid #e1dce5}
+.ia-sample-creative strong,.ia-sample-creative small{display:block}.ia-sample-creative small{margin-top:4px;color:#77717c}
+.ia-sample-creative dl{display:flex;gap:25px;margin:0}.ia-sample-creative dt{color:#77717c;font-size:11px}.ia-sample-creative dd{margin:4px 0 0;font-weight:650}
+.ia-campaign-sample-tasks{margin:22px 0;padding:18px 0;border-top:1px solid #e1dce5;border-bottom:1px solid #e1dce5}
+.ia-campaign-sample-tasks h3{margin:0 0 12px;font:400 23px/1.2 var(--serif)}
+.ia-campaign-sample-tasks ol{margin:0;padding-left:22px;line-height:1.9}
+@media(max-width:700px){.ia-sample-creative{display:block}.ia-sample-creative dl{margin-top:14px;gap:16px;flex-wrap:wrap}}

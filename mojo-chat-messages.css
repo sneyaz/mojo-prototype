@@ -1,0 +1,70 @@
+/* One message treatment for the companion and every page's chat pane. */
+:is(#mojo-panel-views .mojo-fish-chat-reply,
+  .app .chatbody > .bubble,
+  .app .chatbody > .chat-polish-assistant,
+  .app .chatbody > .mc-chat-ack,
+  .app .chatbody > .task-chat-message:not(.task-chat-you),
+  .aud-app-body .chatbody > .aud-chat-bubble:not(.is-user)) {
+  align-self: stretch !important;
+  box-sizing: border-box;
+  max-width: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #4b4650 !important;
+  font: 400 14px/1.55 Inter, Arial, sans-serif !important;
+}
+
+:is(#mojo-panel-views .mojo-fish-chat-user,
+  .app .chatbody > .chat-polish-user,
+  .app .chatbody > .task-chat-message.task-chat-you,
+  .aud-app-body .chatbody > .aud-chat-bubble.is-user) {
+  align-self: flex-end !important;
+  box-sizing: border-box;
+  max-width: 90% !important;
+  padding: 12px 14px !important;
+  border: 0 !important;
+  border-radius: 16px 16px 5px 16px !important;
+  background: #f1ece6 !important;
+  box-shadow: none !important;
+  color: #29262d !important;
+  font: 400 14px/1.5 Inter, Arial, sans-serif !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+:is(#mojo-panel-views .mojo-fish-chat-log,
+  .app .chatbody,
+  .aud-app-body .chatbody) > :is(.mojo-fish-chat-reply, .mojo-fish-chat-user, .bubble, .chat-polish-assistant, .mc-chat-ack, .chat-polish-user, .task-chat-message, .aud-chat-bubble) p {
+  margin: 0;
+  line-height: inherit;
+}
+
+/* Small speaker cue on Mojo's chat turns, including guided planning replies. */
+:is(#mojo-panel-views .mojo-fish-chat-reply,
+  .app .chatbody > .bubble,
+  .app .chatbody > .mc-chat-ack,
+  .app .chatbody > .task-chat-message:not(.task-chat-you),
+  .aud-app-body .chatbody > .aud-chat-bubble:not(.is-user),
+  .app .chatbody .mg-chat-intro)::before{
+  content:"";
+  float:left;
+  width:15px;
+  height:15px;
+  margin:3px 6px 0 0;
+  background:url('assets/moj-mdot.svg') center/contain no-repeat;
+}
+
+/* Chat messages begin with the message itself. */
+:is(#mojo-panel-views .mojo-fish-chat-reply,
+  .app .chatbody > .bubble,
+  .app .chatbody > .mc-chat-ack,
+  .app .chatbody > .task-chat-message:not(.task-chat-you),
+  .aud-app-body .chatbody > .aud-chat-bubble:not(.is-user),
+  .app .chatbody .mg-chat-intro)::before{content:none!important}
+.app .chatbody > :is(.bubble,.mc-chat-ack,.chat-polish-assistant) > small,
+.app .chatbody .mfc-chat-head > div > small,
+.app .chatbody .mso-chat-message > img,
+.app .chatbody .mfc-chat-head > img{display:none!important}

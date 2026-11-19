@@ -1,0 +1,16 @@
+/* Motion reports a scan, a changed value, or completed local work. */
+.mojo-scan-dot,.livedot.mojo-scan-live{display:inline-block;flex:none;width:7px;height:7px;border-radius:50%;background:#6e52b5;vertical-align:middle}
+.mojo-scan-dot{margin-right:7px}
+.mojo-scan-dot,.livedot.mojo-scan-live{box-shadow:0 0 0 2px rgba(110,82,181,.09)}
+.mojo-count{font:inherit;font-variant-numeric:tabular-nums}
+.ia-bar i{transform-origin:left center}
+@keyframes mojo-bar-reveal{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ia-bars.mojo-bars-updating .ia-bar i{animation:mojo-bar-reveal .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mojo-finding-enter{from{opacity:.35;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.mojo-finding-enter{animation:mojo-finding-enter .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mojo-finding-arrived{0%{background:#f1eafd;transform:translateY(9px);opacity:.35}70%{background:#f8f5fd;transform:translateY(0);opacity:1}100%{background:transparent;transform:translateY(0);opacity:1}}
+.mojo-finding-arrived{animation:mojo-finding-arrived .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mojo-work-complete{0%{box-shadow:0 0 0 0 rgba(54,135,99,.22)}50%{box-shadow:0 0 0 6px rgba(54,135,99,.08)}100%{box-shadow:0 0 0 0 rgba(54,135,99,0)}}
+.mojo-work-complete{animation:mojo-work-complete .48s ease-out both}
+.mojo-work-complete::before{content:'✓ ';color:#27835d;font-weight:700}
+@media(prefers-reduced-motion:reduce){.mojo-scan-dot,.livedot.mojo-scan-live,.ia-bars.mojo-bars-updating .ia-bar i,.mojo-finding-enter,.mojo-finding-arrived,.mojo-work-complete{animation:none!important}}

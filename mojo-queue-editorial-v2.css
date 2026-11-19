@@ -1,0 +1,91 @@
+/* Today queue: restore an editorial reading rhythm without repeating summaries. */
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 20px!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  gap:3px 12px!important;
+  min-height:0!important;
+  padding:13px 4px 14px!important;
+  background:transparent!important;
+}
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary .tag.cat{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:auto!important;
+  min-width:0!important;
+  color:#796985!important;
+  font:700 9.5px/1.3 var(--sans,Inter,Arial,sans-serif)!important;
+  letter-spacing:.085em!important;
+  text-transform:uppercase!important;
+}
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary .headline{
+  grid-column:1!important;
+  grid-row:2!important;
+  color:#302a36!important;
+  font:400 19px/1.23 var(--serif,Lora,Georgia,serif)!important;
+  letter-spacing:-.012em!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary .chev{
+  grid-column:2!important;
+  grid-row:1/3!important;
+  justify-self:end!important;
+  align-self:center!important;
+  width:20px!important;
+  height:20px!important;
+  border:0!important;
+  background:transparent!important;
+  font:400 22px/20px var(--sans,Inter,Arial,sans-serif)!important;
+}
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary .feed-preview{display:none!important}
+main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>.drowbody{padding:0 26px 16px 4px!important}
+main.mojo-today #brief-budget-risk>summary .tag.cat{color:#65448a!important}
+main.mojo-today #brief-budget-risk>.drowbody{padding-top:0!important}
+.mn-budget-facts{gap:7px 16px;font-size:12px}
+
+main.mojo-today .today-handoff-row>summary{
+  grid-template-columns:minmax(0,1fr) 20px!important;
+  grid-template-rows:auto auto!important;
+  align-items:center;
+  gap:3px 12px;
+  min-height:0;
+  padding:13px 4px 14px;
+}
+main.mojo-today .today-handoff-row>summary>span:first-child{
+  grid-column:1;
+  grid-row:1;
+  font:700 9.5px/1.3 var(--sans,Inter,Arial,sans-serif);
+  letter-spacing:.085em;
+  color:#796985;
+}
+main.mojo-today .today-handoff-row>summary>strong{
+  grid-column:1;
+  grid-row:2;
+  font:400 19px/1.23 var(--serif,Lora,Georgia,serif);
+  letter-spacing:-.012em;
+  color:#302a36;
+}
+main.mojo-today .today-handoff-row>summary>.today-chevron{
+  grid-column:2;
+  grid-row:1/3;
+  justify-self:end;
+  align-self:center;
+  font-size:22px;
+}
+main.mojo-today .today-handoff-body{padding:0 26px 16px 4px}
+main.mojo-today .today-queue-group[data-queue-group="receipts"]::before{
+  content:"Completed";
+  display:block;
+  padding:18px 4px 6px;
+  color:#796985;
+  font:700 10px/1.3 var(--sans,Inter,Arial,sans-serif);
+  letter-spacing:.085em;
+  text-transform:uppercase;
+}
+@media(max-width:580px){
+  main.mojo-today .today-queue-group[data-queue-group="decisions"] .drow>summary .headline,
+  main.mojo-today .today-handoff-row>summary>strong{font-size:17px!important}
+}

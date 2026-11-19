@@ -1,0 +1,28 @@
+/* A quiet interactive cue shared by feed cards across workspaces. */
+:is(
+  .home-card,
+  main.mf-feed-page #mf-insights article.mfc-card,
+  .mfd-card,
+  #mf-receipts .brief-done-list li.mfr-card,
+  .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item
+){transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+@media(hover:hover){
+  :is(
+    .home-card,
+    main.mf-feed-page #mf-insights article.mfc-card,
+    .mfd-card,
+    #mf-receipts .brief-done-list li.mfr-card,
+    .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item
+  ):hover{transform:translateY(-2px);border-color:var(--mojo-feed-edge,rgba(65,52,70,.055))!important;box-shadow:0 4px 12px #3026340b,0 14px 28px #30263412!important}
+}
+:is(
+  .home-card,
+  main.mf-feed-page #mf-insights article.mfc-card,
+  .mfd-card,
+  #mf-receipts .brief-done-list li.mfr-card,
+  .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item
+):focus-within{border-color:var(--mojo-feed-edge,rgba(65,52,70,.055))!important;box-shadow:0 4px 12px #3026340b,0 14px 28px #30263412!important}
+@media(prefers-reduced-motion:reduce){
+  :is(.home-card,.mfc-card,.mfd-card,.mfr-card,.aud-feed-item){transition:none!important}
+  :is(.home-card,.mfc-card,.mfd-card,.mfr-card,.aud-feed-item):hover{transform:none!important}
+}

@@ -1,0 +1,8 @@
+.mojo-paginated-table tbody tr[hidden]{display:none!important}
+.mojo-table-pager{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 14px;padding:12px 16px;color:#837a8b;font:500 11px/1.4 var(--sans);font-variant-numeric:tabular-nums}
+.mojo-table-pager-controls{display:flex;align-items:center;gap:6px}
+.mojo-table-pager-controls[hidden]{display:none}
+.mojo-table-pager button{padding:5px 9px;border:1px solid #e5e0e9;border-radius:7px;background:#fff;color:#5d477f;font:600 11px var(--sans);cursor:pointer}
+.mojo-table-pager button:hover:not(:disabled){border-color:#aa94cf;background:#faf8fe}
+.mojo-table-pager button:disabled{opacity:.4;cursor:default}
+.mojo-table-pager button:focus-visible{outline:2px solid #6a43b2;outline-offset:2px}

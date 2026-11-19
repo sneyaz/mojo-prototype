@@ -1,0 +1,163 @@
+/* Final type roles shared by the source screens and newer product sections.
+   Lora: headings and finding questions. Inter: reading copy, controls, labels,
+   and all numbers. Keep this stylesheet last in every page. */
+:root{
+  --mojo-type-page:28px;
+  --mojo-type-view:24px;
+  --mojo-type-section:20px;
+  --mojo-type-question:17px;
+  --mojo-type-body:13px;
+  --mojo-type-support:12px;
+  --mojo-type-label:10px;
+  --mojo-type-metric:23px;
+  --mojo-line-body:1.5;
+}
+.app,.trust-app,.mojo-product{font-family:var(--sans)!important}
+.canvaspane>.pagehead,.canvaspane>h1,
+.canvaspane .brief-ledger-layout>section .pagehead,
+.canvaspane .task-masthead h1,.canvaspane .campaign-detail-title,
+.mojo-product.mp-page>h1{
+  font:400 var(--mojo-type-page)/1.22 var(--serif)!important;
+  letter-spacing:-.025em!important;
+}
+.canvaspane:has(.brief-view-root) .brief-view-intro h2,
+.canvaspane .campaign-triage-heading h2{
+  font:400 var(--mojo-type-view)/1.25 var(--serif)!important;
+  letter-spacing:-.02em!important;
+}
+.canvaspane .panel h2,.canvaspane .sidebox h2,
+.canvaspane:has(.brief-view-root) .brief-subhead,
+.canvaspane .performance-portfolio-panel h2,
+.canvaspane .performance-focus-panel h2,
+.canvaspane .campaign-detail-block h2,
+.canvaspane .task-work-score h2,
+.mojo-product .mp-section h2{
+  font:400 var(--mojo-type-section)/1.3 var(--serif)!important;
+  letter-spacing:-.015em!important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>span,
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>div:first-child>span:first-child{
+  font:400 18px/1.3 var(--serif)!important;
+  letter-spacing:-.015em!important;
+}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact>div:nth-child(2)>div:last-child,
+.canvaspane:has(.brief-view-root) .brief-view-cando>.compact>div:nth-child(2)>div:last-child,
+.canvaspane:has(.brief-view-root) .brief-monitor-row h3,
+.canvaspane:has(.brief-view-root) .brief-extra-context h3,
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .headline,
+.canvaspane .find h2,
+.canvaspane .task-work-main .task-list-copy h3,
+.canvaspane .task-work-main .task-row-title,
+.canvaspane .campaign-patterns-enhanced .pattern-body .title,
+.canvaspane .campaign-detail-events h3,
+.canvaspane .campaign-detail-task h3,
+.mojo-product .mp-account h3,
+.mojo-product .mp-tile h3{
+  font:400 var(--mojo-type-question)/1.38 var(--serif)!important;
+  letter-spacing:-.01em!important;
+}
+.mojo-product .mp-decision h2{
+  font:400 var(--mojo-type-view)/1.25 var(--serif)!important;
+  letter-spacing:-.02em!important;
+}
+.canvaspane:has(.brief-view-root) .brief-view-intro>p:last-child,
+.canvaspane:has(.brief-view-root) .brief-monitor-row p,
+.canvaspane:has(.brief-view-root) .brief-extra-item p,
+.canvaspane:has(.brief-view-root) .brief-watch-learning>p:not(.brief-extra-kicker),
+.canvaspane .pagesub,.canvaspane .performance-portfolio-description,
+.canvaspane .performance-focus-description,
+.canvaspane .find .d,
+.canvaspane .task-masthead-copy>p:not(.task-kicker):not(.task-coverage-note),
+.mojo-product .mp-lede,.mojo-product .mp-muted,
+.mojo-product .mp-option .description,
+.mojo-product .mp-tile p:not(.mp-eyebrow),
+.mojo-product .mp-page>p,
+.mojo-product .mp-account p,
+.mojo-product .mp-settings-row p{
+  font:400 var(--mojo-type-body)/var(--mojo-line-body) var(--sans)!important;
+  letter-spacing:0!important;
+}
+.canvaspane:has(.brief-view-root) .brief-watch-cadence,
+.canvaspane:has(.brief-view-root) .brief-extra-context a,
+.canvaspane:has(.brief-view-root) .brief-monitor-row a,
+.canvaspane .task-work-main .task-list-copy>.d,
+.canvaspane .task-work-main>section.panel>.row small,
+.canvaspane .performance-portfolio-source,
+.canvaspane .source-data-note,
+.mojo-product .mp-source,
+.mojo-product .mp-inaction,
+.mojo-product .mp-evidence,
+.mojo-product .mp-note,
+.mojo-product .mp-status{
+  font:400 var(--mojo-type-support)/1.45 var(--sans)!important;
+  letter-spacing:0!important;
+}
+.canvaspane:has(.brief-view-root) .brief-watch-cadence,
+.canvaspane:has(.brief-view-root) .brief-extra-context a,
+.canvaspane:has(.brief-view-root) .brief-monitor-row a{
+  font-weight:600!important;
+}
+.canvaspane:has(.brief-view-root) .brief-view-watching .brief-watch-learning{
+  margin:0!important;
+  padding:19px 2px 22px!important;
+  border:0!important;
+  border-top:1px solid #e9e5ec!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.canvaspane .eyebrow,.canvaspane .dtag,
+.canvaspane:has(.brief-view-root) .brief-view-kicker,
+.canvaspane:has(.brief-view-root) .brief-monitor-tag,
+.canvaspane:has(.brief-view-root) .brief-extra-kicker,
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact .dtag,
+.canvaspane:has(.brief-view-root) .brief-view-cando>.compact .dtag,
+.canvaspane .task-kicker,.canvaspane .task-row-category,
+.canvaspane .performance-focus-kicker,
+.canvaspane .campaign-triage-heading>p:first-child,
+.mojo-product .mp-eyebrow{
+  font:700 var(--mojo-type-label)/1.3 var(--sans)!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+.mojo-product .mp-option .result,
+.mojo-product .mp-tile>strong,
+.canvaspane .statcard .v,.canvaspane .hcard .v,
+.canvaspane .task-feature-metric strong,
+.canvaspane .task-work-score-item strong,
+.canvaspane .source-data-metric>strong{
+  font:600 var(--mojo-type-metric)/1.18 var(--sans)!important;
+  letter-spacing:-.025em!important;
+  font-variant-numeric:tabular-nums!important;
+}
+.mojo-product .mp-option .name,
+.mojo-product .mp-settings-row strong,
+.mojo-product .mp-account-head .mp-pill{
+  font:600 var(--mojo-type-body)/1.4 var(--sans)!important;
+}
+.mojo-product .mp-btn,.canvaspane .btn,
+.canvaspane .modulenav a,.modulenav a,
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .chipr label,
+.canvaspane .campaign-triage-tabs button{
+  font-family:var(--sans)!important;
+  font-size:var(--mojo-type-body)!important;
+  letter-spacing:0!important;
+}
+.mojo-product .mp-plan-table,.mojo-product .mp-flow table,
+.canvaspane table{font-family:var(--sans)!important}
+.mojo-product .mp-plan-table th,.mojo-product .mp-flow th{font-size:var(--mojo-type-support)!important}
+.mojo-product .mp-plan-table td,.mojo-product .mp-flow td{font-size:var(--mojo-type-body)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .rt,
+.canvaspane .routine-panel .routine-label strong,
+.canvaspane .handled-panel .handled-action,
+.canvaspane .task-mojo-list strong{
+  font:600 var(--mojo-type-body)/1.4 var(--sans)!important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .rt small,
+.canvaspane .routine-panel .routine-label small,
+.canvaspane .task-mojo-list span,
+.canvaspane .handled-panel .handled-category{
+  font:400 var(--mojo-type-support)/1.4 var(--sans)!important;
+}
+@media(max-width:600px){
+  :root{--mojo-type-page:26px;--mojo-type-view:23px;--mojo-type-section:19px;--mojo-type-question:16px}
+}

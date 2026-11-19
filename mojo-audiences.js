@@ -1,0 +1,371 @@
+/* Audiences sample workspace. All records and actions stay in this browser. */
+(() => {
+  const snapshot='Nov 3, 2026';
+  const audiences=[
+    {id:'enterprise-intent',name:'Enterprise Intent',definition:'Enterprise accounts showing buying intent for revenue operations',accounts:620,contacts:1240,type:'Intent',source:'Demandbase intent',updated:'Nov 3',days:0,status:'Active',campaigns:['Q4 Pipeline Search','ABM Retargeting'],overlap:'42% with Tier 1 Named',risk:'214 new qualifying accounts are outside this audience.',action:'Stage 214 additions for review'},
+    {id:'healthcare-fit',name:'Healthcare Fit',definition:'Healthcare accounts meeting firmographic fit criteria',accounts:540,contacts:920,type:'Firmographic fit',source:'Demandbase firmographics',updated:'Nov 1',days:2,status:'Active',campaigns:['Healthcare Search'],overlap:'18% with Enterprise Intent',risk:'Audience size fell 23% after the latest source update.',action:'Investigate the 23% drop'},
+    {id:'tier-1-named',name:'Tier 1 Named',definition:'Priority accounts selected by MOps from the ICP',accounts:360,contacts:710,type:'Manual list',source:'CRM + Demandbase',updated:'Oct 30',days:4,status:'Active',campaigns:['ABM Retargeting'],overlap:'42% with Enterprise Intent',risk:'High overlap can expose the same accounts to two campaigns.',action:'Review overlapping accounts'},
+    {id:'product-retargeting',name:'Product Retargeting',definition:'Accounts that visited product pages in the last 30 days',accounts:410,contacts:860,type:'Retargeting',source:'First-party web',updated:'Nov 3',days:0,status:'Active',campaigns:['ABM Retargeting'],overlap:'34% with Enterprise Intent',risk:'Six sample accounts have a customer or do-not-contact suppression conflict.',action:'Review six exclusions'},
+    {id:'intent-surge',name:'Intent Surge',definition:'Accounts with a recent rise in category research',accounts:280,contacts:500,type:'Intent',source:'Demandbase intent',updated:'Oct 18',days:16,status:'Stale',campaigns:['Q4 Pipeline Search'],overlap:'29% with Enterprise Intent',risk:'The intent source has not refreshed in 16 days; the org limit is seven.',action:'Request source refresh'},
+    {id:'trial-recovery',name:'Trial Recovery',definition:'Open trial accounts with no return visit in seven days',accounts:220,contacts:370,type:'Retargeting',source:'First-party CRM',updated:'Nov 2',days:1,status:'Active',campaigns:['Customer Nurture'],overlap:'15% with Product Retargeting',risk:'Sample account engagement is 1.6%, versus 2.3% for Product Retargeting.',action:'Compare criteria and delivery'},
+    {id:'regional-lookalike',name:'Regional Lookalike',definition:'New accounts modeled from current customers in target regions',accounts:760,contacts:1520,type:'Lookalike',source:'Platform model',updated:'Nov 2',days:1,status:'Needs review',campaigns:['Q1 Expansion'],overlap:'11% with Healthcare Fit',risk:'Match quality and exclusions need approval before activation.',action:'Review before activation'},
+    {id:'customer-expansion',name:'Customer Expansion',definition:'Current customers eligible for an expansion message',accounts:190,contacts:330,type:'Manual list',source:'CRM export',updated:'Nov 1',days:2,status:'Draft',campaigns:[],overlap:'7% with Trial Recovery',risk:'No live campaign uses this draft audience.',action:'Review the draft'}
+  ];
+  try {
+    const drafts=JSON.parse(localStorage.getItem('mojo-selected-audience-drafts-v1')||'[]');
+    if(Array.isArray(drafts)) drafts.forEach(draft=>{
+      if(!draft?.id||!Array.isArray(draft.accountNames))return;
+      audiences.push({id:draft.id,name:draft.name,role:draft.role,industry:draft.industry,definition:draft.definition||`Selected portfolio accounts: ${draft.accountNames.join(', ')}`,accounts:draft.accountNames.length,contacts:0,type:draft.type||'Selected accounts',source:draft.source||'Campaign account table',updated:draft.created||'Today',days:0,status:'Draft',campaigns:[],overlap:'Not checked',risk:draft.accountNames.length?'Review account IDs, exclusions, and match quality before activation.':'Match eligible TAM accounts and check exclusions before activation. No accounts are matched to this draft yet.',action:'Review the draft'});
+    });
+  } catch {}
+  const feed=[
+    {id:'enterprise-intent',type:'New matches',title:'214 accounts now match Enterprise Intent',reason:'They meet the saved criteria but are not yet in the audience.',action:'Review 214 additions'},
+    {id:'intent-surge',type:'Freshness',title:'Intent Surge is running on 16-day-old data',reason:'The org standard calls for an intent refresh every seven days.',action:'Request a refresh'},
+    {id:'tier-1-named',type:'Overlap',title:'Tier 1 Named and Enterprise Intent overlap by 42%',reason:'Both feed live campaigns, so the same account may see both.',action:'Review the overlap'},
+    {id:'healthcare-fit',type:'Size change',title:'Healthcare Fit shrank 23% after its last update',reason:'Healthcare Search may now reach fewer accounts than planned.',action:'Investigate the drop'},
+    {id:'product-retargeting',type:'Suppression',title:'Six excluded accounts appear in Product Retargeting',reason:'Customer or do-not-contact flags conflict with a live prospecting audience.',action:'Review exclusions'},
+    {id:'trial-recovery',type:'Performance',title:'Trial Recovery trails a similar retargeting audience',reason:'Account engagement is 1.6% versus 2.3%; check criteria and delivery before changing creative.',action:'Compare the audiences'}
+  ];
+  const rules=[
+    {id:'min-size',origin:'mojo',title:'Require 500 accounts before activation',check:'Hold a new prospecting audience below 500 matched accounts for MOps review.',scope:'New prospecting audiences',source:'Audience eligibility check',status:'Proposed',effect:'Three sample audiences launched below 500 accounts',evidence:'The same size problem appeared in three separate sample audience launches. A single small audience would not create this proposal.'},
+    {id:'overlap',origin:'org',title:'Flag overlap above 35% across live audiences',check:'Flag two active audiences when more than 35% of the smaller audience is shared.',scope:'Concurrently active audiences',source:'MOps audience policy',author:'Priya Shah',status:'Approved',effect:'Caught the 42% Enterprise Intent / Tier 1 Named overlap'},
+    {id:'refresh',origin:'org',title:'Refresh intent audiences every seven days',check:'Intent: every seven days. Firmographic fit: every 30 days. Manual lists: every 14 days.',scope:'Audiences used in live campaigns',source:'MOps data policy',author:'Priya Shah',status:'Approved',effect:'Flagged Intent Surge at 16 days since update'},
+    {id:'qualified',origin:'org',title:'Use one Tier 1 qualification definition',check:'Tier 1 requires fit score of at least 80, a target region, and no active customer status.',scope:'Tier 1 audiences in Campaigns and Audiences',source:'MOps ICP definition',author:'Alex Rivera',status:'Approved',effect:'Definition shared with the Tier 1 Named audience'},
+    {id:'suppression',origin:'org',title:'Exclude customers and do-not-contact accounts',check:'Never include closed-won, active customer, or do-not-contact accounts in a prospecting audience.',scope:'Every prospecting audience',source:'MOps suppression policy',author:'Priya Shah',status:'Approved',effect:'Six sample conflicts need review in Product Retargeting'},
+    {id:'reach-approval',origin:'org',title:'Review large audiences before activation',check:'A new audience above 5,000 accounts or linked to more than $50,000 planned spend needs MOps and finance approval.',scope:'New or substantially expanded audiences',source:'MOps approval policy',author:'MOps team',status:'Draft',effect:'Not enforced; awaiting review'}
+  ];
+  const ruleRoutine={
+    'min-size':'audience-eligibility',overlap:'audience-overlap-watch',refresh:'audience-freshness-watch',
+    qualified:'audience-eligibility',suppression:'audience-eligibility','reach-approval':'audience-eligibility'
+  };
+  const key='mojo-audiences-workspace-v1';
+  const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'null');}catch{return null;}};
+  const saved=read(key)||{};
+  const state={actions:saved.actions||{},rules:saved.rules||{},customRules:Array.isArray(saved.customRules)?saved.customRules:[],exceptions:saved.exceptions||{},role:'reviewer'};
+  const persist=()=>localStorage.setItem(key,JSON.stringify(state));
+  const feedbackKey='mojo-audience-feed-feedback-v1';
+  const feedback=read(feedbackKey)||{};
+  const saveFeedback=()=>localStorage.setItem(feedbackKey,JSON.stringify(feedback));
+  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const age=days=>days===0?'Today':days===1?'1 day ago':`${days} days ago`;
+  const reviewers=()=>{const names=read('mojo-practice-reviewers-v1')?.names;return Array.isArray(names)&&names.length?names.slice(0,3):['Priya Shah'];};
+  const allRules=()=>[...rules,...state.customRules];
+  const status=id=>state.rules[id]?.status||allRules().find(rule=>rule.id===id)?.status;
+  const ruleData=id=>({...allRules().find(rule=>rule.id===id),...state.rules[id]});
+  let sort='name',statusFilter='all',campaignFilter='all',practiceFilter='all',writeOpen=false,practiceType='Best practice';
+  let feedAudienceIds=new Set();
+  const selectControl=(id,label,values,value)=>{
+    const selected=values.find(([option])=>option===value)||values[0];
+    const chevron='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>';
+    const check='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8 3 3 6-6"/></svg>';
+    return `<div class="aud-select" data-aud-select="${id}"><span class="aud-select-label" id="${id}-label">${esc(label)}</span><button class="aud-select-trigger" id="${id}-trigger" type="button" data-aud-select-trigger aria-haspopup="listbox" aria-expanded="false" aria-labelledby="${id}-label ${id}-value"><span id="${id}-value">${esc(selected[1])}</span>${chevron}</button><div class="aud-select-menu" role="listbox" aria-labelledby="${id}-label" hidden>${values.map(([option,text])=>`<button type="button" role="option" data-aud-select-option data-value="${esc(option)}" aria-selected="${option===value}"><span>${esc(text)}</span>${option===value?check:''}</button>`).join('')}</div></div>`;
+  };
+  const route=()=>{const [section,detail]=decodeURIComponent(location.hash.slice(1)).split(':');const pillar=section?.startsWith('feed')?'feed':['build','dashboards','best-practices','strategy'].includes(section)?section:'feed';const feedTab=section==='feed-decisions'?'decisions':section==='feed-receipts'?'receipts':'insights';return {pillar,detail,feedTab};};
+  function arrangeFeedFeedback(content){
+    content.querySelectorAll('.aud-feed-item').forEach(card=>{
+      const group=card.querySelector('.aud-feedback'),actions=card.querySelector('.aud-feed-actions');
+      if(!group||!actions)return;
+      const isReceipt=card.classList.contains('aud-receipt-row');
+      const ignore=group.querySelector('.aud-feedback-ignore');
+      if(isReceipt){
+        ignore?.remove();
+        group.querySelector('output')?.remove();
+        actions.insertAdjacentHTML('beforeend','<span class="aud-receipt-utility" role="group" aria-label="Card actions"><button type="button" data-aud-receipt-tool="discuss" aria-label="Discuss" title="Discuss"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8 8.4 8.4 0 0 1-3.6-.8L4 20l1.3-4.4A8 8 0 1 1 20 11.5Z"/></svg></button><button type="button" data-aud-receipt-tool="routine" aria-label="Review routine" title="Review routine"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M9 2h6"/></svg></button><button type="button" data-aud-receipt-tool="copy" aria-label="Copy receipt" title="Copy receipt"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></span>');
+      }else if(ignore)card.querySelector('.aud-feed-detail')?.append(ignore);
+      group.querySelector(':scope > span')?.remove();
+      actions.append(group);
+    });
+    content.querySelector('.aud-receipt-row details')?.setAttribute('open','');
+  }
+  function mount(root){
+    document.title='Audiences · Mojo';
+    const createButton=document.querySelector('.aud-create-cta');
+    if(createButton){createButton.hidden=false;createButton.addEventListener('click',()=>window.MojoOpenChat?.('Create a new audience for ',true));}
+    const closeSelects=(except)=>root.querySelectorAll('.aud-select').forEach(control=>{
+      if(control===except)return;
+      control.querySelector('.aud-select-menu').hidden=true;
+      control.querySelector('.aud-select-trigger').setAttribute('aria-expanded','false');
+    });
+    const paint=()=>{
+      const {pillar,detail,feedTab}=route();
+      document.querySelectorAll('.aud-app-nav a').forEach(link=>{const current=link.dataset.audPillar===pillar;if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
+      root.innerHTML='<section class="aud-content" aria-live="polite"></section>';
+      const content=root.querySelector('.aud-content');
+      if(pillar==='feed')renderFeed(content,feedTab);
+      if(pillar==='build')renderBuild(content);
+      if(pillar==='dashboards')renderDashboard(content,detail);
+      if(pillar==='best-practices'){renderPractices(content,detail);const type=content.querySelector('[data-aud-create] select[name=type]'),enforcement=content.querySelector('[data-aud-create] select[name=enforcement]');if(type)type.value=practiceType;if(enforcement)enforcement.value=practiceType==='Guardrail'?'Blocks activation':practiceType==='Rule'?'Warns':'Suggests';}
+      if(pillar==='strategy')renderStrategy(content);
+      if(pillar==='feed')arrangeFeedFeedback(content);
+    };
+    root.addEventListener('click',event=>{
+      const buildPrompt=event.target.closest('[data-aud-build-chat]');
+      if(buildPrompt){window.MojoOpenChat?.(buildPrompt.dataset.audBuildChat,true);return;}
+      const trigger=event.target.closest('[data-aud-select-trigger]');
+      if(trigger&&root.contains(trigger)){
+        const control=trigger.closest('.aud-select'),menu=control.querySelector('.aud-select-menu'),willOpen=menu.hidden;
+        closeSelects(control);menu.hidden=!willOpen;trigger.setAttribute('aria-expanded',String(willOpen));
+        return;
+      }
+      const option=event.target.closest('[data-aud-select-option]');
+      if(option&&root.contains(option)){
+        const id=option.closest('.aud-select').dataset.audSelect,value=option.dataset.value;
+        if(id==='aud-status')statusFilter=value;
+        if(id==='aud-campaign')campaignFilter=value;
+        if(id==='aud-sort')sort=value;
+        if(route().detail&&(id==='aud-status'||id==='aud-campaign'))location.hash='#dashboards';
+        else paint();
+        return;
+      }
+      const feedScope=event.target.closest('[data-aud-feed-scope]');
+      if(feedScope&&root.contains(feedScope)){
+        const menu=root.querySelector('#aud-feed-scope-menu');
+        const open=menu.hidden;
+        closeSelects();menu.hidden=!open;feedScope.setAttribute('aria-expanded',String(open));
+        if(open)root.querySelector('#aud-feed-scope-search')?.focus();
+        return;
+      }
+      if(event.target.closest('[data-aud-feed-all]')){feedAudienceIds=new Set();paint();return;}
+      if(event.target.closest('[data-aud-feed-apply]')){
+        feedAudienceIds=new Set([...root.querySelectorAll('[data-aud-feed-audience]:checked')].map(input=>input.value));
+        paint();return;
+      }
+      const feedDecision=event.target.closest('[data-aud-feed-decision]');
+      if(feedDecision){
+        const card=feedDecision.closest('.aud-decision-row'),choice=card?.querySelector('input[name^="aud-decision-"]:checked');
+        if(!choice)return;
+        state.actions[feedDecision.dataset.audFeedDecision]={text:choice.value,at:snapshot,source:'feed-decision'};
+        persist();location.hash='#feed-receipts';paint();return;
+      }
+      const receiptTool=event.target.closest('[data-aud-receipt-tool]');
+      if(receiptTool){
+        const card=receiptTool.closest('.aud-receipt-row'),title=card?.querySelector('h3')?.textContent.trim()||'audience receipt';
+        if(receiptTool.dataset.audReceiptTool==='discuss')window.MojoOpenChat?.(`Let's discuss this audience receipt: ${title}`,true);
+        if(receiptTool.dataset.audReceiptTool==='routine')location.href='Routines.html';
+        if(receiptTool.dataset.audReceiptTool==='copy')navigator.clipboard?.writeText(`${title} — ${card?.querySelector('.aud-feed-main>p')?.textContent.trim()||''}`).then(()=>{receiptTool.dataset.state='copied';receiptTool.setAttribute('aria-label','Copied');receiptTool.title='Copied'});
+        return;
+      }
+            const feedbackButton=event.target.closest('[data-aud-feedback]');
+      if(feedbackButton){
+        const id=feedbackButton.dataset.id,action=feedbackButton.dataset.audFeedback;
+        feedback[id]??={};
+        if(action==='ignore')feedback[id].ignored=true;
+        else if(action==='undo')feedback[id].ignored=false;
+        else feedback[id].vote=feedback[id].vote===action?'':action;
+        saveFeedback();
+        if(action==='ignore'||action==='undo')paint();
+        else{
+          const group=feedbackButton.closest('.aud-feedback');
+          group?.querySelectorAll('[data-aud-feedback="up"],[data-aud-feedback="down"]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.audFeedback===feedback[id].vote)));
+          let output=group?.querySelector('output');if(!output&&group){output=document.createElement('output');group.append(output);}if(output)output.textContent=feedback[id].vote?'Noted':'';
+        }
+        return;
+      }
+      const button=event.target.closest('[data-aud-action]');if(!button)return;
+      const action=button.dataset.audAction,id=button.dataset.id;
+      if(action==='stage'){
+        state.actions[id]={text:audiences.find(item=>item.id===id)?.action||'Review staged',at:snapshot};persist();
+        const output=root.querySelector('.aud-action-result');if(output)output.textContent='Review draft saved in this browser. No audience or campaign changed.';
+        button.textContent='Draft saved ✓';button.disabled=true;
+      }
+      if(action==='approve'&&state.role==='reviewer'){
+        const custom=state.customRules.some(rule=>rule.id===id);
+        state.rules[id]={...state.rules[id],status:'Approved',approvedBy:reviewers()[0],...(custom?{effect:'Approved; no sample checks recorded yet'}:{})};persist();paint();
+      }
+      if(action==='write'&&state.role!=='teammate'){practiceType=button.dataset.practiceType||'Best practice';writeOpen=true;paint();}
+      if(action==='describe-practice'){if(window.MojoOpenChat)window.MojoOpenChat('Help me add a practice for this audience: ',true);else{practiceType='Best practice';writeOpen=true;paint();}}
+      if(action==='close-write'){writeOpen=false;paint();}
+      if(action==='edit'&&(state.role==='reviewer'||(state.role==='author'&&ruleData(id).origin==='org'&&status(id)==='Draft'))){
+        const form=root.querySelector(`[data-aud-edit="${id}"]`);if(form)form.hidden=false;button.hidden=true;
+      }
+      if(action==='reject'&&state.role==='reviewer'){
+        const form=root.querySelector(`[data-aud-reject="${id}"]`);if(form)form.hidden=false;button.hidden=true;
+      }
+      if(action==='exception'){
+        const form=root.querySelector(`[data-aud-exception="${id}"]`);if(form)form.hidden=false;button.hidden=true;
+      }
+      if(action==='copy'){
+        const text=root.querySelector('#aud-leadership-copy')?.textContent||'';
+        const copy=navigator.clipboard?.writeText(text);
+        if(copy)copy.then(()=>{button.textContent='Copied ✓';}).catch(()=>{button.textContent='Select the paragraph to copy';});
+        else button.textContent='Select the paragraph to copy';
+      }
+    });
+    root.addEventListener('keydown',event=>{
+      if(event.key==='Escape'&&!root.querySelector('#aud-feed-scope-menu')?.hidden){
+        const menu=root.querySelector('#aud-feed-scope-menu');menu.hidden=true;
+        const trigger=root.querySelector('[data-aud-feed-scope]');trigger?.setAttribute('aria-expanded','false');trigger?.focus();
+        event.preventDefault();return;
+      }
+      const control=event.target.closest('.aud-select');if(!control)return;
+      const trigger=control.querySelector('.aud-select-trigger'),menu=control.querySelector('.aud-select-menu');
+      const options=[...menu.querySelectorAll('[data-aud-select-option]')];
+      if(event.key==='Escape'){if(!menu.hidden){event.preventDefault();closeSelects();trigger.focus();}return;}
+      if(event.target===trigger&&['ArrowDown','ArrowUp','Home','End'].includes(event.key)){
+        event.preventDefault();closeSelects(control);menu.hidden=false;trigger.setAttribute('aria-expanded','true');
+        const selected=options.findIndex(option=>option.getAttribute('aria-selected')==='true');
+        const index=event.key==='Home'?0:event.key==='End'?options.length-1:event.key==='ArrowUp'?Math.max(0,selected-1):Math.min(options.length-1,selected+1);
+        options[index]?.focus();return;
+      }
+      if(event.target.matches('[data-aud-select-option]')&&['ArrowDown','ArrowUp','Home','End'].includes(event.key)){
+        event.preventDefault();const current=options.indexOf(event.target);
+        const index=event.key==='Home'?0:event.key==='End'?options.length-1:event.key==='ArrowUp'?Math.max(0,current-1):Math.min(options.length-1,current+1);
+        options[index]?.focus();
+      }
+    });
+    document.addEventListener('click',event=>{
+      if(!event.target.closest('.aud-select'))closeSelects();
+      if(!event.target.closest('.aud-feed-scope')){
+        const menu=root.querySelector('#aud-feed-scope-menu');
+        if(menu)menu.hidden=true;
+        root.querySelector('[data-aud-feed-scope]')?.setAttribute('aria-expanded','false');
+      }
+    });
+    root.addEventListener('input',event=>{
+      if(event.target.id!=='aud-feed-scope-search')return;
+      const query=event.target.value.trim().toLowerCase();
+      root.querySelectorAll('[data-aud-feed-choice]').forEach(choice=>{choice.hidden=!choice.textContent.toLowerCase().includes(query);});
+      const empty=root.querySelector('.aud-feed-scope-no-match');
+      if(empty)empty.hidden=!!root.querySelector('[data-aud-feed-choice]:not([hidden])');
+    });
+    root.addEventListener('change',event=>{
+      if(event.target.id==='aud-status'){statusFilter=event.target.value;if(route().detail)location.hash='#dashboards';else paint();}
+      if(event.target.id==='aud-campaign'){campaignFilter=event.target.value;if(route().detail)location.hash='#dashboards';else paint();}
+      if(event.target.id==='aud-sort'){sort=event.target.value;paint();}
+      if(event.target.name==='practice-filter'){practiceFilter=event.target.value;paint();}
+    });
+    root.addEventListener('submit',event=>{
+      const form=event.target;
+      if(!form.matches('[data-aud-create],[data-aud-edit],[data-aud-reject],[data-aud-exception]'))return;
+      event.preventDefault();const data=new FormData(form);const id=form.dataset.audEdit||form.dataset.audReject||form.dataset.audException;
+      if('audCreate' in form.dataset&&state.role!=='teammate'){
+        const value=name=>String(data.get(name)||'').trim();
+        state.customRules.push({id:`aud-rule-${Date.now()}`,origin:'org',title:value('title'),check:value('check'),scope:value('scope'),source:value('source'),author:value('author'),routine:value('routine'),status:'Draft',type:value('type'),enforcement:value('enforcement'),effect:'Not enforced; awaiting review'});
+        practiceFilter='org';writeOpen=false;
+      }
+      if(form.dataset.audEdit&&(state.role==='reviewer'||(state.role==='author'&&ruleData(id).origin==='org'&&status(id)==='Draft')))state.rules[id]={...state.rules[id],title:String(data.get('title')||'').trim(),check:String(data.get('check')||'').trim(),editedBy:state.role==='reviewer'?reviewers()[0]:ruleData(id).author||'MOps author'};
+      if(form.dataset.audReject&&state.role==='reviewer')state.rules[id]={...state.rules[id],status:'Declined',reason:String(data.get('reason')||'').trim(),rejectedBy:reviewers()[0]};
+      if(form.dataset.audException){state.exceptions[id]??=[];state.exceptions[id].push({scope:String(data.get('scope')||'').trim(),reason:String(data.get('reason')||'').trim()});}
+      persist();paint();
+    });
+    document.getElementById('aud-chat-form')?.addEventListener('submit',event=>{
+      event.preventDefault();const field=event.currentTarget.querySelector('textarea');const question=field?.value.trim();if(!question)return;
+      const body=document.querySelector('.chatbody');const user=document.createElement('div');user.className='chat-polish-user';user.innerHTML='<small>You</small><p></p>';user.querySelector('p').textContent=question;body.append(user);
+      const q=question.toLowerCase();
+      const reply=q.includes('stale')||q.includes('refresh')?'Intent Surge is stale in the sample: its Demandbase intent source last refreshed Oct 18, 16 days before the Nov 3 snapshot. Your seven-day standard would flag it. Open its Dashboard row to review the source and request a refresh.'
+        :q.includes('overlap')?'Tier 1 Named and Enterprise Intent overlap by 42% in the sample. Both feed live campaigns. Review the shared accounts before changing either audience.'
+        :q.includes('new')||q.includes('214')?'214 accounts now meet Enterprise Intent criteria but are not included yet. Review exclusions and ownership before staging the additions.'
+        :q.includes('suppress')||q.includes('exclude')?'Six sample accounts in Product Retargeting conflict with customer or do-not-contact exclusions. Review them before this audience is used for prospecting.'
+        :'I can show the sample audience records and checks here. Open a Feed item or Dashboard row for the source details; this prototype does not change a connected audience.';
+      const answer=document.createElement('div');answer.className='bubble mc-chat-ack';answer.innerHTML='<small>Mojo</small><p></p>';answer.querySelector('p').textContent=reply;body.append(answer);field.value='';body.scrollTop=body.scrollHeight;
+    });
+    document.getElementById('aud-share')?.addEventListener('click',async event=>{
+      const button=event.currentTarget,originalMarkup=button.innerHTML;
+      try{await navigator.clipboard.writeText(location.href);button.textContent='Link copied ✓';setTimeout(()=>button.innerHTML=originalMarkup,1800);}
+      catch{button.textContent='Copy the page URL to share';}
+    });
+    window.addEventListener('hashchange',()=>{
+      const {pillar,detail}=route(),item=audiences.find(audience=>audience.id===detail);
+      if(pillar==='dashboards'&&item&&((statusFilter!=='all'&&item.status!==statusFilter)||(campaignFilter!=='all'&&!item.campaigns.includes(campaignFilter)))){statusFilter='all';campaignFilter='all';}
+      paint();
+    });paint();
+  }
+  function renderBuild(root){
+    const drafts=audiences.filter(item=>item.status==='Draft');
+    const proposals=[
+      {name:'Add 214 accounts to Enterprise Intent',detail:'New accounts match the saved intent rules. Check exclusions before adding them.',size:'214 accounts',source:'Demandbase intent',href:'#dashboards:enterprise-intent',prompt:'Help me review the 214 new Enterprise Intent accounts and their exclusions.'},
+      {name:'Build an Evaluation audience',detail:'Start with accounts missing finance or security buyers.',size:'Evaluation stage',source:'Buying groups',href:'#dashboards:enterprise-intent',prompt:'Build an Evaluation audience for accounts missing finance or security buyers.'},
+      {name:'Review Regional Lookalike',detail:'Check match quality and exclusions before activation.',size:'760 accounts',source:'Platform model',href:'#dashboards:regional-lookalike',prompt:'Review Regional Lookalike match quality and exclusions with me.'}
+    ];
+    const row=(item,kind)=>`<article class="app-life-row"><div class="app-life-row-main"><div class="app-life-meta"><span class="app-life-pill">${kind}</span><span>${esc(item.source)}</span></div><h3>${esc(item.name)}</h3><p>${esc(item.detail)}</p></div><div class="app-life-row-side"><strong>${esc(item.size)}</strong><a href="${item.href}">Open record →</a><button type="button" data-aud-build-chat="${esc(item.prompt)}">Work with Mojo</button></div></article>`;
+    root.innerHTML=`<div class="app-life-head"><div><h1>Build audiences</h1><p>Review a draft or start from a signal Mojo found.</p></div><button type="button" class="app-life-create" data-aud-build-chat="Create a new audience for ">+ Create audience</button></div><section class="app-life-section"><h2>Draft audiences <span>${drafts.length}</span></h2><div class="app-life-list">${drafts.map(item=>row({name:item.name,detail:item.definition,size:`${item.accounts.toLocaleString()} accounts`,source:item.source,href:`#dashboards:${item.id}`,prompt:`Help me finish the ${item.name} audience draft.`},'Draft')).join('')}</div></section><section class="app-life-section"><h2>Suggested next <span>${proposals.length}</span></h2><div class="app-life-list">${proposals.map(item=>row(item,'Suggested')).join('')}</div></section>`;
+  }
+  function renderFeed(root,feedTab){
+    const tabs=`<nav class="aud-feed-tabs" aria-label="Feed sections">${[['insights','Tasks'],['decisions','Decisions'],['receipts','Receipts']].map(([id,label])=>`<a href="#feed-${id}" ${feedTab===id?'aria-current="page"':''}>${label}</a>`).join('')}</nav>`;
+    const selectedAudiences=audiences.filter(item=>feedAudienceIds.has(item.id));
+    const scopeName=selectedAudiences.length===0?'All audiences':selectedAudiences.length===1?selectedAudiences[0].name:`${selectedAudiences.length} audiences`;
+    const scope=`<div class="aud-feed-scope"><button type="button" class="aud-feed-scope-trigger" data-aud-feed-scope aria-label="Choose audiences. ${esc(scopeName)}" aria-expanded="false" aria-controls="aud-feed-scope-menu"><span>AUDIENCES</span><strong>${esc(scopeName)}</strong><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><span class="aud-feed-scope-count">${selectedAudiences.length||audiences.length} of ${audiences.length} sample audiences</span><div class="aud-feed-scope-menu" id="aud-feed-scope-menu" hidden><label for="aud-feed-scope-search">Find an audience</label><input id="aud-feed-scope-search" type="search" placeholder="Search audiences…" autocomplete="off"><div class="aud-feed-scope-list">${audiences.map(item=>`<label data-aud-feed-choice><input type="checkbox" data-aud-feed-audience value="${esc(item.id)}" ${feedAudienceIds.has(item.id)?'checked':''}><span><strong>${esc(item.name)}</strong><small>${esc(item.type)} · ${item.accounts.toLocaleString()} accounts</small></span></label>`).join('')}<p class="aud-feed-scope-no-match" hidden>No audiences match.</p></div><div class="aud-feed-scope-actions"><button type="button" data-aud-feed-all>All audiences</button><button type="button" data-aud-feed-apply>Apply</button></div></div></div>`;
+    const inScope=item=>feedAudienceIds.size===0||feedAudienceIds.has(item.id);
+    const empty=`<div class="aud-feed-empty"><strong>No items for ${esc(scopeName)}.</strong><p>Choose another audience or view its record in Dashboards.</p><a href="#dashboards">Open Dashboards →</a></div>`;
+    const visuals={'enterprise-intent':['214','new matches'],'intent-surge':['16d','since refresh'],'tier-1-named':['42%','overlap'],'healthcare-fit':['−23%','audience size'],'product-retargeting':['6','exclusions'],'trial-recovery':['1.6%','engagement'],'regional-lookalike':['760','accounts']};
+    const compareVisual=(title,rows,max)=>`<div class="aud-feed-visual aud-viz" role="img" aria-label="${esc(title)}"><div class="aud-viz-title">${esc(title)}</div><div class="aud-viz-bars">${rows.map(([label,value,display,tone])=>`<div><span>${esc(label)}</span><progress max="${max}" value="${value}" class="${tone||''}">${esc(display)}</progress><b>${esc(display)}</b></div>`).join('')}</div></div>`;
+    const visualFor=item=>{
+      if(item.id==='intent-surge')return compareVisual('Refresh age versus standard',[['Elapsed',16,'16 days','warn'],['Standard',7,'7 days','base']],16);
+      if(item.id==='tier-1-named')return compareVisual('Audience overlap versus review limit',[['Overlap',42,'42%','warn'],['Review at',35,'35%','base']],100);
+      if(item.id==='healthcare-fit')return `<div class="aud-feed-visual aud-viz" role="img" aria-label="Healthcare Fit is 77 percent of its previous size, a 23 percent decrease"><div class="aud-viz-title">Size after latest update</div><div class="aud-viz-bars"><div><span>Current</span><progress max="100" value="77" class="warn">77%</progress><b>−23%</b></div></div><small>Compared with the previous size</small></div>`;
+      if(item.id==='trial-recovery')return compareVisual('Account engagement',[['Trial Recovery',1.6,'1.6%','warn'],['Product Retargeting',2.3,'2.3%','base']],2.3);
+      if(item.id==='enterprise-intent')return compareVisual('Existing audience and qualifying additions',[['In audience',620,'620','base'],['To review',214,'214','warn']],834);
+      return `<div class="aud-feed-visual"><strong>${esc(visuals[item.id]?.[0]||'✓')}</strong><small>${esc(visuals[item.id]?.[1]||'recorded')}</small></div>`;
+    };
+    const decisionOptions={
+      'enterprise-intent':['Review all 214 qualifying accounts','Hold additions until match quality is checked','Prepare an approval request for the additions'],
+      'regional-lookalike':['Review match quality and exclusions','Keep the audience in draft','Prepare a launch approval request']
+    };
+    const thumb=up=>up?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3Zm0 0 5-8a2 2 0 0 1 3 2v5h5a2 2 0 0 1 2 2l-1 8a2 2 0 0 1-2 2H7"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14V3H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3Zm0 0 5 8a2 2 0 0 0 3-2v-5h5a2 2 0 0 0 2-2l-1-8a2 2 0 0 0-2-2H7"/></svg>';
+    const row=(item,kind='insight')=>{
+      const feedbackId=`${kind}:${item.id}`;
+      if(feedback[feedbackId]?.ignored)return `<div class="aud-ignored-row"><span>Ignored: ${esc(item.title)}</span><button type="button" data-aud-feedback="undo" data-id="${esc(feedbackId)}">Undo</button></div>`;
+      const sourceId={'intent-surge':'refresh','tier-1-named':'overlap','product-retargeting':'suppression'}[item.id];
+      const practice=sourceId&&status(sourceId)==='Approved'?ruleData(sourceId):null;
+      return `<article class="aud-feed-item ${kind==='decision'?'aud-decision-row':kind==='receipt'?'aud-receipt-row':''}"><div class="aud-feed-main"><div class="aud-feed-meta">${kind==='decision'?'<span class="aud-decision-tag">DECISION</span>':''}<span class="aud-feed-type aud-type-${esc(item.type.toLowerCase().replace(/\s+/g,'-'))}">${esc(item.type)}</span><span class="aud-feed-byline">${kind==='receipt'?'Drafted by Mojo':'Audience watch'}</span></div><h3><a class="aud-feed-title" href="#dashboards:${esc(item.id)}">${esc(item.title)}</a></h3><p>${esc(item.reason)}</p>${kind==='decision'?`<fieldset class="aud-feed-choices"><legend>What should happen next?</legend>${(decisionOptions[item.id]||['Review the audience evidence']).map((choice,index)=>`<label><input type="radio" name="aud-decision-${esc(item.id)}" value="${esc(choice)}" ${index===0?'checked':''}><span>${esc(choice)}</span>${index===0?'<em>Mojo recommends</em>':''}</label>`).join('')}</fieldset>`:''}<div class="aud-feed-actions">${kind==='decision'?`<button type="button" class="aud-feed-primary" data-aud-feed-decision="${esc(item.id)}">Save review draft</button>`:''}<a href="#dashboards:${esc(item.id)}">${esc(item.action)} →</a>${practice?`<a class="aud-source-chip" href="#best-practices:${sourceId}">▣ Best practice · ${esc(practice.title)}</a>`:''}</div><details><summary><span>Details</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3 3.5-3"/></svg></summary><div class="aud-feed-detail"><strong>Why this is here</strong>${esc(item.reason)}<span class="aud-feed-quiet">Source: ${esc(audiences.find(audience=>audience.id===item.id)?.source||'Audience sample')} · ${snapshot} sample</span></div><div class="aud-feedback" role="group" aria-label="Feedback on this item"><span>Was this useful?</span><button type="button" data-aud-feedback="up" data-id="${esc(feedbackId)}" aria-label="Helpful" title="Helpful" aria-pressed="${feedback[feedbackId]?.vote==='up'}">${thumb(true)}</button><button type="button" data-aud-feedback="down" data-id="${esc(feedbackId)}" aria-label="Not helpful" title="Not helpful" aria-pressed="${feedback[feedbackId]?.vote==='down'}">${thumb(false)}</button><button type="button" class="aud-feedback-ignore" data-aud-feedback="ignore" data-id="${esc(feedbackId)}"><span aria-hidden="true">×</span> Ignore this</button>${feedback[feedbackId]?.vote?'<output>Noted</output>':''}</div></details></div>${visualFor(item)}</article>`;
+    };
+    if(feedTab==='insights'){
+      const insights=feed.filter(item=>item.id!=='enterprise-intent'&&inScope(item));
+      root.innerHTML=`${tabs}${scope}<div class="aud-section-head"><div><h2>Changes worth a look</h2><p>Audience changes from the ${snapshot} sample.</p></div><span>${insights.length} ${insights.length===1?'insight':'insights'}</span></div>${insights.length?`<div class="aud-feed">${insights.map(item=>row(item)).join('')}</div>`:empty}<p class="aud-source">Sample audience records. No membership or campaign changes are made here.</p>`;
+    }else if(feedTab==='decisions'){
+      const decisions=[feed[0],{id:'regional-lookalike',type:'Approval',title:'Regional Lookalike needs a launch review',reason:'Check match quality and exclusions before a 760-account lookalike audience goes live.',action:'Review the audience'}].filter(inScope);
+      root.innerHTML=`${tabs}${scope}<div class="aud-section-head"><div><h2>${decisions.length} decisions need you</h2><p>Check the audience record before changing membership or launching.</p></div><span>${decisions.length} open</span></div>${decisions.length?`<div class="aud-feed">${decisions.map(item=>row(item,'decision')).join('')}</div>`:empty}<p class="aud-source">Review drafts stay in this browser. Nothing is pushed to an ad platform.</p>`;
+    }else{
+      const receipts=Object.entries(state.actions).map(([id])=>{const audience=audiences.find(item=>item.id===id);return audience?{id,type:'Draft',title:`Prepared a review draft for ${audience.name}`,reason:state.actions[id].source==='feed-decision' ? `Review choice: ${state.actions[id].text}. No audience membership changed.` : 'Saved for review in this browser. No audience membership changed.',action:'Open the audience'}:null}).filter(item=>item&&inScope(item));
+      root.innerHTML=`${tabs}${scope}<div class="aud-section-head"><div><h2>What Mojo did</h2><p>Audience review drafts saved in this browser.</p></div><span>${receipts.length} recorded</span></div>${receipts.length?`<div class="aud-feed">${receipts.map(item=>row(item,'receipt')).join('')}</div>`:feedAudienceIds.size?empty:'<div class="aud-feed-empty"><strong>No audience changes logged yet.</strong><p>Review an audience in Dashboards to prepare a draft. It will show up here.</p><a href="#dashboards">Open Dashboards →</a></div>'}`;
+    }
+  }
+  function renderDashboard(root,selected){
+    const campaigns=[...new Set(audiences.flatMap(item=>item.campaigns))].sort();
+    const filtered=audiences.filter(item=>(statusFilter==='all'||item.status===statusFilter)&&(campaignFilter==='all'||item.campaigns.includes(campaignFilter))).sort((a,b)=>sort==='size'?b.accounts-a.accounts:sort==='freshness'?b.days-a.days:sort==='status'?a.status.localeCompare(b.status):a.name.localeCompare(b.name));
+    const filters=`<div class="aud-controls">${selectControl('aud-status','Status',[['all','All statuses'],['Active','Active'],['Needs review','Needs review'],['Stale','Stale'],['Draft','Draft']],statusFilter)}${selectControl('aud-campaign','Used by',[['all','All campaigns'],...campaigns.map(name=>[name,name])],campaignFilter)}${selectControl('aud-sort','Sort',[['name','Name A–Z'],['size','Size, largest first'],['freshness','Stalest first'],['status','Status A–Z']],sort)}</div>`;
+    const target=audiences.find(item=>item.id===selected);
+    const citedId={'intent-surge':'refresh','tier-1-named':'overlap','product-retargeting':'suppression'}[selected];
+    const cited=citedId&&status(citedId)==='Approved'?ruleData(citedId):null;
+    root.innerHTML=`<div class="aud-section-head"><div><h2>Audience portfolio</h2><p>What each audience contains, when it changed, and which campaigns use it.</p></div><span>${audiences.length} sample audiences</span></div>${filters}<div class="aud-table-scroll"><table class="aud-table"><thead><tr><th>Audience</th><th>Size</th><th>Source / type</th><th>Updated</th><th>Used by</th><th>Status</th><th>Overlap</th></tr></thead><tbody>${filtered.map(item=>`<tr class="${item.id===selected?'is-selected':''}"><th scope="row"><a href="#dashboards:${item.id}">${esc(item.name)}</a><small>${esc(item.definition)}</small></th><td>${item.accounts.toLocaleString()} accounts<small>${item.contacts.toLocaleString()} contacts</small></td><td>${esc(item.type)}<small>${esc(item.source)}</small></td><td>${esc(item.updated)}<small>${age(item.days)}</small></td><td>${item.campaigns.length?esc(item.campaigns.join(', ')):'Not live'}</td><td><span class="aud-status ${item.status.toLowerCase().replace(' ','-')}">${esc(item.status)}</span></td><td>${esc(item.overlap)}</td></tr>`).join('')}</tbody></table></div>${filtered.length?'':'<p class="aud-empty">No audiences match those filters.</p>'}${target?`<section class="aud-detail" id="aud-detail"><div class="aud-detail-top"><div><span class="aud-feed-type">${esc(target.type)}</span><h3>${esc(target.name)}</h3><p>${esc(target.definition)}</p></div><a href="#dashboards" aria-label="Close audience detail">×</a></div><div class="aud-detail-grid"><div><small>What changed</small><p>${esc(target.risk)}</p></div><div><small>Where it is used</small><p>${esc(target.campaigns.join(', ')||'No live campaign')}</p></div><div><small>Overlap</small><p>${esc(target.overlap)}</p></div></div>${cited?`<p class="aud-cited-rule">Checked against <a href="#best-practices:${citedId}">${esc(cited.title)} →</a></p>`:''}<button type="button" data-aud-action="stage" data-id="${target.id}" ${state.actions[target.id]?'disabled':''}>${state.actions[target.id]?'Draft saved ✓':esc(target.action)}</button><p class="aud-action-result" role="status">Draft for review only. No connected source is changed.</p></section>`:''}<p class="aud-source">Sample audience sizes, dates, and relationships. Overlap is illustrative; no platform audience is connected.</p>`;
+    const focus=target||audiences[0];
+    const roles=[
+      ['Economic buyer','VP marketing or CMO','Business case, cost, and outcomes'],
+      ['Champion','Demand generation lead','Campaign orchestration and activation'],
+      ['Technical evaluator',focus.role||'Marketing operations','CRM integration, identity, and data quality'],
+      ['Revenue partner','Sales or RevOps','Account handoff and pipeline evidence'],
+      ['Approver','Procurement or security','Terms, governance, and risk']
+    ];
+    const buyingGroups=`<section class="aud-buying-groups" aria-labelledby="aud-buying-title"><div class="aud-section-head"><div><h2 id="aud-buying-title">Buying groups in ${esc(focus.name)}</h2><p>Plan messages for the people involved in a purchase, then connect real members to account IDs.</p></div><span>${esc(focus.industry||'B2B audience')} · role plan</span></div><div class="aud-buying-grid">${roles.map(([functionName,role,question])=>`<article><small>${esc(functionName)}</small><strong>${esc(role)}</strong><p>${esc(question)}</p><span>Member coverage: not connected</span></article>`).join('')}</div><div class="aud-buying-footer"><p>Audience size counts accounts; it does not tell us which buying-group roles are present. Connect contacts, job functions, and account IDs to measure role coverage and gaps.</p><a href="AppWorkspace.html?app=aeo&amp;audience=${encodeURIComponent(focus.id)}#dashboards">Check this group's AI questions →</a></div></section>`;
+    root.querySelector('.aud-table-scroll')?.insertAdjacentHTML('afterend',buyingGroups);
+    if(target)root.querySelector('#aud-detail')?.scrollIntoView({block:'nearest'});
+  }
+  function renderPractices(root,selected){
+    const shown=allRules().map(rule=>ruleData(rule.id)).filter(rule=>practiceFilter==='all'||rule.origin===practiceFilter);
+    const pending=allRules().filter(rule=>status(rule.id)==='Proposed').length;
+    const canWrite=state.role!=='teammate';
+    const row=(rule,index)=>{
+      const routine=rule.routine||ruleRoutine[rule.id];
+      const identity=rule.author?`Written by ${esc(rule.author)}`:rule.origin==='mojo'?'Mojo proposal':'MOps team';
+      const reviewActions=rule.origin==='mojo'&&rule.status==='Proposed'
+        ?state.role==='reviewer'?`<div class="aud-rule-actions"><button type="button" data-aud-action="approve" data-id="${rule.id}">Approve</button><button type="button" data-aud-action="edit" data-id="${rule.id}">Edit first</button><button type="button" data-aud-action="reject" data-id="${rule.id}">Decline with reason</button></div>`:'<p>Only a designated MOps reviewer can approve, edit, or decline this proposal.</p>'
+        :rule.status==='Draft'?`<div class="aud-rule-actions">${state.role==='reviewer'?`<button type="button" data-aud-action="approve" data-id="${rule.id}">Approve</button>`:''}${canWrite?`<button type="button" data-aud-action="edit" data-id="${rule.id}">Edit draft</button>`:''}</div>`:'';
+      const exception=rule.status==='Approved'?`<div class="aud-rule-actions"><button type="button" data-aud-action="exception" data-id="${rule.id}">Request an exception</button></div>${(state.exceptions[rule.id]||[]).length?`<p>${state.exceptions[rule.id].length} exception request(s) recorded in this browser.</p>`:''}`:'';
+      const statusClass={Approved:'active',Proposed:'proposed',Draft:'draft',Declined:'rejected'}[rule.status]||'draft';
+      const statusLabel=rule.status==='Proposed'?'Needs review':rule.status;
+      const enforcement=rule.enforcement||({ 'min-size':'Blocks activation',overlap:'Warns',refresh:'Warns',qualified:'Suggests',suppression:'Blocks activation','reach-approval':'Blocks activation'}[rule.id]||'Suggests');
+      const origin=rule.origin==='mojo'?'<span class="mps-origin mojo"><img src="assets/moj-mdot.svg?v=20261104v230" alt="" aria-hidden="true">Mojo proposed</span>':'<span class="mps-origin org">Org-authored</span>';
+      return `<details class="mps-row" id="${esc(rule.id)}" ${selected===rule.id?'open':''}><summary><span class="mps-number">${String(index+1).padStart(2,'0')}</span><span class="mps-main"><span class="mps-meta">${origin}<span>${esc(rule.source)}</span></span><strong>${esc(rule.title)}</strong><span class="mps-effect ${statusClass==='active'?'active':''}">${esc(rule.effect)}</span><span class="mps-owner">${identity}</span></span><span class="mps-status-stack"><span class="mps-status ${statusClass}">${esc(statusLabel)}</span><span class="mps-enforcement">${esc(enforcement)}</span></span><span class="mps-chevron" aria-hidden="true">⌄</span></summary><div class="mps-detail aud-practice-body"><div class="mps-facts"><div><small>Check or gate</small><p>${esc(rule.check)}</p></div><div><small>Applies to</small><p>${esc(rule.scope)}</p></div><div><small>Source</small><p>${esc(rule.source)}</p></div></div>${rule.evidence?`<p><b>Why proposed:</b> ${esc(rule.evidence)}</p>`:''}${routine?`<p><a href="Routines.html#${esc(routine)}">Open related routine →</a></p>`:''}${rule.approvedBy?`<p>Approved by ${esc(rule.approvedBy)}.</p>`:''}${rule.reason?`<p>Declined by ${esc(rule.rejectedBy||'MOps')}: ${esc(rule.reason)}</p>`:''}${reviewActions}${exception}<form data-aud-edit="${esc(rule.id)}" hidden><label>Standard<input name="title" required maxlength="120" value="${esc(rule.title)}"></label><label>Exact check<textarea name="check" required maxlength="500">${esc(rule.check)}</textarea></label><button>Save edit for review</button></form><form data-aud-reject="${esc(rule.id)}" hidden><label>Reason<textarea name="reason" required maxlength="300"></textarea></label><button>Decline proposal</button></form><form data-aud-exception="${esc(rule.id)}" hidden><label>Audience or campaign<input name="scope" required maxlength="80"></label><label>Why this rule does not fit<textarea name="reason" required maxlength="300"></textarea></label><button>Send request to MOps</button><small>The rule stays in place for everyone else.</small></form></div></details>`;
+    };
+    const composer=writeOpen&&canWrite?`<section class="aud-compose"><div class="aud-compose-head"><div><h3>Add an audience practice</h3><p>Describe the shared guidance and what Mojo should do with it.</p></div><button type="button" data-aud-action="close-write">Close</button></div><form data-aud-create=""><div class="aud-compose-grid"><label>Type<select name="type"><option>Guardrail</option><option>Rule</option><option>Playbook</option><option>Best practice</option></select></label><label>Enforcement<select name="enforcement"><option>Blocks activation</option><option>Warns</option><option>Suggests</option></select></label></div><label>Practice<input name="title" required maxlength="120" placeholder="Example: Suppress active customers before launch"></label><label>Exact check or gate<textarea name="check" required maxlength="500" placeholder="State the threshold, definition, or approval step."></textarea></label><label>Applies to<input name="scope" required maxlength="120" placeholder="Which audiences or campaigns?"></label><div class="aud-compose-grid"><label>Author<input name="author" required maxlength="70" placeholder="Your name"></label><label>Source<input name="source" required maxlength="120" placeholder="MOps policy or playbook"></label></div><label>Related routine<select name="routine"><option value="audience-eligibility">Audience eligibility check</option><option value="audience-freshness-watch">Audience freshness watch</option><option value="audience-overlap-watch">Audience overlap watch</option><option value="audience-performance-watch">Audience performance watch</option></select></label><button>Save draft for review</button><small>A reviewer must approve the draft. Saving it changes no live audience.</small></form></section>`:'';
+    root.innerHTML=`<header class="mps-head"><div><h1>Best practices</h1><p>Audience rules, owners, and exceptions.</p></div><details class="mps-create-menu"><summary class="mps-button" ${canWrite?'':'aria-disabled="true"'}>+ Add Best Practices</summary><div class="mps-create-options"><button type="button" data-aud-action="describe-practice"><b>Describe it to Mojo</b><span>Write what you need in plain words.</span></button><button type="button" data-aud-action="write" data-practice-type="Guardrail"><b>Guardrail</b><span>Blocks or flags a risky action.</span></button><button type="button" data-aud-action="write" data-practice-type="Rule"><b>Rule</b><span>A shared definition everyone uses.</span></button><button type="button" data-aud-action="write" data-practice-type="Playbook"><b>Playbook</b><span>Steps for a repeatable situation.</span></button><button type="button" data-aud-action="write" data-practice-type="Best practice"><b>Best practice</b><span>Guidance Mojo suggests.</span></button></div></details></header><div class="mps-toolbar"><div class="mps-filters aud-pill-group" role="group" aria-label="Filter practices">${[['all','All practices',allRules().length],['org','Org-authored',allRules().filter(rule=>rule.origin==='org').length],['mojo','Mojo proposed',allRules().filter(rule=>rule.origin==='mojo').length]].map(([id,label,count])=>`<label class="${practiceFilter===id?'is-on':''}"><input type="radio" name="practice-filter" value="${id}" ${practiceFilter===id?'checked':''}>${label} <span>${count}</span></label>`).join('')}</div><span class="mps-tally">${allRules().filter(rule=>status(rule.id)==='Approved').length} approved · ${pending} for review</span></div>${composer}<section class="mps-list" aria-label="Audience standards">${shown.map(row).join('')}</section><p class="aud-source">${pending} proposal for review. Sample standards and decisions save in this browser; live checks need connected audience data.</p>`;
+  }
+  function renderStrategy(root){
+    root.innerHTML=`<div class="aud-strategy-lead"><span>${snapshot.toUpperCase()}<br>SNAPSHOT</span><p>Start with the right accounts. Then check whether we can reach the people who will actually decide, use and approve the purchase.</p></div>
+      <section class="aud-strategy-section"><h2><small>01</small> Which accounts are missing?</h2><div class="aud-strategy-coverage"><div class="aud-strategy-main-metric"><span>ICP IN ACTIVE AUDIENCES</span><strong>63%</strong><p>1,520 of 2,400 sample ICP accounts are included.</p><div class="aud-reach-track"><i></i></div></div><div class="aud-strategy-side-metric"><span>NOT YET INCLUDED</span><strong>880</strong><p>Check fit and exclusions before adding them.</p></div><div class="aud-strategy-side-metric"><span>NEW INTENT MATCHES</span><strong>214</strong><p>Review these Enterprise Intent accounts first.</p></div></div><p class="aud-strategy-note">The 1,520 figure is a sample estimate, not a sum of audience rows.</p></section>
+      <section class="aud-strategy-section aud-bg-strategy" aria-labelledby="aud-bg-strategy-title"><h2 id="aud-bg-strategy-title"><small>02</small> Who is in the buying group?</h2><p class="aud-bg-intro">An account with one known contact can still be a weak campaign target. For Enterprise Intent, Healthcare Fit and Tier 1 Named, look for these roles and give each a reason to engage.</p><div class="aud-bg-role-map">${[['Budget owner','VP marketing / CMO','Cost, expected return and the business case'],['Champion','Demand generation lead','How to launch and reach target accounts'],['Evaluator','Marketing operations','Identity, Salesforce integration and data controls'],['Sales partner','Sales / RevOps','When to follow up and what counts as progress'],['Approver','Procurement / security','Terms, privacy and risk']].map(([stage,role,need])=>`<article><small>${stage}</small><strong>${role}</strong><p>${need}</p><span>Coverage to verify</span></article>`).join('')}</div><div class="aud-bg-strategy-actions"><p><b>Start here:</b> match known contacts and roles to the 214 new intent accounts. Check ownership and exclusions, then flag accounts missing a budget owner or evaluator.</p><a href="#dashboards:enterprise-intent">Review Enterprise Intent →</a><a href="AppWorkspace.html?app=aeo&amp;audience=enterprise-intent#dashboards">See what these roles ask AI →</a></div></section>
+      <section class="aud-strategy-section"><h2><small>03</small> Can we trust the group?</h2><div class="aud-strategy-pair"><div><span class="aud-strategy-label">FRESHNESS</span><strong>3 of 5</strong><p>Three active audiences use Demandbase data in part. Refresh Intent Surge before putting it in another flight.</p><a href="#dashboards:intent-surge">Check Intent Surge →</a></div><div><span class="aud-strategy-label">CONTACT &amp; CRM DATA</span><strong>Needed</strong><p>This sample counts accounts. It cannot yet show confirmed role coverage or which opportunities followed a campaign.</p><a href="Connections.html">See connections →</a></div></div></section>
+      <section class="aud-strategy-section"><h2><small>04</small> Put one group to work</h2><div class="aud-strategy-steps"><div><small>01 · REVIEW</small><strong>Choose eligible accounts.</strong><p>Check fit, intent date, owner, customers and do-not-contact rules.</p></div><div><small>02 · MATCH</small><strong>Use the right proof for each role.</strong><p>Compare the CMO's business-case question with Marketing Ops' integration question in AEO.</p></div><div><small>03 · TEST</small><strong>Run a small campaign.</strong><p>Keep a similar account group out. Compare role coverage, engagement and opportunity dates.</p></div></div><p class="aud-strategy-note"><a href="Strategy.html#next-test">See the campaign test →</a></p></section><p class="aud-source">Account counts are illustrative. Contact roles, role coverage and pipeline impact are not connected in this prototype.</p>`;
+  }
+  window.MojoAudiences={mount};
+})();

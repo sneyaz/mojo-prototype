@@ -1,0 +1,18 @@
+.mojo-platform-identity{display:inline-flex;align-items:center;gap:7px;vertical-align:middle;white-space:nowrap;text-transform:none;letter-spacing:normal}
+.mojo-platform-identity img{display:block;width:18px;height:18px;object-fit:contain;flex:none}
+.md-table .mojo-platform-identity img,.aq-table .mojo-platform-identity img{width:14px;height:14px}
+.ia-campaign-head .mojo-platform-identity img{width:20px;height:20px}
+.ia-asset-select .mojo-platform-identity img{width:15px;height:15px}
+.mojo-platform-filter{display:flex;flex-direction:column;gap:5px;min-width:180px;color:#756d7b;font:650 10px var(--sans);text-transform:uppercase;letter-spacing:.04em}
+.mojo-platform-filter select[hidden]{display:none}
+.mojo-platform-picker{position:relative;min-width:180px;text-transform:none;letter-spacing:normal}
+.mojo-platform-picker>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;padding:6px 10px;border:1px solid #ddd6e2;border-radius:6px;background:#fff;color:#342c3d;cursor:pointer;list-style:none;font:500 11.5px var(--sans)}
+.mojo-platform-picker>summary::-webkit-details-marker{display:none}
+.mojo-platform-picker>summary:after{content:"";width:7px;height:7px;flex:none;border-right:1.5px solid #766c7d;border-bottom:1.5px solid #766c7d;transform:translateY(-2px) rotate(45deg)}
+.mojo-platform-picker[open]>summary:after{transform:translateY(2px) rotate(225deg)}
+.mojo-platform-picker>summary:focus-visible,.mojo-platform-menu button:focus-visible{outline:2px solid #6947a9;outline-offset:2px}
+.mojo-platform-menu{position:absolute;top:calc(100% + 5px);left:0;z-index:50;width:max(100%,205px);padding:5px;border:1px solid #ddd6e2;border-radius:8px;background:#fff;box-shadow:0 10px 24px rgba(40,28,50,.12)}
+.mojo-platform-menu button{display:flex;align-items:center;width:100%;min-height:36px;padding:6px 8px;border:0;border-radius:4px;background:transparent;color:#342c3d;text-align:left;cursor:pointer;font:500 11.5px var(--sans)}
+.mojo-platform-menu button:hover,.mojo-platform-menu button[aria-pressed=true]{background:#f4f0f8}
+.mojo-platform-menu button[aria-pressed=true]{color:#50337c;font-weight:650}
+.mc-checkboxes .mojo-platform-identity img{width:17px;height:17px}

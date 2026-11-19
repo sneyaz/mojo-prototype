@@ -1,0 +1,5 @@
+/* Keep the app header in view when the chat pane opens. Each pane scrolls itself. */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+.app{height:100dvh!important;min-height:0!important;max-height:100dvh;overflow:hidden}
+.app .work,.app .panes{min-height:0;overflow:hidden}
+.app .canvaspane,.app .chatpane{min-height:0}

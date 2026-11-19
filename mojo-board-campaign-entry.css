@@ -1,0 +1,36 @@
+/* The first Campaigns view populates from its Demandbase connection. */
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-visible),
+html.board-entry-pending #mf-insights .mf-sources-rail:not(.board-entry-visible),
+html.board-entry-pending #mf-insights .mfc-section-head:not(.board-entry-visible),
+html.board-entry-pending #mf-insights .mfc-card:not(.board-entry-visible){opacity:0;transform:translateY(13px);visibility:hidden;pointer-events:none}
+html.board-entry-pending #mf-insights .mfd-feed-summary:not(.board-entry-visible),
+html.board-entry-pending #mf-insights .mfd-feed-summary button:not(.board-entry-visible){opacity:0;transform:translateY(9px);visibility:hidden;pointer-events:none}
+html.board-entry-pending #mf-insights .mfd-feed-summary.board-entry-visible,
+html.board-entry-pending #mf-insights .mfd-feed-summary button.board-entry-visible{opacity:1;transform:none;visibility:visible;pointer-events:auto}
+#mf-insights .mfd-feed-summary,#mf-insights .mfd-feed-summary button{transition:opacity .3s cubic-bezier(.2,.7,.3,1),transform .3s cubic-bezier(.2,.7,.3,1),visibility 0s linear .3s}
+#mf-insights .mfd-feed-summary strong{display:inline-block;min-width:1ch;font-variant-numeric:tabular-nums}
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-read) strong,
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-read) p{opacity:0;transform:translateY(6px)}
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-described) p{opacity:0;transform:translateY(6px)}
+#mf-insights .board-demandbase-context,#mf-insights .mf-sources-rail,#mf-insights .mfc-section-head,#mf-insights .mfc-card,#mf-insights .board-demandbase-context strong,#mf-insights .board-demandbase-context p{transition:opacity .48s cubic-bezier(.2,.7,.3,1),transform .48s cubic-bezier(.2,.7,.3,1),visibility 0s linear .48s}
+html.board-entry-pending #mf-insights .board-entry-visible{opacity:1;transform:none;visibility:visible;pointer-events:auto}
+html.board-entry-pending #mf-insights .board-demandbase-context.board-entry-read strong,
+html.board-entry-pending #mf-insights .board-demandbase-context.board-entry-described p{opacity:1;transform:none}
+html.board-entry-pending #mf-insights .mfc-card.board-entry-visible progress::-webkit-progress-value{animation:board-entry-bar .65s cubic-bezier(.2,.7,.3,1) both;transform-origin:left center}
+@keyframes board-entry-bar{from{transform:scaleX(.08)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){#mf-insights .board-demandbase-context,#mf-insights .mf-sources-rail,#mf-insights .mfc-section-head,#mf-insights .mfc-card,#mf-insights .board-demandbase-context strong,#mf-insights .board-demandbase-context p{transition:none!important}html.board-entry-pending #mf-insights *{opacity:1!important;transform:none!important;filter:none!important}}
+/* The source card anchors the sequence from the first paint. */
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-visible){opacity:1;transform:none;visibility:visible;pointer-events:auto}
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-described) button{opacity:0;pointer-events:none}
+/* A quiet calculation receipt keeps the longer first pass purposeful. */
+#mf-insights .board-entry-calculation{position:relative;display:block;width:min(100%,350px);margin-top:10px;padding-bottom:7px;color:#725b88;font:600 10px/1.25 Inter,Arial,sans-serif}
+#mf-insights .board-entry-calculation::before,#mf-insights .board-entry-calculation::after{content:"";position:absolute;left:0;bottom:0;height:2px;border-radius:2px}
+#mf-insights .board-entry-calculation::before{width:100%;background:#e8dfef}
+#mf-insights .board-entry-calculation::after{width:var(--scan,8%);background:#8057bb;transition:width .6s cubic-bezier(.2,.7,.3,1)}
+@media(prefers-reduced-motion:reduce){#mf-insights .board-entry-calculation::after{transition:none}}
+/* Details expand from the compact calculation state without an empty card. */
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-read) strong,
+html.board-entry-pending #mf-insights .board-demandbase-context:not(.board-entry-described) p{max-height:0;margin:0;overflow:hidden}
+html.board-entry-pending #mf-insights .board-demandbase-context.board-entry-read strong,
+html.board-entry-pending #mf-insights .board-demandbase-context.board-entry-described p{max-height:120px;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.3,1),opacity .48s cubic-bezier(.2,.7,.3,1),transform .48s cubic-bezier(.2,.7,.3,1)}
+@media(prefers-reduced-motion:reduce){html.board-entry-pending #mf-insights .board-demandbase-context strong,html.board-entry-pending #mf-insights .board-demandbase-context p{max-height:none!important}}

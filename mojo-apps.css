@@ -1,0 +1,15 @@
+.mojo-apps-page{max-width:980px;margin:0 auto;padding:42px 48px 80px;color:var(--ink)}
+.mojo-apps-page h1{margin:0;font:400 clamp(32px,3vw,46px)/1.08 var(--serif);letter-spacing:-.035em}
+.mojo-apps-page>.mojo-apps-intro{margin:10px 0 36px;color:var(--ink-55);font:400 14px/1.5 var(--sans)}
+.mojo-apps-page section{margin-top:30px}
+.mojo-apps-page section h2{margin:0 0 8px;font:400 25px/1.2 var(--serif)}
+.mojo-apps-page section>p{margin:0 0 12px;color:var(--ink-55);font:400 12px/1.5 var(--sans)}
+.mojo-app-row{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+.mojo-app-row:last-child{border-bottom:1px solid var(--line)}
+.mojo-app-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:9px;background:#f7f5fa;color:#634499;font:700 13px var(--sans)}
+.mojo-app-row strong{display:block;font:600 14px/1.3 var(--sans)}
+.mojo-app-row small{display:block;margin-top:4px;color:var(--ink-55);font:400 11px/1.4 var(--sans)}
+.mojo-app-status{color:var(--ink-55);font:500 11px/1.3 var(--sans);white-space:nowrap}
+.mojo-app-action{padding:8px 10px;border:1px solid var(--line-strong);border-radius:6px;color:var(--accent-text);background:#fff;text-decoration:none;font:600 11px/1.2 var(--sans);white-space:nowrap}
+.mojo-app-action:hover{text-decoration:underline}
+@media(max-width:700px){.mojo-apps-page{padding:30px 22px 65px}.mojo-app-row{grid-template-columns:38px 1fr}.mojo-app-status,.mojo-app-action{grid-column:2;justify-self:start}}

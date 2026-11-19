@@ -1,0 +1,37 @@
+/* A queue reads as a queue; the scan disclosure keeps one summary of the scan. */
+.ia-work .task-work-main>section.panel{background:transparent!important}
+.ia-work .task-work-main>section.panel+section.panel{margin-top:30px!important}
+.ia-work .task-work-main .task-list-row,
+.ia-work .task-work-main>section.panel>.row{grid-template-columns:minmax(0,1fr) max-content!important;align-items:center!important;min-height:0!important;gap:12px 28px!important;padding:19px 0!important;background:transparent!important}
+.ia-work .task-work-main .task-list-copy h3,
+.ia-work .task-work-main .task-row-title{font:400 clamp(17px,1.5vw,21px)/1.28 var(--serif)!important;letter-spacing:-.025em!important}
+.ia-work .task-work-main .task-row-category{display:inline-block;margin:0 0 5px;color:#77707d;font:600 10px/1.2 var(--sans);letter-spacing:.045em}
+.ia-work .task-work-main .task-row-owner{display:none!important}
+.ia-work .task-work-main .task-list-copy>.d{margin:6px 0 0!important;max-width:62ch!important}
+.ia-work .task-work-main .task-list-action .btn,
+.ia-work .task-work-main>section.panel>.row>.btn{min-width:0!important;height:32px!important;padding:0 10px!important;font:600 11px/1 var(--sans)!important}
+.ia-work .task-work-main .task-list-action .btn{white-space:normal;text-align:center;max-width:135px}
+.ia-work .mp-decision{padding-top:17px;padding-bottom:18px;margin-top:16px;margin-bottom:28px}
+.ia-work .mp-decision .mp-hero-number{font-size:clamp(30px,3.3vw,42px)}
+.ia-work .mp-decision .mp-hero-question{font-size:clamp(21px,2vw,26px)}
+.brief-context-details{margin-bottom:24px!important}
+.brief-context-body .brief-focus-head>h2,
+.brief-context-body .brief-focus-head>h3,
+.brief-context-body .brief-focus-metric-links,
+.brief-context-body .brief-status-groups{display:none!important}
+.brief-context-body .brief-focus-head{min-height:0;margin:0 0 9px;padding:0!important}
+.brief-context-body .brief-focus-all-link{margin-left:0;font-size:11px}
+.brief-context-body .brief-focus-controls{margin-top:5px}
+.brief-context-body .brief-status{margin:18px 0 0!important;padding:12px 0!important;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important}
+.brief-context-body .brief-status-top .lnk{display:none!important}
+.brief-context-body .brief-triage-grid{margin-top:19px}
+@media(max-width:700px){.ia-work .task-work-main .task-list-row,.ia-work .task-work-main>section.panel>.row{grid-template-columns:1fr!important}.ia-work .task-work-main .task-list-action{justify-content:flex-start}.ia-work .task-work-main .task-list-action .btn{max-width:none}}
+
+/* The masthead reports the current lens instead of restating the nav. */
+.ia-context-head{padding-bottom:20px;margin-bottom:22px}
+.ia-context-head h1{max-width:none;font:400 var(--mojo-tab-title-size)/1.18 var(--serif);letter-spacing:-.03em}
+.ia-context-head>p{max-width:70ch;margin:11px 0 0;color:var(--ink-55);font:400 13px/1.5 var(--sans)}
+.ia-context-meta{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;margin-top:18px;color:var(--ink-55);font:500 11px/1.4 var(--sans)}
+.ia-context-meta a{color:var(--accent);font-weight:650;text-decoration:none}
+.ia-context-meta a:hover{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:620px){.ia-context-meta{align-items:flex-start;flex-direction:column}}

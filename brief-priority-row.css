@@ -1,0 +1,21 @@
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-priority-question{border-top:0!important;border-bottom:1px solid #e9e5ec!important;background:#fff!important}
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-priority-question>summary{padding:17px 2px 16px!important}
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-priority-question .tag.cat{color:#6a4397!important}
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-priority-question .headline{font-size:clamp(20px,2vw,25px)!important;line-height:1.25!important}
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-priority-question>.drowbody{padding:0 2px 22px!important}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-decision{border:0!important;border-top:0!important;border-radius:0!important;background:#fff!important;margin:0!important;padding:0!important;box-shadow:none!important}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-lede{max-width:72ch;margin:0 0 14px!important;font-size:13px!important;line-height:1.5!important}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-evidence{border-top:1px solid #e9e5ec;border-bottom:1px solid #e9e5ec}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-options{margin-top:17px}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-option{min-height:0}
+.canvaspane:has(.brief-view-root) .brief-priority-question .mp-actions{margin-top:13px}
+.canvaspane:has(.brief-view-root) .brief-priority-question+.drow{border-top:0!important}
+@media(max-width:700px){.canvaspane:has(.brief-view-root) .brief-priority-question .mp-options{grid-template-columns:1fr}.canvaspane:has(.brief-view-root) .brief-priority-question .mp-evidence{display:grid;gap:6px}}
+
+/* Keep the handoff prompt as a collapsed finding, with one section separator. */
+.canvaspane:has(.brief-view-root) .brief-finding-list>.brief-handoff-question{border-bottom:0!important}
+.canvaspane:has(.brief-view-root) .brief-handoff-question[hidden]{display:none!important}
+.canvaspane:has(.brief-view-root) .brief-handoff-question .aq-followup{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0!important;padding:0!important;border:0!important}
+.canvaspane:has(.brief-view-root) .brief-handoff-question .aq-followup-copy strong{display:none}
+.canvaspane:has(.brief-view-root) .brief-handoff-question .aq-followup a{margin-left:auto;white-space:nowrap}
+@media(max-width:650px){.canvaspane:has(.brief-view-root) .brief-handoff-question .aq-followup{align-items:flex-start;flex-wrap:wrap}.canvaspane:has(.brief-view-root) .brief-handoff-question .aq-followup a{margin-left:0}}

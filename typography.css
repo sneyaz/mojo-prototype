@@ -1,0 +1,199 @@
+/* One calm type system across the portfolio pages. Display = Lora; UI = Inter. */
+:root {
+  --type-display: var(--serif);
+  --type-ui: var(--sans);
+  --type-ink: #302b34;
+  --type-muted: #706a75;
+  --type-soft: #857e89;
+  --type-label-tracking: .045em;
+  --ink: var(--type-ink);
+  --ink-70: #514b56;
+  --ink-55: var(--type-muted);
+  --ink-35: var(--type-soft);
+}
+
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { color: var(--type-ink); font: 400 13px/1.55 var(--type-ui); }
+button, input, select, textarea { font-family: var(--type-ui); }
+p, li, td, dd { line-height: 1.5; }
+
+/* Display text: unhurried serif, with the same optical spacing on every page. */
+.pagehead,
+.task-masthead h1,
+.canvaspane:has(.brief-view-root) .brief-view-intro h2 {
+  font-family: var(--type-display) !important;
+  font-weight: 400 !important;
+  font-size: clamp(28px, 2.6vw, 32px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.025em !important;
+  color: #29242e !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section .pagehead {
+  font: 400 clamp(28px, 2.6vw, 32px)/1.2 var(--type-display) !important;
+  letter-spacing: -.025em !important;
+  color: #29242e !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dhead {
+  font: 400 clamp(26px, 2.45vw, 30px)/1.22 var(--type-display) !important;
+  letter-spacing: -.025em !important;
+  color: #29242e !important;
+}
+.panel h2, .sidebox h2, .task-work-main>section.panel h2,
+.campaign-detail-block h2,
+.canvaspane:has(.brief-view-root) .brief-subhead {
+  font-family: var(--type-display) !important;
+  font-weight: 400 !important;
+  font-size: 21px !important;
+  line-height: 1.28 !important;
+  letter-spacing: -.015em !important;
+  color: var(--type-ink) !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>span,
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>div:first-child>span:first-child,
+.task-work-score h2, .task-work-rail>section.panel h2 {
+  font: 400 20px/1.28 var(--type-display) !important;
+  letter-spacing: -.015em !important;
+  color: var(--type-ink) !important;
+}
+.task-feature .row>div:first-child,
+.dhead, .find h2 {
+  font-family: var(--type-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.015em !important;
+}
+
+/* Reading copy has a single rhythm; metadata remains quieter than the content. */
+.pagesub, .task-masthead>p:not(.task-kicker),
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dbody,
+.canvaspane:has(.healthgrid) .drow .drowbody .dbody,
+.task-feature .row small {
+  font: 400 13px/1.56 var(--type-ui) !important;
+  color: var(--type-muted) !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section>div.brief-status-source:not(.scan-workline)>span:nth-child(2),
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .sidebox>p:first-of-type,
+.task-work-main .task-list-copy>.d,
+.task-work-main>section.panel>.row small {
+  font: 400 12.5px/1.5 var(--type-ui) !important;
+  color: var(--type-muted) !important;
+}
+.task-work-main .task-list-copy h3, .task-work-main .task-row-title,
+.campaign-patterns-enhanced .pattern-body .title,
+.canvaspane:has(.healthgrid) .drow .headline {
+  font-family: var(--type-ui) !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -.006em !important;
+  color: var(--type-ink) !important;
+}
+
+/* Labels and controls share restrained emphasis instead of competing caps. */
+.eyebrow, .cap, .dtag, .task-kicker, .task-feature-kicker,
+.task-row-category, .task-rail-kicker, .campaign-detail-kicker,
+.performance-focus-kicker, .brief-view-kicker {
+  font-family: var(--type-ui) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--type-label-tracking) !important;
+  line-height: 1.35 !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>section .eyebrow,
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dtag {
+  font-weight: 600 !important;
+  letter-spacing: var(--type-label-tracking) !important;
+}
+.modulenav a { font: 500 12.5px/1.3 var(--type-ui) !important; }
+.modulenav a.on { font-weight: 600 !important; }
+.btn, .modebtn, .mojo-select-trigger,
+.canvaspane:has(.healthgrid) .chipr label,
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .btn {
+  font-family: var(--type-ui) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 0 !important;
+}
+.lnk, .find .evid summary,
+.campaign-patterns-enhanced .pattern-body>.evid summary {
+  font-family: var(--type-ui) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 0 !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table th {
+  font: 500 11.5px/1.4 var(--type-ui) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--type-muted) !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td {
+  font: 500 13px/1.45 var(--type-ui) !important;
+  color: var(--type-ink) !important;
+}
+.canvaspane:has(.healthgrid) .brief-ledger-layout .brief-budget-table td:first-child { font-weight: 600 !important; }
+table td, .hcard .v, .statcard .v, .task-feature-metric strong,
+.task-work-score-item strong, .win-value, .spendbar .n {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Compact Chat / Canvas / Sidebar controls from the product chrome. */
+.paneToggles { align-items: center; gap: 3px; margin-right: 5px; }
+.paneToggles label,
+.paneToggles label:not([for]) {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 29px !important;
+  padding: 0 9px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: #756e7d !important;
+  font: 500 12px/1 var(--type-ui) !important;
+  opacity: 1 !important;
+}
+.paneToggles label svg { width: 13px; height: 13px; stroke-width: 1.7; flex: none; }
+.paneToggles label[for="sidebarOn"],
+.paneToggles label.mojo-sidebar-inert { background: transparent !important; }
+.paneToggles label:hover:not(.mojo-sidebar-inert) { background: #f5f1fa !important; color: #403a48 !important; }
+.paneToggles label:not([for]):not(.mojo-sidebar-inert),
+#chatOn:checked ~ .app .paneToggles label[for="chatOn"],
+#chatOn:checked ~ .work .paneToggles label[for="chatOn"],
+#canvasOn:checked ~ .work .paneToggles label[for="canvasOn"] {
+  background: #f2f1f4 !important;
+  color: #302d35 !important;
+  box-shadow: inset 0 0 0 1px #e4e1e8 !important;
+  font-weight: 600 !important;
+}
+
+/* The same chat shell appears from every work area. */
+.app .chatpane { width: 398px; max-width: 43vw; background: #fff !important; border-right: 1px solid #e7e5e8 !important; }
+.app .chathead { height: 60px; padding: 0 23px; border-bottom: 1px solid #ece9ec; color: #28252c; font: 500 14px/1.3 var(--type-ui); }
+.app .chatbody { padding: 27px 28px 34px; background: #fff; }
+.app .chatbody>.bubble { padding: 0; border: 0; border-radius: 0; background: transparent; color: #4c4752; font: 400 14px/1.58 var(--type-ui); }
+.app .chatfoot { padding: 14px 27px 21px; border-top: 0; background: #fff; }
+.app .chatfoot .composer:not(:has(.task-chat-send)) {
+  min-height: 126px;
+  padding: 13px 14px;
+  border: 1px solid #e2dee4;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(35,28,43,.08);
+}
+.app .chatfoot .composer:not(:has(.task-chat-send)) textarea { min-height: 80px; line-height: 1.5; color: #39343e; }
+
+@media (max-width: 600px) {
+  .app .chatpane { max-width: none; width: min(398px,calc(100vw - 55px)); }
+  .app .chatbody { padding: 22px 20px 28px; }
+  .app .chatfoot { padding: 12px 17px 17px; }
+  .paneToggles label, .paneToggles label:not([for]) {
+    font-size: 0 !important;
+    gap: 0 !important;
+    padding: 0 7px !important;
+  }
+  .pagehead, .task-masthead h1,
+  .canvaspane:has(.healthgrid) .brief-ledger-layout>section .pagehead {
+    font-size: 27px !important;
+  }
+  .canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dhead {
+    font-size: 25px !important;
+  }
+}

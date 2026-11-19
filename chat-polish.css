@@ -1,0 +1,74 @@
+/* Keep the conversation open and quiet across every campaign view. */
+.app .chatpane .chatbody > .bubble,
+.app .chatpanel .chatbody > .bubble {
+  background: transparent !important;
+  color: #4c4752 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font: 400 14px/1.58 var(--sans) !important;
+}
+
+.app .chatfoot .composer:not(:has(.task-chat-send)) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  grid-template-rows: minmax(64px, auto) 32px;
+  gap: 8px;
+  min-height: 126px;
+  background: #fff !important;
+}
+.app .chatfoot .composer:not(:has(.task-chat-send)) textarea {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 64px;
+  padding: 0;
+  background: transparent !important;
+}
+.app .chatpane .chathead,.app .chatpanel .chathead{min-height:68px;padding:0 24px;background:#fff}
+.app .chatpane .chathead strong,.app .chatpanel .chathead strong{color:#242229;font:600 18px/1.2 var(--sans)}
+.app .chatbody>.chat-polish-user{border:0;border-radius:16px 16px 5px 16px;background:#f1ece6;color:#29262d;font:400 14px/1.5 var(--sans)}
+.app .chatfoot .composer:not(:has(.task-chat-send)) .mc-chat-composer-tools{grid-column:1;grid-row:2;display:flex;align-items:end;gap:14px;white-space:nowrap;color:#77717a;font:400 12px/1.3 var(--sans)}
+.app .chatfoot .composer:not(:has(.task-chat-send)) .mc-chat-composer-tools>span:last-child{font-size:20px;line-height:1}
+.chat-polish-send {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  justify-self: end;
+  align-self: end;
+  border: 0;
+  border-radius: 50%;
+  background: #6746b4;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .15s ease, opacity .15s ease;
+}
+.chat-polish-send:hover:not(:disabled) { background: #53369c; }
+.chat-polish-send:disabled { background: #e8e4eb; color: #8c8491; opacity: 1 !important; }
+.chat-polish-send svg { width: 16px; height: 16px; }
+.chat-polish-user {
+  align-self: flex-end;
+  max-width: 92%;
+  padding: 11px 13px;
+  border: 1px solid #e7e5e7;
+  border-radius: 13px;
+  background: #f7f7f7;
+  color: #3d3742;
+  font: 400 13px/1.5 var(--sans);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.app .chatbody > .task-chat-message.task-chat-you {
+  background: #f7f7f7;
+  color: #38333f;
+}
+.chat-polish-user small {
+  display: block;
+  margin-bottom: 4px;
+  color: #766b82;
+  font: 600 11px/1.2 var(--sans);
+}

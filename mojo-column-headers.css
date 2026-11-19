@@ -1,0 +1,8 @@
+/* Column labels use lowercase throughout the prototype. Row data keeps its original casing. */
+table thead th,
+table thead th *,
+[role="columnheader"],
+[role="columnheader"] *,
+.aq-compare-grid > .aq-compare-grid-header:first-child {
+  text-transform: lowercase !important;
+}

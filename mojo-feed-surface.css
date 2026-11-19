@@ -1,0 +1,47 @@
+/* One quieter card surface across the Home, Campaigns, AEO and Audiences feeds. */
+:root{--mojo-feed-edge:rgba(65,52,70,.055);--mojo-feed-shadow:0 2px 5px rgba(42,31,46,.025),0 12px 30px rgba(42,31,46,.065)}
+.home-card,
+main.mf-feed-page #mf-insights article.mfc-card,
+.mfc-feed .mfd-card,
+#mf-receipts .brief-done-list li.mfr-card,
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item{
+  border-color:var(--mojo-feed-edge)!important;
+  box-shadow:var(--mojo-feed-shadow)!important;
+}
+.home-visual,
+.mfc-chart,.mfc-stats,
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-visual{
+  border-color:transparent!important;
+  background:#f9f8f6!important;
+}
+.home-actions,.mfc-actions,.mfd-footer,
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions{
+  border-top-color:#f0edea!important;
+}
+/* Reserve the same caption space so each story number sits on one baseline. */
+.ms-campaigns .ms-thumb-caption{min-height:26px}
+.ms-campaigns .ms-thumb strong{min-height:28px;display:flex;align-items:flex-end}
+@media(prefers-reduced-motion:no-preference){
+  .home-card:hover,
+  main.mf-feed-page #mf-insights article.mfc-card:hover,
+  .mfc-feed .mfd-card:hover,
+  #mf-receipts .brief-done-list li.mfr-card:hover,
+  .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item:hover{
+    box-shadow:0 3px 8px rgba(42,31,46,.035),0 18px 36px rgba(42,31,46,.085)!important;
+  }
+}
+
+/* A lighter editorial heading across every feed surface. */
+.home-card h3{font-family:Lora,Georgia,serif!important;font-size:19px!important;font-weight:500!important;line-height:1.28!important;letter-spacing:-.025em!important}
+main.mf-feed-page #mf-insights .mfc-card h2,
+.mfc-feed .mfd-card h2,
+#mf-receipts .brief-done-list li.mfr-card .mfr-body>strong,
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item h3{
+  font-family:Lora,Georgia,serif!important;
+  font-size:clamp(19px,2.1vw,23px)!important;
+  font-weight:500!important;
+  line-height:1.27!important;
+  letter-spacing:-.025em!important;
+}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item h3 .aud-feed-title,
+main.mf-feed-page #mf-insights .mfc-card h2 a{font:inherit!important;letter-spacing:inherit!important;line-height:inherit!important}

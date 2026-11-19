@@ -1,0 +1,66 @@
+/* The left rail is product navigation; the top bar keeps only page utilities. */
+.rail{position:relative!important;gap:6px!important}
+.rail>a,.rail>button{display:grid!important;place-items:center;flex:none;width:36px;height:36px;padding:0;border:0;border-radius:10px;background:transparent;color:#555a64!important;text-decoration:none;cursor:pointer}
+.rail>a svg,.rail>button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rail>a:hover,.rail>button:hover{background:#f0edf6!important;color:#6848aa!important}
+.rail>a:focus-visible,.rail>button:focus-visible{outline:2px solid #7956bb;outline-offset:2px}
+.rail .mojo-nav-active{background:#f0edf9!important;color:#7049b2!important}
+.rail .mojo-nav-chat,.rail .mojo-nav-chat.mojo-nav-active{background:transparent!important;color:#555a64!important}
+.rail .mojo-nav-chat:hover{background:#f0edf6!important;color:#6848aa!important}
+.rail .mojo-nav-spacer{flex:1}
+.mojo-canvas-menu{position:fixed;z-index:1000;top:94px;left:66px;width:250px;padding:10px;border:1px solid #e5dfeb;border-radius:12px;background:#fff;box-shadow:0 14px 34px rgba(35,26,48,.13);font-family:var(--sans)}
+.mojo-canvas-menu[hidden]{display:none!important}
+.mojo-canvas-menu>strong{display:block;padding:5px 9px 9px;font-size:12px;color:#3b3343}
+.mojo-canvas-menu>a{display:block;padding:9px;border-radius:7px;color:#302a38;text-decoration:none;font-size:13px;font-weight:600}
+.mojo-canvas-menu>a span{display:block;margin-top:2px;color:#77717e;font-size:11px;font-weight:400}
+.mojo-canvas-menu>a:hover,.mojo-canvas-menu>a:focus-visible,.mojo-canvas-menu>a[aria-current="page"]{background:#f6f3fa;outline:0}
+.topbar .paneToggles{display:flex!important;align-items:center;gap:4px;margin-left:auto!important;margin-right:4px!important}
+.topbar .paneToggles label{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;white-space:nowrap;border:1px solid transparent!important;background:#f6f6f7!important;color:#625f68!important;box-shadow:none!important;font-weight:500!important}
+.topbar>.mc-share-button{margin-left:0!important}
+.trust-topbar .mc-topbar-actions{display:flex!important;align-items:center;gap:4px;margin-left:auto}
+.trust-topbar .mc-topbar-actions .mc-pane-toggle,.trust-topbar .mc-topbar-actions .trust-canvas-pill,.trust-topbar .mc-topbar-actions .mc-sidebar-label{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;min-height:29px;padding:0 10px;border:1px solid transparent!important;border-radius:6px;background:#f6f6f7!important;color:#625f68!important;box-shadow:none!important;white-space:nowrap;font-weight:500!important}
+.trust-topbar .mc-topbar-actions .mc-share-button{margin-left:8px}
+/* Canvas stays in view while Chat opens alongside it. */
+.topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert),
+#chatOn:checked ~ .app .topbar .paneToggles label:not([for]):not(.mojo-sidebar-inert),
+#canvasOn:checked ~ .app .topbar .paneToggles label[for="canvasOn"],
+.trust-topbar .mc-topbar-actions .trust-canvas-pill,
+.trust-topbar:has(.mc-pane-toggle.is-active) .mc-topbar-actions .trust-canvas-pill{border:0!important;background:#f2f0f3!important;color:#39343d!important;box-shadow:none!important;font-weight:600!important}
+#chatOn:checked ~ .app .topbar .paneToggles label[for="chatOn"],
+.trust-topbar .mc-topbar-actions .mc-pane-toggle.is-active{border:0!important;background:#f2f0f3!important;color:#39343d!important;box-shadow:none!important;font-weight:600!important}
+.topbar .paneToggles label.mojo-sidebar-inert,.trust-topbar .mc-topbar-actions .mc-sidebar-label{border:1px solid transparent!important;background:#f6f6f7!important;color:#827d87!important;box-shadow:none!important;font-weight:500!important}
+.trust-panes:has(.mc-trust-chat.is-open){display:flex;overflow:hidden}
+.trust-panes .mc-trust-chat.is-open{flex:0 0 min(360px,36vw);min-width:270px;min-height:0;flex-direction:column;overflow:hidden}
+.trust-panes .mc-trust-chat.is-open .chatbody{flex:1;min-height:0;overflow:auto}
+.trust-panes .mc-trust-chat.is-open .chatfoot{flex:none}
+.trust-panes:has(.mc-trust-chat.is-open) .trust-canvas{flex:1;min-width:0;min-height:0;overflow:auto}
+@media(max-width:850px){.trust-panes .mc-trust-chat.is-open{flex-basis:min(320px,45vw);min-width:220px}}
+@media(max-width:700px){.topbar .paneToggles{gap:0}.topbar .paneToggles label{font-size:0!important;padding:0 8px!important}.trust-topbar .mc-topbar-actions{gap:0}.trust-topbar .mc-topbar-actions .mc-pane-toggle,.trust-topbar .mc-topbar-actions .trust-canvas-pill,.trust-topbar .mc-topbar-actions .mc-sidebar-label{font-size:0!important;padding:0 8px}.trust-topbar .mc-topbar-actions .mc-share-button{margin-left:4px}}
+@media(max-width:600px){.trust-panes:has(.mc-trust-chat.is-open) .trust-canvas{display:none}.trust-panes .mc-trust-chat.is-open{flex:1;min-width:0}}
+@media(max-width:700px){.mojo-canvas-menu{left:59px;top:86px;width:min(250px,calc(100vw - 72px))}}
+
+.topbar .paneToggles label[for="chatOn"]:hover,.trust-topbar .mc-topbar-actions .mc-pane-toggle:hover{background:#ededf0!important;color:#302d35!important}
+
+/* The rail's Chat destination is a full conversation view. Canvas Chat remains a side pane. */
+body.mojo-chat-full .rail{z-index:62!important}
+body.mojo-chat-full .canvaspane,body.mojo-chat-full .trust-canvas{visibility:hidden!important}
+body.mojo-chat-full .chatpane,
+body.mojo-chat-full .trust-panes .mc-trust-chat.is-open{display:flex!important;position:fixed!important;inset:0 0 0 56px!important;z-index:60!important;width:auto!important;max-width:none!important;min-width:0!important;flex:1!important;flex-direction:column!important;border:0!important;box-shadow:none!important;background:#fff!important}
+body.mojo-chat-full .chatpane .chathead,
+body.mojo-chat-full .mc-trust-chat .chathead{flex:none!important;min-height:68px!important;padding:0 28px!important;border-bottom:1px solid #ece8e5!important;font:600 19px/1.2 var(--sans)!important}
+body.mojo-chat-full .chatpane .chatbody,
+body.mojo-chat-full .mc-trust-chat .chatbody{display:flex!important;flex:1!important;min-height:0!important;width:min(100%,900px)!important;margin:0 auto!important;padding:48px 32px 24px!important;overflow:auto!important;background:#fff!important}
+body.mojo-chat-full .chatpane .chatfoot,
+body.mojo-chat-full .mc-trust-chat .chatfoot{flex:none!important;width:min(100%,900px)!important;margin:0 auto!important;padding:12px 32px 32px!important;border:0!important;background:#fff!important}
+body.mojo-chat-full .chatpane .composer,
+body.mojo-chat-full .mc-trust-chat .composer{min-height:130px!important;border:1px solid #e2ddda!important;border-radius:18px!important;box-shadow:0 10px 28px rgba(37,29,43,.11)!important}
+body.mojo-chat-full .mojo-full-chat-greeting{margin:auto auto 32px;color:#29262d;text-align:center;font:400 clamp(30px,3vw,48px)/1.15 var(--serif)}
+body.mojo-chat-full .chatbody:has(.chat-polish-user) .mojo-full-chat-greeting{display:none}
+body.mojo-chat-full .chatfoot .modebar{display:none!important}
+@media(max-width:700px){body.mojo-chat-full .chatpane,body.mojo-chat-full .trust-panes .mc-trust-chat.is-open{left:54px!important}body.mojo-chat-full .chatpane .chatbody,body.mojo-chat-full .mc-trust-chat .chatbody,body.mojo-chat-full .chatpane .chatfoot,body.mojo-chat-full .mc-trust-chat .chatfoot{padding-left:18px!important;padding-right:18px!important}}
+
+/* Keep the main rail focused on Home, Company, the three apps, Chats, Canvases, and More. */
+.rail>a[href="Routines.html"],
+body.mojo-nav-expanded .rail>a[href="Routines.html"]{display:none!important}
+.rail .mojo-nav-divider{display:block;flex:none;width:24px;height:1px;margin:6px 0;background:#c7c4d0}
+body.mojo-nav-expanded .rail .mojo-nav-divider{width:calc(100% - 24px);margin:10px 12px}

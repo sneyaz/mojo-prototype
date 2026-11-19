@@ -1,0 +1,23 @@
+/* Keep page controls aligned with their content and separate filters from state changes. */
+/* The side conversation should read as a compact tool beside the canvas. */
+.app .chatpane{width:320px;max-width:34vw}
+.app .chatpane .chathead{height:46px;min-height:46px;padding:0 16px;font:600 14px/1.2 var(--sans)}
+.app .chatpane .chathead strong{font:600 14px/1.2 var(--sans)}
+@media(max-width:760px){.app .chatpane{width:min(320px,calc(100vw - 55px));max-width:none}}
+.mfc-feed .mf-topline{margin-left:0;margin-right:0}
+.mfc-feed #mf-insights .mf-stream,
+.mfc-feed #mf-decisions .mf-stream,
+.mfc-feed #mf-receipts .mf-stream{margin-left:0;margin-right:0}
+.mr-page .mr-summary{display:none}
+.mr-filterbar{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:22px 0 12px;border-bottom:1px solid #e6e1e9}
+.mr-filterbar + .mr-list{border-top:0}
+.mr-page .mr-status-filters{display:flex;width:auto;max-width:100%;gap:23px;margin:0;padding:0;border:0;border-radius:0;background:none;overflow:visible}
+.mr-page .mr-status-filters>button{position:relative;min-height:40px;padding:9px 0 12px;border:0;border-radius:0;background:none!important;box-shadow:none!important;color:#746d79;font:600 12px/1.2 var(--sans);white-space:nowrap}
+.mr-page .mr-status-filters>button:hover{color:#443357}
+.mr-page .mr-status-filters>button[aria-pressed=true]{color:#5d398f}
+.mr-page .mr-status-filters>button[aria-pressed=true]:after{display:block;content:"";position:absolute;right:0;bottom:-1px;left:0;height:2px;background:#67439c}
+.mr-page .mr-status-filters>button span{margin-left:3px;color:inherit;font-size:10px}
+.mr-page .mr-filter-label{display:inline-flex;align-items:center;gap:9px;margin:0 0 7px;color:#716a77;font:600 11px/1.2 var(--sans)}
+.mr-area-select{min-width:130px;min-height:31px;padding:5px 25px 5px 10px;border:1px solid #ded8e2;border-radius:7px;background:#fff;color:#352f3c;font:600 11px/1.2 var(--sans);cursor:pointer}
+.mr-area-select:focus-visible{outline:2px solid #7652b3;outline-offset:2px}
+@media(max-width:570px){.mr-filterbar{align-items:start;flex-direction:column;gap:4px}.mr-page .mr-status-filters{gap:17px}.mr-page .mr-filter-label{margin-bottom:10px}}

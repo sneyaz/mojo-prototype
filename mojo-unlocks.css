@@ -1,0 +1,48 @@
+/* One optional-connection pattern across Brief, Performance, Campaigns and Connections. */
+.mojo-unlocks{min-width:0;margin:20px 0 0;padding:15px 0 0;border:0;border-top:1px solid #e9e5eb;border-radius:0;background:#fff;box-shadow:none}
+.mojo-unlocks-label{display:block;margin:0 0 5px;color:#8b8391;font:700 9px/1.3 var(--sans);letter-spacing:.07em;text-transform:uppercase}
+.mojo-unlocks-title{display:block;margin:0 0 6px!important;color:#27212e;font:400 18px/1.28 var(--serif)!important;letter-spacing:-.025em}
+.mojo-unlock-row{display:grid;grid-template-columns:minmax(0,1fr) 61px;align-items:center;gap:6px;min-width:0;min-height:45px;padding:6px 0;border:0;background:transparent}
+.mojo-unlock-row+.mojo-unlock-row{border-top:1px solid #ece8ee}
+.mojo-unlock-content{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:start;gap:7px;min-width:0}
+.mojo-unlock-logo{display:block;width:22px;height:22px;padding:2px;border:1px solid #ece8ed;border-radius:50%;background:#fff;object-fit:contain}
+.mojo-unlock-text{min-width:0}
+.mojo-unlock-text strong{display:block;color:#3a3143;font:650 11px/1.25 var(--sans)}
+.mojo-unlock-text small{display:block;margin-top:2px;color:#8a8190;font:400 9.5px/1.3 var(--sans)}
+.mojo-unlock-action{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:61px;height:25px!important;padding:0 5px!important;border:1px solid #ded8e5;border-radius:6px;background:#fff;color:#58456f;text-decoration:none!important;white-space:nowrap;font:600 10px/1 var(--sans)!important}
+.mojo-unlock-action:hover{border-color:#b7a4ce;background:#f8f6fb;color:#4c337e}
+.mojo-unlock-action:focus-visible,.mojo-unlock-restore:focus-visible,.mojo-unlock-dismiss:focus-visible{outline:2px solid #7655b8;outline-offset:2px}
+
+/* Brief keeps its optional dismissal control; the row geometry stays shared. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks{margin-top:19px!important;padding:15px 0 24px!important;border:0!important;border-top:1px solid #e9e5eb!important;border-bottom:1px solid #e9e5eb!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks>.mojo-unlocks-title{display:block;max-width:24ch;font:400 18px/1.28 var(--serif)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-row{display:grid!important;grid-template-columns:minmax(0,1fr) 61px 18px;align-items:center;gap:6px!important;min-height:45px!important;padding:5px 0!important;border:0!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-row+.mojo-unlock-row{border-top:1px solid #ece8ee!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-row[hidden]{display:none!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-content{display:grid;grid-template-columns:22px minmax(0,1fr);gap:7px;min-width:0}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-text strong{font:650 11px/1.25 var(--sans)}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-text small{margin-top:2px!important;font:400 9.5px/1.3 var(--sans)!important}
+.canvaspane:has(.healthgrid) .brief-ledger-layout>aside .mojo-unlocks .mojo-unlock-action{width:61px;height:25px!important;padding:0 5px!important;font:600 10px/1 var(--sans)!important}
+.mojo-unlocks .brief-optional-dismiss{display:grid;place-items:center;width:18px;height:22px;padding:0;border:0;background:transparent;color:#9b94a2;cursor:pointer}
+.mojo-unlocks .brief-optional-dismiss svg{display:block;width:10px;height:10px}
+.mojo-unlocks .brief-optional-dismiss:hover{color:#4f3b6c}
+.mojo-unlocks .brief-optional-restore{margin-top:7px;padding:2px 0;border:0;background:none;color:#6244a3;cursor:pointer;font:600 10.5px/1.3 var(--sans)}
+.mojo-unlocks .brief-optional-restore[hidden]{display:none!important}
+.mojo-unlocks.brief-optional-all-hidden>.mojo-unlocks-title{display:inline!important;max-width:none!important;font:600 11px/1.3 var(--sans)!important}
+.mojo-unlocks.brief-optional-all-hidden .mojo-unlocks-label{display:none!important}
+.mojo-unlocks.brief-optional-all-hidden .brief-optional-restore{display:inline-block;margin:0 0 0 10px}
+
+.campaign-detail-rail .mojo-unlocks{margin-top:28px;padding-top:15px}
+.campaign-detail-rail .mojo-unlocks h2{margin:0 0 6px!important;font:400 18px/1.28 var(--serif)!important}
+.canvaspane .performance-pipeline-gate{max-width:600px;margin-top:19px;padding-top:13px}
+.performance-pipeline-gate .mojo-unlock-row{max-width:580px}
+.trust-source-grid.mojo-unlocks{display:block;max-width:720px;margin-top:24px;padding-top:14px}
+.trust-source-grid.mojo-unlocks .mojo-unlock-row{grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:13px 0}
+.trust-source-grid.mojo-unlocks .mojo-unlock-content{grid-template-columns:24px minmax(0,1fr);gap:10px}
+.trust-source-grid.mojo-unlocks .mojo-unlock-logo{width:24px;height:24px}
+.trust-source-grid.mojo-unlocks .mojo-unlock-text strong{font-size:12.5px}
+.trust-source-grid.mojo-unlocks .mojo-unlock-text small{max-width:62ch;font-size:11px;line-height:1.45}
+.trust-source-state{align-self:center;color:#817889;font:600 10.5px/1.3 var(--sans);white-space:nowrap}
+.trust-source-grid.mojo-unlocks .mojo-unlock-row:target{scroll-margin-top:18px;background:#faf8fd}
+@media(max-width:900px){.campaign-detail-rail .mojo-unlock-row{grid-template-columns:minmax(0,1fr);gap:5px}.campaign-detail-rail .mojo-unlock-action{justify-self:start;margin-left:29px}}
+@media(max-width:600px){.trust-source-grid.mojo-unlocks .mojo-unlock-row{grid-template-columns:minmax(0,1fr);gap:5px}.trust-source-grid.mojo-unlocks .trust-source-state{margin-left:34px}}

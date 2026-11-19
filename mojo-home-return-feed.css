@@ -1,0 +1,29 @@
+body.seq-connected-home .home-content > .home-source-filter,
+body.seq-connected-home #home-feed > .home-source-filter{display:flex!important}
+body.seq-connected-home #home-feed > .home-section{display:block!important}
+body.seq-connected-home .home-content{max-width:1080px!important}
+body.seq-connected-home #home-feed > .home-source-filter{position:static;flex-direction:row;flex-wrap:wrap;gap:5px;width:100%;margin:32px 0 16px;padding:0;border:0}
+body.seq-connected-home #home-feed > .home-source-filter button{justify-content:center;width:auto;min-height:32px;padding:8px 12px;border:1px solid #e8e2db;border-radius:999px;background:#fff}
+body.seq-connected-home #home-feed > .home-source-filter button[aria-pressed="true"]{border-color:#bbb0c7;background:#f8f6f9}
+body.seq-connected-home #home-feed > .home-section{margin-top:24px}
+body.seq-connected-home #home-feed > .home-section:first-of-type{margin-top:0}
+
+/* Keep the return feed readable beside its app filter. */
+body.seq-connected-home .home-content{display:grid!important;grid-template-columns:146px minmax(0,700px);column-gap:18px;max-width:864px!important}
+body.seq-connected-home .app:has(#chatOn:checked) .work .home-content{display:grid!important;grid-template-columns:146px minmax(0,700px);max-width:864px!important}
+.home-feed-rail-title{order:-1;margin:0 0 14px;padding:0 9px;color:#302937;font:500 20px/1.25 Lora,Georgia,serif}
+body.seq-connected-home .home-content>.home-source-filter,
+body.seq-connected-home #home-feed>.home-source-filter{display:flex!important;grid-column:1;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:2px;width:146px;margin:0;padding:4px 10px 0 0;border:0}
+body.seq-connected-home .home-content>#home-feed{grid-column:2;min-width:0;max-width:700px}
+body.seq-connected-home .home-source-filter button,
+body.seq-connected-home #home-feed>.home-source-filter button{display:flex;justify-content:space-between;min-height:31px;width:100%;padding:7px 9px;border:0;border-radius:7px;background:transparent;font-size:11px;text-align:left}
+body.seq-connected-home .home-source-filter button[aria-pressed="true"],
+body.seq-connected-home #home-feed>.home-source-filter button[aria-pressed="true"]{background:#f0ebf5;color:#5e3d91}
+body.seq-connected-home .home-source-filter .mojo-owner-control{margin-bottom:11px}
+@media(max-width:780px){
+ body.seq-connected-home .home-content,body.seq-connected-home .app:has(#chatOn:checked) .work .home-content{grid-template-columns:minmax(0,700px);max-width:700px!important}
+ body.seq-connected-home .home-content>.home-source-filter,body.seq-connected-home #home-feed>.home-source-filter{grid-column:1;flex-direction:row;flex-wrap:wrap;width:100%;margin:0 0 14px;padding:0}
+ body.seq-connected-home .home-content>#home-feed{grid-column:1;grid-row:auto}
+ body.seq-connected-home .home-source-filter button,body.seq-connected-home #home-feed>.home-source-filter button{width:auto;min-height:30px;padding:6px 10px;border:1px solid #e8e2db;border-radius:999px}
+ body.seq-connected-home .home-source-filter .mojo-owner-control{flex-basis:100%;max-width:170px}
+}

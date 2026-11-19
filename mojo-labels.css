@@ -1,0 +1,33 @@
+/* Canonical eyebrow rule. Legacy page styles may set spacing, never type or color. */
+:root{
+  --mojo-label-size:9.5px;
+  --mojo-label-color:#746c7e;
+}
+.canvaspane :is(
+  .mc-eyebrow,.ia-kicker,.mp-eyebrow,.eyebrow,.cap,
+  .brief-view-kicker,.brief-extra-kicker,.brief-monitor-tag,
+  .task-kicker,.task-feature-kicker,.task-row-category,.task-rail-kicker,
+  .performance-portfolio-kicker,.performance-focus-kicker,
+  .strategy-blueprint-kicker,.campaign-detail-kicker,
+  .campaign-detail-eyebrow,.campaign-detail-event-type,
+  .campaign-detail-view-label,.ia-campaign-label,
+  .mojo-unlocks-label,.brief-connected-label,.brief-optional-label,
+  .mc-ops-menu-label,
+  .campaign-triage-heading>p:first-child,.tag.cat,.dtag:not(.go),
+  .mojo-scope-chip>span
+){
+  color:var(--mojo-label-color)!important;
+  font:600 var(--mojo-label-size)/1.35 var(--sans)!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+/* Brief's imported finding rules have higher specificity than the shared rule. */
+.canvaspane:has(.healthgrid) .brief-ledger-layout .card.lead .dtag,
+.canvaspane:has(.healthgrid) .brief-ledger-layout .drow .tag.cat,
+.canvaspane:has(.brief-view-root) .brief-view-cando>.compact .dtag,
+.canvaspane:has(.brief-view-root) .brief-view-watching>.compact .dtag{
+  color:var(--mojo-label-color)!important;
+  font:600 var(--mojo-label-size)/1.35 var(--sans)!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}

@@ -1,0 +1,47 @@
+/* One completion mark across the board: the Recently Completed feed mark. */
+:is(
+  .mfd-quick-check,
+  .brief-done-mark,
+  .mic-chat-saved-check,
+  .home-done-check,
+  .ml-build-check,
+  .seq-save-check,
+  .seq-launch-confirmation > span,
+  .seq-budget-sent > span,
+  .seq-fix-clear-mark,
+  .seq-resolved-note > span,
+  .mfc-checks b,
+  .fr-scan-check,
+  .fr-chat-timeline .done i,
+  .fr-build-receipts .done i,
+  .fr-discovery-receipts .done i,
+  .fr-scan-integrations i
+),
+.ml-build-passed span::before{
+  display:inline-grid!important;
+  place-items:center!important;
+  flex:none!important;
+  box-sizing:border-box!important;
+  width:21px!important;
+  height:21px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#e5f4e5!important;
+  color:#287a34!important;
+  font:700 11px/1 Inter,Arial,sans-serif!important;
+  text-align:center!important;
+}
+
+:is(.mfd-quick-check,.seq-save-check) svg{
+  display:block;
+  width:14px;
+  height:14px;
+  stroke:currentColor;
+}
+
+/* Keep pending and declined states distinct from completed work. */
+.mfd-quick-declined .mfd-quick-check{
+  background:#f0edf3!important;
+  color:#716779!important;
+}

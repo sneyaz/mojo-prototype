@@ -1,0 +1,64 @@
+/* Spacing separates sections. A rule belongs only between comparable rows. */
+
+/* Brief: avoid framing a single item with rules above and below it. */
+.canvaspane:has(.brief-view-root) .brief-view-intro {
+  padding-bottom: 0;
+  margin-bottom: 23px;
+  border-bottom: 0;
+}
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-view-watching>.compact {
+  margin: 0 !important;
+  padding: 3px 2px 0 !important;
+  border: 0 !important;
+}
+.canvaspane:has(.brief-view-root) .brief-view-watching>.brief-view-foot { margin-top: 26px; }
+.canvaspane:has(.brief-view-root) .brief-view-cando>.brief-view-intro { margin-bottom: 17px; }
+.canvaspane:has(.brief-view-root) .brief-view-done .brief-done-list li {
+  border-bottom: 0;
+  min-height: 48px;
+}
+.canvaspane:has(.brief-view-root) .brief-view-done .brief-done-list li + li { margin-top: 3px; }
+
+/* The featured decision, section heading, and first finding no longer stack lines. */
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-view-needs .card.lead {
+  border-bottom: 0 !important;
+  padding-bottom: 18px !important;
+}
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-finding-list { margin-top: 18px; }
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-finding-list .drow:first-child { border-top: 0 !important; }
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-finding-list .drow:last-child { border-bottom: 0 !important; }
+.canvaspane:has(.brief-view-root) .brief-subhead.brief-this-week { border-bottom: 0; padding-bottom: 0; margin-bottom: 7px; }
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-this-week + .drow { border-top: 0 !important; }
+.canvaspane:has(.brief-view-root) .brief-ledger-layout>aside .sidebox {
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 29px !important;
+}
+.canvaspane:has(.brief-view-root) .weekrow.week-enhanced>.sidebox { border-top: 0 !important; }
+.canvaspane:has(.brief-view-root) .weekrow.week-enhanced .winitem:first-child { border-top: 0 !important; }
+.canvaspane:has(.brief-view-root) .brief-status { border-top: 0; border-bottom: 0; }
+.canvaspane:has(.brief-view-root) .brief-status-groups { border-top: 0; }
+
+/* Tasks: headings and receipts get air; repeated task rows keep one separator. */
+.task-hierarchy-enhanced .task-masthead { border-bottom: 0; }
+.task-work-main>section.panel>.task-list-row:nth-child(2),
+.task-work-main>section.panel>.row:nth-child(2) { border-top: 0 !important; }
+.task-work-score-grid { border-top: 0; border-bottom: 0; padding-top: 4px; }
+.task-done-receipts li { border-top: 0; }
+
+/* Activity and Campaigns: only the spaces between sibling rows are ruled. */
+.canvaspane .panel.routine-panel { border-top: 0 !important; }
+.routine-panel .routine-row:first-of-type { border-top: 0; }
+.routine-panel .routine-row:last-of-type { border-bottom: 0; }
+.handled-panel .handled-list { border-bottom: 0; }
+.handled-panel .handled-item:first-child { border-top: 0; }
+.campaign-patterns-enhanced>section.pattern-row-section:first-of-type { border-top: 0 !important; }
+.campaign-patterns-enhanced>section.pattern-row-section:last-of-type { border-bottom: 0 !important; }
+
+/* Focused metric rows retain internal comparisons without enclosing rules. */
+.canvaspane .performance-focus-ledger { border-top: 0; border-bottom: 0; }
+.canvaspane .campaign-detail-line:last-child { border-bottom: 0; }
+
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-finding-list + .brief-finding-list .drow:first-child{border-top:1px solid #e9e5ec!important}
+
+.canvaspane:has(.brief-view-root) .brief-ledger-layout .brief-finding-list + .brief-finding-list{margin-top:0!important}

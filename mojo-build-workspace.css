@@ -1,0 +1,59 @@
+/* The Build canvas separates saved blueprints from ideas still worth developing. */
+.mojo-lifecycle-app .ml-wrap:has(.ml-build-filters){max-width:1180px}
+.mojo-lifecycle-app .ml-wrap:has(.ml-build-filters) .ml-lede{margin-bottom:28px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"]{padding:20px 22px 22px;border:1px solid #e6e0d7;border-radius:17px;background:#faf9f6}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-toolbar{margin-bottom:12px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-list{background:transparent}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-empty{padding:8px 0;border:0;background:transparent}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft{padding:17px 0;background:transparent}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft+.ml-build-draft{border-top:1px solid #e5ded6}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details{margin-top:13px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details summary{font:600 12px/1.4 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint{gap:0 22px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;padding:19px 0}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-row-head{margin-bottom:6px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft h3{margin-bottom:5px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft p{max-width:66ch;color:#716a73}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details{margin-top:11px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details summary{padding:3px 0;color:#624584;font:650 11px/1.4 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details[open]{grid-column:1/-1}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-blueprint-details[open] .ml-build-blueprint{max-width:none;margin-top:13px;padding:15px 18px;border-radius:10px;background:#fff}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-row-side{gap:15px;padding-top:0}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-row-actions{white-space:nowrap}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft:has(.ml-build-blueprint-details[open]){display:block}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft:has(.ml-build-blueprint-details[open]) .ml-build-row-side{display:flex;justify-content:flex-end;margin-top:12px}
+.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft:has(.ml-build-blueprint-details[open]) .ml-build-blueprint{max-width:none}
+@container (max-width:760px){.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-draft{grid-template-columns:1fr;gap:12px}.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-row-side{justify-content:flex-start;flex-wrap:wrap}.mojo-lifecycle-app .ml-section[data-source-section="draft"] .ml-build-row-actions{margin-left:0}}
+.mojo-lifecycle-app .ml-section[data-source-section="recommended"]{margin-top:30px}
+.mojo-lifecycle-app .ml-section[data-source-section="recommended"] .ml-toolbar{align-items:center;margin-bottom:15px}
+.mojo-lifecycle-app .ml-section[data-source-section="recommended"] .ml-build-list{background:transparent}
+.ml-build-group[hidden]{display:none!important}
+.ml-build-group{border:0}
+.ml-build-group+.ml-build-group{margin-top:26px}
+.ml-build-group-heading{display:flex;align-items:baseline;gap:9px;margin:0 0 11px}
+.ml-build-group-name{font:500 18px/1.3 Lora,Georgia,serif;color:#322b36}
+.ml-build-group-count{font:500 11px/1.3 Inter,Arial,sans-serif;color:#8a818b}
+.ml-build-group-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0}
+.mojo-lifecycle-app .ml-build-group .ml-build-row{display:flex;flex-direction:column;align-items:stretch;gap:0;min-height:224px;padding:18px;border:1px solid #e7e1db;border-radius:14px;background:#fff;box-shadow:none}
+.mojo-lifecycle-app .ml-build-group .ml-build-row:hover{border-color:#c7b6d7;box-shadow:0 7px 19px #42354f0d}
+.mojo-lifecycle-app .ml-build-recommended h3{font:600 16px/1.32 Inter,Arial,sans-serif}
+.mojo-lifecycle-app .ml-build-recommended p{font:400 12px/1.45 Inter,Arial,sans-serif;color:#736c75}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-row-side{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;margin-top:auto;padding-top:20px}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-creatives{align-self:end}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-creatives img{width:54px;height:37px}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-budget{min-width:0;text-align:right}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-budget strong{font:500 17px/1.25 Lora,Georgia,serif}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-row-actions{grid-column:1/-1;justify-content:space-between;padding-top:13px;border-top:1px solid #eee9e3}
+.mojo-lifecycle-app .ml-build-recommended .ml-build-row-actions button{font-size:11px}
+.seq-build-rule:not(.is-compact){display:flex;align-items:center;justify-content:space-between;gap:20px;margin:18px 0 26px;padding:12px 0;border-top:1px solid #e9e3dc;border-bottom:1px solid #e9e3dc}
+.seq-build-rule:not(.is-compact) .seq-build-rule-heading{margin:0}
+.seq-build-rule:not(.is-compact) .seq-build-rule-heading h2{font:500 15px/1.3 Lora,Georgia,serif;white-space:nowrap}
+.seq-build-rule:not(.is-compact)>p{margin:0;font-size:11px}
+.seq-build-rule:not(.is-compact)>a{white-space:nowrap}
+.seq-build-rule:not(.is-compact){display:block;margin:22px 0 28px;padding:0 0 19px;border-top:0}
+.seq-build-rule:not(.is-compact) .seq-build-rule-heading{margin:0 0 10px}
+.seq-build-rule:not(.is-compact) .seq-rule-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px}
+.seq-build-rule:not(.is-compact) .seq-rule-copy{max-width:650px}
+@container (max-width:650px){.seq-build-rule:not(.is-compact) .seq-rule-card{grid-template-columns:1fr;gap:12px}}
+@container (max-width:940px){.ml-build-group-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width:620px){.ml-build-group-list{grid-template-columns:1fr}.seq-build-rule:not(.is-compact){align-items:flex-start;flex-direction:column;gap:7px}}

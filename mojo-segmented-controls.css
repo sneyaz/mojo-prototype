@@ -1,0 +1,65 @@
+/* Shared treatment for grouped choices across Mojo surfaces. */
+:is(.mfc-sort,.mr-mode,.mr-status-filters,.mr-filters,.mps-filters,.aud-pill-group,.aeo-prompt-filters,.mf-practice-filters,.mf-decision-filters,.today-queue-filters,.mm-filters,.ma-categories,.aq-presets){
+  display:inline-flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:2px;
+  width:max-content;
+  max-width:100%;
+  box-sizing:border-box;
+  padding:4px;
+  border:0;
+  border-radius:999px;
+  background:#f9f7f5;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+:is(.mfc-sort,.mr-mode,.mr-status-filters,.mr-filters,.mps-filters,.aud-pill-group,.aeo-prompt-filters,.mf-practice-filters,.mf-decision-filters,.today-queue-filters,.mm-filters,.ma-categories,.aq-presets)::-webkit-scrollbar{display:none}
+:is(.mfc-sort,.mr-mode,.mr-status-filters,.mr-filters,.mps-filters,.aeo-prompt-filters,.mf-practice-filters,.mf-decision-filters,.today-queue-filters,.mm-filters,.ma-categories,.aq-presets) > button,
+:is(.aud-pill-group,.aud-content .aud-pill-group) > label{
+  position:relative;
+  flex:none;
+  min-height:31px;
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:7px 14px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:#796f72;
+  box-shadow:none;
+  text-transform:none;
+  white-space:nowrap;
+  cursor:pointer;
+}
+:is(.mfc-sort,.mr-mode,.mr-status-filters,.mr-filters,.mps-filters,.aeo-prompt-filters,.mf-practice-filters,.mf-decision-filters,.today-queue-filters,.mm-filters,.ma-categories,.aq-presets) > button:hover,
+:is(.aud-pill-group,.aud-content .aud-pill-group) > label:hover{background:#fbfaf7;color:#39353d}
+:is(.mfc-sort,.mr-mode,.mr-status-filters,.mr-filters,.mps-filters,.aeo-prompt-filters,.mf-practice-filters,.mf-decision-filters,.today-queue-filters,.mm-filters,.ma-categories,.aq-presets) > button[aria-pressed="true"],
+:is(.aud-pill-group,.aud-content .aud-pill-group) > label.is-on{
+  border:1px solid #ebe6e1;
+  background:#fff;
+  color:#302c34;
+  box-shadow:0 1px 3px rgba(53,42,30,.06);
+}
+.mr-status-filters{margin-bottom:18px;border-bottom:0}
+.mr-status-filters button[aria-pressed="true"]::after{display:none}
+.mr-mode{border:0}
+.mr-mode button{min-width:53px;border-radius:999px}
+.mr-routine[data-mode=paused] .mr-mode button[data-mode=paused][aria-pressed="true"],
+.mr-routine[data-mode=off] .mr-mode button[data-mode=off][aria-pressed="true"]{background:#fff;color:#302c34}
+.mr-filters{margin-bottom:13px}
+.aeo-prompt-filters{margin-bottom:9px}
+.mf-practice-filters{border-bottom:0}
+.today-queue-filters,.mojo-today .today-queue-filters{padding:4px;border-bottom:0}
+#mf-decisions .mf-decision-filters{gap:2px}
+#mf-decisions .mf-decision-filters button{border:0;border-radius:999px}
+#mf-decisions .mf-decision-filters button[aria-pressed="true"]{border:0;background:#fff;color:#302c34}
+.aud-content .aud-pill-group label{border:0;background:transparent;color:#706b73}
+.aud-content .aud-pill-group label.is-on{border:0;background:#fff;color:#302c34}
+.mf-dashboard-tabs{border:0;background:#f9f7f5}
+.mf-dashboard-tabs button{border:1px solid transparent;color:#796f72;text-transform:none}
+.mf-dashboard-tabs button:hover{background:#fbfaf7;color:#39353d}
+.mf-dashboard-tabs button[aria-selected="true"]{border:1px solid #ebe6e1;background:#fff;color:#4a3a51;box-shadow:0 1px 3px rgba(53,42,30,.06)}

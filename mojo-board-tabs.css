@@ -1,0 +1,7 @@
+.modulenav.board-nav-motion{position:relative}
+.modulenav.board-nav-motion::after{content:"";position:absolute;left:var(--board-nav-left,20px);bottom:-1px;width:var(--board-nav-width,40px);height:2px;border-radius:2px;background:#674198;pointer-events:none}
+.modulenav.board-nav-motion.board-nav-ready::after{transition:left .2s cubic-bezier(.2,.7,.3,1),width .2s cubic-bezier(.2,.7,.3,1)}
+.modulenav.board-nav-motion a[aria-current="page"]{border-bottom-color:transparent!important}
+body:has(.modulenav.board-nav-motion) .canvaspane{animation:board-canvas-crossfade .15s ease-out both}
+@keyframes board-canvas-crossfade{from{opacity:.5}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.modulenav.board-nav-motion.board-nav-ready::after{transition:none}body:has(.modulenav.board-nav-motion) .canvaspane{animation:none}}

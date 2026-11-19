@@ -1,0 +1,23 @@
+/* Compact evidence charts for Audience and AEO feed items. */
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-visual.aud-viz{display:block;min-height:0;padding:15px 17px;color:#403b45;text-align:left}
+.aud-viz-title{width:100%;margin-bottom:11px;color:#514b55;font:700 11px/1.3 var(--sans);letter-spacing:0;text-align:left}
+.aud-viz-bars{display:grid;width:100%;gap:9px}
+.aud-viz-bars>div{display:grid;grid-template-columns:minmax(105px,150px) minmax(0,1fr) 55px;align-items:center;gap:10px;color:#625c65;font:500 11px/1.25 var(--sans)}
+.aud-viz-bars b{color:#302a34;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.aud-viz progress{display:block;width:100%;height:10px;appearance:none;border:0;border-radius:99px;overflow:hidden;background:#e8e3dd}
+.aud-viz progress::-webkit-progress-bar{border-radius:99px;background:#e8e3dd}
+.aud-viz progress::-webkit-progress-value{border-radius:99px;background:#6544a0}
+.aud-viz progress::-moz-progress-bar{border-radius:99px;background:#6544a0}
+.aud-viz progress.warn::-webkit-progress-value{background:#c96419}
+.aud-viz progress.warn::-moz-progress-bar{background:#c96419}
+.aud-viz progress.base::-webkit-progress-value{background:#a79abd}
+.aud-viz progress.base::-moz-progress-bar{background:#a79abd}
+.aud-app-body .aud-content .aud-viz>small{display:block;margin-top:8px;color:#746e77;font:500 10px/1.3 var(--sans)}
+.aud-viz-dots{display:flex;gap:8px;margin:3px 0}
+.aud-viz-dots span{display:block;width:24px;height:24px;border-radius:50%;background:#e6deef}
+.aud-viz-dots span.is-filled{background:#6849a3}
+.aud-viz-shareline{display:flex;width:100%;align-items:baseline;gap:10px;margin-bottom:11px}
+.aud-app-body .aud-content .aud-viz-shareline strong{color:#5e4097;font:650 27px/1 Lora,Georgia,serif}
+.aud-viz-shareline span{color:#625c65;font:500 11px/1.3 var(--sans)}
+.aud-viz-scale{display:flex;width:100%;justify-content:space-between;gap:10px;margin-top:7px;color:#756e78;font:500 10px/1.3 var(--sans)}
+@media(max-width:600px){.aud-viz-bars>div{grid-template-columns:90px minmax(0,1fr) 45px;gap:7px;font-size:10px}.aud-viz-dots span{width:20px;height:20px}}
