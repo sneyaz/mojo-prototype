@@ -13,16 +13,6 @@ function setupNavigation(page) {
   const shareIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 16V3m0 0L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
   const chatIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z"/></svg>';
   const canvasIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>';
-  const nav = document.querySelector('.modulenav');
-  if (nav) {
-    const active = page === 'HomeSystem.html' || page === 'index.html' ? 'Brief'
-      : page === 'Work.html' ? 'Work'
-      : page === 'Portfolio.html' ? 'Campaigns'
-      : page === 'Strategy.html' ? 'Strategy' : '';
-    nav.innerHTML = [['Brief','HomeSystem.html'],['Work','Work.html'],['Campaigns','Portfolio.html'],['Strategy','Strategy.html']]
-      .map(([name, href]) => `<a href="${href}"${active === name ? ' class="on" aria-current="page"' : ''}>${name}</a>`).join('');
-    nav.setAttribute('aria-label', 'Main navigation');
-  }
   const trustTopbar = document.querySelector('.trust-topbar');
   if (trustTopbar) trustTopbar.innerHTML = `<span class="wtitle">${page === 'Routines.html' ? 'Routines' : 'Mojo Ad Campaigns'}</span><div class="mc-topbar-actions"><button type="button" class="mc-pane-toggle" id="mc-trust-chat-toggle" aria-expanded="false">${chatIcon}Chat</button><span class="trust-canvas-pill" aria-current="page">${canvasIcon}Canvas</span><span class="mc-sidebar-label" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/></svg>Sidebar</span><button type="button" class="btn outline mc-share-button" id="mc-share" aria-label="Copy page link">${shareIcon}Share</button></div>`;
   document.querySelectorAll('.topbar .btn.outline').forEach(button => {

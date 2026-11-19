@@ -7,7 +7,7 @@
     return;
   }
 
-  document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(() => {
+  document.addEventListener('DOMContentLoaded', () => {
     buildNavigation();
     if (page === 'HomeSystem' || page === 'index') buildToday();
     if (['Connections', 'Settings'].includes(page)) buildManagementHeading();
@@ -18,7 +18,7 @@
       const old = new URL(link.href, location.href);
       link.href = `HomeSystem.html${old.search}#${workHash(old.hash)}`;
     }
-  }));
+  });
 
   function buildNavigation() {
     const nav = document.querySelector('.modulenav');
