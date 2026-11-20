@@ -21,7 +21,9 @@
 @media(prefers-reduced-motion:reduce){.mbj-card{transition:none}}
 .mbj-row{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
 .mbj-select-ready{display:flex;align-items:center;justify-content:center;flex:none;width:20px;height:24px;cursor:pointer}
-.mbj-select-ready input{width:16px;height:16px;margin:0;accent-color:#6842a5;cursor:pointer}
+.mbj-select-ready input{appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative;cursor:pointer}
+.mbj-select-ready input:checked{border-color:#6842a5;background:#6842a5}
+.mbj-select-ready input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .mbj-select-ready .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .mbj-row-main{min-width:0;flex:1}
 .mbj-initiative{display:flex;align-items:center;gap:6px;color:#786e7c;font:650 11px/1.3 Inter,Arial,sans-serif}
