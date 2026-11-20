@@ -96,7 +96,9 @@
 .company-structure-editor input:focus-visible,.company-structure-editor select:focus-visible{outline:2px solid #8e68bb;outline-offset:1px}
 .company-channel-choices{display:flex;flex-wrap:wrap;gap:9px}
 .company-channel-choices label{display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid #ded5e5;border-radius:9px;background:#fff;cursor:pointer}
-.company-channel-choices input{width:15px;min-height:15px;margin:0;accent-color:#68469e}
+.company-channel-choices input{width:15px;min-height:15px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.company-channel-choices input:checked{border-color:#68469e;background:#68469e}
+.company-channel-choices input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .company-campaign-edit-rows{display:grid;gap:8px}
 .company-campaign-edit-row{display:grid;grid-template-columns:minmax(0,1fr) 150px auto;align-items:end;gap:9px;padding:9px;border:1px solid #e8e1eb;border-radius:9px;background:#fff}
 .company-campaign-remove,.company-campaign-add{padding:7px 0;border:0;background:none;color:#68469e;cursor:pointer;font:650 11px/1.4 Inter,Arial,sans-serif}

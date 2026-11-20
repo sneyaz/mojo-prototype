@@ -64,7 +64,9 @@
 .mcc-fields legend{padding:0 4px;color:#645a68;font:700 11px Inter,Arial,sans-serif}
 .mcc-channel-list{display:flex;flex-wrap:wrap;gap:9px}
 .mcc-channel-list label{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid #e8e1ea;border-radius:8px;color:#43384b;font:600 11px Inter,Arial,sans-serif;cursor:pointer}
-.mcc-channel-list input{accent-color:#65418c}
+.mcc-channel-list input{appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.mcc-channel-list input:checked{border-color:#65418c;background:#65418c}
+.mcc-channel-list input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .mcc-field-note{align-self:end;padding-bottom:5px;color:#887e8d;font:500 10px/1.4 Inter,Arial,sans-serif}
 .mcc-form-footer{display:flex;align-items:center;justify-content:flex-end;gap:13px;flex-wrap:wrap;margin-top:19px;padding-top:16px;border-top:1px solid #eee8f0}
 .mcc-form-footer p{margin:0 auto 0 0;color:#655b69;font:500 11px/1.45 Inter,Arial,sans-serif}

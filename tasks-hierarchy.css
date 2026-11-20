@@ -85,4 +85,6 @@
 .task-budget-choices legend{margin-bottom:8px;color:#3d3448;font:650 12px/1.35 var(--sans)}
 .task-budget-choice{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1px solid #e8e2ed;border-radius:7px;color:#463d50;font:500 12px/1.4 var(--sans);cursor:pointer}
 .task-budget-choice:has(input:checked){border-color:#ad99d0;background:#f8f5fc}
-.task-budget-choice input{flex:none;margin:2px 0 0;accent-color:#6844b2}
+.task-budget-choice input{flex:none;margin:2px 0 0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.task-budget-choice input:checked{border-color:#6844b2}
+.task-budget-choice input:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#6844b2}

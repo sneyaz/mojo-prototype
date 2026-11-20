@@ -30,7 +30,9 @@ main.mf-feed-page #mf-insights article.mojo-initiative-check{padding:17px 23px 1
 .mic-name{display:flex;flex-wrap:wrap;gap:9px 17px;margin:0 0 18px;padding:0;border:0}
 .mic-name legend,.mic-goals>strong{width:100%;margin-bottom:8px;color:#514956;font:650 12px/1.4 Inter,Arial,sans-serif}
 .mic-name label{display:inline-flex;align-items:center;gap:7px;min-height:18px;color:#514956;font:500 12px/18px Inter,Arial,sans-serif}
-.mic-name input[type=radio]{box-sizing:border-box;width:14px;height:14px;flex:none;margin:0;accent-color:#67419d;vertical-align:middle}
+.mic-name input[type=radio]{box-sizing:border-box;width:14px;height:14px;flex:none;margin:0;vertical-align:middle;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.mic-name input[type=radio]:checked{border-color:#67419d}
+.mic-name input[type=radio]:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#67419d}
 .mic-other{width:130px;min-width:0;padding:5px 7px;border:1px solid #ded8d1;border-radius:7px;font:500 12px Inter,Arial,sans-serif}
 .mic-other:not(:required){display:none}
 .mic-goals{display:grid;gap:0;margin:0 0 17px}
@@ -61,4 +63,6 @@ main.mf-feed-page #mf-insights article.mojo-initiative-check{padding:17px 23px 1
 .mic-goal fieldset.mic-motions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 0;padding:0;border:0}
 .mic-motions legend{width:100%;margin-bottom:5px;color:#807782;font:600 10px Inter,Arial,sans-serif}
 .mic-motions label{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid #e4ddd8;border-radius:8px;background:#fff;color:#3d3542;font:500 11px Inter,Arial,sans-serif;cursor:pointer}
-.mic-motions input{width:14px;height:14px;margin:0;accent-color:#67419d}
+.mic-motions input{width:14px;height:14px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.mic-motions input:checked{border-color:#67419d;background:#67419d}
+.mic-motions input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}

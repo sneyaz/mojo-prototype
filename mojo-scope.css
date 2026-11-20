@@ -40,7 +40,9 @@
 :is(.canvaspane,.campaign-context-mode) button.mojo-scope-campaign-link>span:last-child{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 :is(.canvaspane,.campaign-context-mode) button.mojo-scope-campaign-link:hover,:is(.canvaspane,.campaign-context-mode) button.mojo-scope-campaign-link:focus-visible{background:#f8f5fb}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign:hover{background:#f8f5fb}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign input{flex:none;width:15px;height:15px;margin:0;accent-color:#6846ac}
+:is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign input{flex:none;width:15px;height:15px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+:is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign input:checked{border-color:#6846ac;background:#6846ac}
+:is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-logo{display:grid;place-items:center;flex:none;width:22px;height:22px;border:1px solid #e9e4ed;border-radius:50%;background:#fff;color:#908697}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-logo img{display:block;width:14px;height:14px;object-fit:contain}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-campaign>span:last-child{display:flex;flex-direction:column;min-width:0;gap:1px}

@@ -54,7 +54,9 @@
 .mag-object-links{display:grid;gap:6px;margin:14px 0;padding:12px 14px;border:1px solid #e9e0ef;border-radius:11px;background:#faf7fc;color:#6b5f73;font:500 11px/1.45 Inter,Arial,sans-serif}.mag-object-links strong{color:#4d3666;font-size:12px}
 /* Account actions stay beside the table selection, like a mail inbox toolbar. */
 .mag-select-all-label{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;cursor:pointer}
-.mag-select-all-label input{width:14px;height:14px;margin:0;accent-color:#6846ac}
+.mag-select-all-label input{width:14px;height:14px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.mag-select-all-label input:checked{border-color:#6846ac;background:#6846ac}
+.mag-select-all-label input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .mag-table-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-height:44px;padding:8px 12px;border:1px solid #e6deeb;border-bottom:0;border-radius:10px 10px 0 0;background:#faf8fb;font:600 11px Inter,Arial,sans-serif}
 .mag-table-toolbar strong{margin-right:5px;color:#54465f;white-space:nowrap}
 .mag-table-toolbar button{padding:6px 9px;border:1px solid #d9cce5;border-radius:7px;background:#fff;color:#513380;font:650 11px Inter,Arial,sans-serif;cursor:pointer}
@@ -65,7 +67,9 @@
 .mag-table-toolbar+table{border-top-left-radius:0;border-top-right-radius:0}
 .mag-table-toolbar output a{color:#57318d;font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .mag-campaign-drafts{display:grid;gap:8px;margin:12px 0 20px}.mag-campaign-drafts h3{margin:0;color:#4b3a5f;font:700 12px Inter,Arial,sans-serif}.mag-campaign-draft{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid #ded2e8;border-radius:10px;background:#faf7fd;font:500 11px Inter,Arial,sans-serif}.mag-campaign-draft.is-active{border-color:#8255bc;box-shadow:0 0 0 2px #8255bc25}.mag-campaign-draft a{color:#593293;font-weight:700}.mag-campaign-draft span{color:#7d7184}
-#ia-panel-accounts input[type="checkbox"],.mag-select-head input[type="checkbox"]{accent-color:#7045aa!important}
+#ia-panel-accounts input[type="checkbox"],.mag-select-head input[type="checkbox"]{appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+#ia-panel-accounts input[type="checkbox"]:checked,.mag-select-head input[type="checkbox"]:checked{border-color:#7045aa!important;background:#7045aa!important}
+#ia-panel-accounts input[type="checkbox"]:checked::after,.mag-select-head input[type="checkbox"]:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 #ia-panel-accounts tbody td:first-child input[type="checkbox"]{width:14px;height:14px;margin:0;vertical-align:middle}
 .mf-insight-detail .mag-block,.aud-feed-detail .mag-block{margin:14px 0 0;padding:14px 0 0}
 @media(max-width:650px){.mag-table-toolbar{position:sticky;left:0;gap:5px}.mag-table-toolbar button{font-size:10px;padding:6px}}

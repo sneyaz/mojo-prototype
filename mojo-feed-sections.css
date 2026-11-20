@@ -62,7 +62,9 @@
 .mfd-choices label:hover{border-color:#d7cce0;background:#faf7fc;box-shadow:0 2px 8px #3b2b4a0b}
 .mfd-choices label:has(input:focus-visible){outline:2px solid #7550a4;outline-offset:2px}
 .mfd-choices label:has(input:checked){border:2px solid #65419a;padding:9px 12px}
-.mfd-choices input{width:16px;height:16px;flex:none;margin:0;accent-color:#65419a}
+.mfd-choices input{width:16px;height:16px;flex:none;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.mfd-choices input:checked{border-color:#65419a}
+.mfd-choices input:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#65419a}
 .mfd-choices em{margin-left:auto;padding:5px 8px;border-radius:99px;background:#f0eafa;color:#5a3b8a;font:700 10px/1 Inter,Arial,sans-serif;font-style:normal;white-space:nowrap}
 .mfd-fields>strong{display:block;margin-bottom:13px;color:#49434b;font:700 12px Inter,Arial,sans-serif}
 .mfd-fields>div{display:flex;gap:8px;flex-wrap:wrap}.mfd-fields span{padding:8px 10px;border:1px solid #e5ded5;border-radius:9px;background:#fff;color:#35303a;font:600 12px/1.25 Inter,Arial,sans-serif}.mfd-fields span:before{content:"✓";margin-right:8px;color:#277833;font-weight:800}

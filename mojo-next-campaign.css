@@ -53,7 +53,9 @@
 .mnc-fields fieldset{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:9px 12px;border:1px solid #e5dce9;border-radius:9px}
 .mnc-fields legend{padding:0 4px;color:#63586a;font:700 11px Inter,Arial,sans-serif}
 .mnc-fields fieldset label{display:inline-flex;align-items:center;gap:5px;color:#4c4254;font:600 11px Inter,Arial,sans-serif;cursor:pointer}
-.mnc-fields input[type=checkbox]{accent-color:#604086}
+.mnc-fields input[type=checkbox]{appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.mnc-fields input[type=checkbox]:checked{border-color:#604086;background:#604086}
+.mnc-fields input[type=checkbox]:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .mnc-editor-actions{margin-top:17px}
 .mnc-editor-actions span{margin-left:auto}
 .mnc-routine{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:22px;padding-top:13px;border-top:1px solid #eee9ef;color:#746779;font:500 11px/1.4 Inter,Arial,sans-serif}

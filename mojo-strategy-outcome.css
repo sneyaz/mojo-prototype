@@ -411,7 +411,9 @@
 .mso-overview .mso-option>.mso-option-evidence{display:block;width:auto;margin:0 0 8px;padding:0;border:0;background:transparent;color:#73538f;font:500 11px/1.4 Inter,Arial,sans-serif;text-align:left;cursor:pointer}
 .mso-overview .mso-option>.mso-option-evidence:hover{text-decoration:underline}
 .mso-overview .mso-option-include{display:flex;align-items:center;gap:9px;margin-top:0;padding:9px 10px;border:1px solid #d9c9e7;border-radius:8px;color:#5b3d7c;font:600 12px/1.3 Inter,Arial,sans-serif;cursor:pointer}
-.mso-overview .mso-option-include input{width:15px;height:15px;margin:0;accent-color:#68438b}
+.mso-overview .mso-option-include input{width:15px;height:15px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.mso-overview .mso-option-include input:checked{border-color:#68438b}
+.mso-overview .mso-option-include input:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#68438b}
 .mso-overview .mso-option.selected .mso-option-include{background:#f7f2fa}
 .mso-direction-own{display:flex;flex-wrap:wrap;gap:16px;margin-top:17px}
 .mso-direction-own button{padding:0;border:0;background:transparent;color:#68498b;font:600 12px/1.4 Inter,Arial,sans-serif;cursor:pointer}
@@ -804,7 +806,9 @@ main.canvaspane.mf-strategy-page{padding-left:16px!important;padding-right:16px!
 .mso-initiative-chat-panel fieldset{display:flex;flex-wrap:wrap;gap:9px 13px;margin:0;padding:0;border:0}
 .mso-initiative-chat-panel legend{margin-bottom:9px;font-weight:650}
 .mso-initiative-chat-panel fieldset label{display:inline-flex;align-items:center;gap:5px}
-.mso-initiative-chat-panel input[type=radio]{accent-color:#67419d}
+.mso-initiative-chat-panel input[type=radio]{appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.mso-initiative-chat-panel input[type=radio]:checked{border-color:#67419d}
+.mso-initiative-chat-panel input[type=radio]:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#67419d}
 .mso-initiative-chat-panel input:not([type=radio]){box-sizing:border-box;width:100%;min-width:0;padding:8px 9px;border:1px solid #ddd6d0;border-radius:7px;background:#fff;color:#39313d;font:400 12px/1.4 Inter,Arial,sans-serif}
 .mso-initiative-chat-panel input[hidden]{display:none}
 .mso-initiative-chat-goals{display:grid;gap:11px}
@@ -895,7 +899,9 @@ main.canvaspane.mf-strategy-page{padding-left:16px!important;padding-right:16px!
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option,
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option:last-child{display:grid;grid-template-columns:20px minmax(0,1fr) auto;grid-template-rows:auto;align-items:center;gap:14px;min-height:0;padding:15px 16px;border-radius:12px}
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option .mso-option-include{grid-column:1;grid-row:1;align-self:start;justify-self:start;margin:2px 0 0;padding:0;border:0;background:none;cursor:pointer}
-.mso-option-include input{width:15px;height:15px;margin:0;accent-color:#67419d;cursor:pointer}
+.mso-option-include input{width:15px;height:15px;margin:0;cursor:pointer;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:50%;background:#fff;position:relative}
+.mso-option-include input:checked{border-color:#67419d}
+.mso-option-include input:checked::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#67419d}
 .mso-option-copy{grid-column:2;grid-row:1;min-width:0}
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option h4{display:flex;align-items:center;flex-wrap:wrap;gap:5px;min-height:0;margin:0 0 5px;font:650 12px/1.35 Inter,Arial,sans-serif}
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option h4 small{font:700 11px Inter,Arial,sans-serif}

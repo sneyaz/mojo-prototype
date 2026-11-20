@@ -149,7 +149,9 @@
 .ia-portfolio.md-clean .md-table th{padding:11px 13px;background:#faf9fb;color:#766f7a;text-align:left;font:650 11px/1.3 var(--sans)}
 .ia-portfolio.md-clean .md-table td{padding:12px 13px;border-top:1px solid #eeeaf0;color:#37313b}
 .ia-portfolio.md-clean .md-compare-select{display:inline-flex;align-items:center;margin-right:9px;vertical-align:middle;cursor:pointer}
-.ia-portfolio.md-clean .md-compare-select input{width:15px;height:15px;margin:0;accent-color:#6b4895;cursor:pointer}
+.ia-portfolio.md-clean .md-compare-select input{width:15px;height:15px;margin:0;cursor:pointer;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.ia-portfolio.md-clean .md-compare-select input:checked{border-color:#6b4895;background:#6b4895}
+.ia-portfolio.md-clean .md-compare-select input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .ia-portfolio.md-clean .md-compare-bar{display:flex;align-items:center;gap:10px;margin:0 0 16px;padding:10px 13px;border:1px solid #ded3e9;border-radius:9px;background:#f9f6fc;font:600 12px/1.3 var(--sans)}
 .ia-portfolio.md-clean .md-compare-bar[hidden],.ia-portfolio.md-clean .md-compare-panel[hidden]{display:none!important}
 .ia-portfolio.md-clean .md-compare-count{margin-right:auto;color:#50396b}

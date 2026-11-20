@@ -77,7 +77,9 @@ body.aud-app-body{margin:0;background:#fff;color:var(--aud-ink);font-family:var(
 .aud-feed-scope-list{max-height:264px;overflow:auto;margin:9px -4px;padding:0 4px}
 .aud-feed-scope-list label{display:flex;align-items:center;gap:10px;padding:8px 6px;border-radius:6px;cursor:pointer}
 .aud-feed-scope-list label:hover{background:#f7f4f9}
-.aud-feed-scope-list input{width:15px;height:15px;margin:0;accent-color:#6945a0}
+.aud-feed-scope-list input{width:15px;height:15px;margin:0;appearance:none;-webkit-appearance:none;border:1.5px solid #cabdd4;border-radius:4px;background:#fff;position:relative}
+.aud-feed-scope-list input:checked{border-color:#6945a0;background:#6945a0}
+.aud-feed-scope-list input:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .aud-feed-scope-list label span{display:grid;gap:2px;min-width:0}
 .aud-feed-scope-list label strong{color:#302a34;font:600 12px/1.25 var(--sans)}
 .aud-feed-scope-list label small{color:#847b88;font:500 10px/1.25 var(--sans)}
