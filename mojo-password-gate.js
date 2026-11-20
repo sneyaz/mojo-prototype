@@ -8,11 +8,8 @@
     document.documentElement.classList.add('mojo-unlocked');
     return;
   }
-  const showGate = () => {
-    const overlay = document.createElement('div');
-    overlay.id = 'mojo-password-gate';
-    overlay.innerHTML = `<div class="mpg-card"><h1>Mojo Prototype</h1><p>This is an internal design prototype. Enter the password to continue.</p><form id="mpg-form"><input type="password" id="mpg-input" autocomplete="off" placeholder="Password" aria-label="Password"><button type="submit">Enter</button><p class="mpg-error" id="mpg-error" hidden>Incorrect password.</p></form></div>`;
-    document.body.append(overlay);
+  const gateHtml = `<div id="mojo-password-gate"><div class="mpg-card"><h1>Mojo Prototype</h1><p>This is an internal design prototype. Enter the password to continue.</p><form id="mpg-form"><input type="password" id="mpg-input" autocomplete="off" placeholder="Password" aria-label="Password"><button type="submit">Enter</button><p class="mpg-error" id="mpg-error" hidden>Incorrect password.</p></form></div></div>`;
+  const wireUp = overlay => {
     overlay.querySelector('#mpg-input').focus();
     overlay.querySelector('#mpg-form').addEventListener('submit', event => {
       event.preventDefault();
@@ -28,6 +25,17 @@
       }
     });
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showGate);
-  else showGate();
+  // Write the gate into the stream immediately (while this blocking script is still
+  // parsing, before the rest of the page's markup), so it's the first thing painted
+  // instead of waiting for the whole document to finish loading.
+  if (document.readyState === 'loading') {
+    document.write(gateHtml);
+    wireUp(document.getElementById('mojo-password-gate'));
+  } else {
+    const overlay = document.createElement('div');
+    overlay.id = 'mojo-password-gate';
+    overlay.innerHTML = gateHtml;
+    document.body.append(overlay.firstElementChild);
+    wireUp(document.getElementById('mojo-password-gate'));
+  }
 })();
