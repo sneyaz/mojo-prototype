@@ -197,7 +197,7 @@ function openPlanBrief(immediate=false){
   const brief=document.createElement('section');brief.className='mso-plan-chat-brief';
   brief.innerHTML=`<span class="mso-brief-eyebrow">Campaign brief · ${esc(initiative?.initiative||defaults[state.area])}</span><h2>${esc(p.title)}</h2>
     <div class="mso-brief-block"><strong>What and why</strong><p>${esc(p.goal)}. ${esc(areaRecommendations[state.area].reason)} This supports “${esc(goal)}.”</p></div>
-    <div class="mso-brief-block"><strong>How to run it</strong><dl><div><dt>Audience</dt><dd>${esc(p.audience)}</dd></div><div><dt>Message</dt><dd>${esc(meta.creative)}</dd></div><div><dt>Channels</dt><dd>${esc(p.channels)}</dd></div><div><dt>Spend</dt><dd>${money(p.budget)} over ${esc(p.duration)} days</dd></div></dl></div>
+    <div class="mso-brief-block"><strong>How to run it</strong><dl><div><dt>Audience</dt><dd>${esc(p.audience)}</dd></div><div><dt>Message</dt><dd>${esc(meta.creative)}</dd></div><div><dt>Channels</dt><dd>${esc(p.channels)}</dd></div><div><dt>Spend</dt><dd>${money(p.budget)} over ${esc(p.duration)} days</dd></div></dl>${optionCreativeThumbs(id)}</div>
     <div class="mso-brief-block"><strong>How to know it worked</strong><p>${esc(p.success)}</p><dl><div><dt>Track</dt><dd>Campaign IDs on creative and links; verify conversion events in QA.</dd></div><div><dt>Validate</dt><dd>${esc(p.outcome)}</dd></div><div><dt>Compare</dt><dd>${esc(p.holdout)}</dd></div></dl></div>
     <div class="mso-brief-actions"><button type="button" data-brief-build>Start Building this Campaign →</button><button type="button" data-brief-refine>Refine brief</button></div>`;
   wait.replaceWith(brief);brief.scrollIntoView({block:'nearest',behavior:'smooth'});

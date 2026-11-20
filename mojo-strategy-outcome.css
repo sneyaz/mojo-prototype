@@ -1128,6 +1128,10 @@ main.canvaspane.mf-strategy-page{padding-left:16px!important;padding-right:16px!
 .mso-brief-block dl>div{display:grid;grid-template-columns:60px minmax(0,1fr);gap:8px}
 .mso-brief-block dt{color:#817783;font-weight:600}
 .mso-brief-block dd{margin:0;color:#443b48}
+.mso-brief-block .mso-option-creatives{margin-top:11px}
+.mso-brief-block .mso-option-creatives>span{display:block;margin-bottom:6px;color:#82778a;font:600 10px/1.2 Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.mso-brief-block .mso-option-creative-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mso-brief-block .mso-option-creative-strip img{display:block;width:60px;height:40px;flex:none;object-fit:cover;border:1px solid #e8e1d9;border-radius:6px;background:#f6f2f7}
 .mso-brief-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:15px}
 .mso-brief-actions button{border:0;border-radius:99px;padding:10px 13px;font:700 11px/1.3 Inter,Arial,sans-serif;cursor:pointer}
 .mso-brief-actions [data-brief-build]{background:#624098;color:#fff}
