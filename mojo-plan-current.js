@@ -54,7 +54,10 @@
     const body=document.querySelector('.chatpane .chatbody');if(!body)return;
     body.querySelector('.mcp-editor')?.remove();body.querySelector('.seq-chat-empty')?.remove();
     const panel=document.createElement('section');panel.className='mcp-editor';
-    panel.innerHTML=`<h2>${goal?'Edit initiative':'Add initiative'}</h2><p>${goal?'Update the campaign group and its goal.':'Create a goal for campaigns to support.'}</p><form><label>Initiative name<input name="name" maxlength="60" required value="${esc(goal?.initiative||'')}"></label><label>Goal<input name="goal" maxlength="120" required value="${esc(goal?.title||'')}"></label><label>Measure<input name="metric" maxlength="60" value="${esc(goal?.metric||'')}"></label><label>Time frame<input name="period" maxlength="60" value="${esc(goal?.period||'Q4')}"></label><button type="submit">Save initiative</button></form>`;
+    const names=state.goals.map(item=>item.initiative);
+    const namesList=names.length>1?`${names.slice(0,-1).join(', ')}${names.length>2?',':''} and ${names[names.length-1]}`:names.join('');
+    const intro=goal?`Update the name or goal for ${esc(goal.initiative)} below.`:`You're tracking ${names.length} initiative${names.length===1?'':'s'} today — ${esc(namesList)}. Let's add one more: give it a name and the goal it should support.`;
+    panel.innerHTML=`<h2>${goal?`Edit ${esc(goal.initiative)}`:'Add an initiative'}</h2><p>${intro}</p><form><label>Initiative name<input name="name" maxlength="60" required value="${esc(goal?.initiative||'')}"></label><label>Goal<input name="goal" maxlength="120" required value="${esc(goal?.title||'')}"></label><label>Measure<input name="metric" maxlength="60" value="${esc(goal?.metric||'')}"></label><label>Time frame<input name="period" maxlength="60" value="${esc(goal?.period||'Q4')}"></label><button type="submit">Save initiative</button></form>`;
     panel.querySelector('form').addEventListener('submit',event=>{
       event.preventDefault();const data=new FormData(event.currentTarget);
       const target=goal||{id:`goal-${Date.now().toString(36)}`,tone:'purple',target:null,current:null,source:'Connect an outcome source to report progress'};

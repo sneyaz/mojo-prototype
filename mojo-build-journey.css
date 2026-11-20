@@ -168,5 +168,10 @@
 .mbj-launch-confirmation div{display:grid;gap:2px}
 .mbj-launch-confirmation strong{font-size:14px;font-weight:700}
 .mbj-launch-confirmation span:not(.mbj-check){color:#57665a;font-size:12px;line-height:1.4}
-@media(prefers-reduced-motion:reduce){.mbj-card.is-launching,.mbj-card.is-new-launch,.mbj-launch-confirmation{animation:none;transition:none;transform:none}}
+.mbj-qa-confirmation{display:flex;align-items:center;gap:12px;margin:4px 0 18px;padding:14px 18px;border:1px solid #d7e8d9;border-radius:12px;background:#f5faf5;color:#2b6e3d;font-family:Inter,Arial,sans-serif;animation:mbj-launch-arrive .4s ease both;outline:none}
+.mbj-qa-confirmation .mbj-check{width:27px;height:27px;font-size:14px}
+.mbj-qa-confirmation div{display:grid;gap:2px}
+.mbj-qa-confirmation strong{font-size:14px;font-weight:700}
+.mbj-qa-confirmation span:not(.mbj-check){color:#57665a;font-size:12px;line-height:1.4}
+@media(prefers-reduced-motion:reduce){.mbj-card.is-launching,.mbj-card.is-new-launch,.mbj-launch-confirmation,.mbj-qa-confirmation{animation:none;transition:none;transform:none}}
 @media(max-width:700px){.mbj-root{padding:22px 16px 55px}.mbj-row{gap:10px}.mbj-row-right{min-width:98px}.mbj-deliverables,.mbj-platform dl{grid-template-columns:1fr}.mbj-platform dl>div{grid-template-columns:90px minmax(0,1fr)}}

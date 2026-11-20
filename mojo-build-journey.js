@@ -128,6 +128,7 @@
   let deleteIndex = null;
   let launchInProgress = false;
   let launchNotice = null;
+  let qaNotice = null;
   let newlyLaunchedIndices = new Set();
   main.append(root);
   main.classList.add('mbj-active');
@@ -164,7 +165,7 @@
   }
   function render() {
     const items=read(), lists={draft:[],ready:[],recent:[]};
-    items.forEach((item,index)=>{if(!item?.name)return;if(launchNotice?.indices.includes(index))lists.ready.push(`<div class="mbj-launch-confirmation" role="status" tabindex="-1">${check}<div><strong>Campaign launched</strong><span>${escape(item.planTitle||item.name)} moved to Recently launched. Mojo is watching for first data.</span></div></div>`);const status=stage(item);if(lists[status])lists[status].push(card(item,index));});
+    items.forEach((item,index)=>{if(!item?.name)return;if(launchNotice?.indices.includes(index))lists.ready.push(`<div class="mbj-launch-confirmation" role="status" tabindex="-1">${check}<div><strong>Campaign launched</strong><span>${escape(item.planTitle||item.name)} moved to Recently launched. Mojo is watching for first data.</span></div></div>`);const status=stage(item);if(qaNotice&&qaNotice.index===index&&lists[status])lists[status].push(`<div class="mbj-qa-confirmation" role="status" tabindex="-1">${check}<div><strong>Mojo QA started</strong><span>${qaNotice.passed?escape(item.planTitle||item.name)+' passed Mojo QA and moved to Ready to launch.':'Mojo will flag any missing setup for '+escape(item.planTitle||item.name)+' before publishing.'}</span></div></div>`);if(lists[status])lists[status].push(card(item,index));});
     const ready=items.map((item,index)=>stage(item)==='ready'?index:null).filter(index=>index!==null);
     for(const index of [...selectedReady])if(!ready.includes(index))selectedReady.delete(index);
     root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${ready.length>1?`<div class="mbj-batch"><span data-selected-count>${selectedReady.size ? `<strong>${selectedReady.size} of ${ready.length}</strong> ready campaigns selected` : `Select from <strong>${ready.length} ready campaigns</strong> to launch`}</span><button type="button" data-review-launch ${selectedReady.size?'':'disabled'}>Review launch →</button></div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?ready.length:lists[name].length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='recent'?'No launches in the last 7 days.':name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`).join('')}<dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each selected campaign. Confirm the setup before launch.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
@@ -329,7 +330,20 @@
     if(count){const total=root.querySelectorAll('[data-select-ready]').length;count.innerHTML=selectedReady.size?`<strong>${selectedReady.size} of ${total}</strong> ready campaigns selected`:`Select from <strong>${total} ready campaigns</strong> to launch`;}
     if(button)button.disabled=!selectedReady.size;
   });
-  document.addEventListener('mojo:build-status-changed',()=>{const items=read();items.forEach(item=>{if(item.buildStatus==='qa')item.buildStatus=qa(item).passed?'ready':'draft'});write(items);render()});
+  document.addEventListener('mojo:build-status-changed',event=>{
+    const items=read();
+    items.forEach(item=>{if(item.buildStatus==='qa')item.buildStatus=qa(item).passed?'ready':'draft'});
+    write(items);
+    const index=event.detail?.index;
+    if(Number.isInteger(index)&&items[index])qaNotice={index,passed:qa(items[index]).passed};
+    render();
+    if(qaNotice){
+      const banner=root.querySelector('.mbj-qa-confirmation');
+      banner?.scrollIntoView({block:'center',behavior:'smooth'});
+      banner?.focus({preventScroll:true});
+      qaNotice=null;
+    }
+  });
   window.addEventListener('storage',event=>{if(event.key===key)render()});
   normalizeSavedCampaigns();seedExamples();syncLaunchTodayIdeas();render();
 })();

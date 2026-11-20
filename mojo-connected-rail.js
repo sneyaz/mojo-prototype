@@ -7,7 +7,7 @@
     ['LinkedIn Ads', 'linkedin.png'],
     ['Salesforce', 'salesforce.png']
   ];
-  const markup = () => `<div class="ms-connected" aria-label="Connected sources"><span>CONNECTED</span><div class="ms-connected-logos">${sources.map(([name, asset]) => `<a href="Connections.html" aria-label="${name} connection" title="${name}"><img src="assets/${asset}" alt=""></a>`).join('')}<a href="Connections.html" class="ms-connect-more" aria-label="Connect more sources" title="Connect more">+</a></div></div>`;
+  const markup = () => `<div class="ms-connected" aria-label="Connected sources"><span>INTEGRATIONS</span><div class="ms-connected-logos">${sources.map(([name, asset]) => `<a href="Connections.html" aria-label="${name} connection" title="${name}"><img src="assets/${asset}" alt=""></a>`).join('')}<a href="Connections.html" class="ms-connect-more" aria-label="Connect more sources" title="Connect more">+</a></div></div>`;
   function mount() {
     const home = document.querySelector('#home-feed-view.home-content');
     if (home && !home.querySelector(':scope > .home-connected-rail')) {
