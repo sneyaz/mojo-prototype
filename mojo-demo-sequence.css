@@ -196,13 +196,13 @@ html[data-mojo-sequence="true"] .chatpane .chatbody>.mc-chat-prompts{display:non
 @media(prefers-reduced-motion:reduce){.seq-thinking-dots i{animation:none;opacity:.7}}
 
 /* Learning cards: show the profile and let Pam set the approval threshold. */
-.seq-icp-visual{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;width:100%;margin:16px 0;border:1px solid #e8e1eb;border-radius:15px;background:#fbf9fc;color:#3f3545;font:500 12px/1.4 Inter,Arial,sans-serif;overflow:hidden}
-.seq-icp-core,.seq-icp-buyers{padding:18px 20px}.seq-icp-buyers{border-left:1px solid #e8e1eb;background:#fff}
-.seq-icp-label{display:block;margin-bottom:9px;color:#776881;font-size:10px;font-weight:750;letter-spacing:.07em;text-transform:uppercase}
-.seq-icp-core>strong{display:block;margin-bottom:10px;color:#33283a;font:500 24px/1.15 Lora,Georgia,serif}
-.seq-icp-scale{display:flex;align-items:center;gap:9px;color:#584d5e;font-size:12px}.seq-icp-scale i{display:block;width:42px;height:6px;border-radius:99px;background:linear-gradient(90deg,#d6c6e4 0 14%,#7753a0 14% 86%,#d6c6e4 86% 100%)}
-.seq-icp-buyers>div{display:flex;gap:7px;flex-wrap:wrap}.seq-icp-buyers b{padding:7px 10px;border:1px solid #e3d8eb;border-radius:999px;background:#f8f4fa;color:#583e70;font-size:11px;font-weight:650}
-.seq-icp-buyers small{display:block;margin-top:13px;color:#746b79;font-size:11px}
+.seq-icp-visual{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0;width:100%;margin:16px 0;border:1px solid #e8e1eb;border-radius:13px;background:#fbf9fc;color:#3f3545;font:500 12px/1.4 Inter,Arial,sans-serif;overflow:hidden}
+.seq-icp-core,.seq-icp-buyers{padding:11px 15px}.seq-icp-buyers{border-left:1px solid #e8e1eb;background:#fff}
+.seq-icp-label{display:block;margin-bottom:5px;color:#776881;font-size:9px;font-weight:750;letter-spacing:.07em;text-transform:uppercase}
+.seq-icp-core>strong{display:block;margin-bottom:5px;color:#33283a;font:500 17px/1.15 Lora,Georgia,serif}
+.seq-icp-scale{display:flex;align-items:center;gap:7px;color:#584d5e;font-size:11px}.seq-icp-scale i{display:block;width:32px;height:5px;border-radius:99px;background:linear-gradient(90deg,#d6c6e4 0 14%,#7753a0 14% 86%,#d6c6e4 86% 100%)}
+.seq-icp-buyers>div{display:flex;gap:5px;flex-wrap:wrap}.seq-icp-buyers b{padding:5px 9px;border:1px solid #e3d8eb;border-radius:999px;background:#f8f4fa;color:#583e70;font-size:10px;font-weight:650}
+.seq-icp-buyers small{display:block;margin-top:7px;color:#746b79;font-size:10px}
 .seq-budget-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%;box-sizing:border-box;margin:16px 0;padding:0;border:0;font:500 12px/1.3 Inter,Arial,sans-serif}
 .seq-budget-choices legend{margin-bottom:9px;padding:0;color:#6c5f73;font-size:11px;font-weight:700}
 .seq-budget-choices label{display:flex;position:relative;align-items:flex-start;gap:8px;min-width:0;min-height:74px;box-sizing:border-box;padding:13px 11px;border:1px solid #e4dce8;border-radius:12px;background:#fff;cursor:pointer}
@@ -221,10 +221,12 @@ html[data-mojo-sequence="true"] .chatpane .chatbody>.mc-chat-prompts{display:non
 .seq-icp-review .seq-icp-candidate-summary strong{color:#33283a;font-size:12px}
 .seq-icp-source{color:#8a7f90;font-size:10px}
 .seq-icp-picked{margin-left:auto;background:#e8f3ea;color:#2f7951}
-.seq-icp-crm-nudge{margin-top:12px;padding:11px 12px;border:1px dashed #cbb7df;border-radius:11px;background:#f8f4fb}
-.seq-icp-crm-nudge p{margin:0 0 7px;color:#5b3f78;font-size:11px;line-height:1.5}
-.seq-icp-crm-nudge strong{color:#452f5e}
-.seq-icp-crm-nudge .seq-link{font-weight:700}
+.seq-chat-nudge{display:flex;gap:11px;align-items:flex-start;margin-top:14px;padding:14px 15px;border:1px dashed #cbb7df;border-radius:13px;background:#f8f4fb}
+.seq-nudge-icon{width:24px;height:24px;flex:none;margin-top:1px;object-fit:contain;border-radius:5px}
+.seq-chat-nudge>div{min-width:0}
+.seq-chat-nudge p{margin:0 0 8px;color:#5b3f78;font-size:11px;line-height:1.5}
+.seq-chat-nudge strong{display:block;margin-bottom:2px;color:#452f5e;font-size:12px}
+.seq-chat-nudge .seq-link{font-weight:700}
 @media(max-width:760px){.seq-icp-visual{grid-template-columns:1fr}.seq-icp-buyers{border-left:0;border-top:1px solid #e8e1eb}.seq-budget-choices{grid-template-columns:1fr}.seq-budget-choices label{min-height:0}}
 
 /* Plan evidence reads as one chain, not three stat widgets. */
