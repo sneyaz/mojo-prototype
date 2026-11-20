@@ -49,8 +49,6 @@
 .brief-approval-dialog h2{margin:0 0 9px;font:400 24px/1.22 var(--serif);letter-spacing:-.025em}
 .brief-approval-dialog p{margin:0;font:400 13px/1.5 var(--sans);color:#6c6373}
 .brief-approval-dialog .brief-approval-consequence{margin-top:13px;padding:11px 12px;border-radius:7px;background:#f7f4fb;color:#51425f;font-weight:500}
-.brief-client-confirmation{display:flex;align-items:flex-start;gap:9px;margin-top:17px;color:#3f3647;font:500 12.5px/1.45 var(--sans);cursor:pointer}
-.brief-client-confirmation input{flex:none;margin:2px 0 0;accent-color:#6844b2}
 .brief-approval-actions button:disabled{opacity:.45;cursor:not-allowed}
 .brief-approval-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:24px}
 .brief-approval-actions button{height:34px;padding:0 13px;border-radius:7px;border:1px solid #dcd5e2;background:#fff;color:#554d61;font:600 12px var(--sans);cursor:pointer}

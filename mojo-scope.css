@@ -67,13 +67,6 @@
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-platforms button:hover,:is(.canvaspane,.campaign-context-mode) .mojo-scope-platforms button[aria-pressed=true]{border-color:#ba9cdb;background:#f2ebf9}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-initiatives{margin:11px 0 0;padding:11px 0 0;border:0;border-top:1px solid #eee9f1}
 :is(.canvaspane,.campaign-context-mode) .mojo-scope-initiatives legend{padding:0;color:#746582;font:650 10px/1.25 var(--sans)}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:6px}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options label{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid #e6deeb;border-radius:9px;background:#fff;color:#493b59;font:600 11px/1.25 var(--sans);cursor:pointer}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options label:has(input:checked){border-color:#ad91cb;background:#f4edf9;color:#5f3b91}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options input{margin:0;accent-color:#674298}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options .mojo-scope-initiative-pill{min-height:27px;padding:4px 5px;border:1px solid #e1d9e9;border-radius:999px;background:#fff;color:#51415f;text-align:center;white-space:nowrap;font:600 10px/1.2 var(--sans);cursor:pointer}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options .mojo-scope-initiative-pill:hover{border-color:#b99bd5;background:#f9f5fc}
-:is(.canvaspane,.campaign-context-mode) .mojo-scope-initiative-options .mojo-scope-initiative-pill[aria-pressed=true]{border-color:#a887cb;background:#f1e8f9;color:#603991}
 .canvaspane .mqr-control{margin:0 0 10px}
 .canvaspane .mqr-control>.mojo-scope-chip{margin:0}
 .canvaspane .mqr-status{margin:0 0 12px;color:#82798a;font:500 11px/1.35 var(--sans)}

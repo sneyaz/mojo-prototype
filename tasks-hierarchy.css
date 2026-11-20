@@ -75,8 +75,6 @@
 .task-approval-dialog h2{margin:0 0 9px;font:400 24px/1.22 var(--serif);letter-spacing:-.025em}
 .task-approval-dialog p{margin:0;font:400 13px/1.5 var(--sans);color:#6c6373}
 .task-approval-dialog .task-approval-consequence{margin-top:13px;padding:11px 12px;border-radius:7px;background:#f7f4fb;color:#51425f;font-weight:500}
-.task-client-confirmation{display:flex;align-items:flex-start;gap:9px;margin-top:17px;color:#3f3647;font:500 12.5px/1.45 var(--sans);cursor:pointer}
-.task-client-confirmation input{flex:none;margin:2px 0 0;accent-color:#6844b2}
 .task-approval-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:24px}
 .task-approval-actions button{height:34px;padding:0 13px;border-radius:7px;border:1px solid #dcd5e2;background:#fff;color:#554d61;font:600 12px var(--sans);cursor:pointer}
 .task-approval-actions button:last-child{background:#6147ad;border-color:#6147ad;color:#fff}

@@ -38,7 +38,6 @@ body>div[style*="padding:20px"]{background:#e9e9ed!important}
 .mc-creative-art{background:#f2f2f5!important;color:#603887!important}
 .ia-bar{background:#eeedf1}.ia-bar i,.bar .f,.spendbar .f{background:var(--accent)!important}
 .ia-asset-select[aria-pressed=true] .ia-thumb{outline-color:var(--accent)}
-.ia-toggle input,.mp-option input{accent-color:var(--accent)!important}
 .mp-option.recommended{border-color:#b99bab;background:#fdf9fb}
 .mp-pill,.pill,.score,.drow .sc,.pat .badge{background:#f1f1f3!important;color:#51444b!important}
 .chipr label[for=f-needs],.ia-kicker{color:#a65f43!important}
