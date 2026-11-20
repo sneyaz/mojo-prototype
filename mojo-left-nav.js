@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     more: '<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>',
     settings: '<path d="M9.8 2.9h4.4l.5 2.1a7.5 7.5 0 0 1 1.7 1l2-.8 2.2 3.8-1.6 1.4a7.6 7.6 0 0 1 0 2l1.6 1.4-2.2 3.8-2-.8a7.5 7.5 0 0 1-1.7 1l-.5 2.2H9.8l-.5-2.2a7.5 7.5 0 0 1-1.7-1l-2 .8-2.2-3.8L5 12.4a7.6 7.6 0 0 1 0-2L3.4 9l2.2-3.8 2 .8a7.5 7.5 0 0 1 1.7-1l.5-2.1Z"/><circle cx="12" cy="11.4" r="2.7"/>',
     library: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h6"/>',
-    brain: '<path d="M12 18V5M12 9c-1 1.5-2 2-3 2m3 1c1.5-.2 2.5-1 3-2"/><path d="M17.6 6.5A3 3 0 0 0 12 5a3 3 0 0 0-5.6 1.5A4 4 0 0 0 6 13a4 4 0 0 0 1 7 3 3 0 0 0 5-1 3 3 0 0 0 5 1 4 4 0 0 0 1-7 4 4 0 0 0-.4-6.5Z"/>'
+    brain: '<path d="M12 18V5M12 9c-1 1.5-2 2-3 2m3 1c1.5-.2 2.5-1 3-2"/><path d="M17.6 6.5A3 3 0 0 0 12 5a3 3 0 0 0-5.6 1.5A4 4 0 0 0 6 13a4 4 0 0 0 1 7 3 3 0 0 0 5-1 3 3 0 0 0 5 1 4 4 0 0 0 1-7 4 4 0 0 0-.4-6.5Z"/>',
+    integrations: '<path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4.76"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 19.24"/>'
   };
   const svg = name => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${icon[name]}</svg>`;
   const active = value => value ? ' class="mojo-nav-active" aria-current="page"' : '';
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="Apps.html"${page === 'Apps' ? ' aria-current="page"' : ''}>${svg('apps')}<span>Apps</span></a>
       <a href="BestPractices.html"${page === 'BestPractices' ? ' aria-current="page"' : ''}>${svg('library')}<span>Library</span></a>
       <a href="Strategy.html"${page === 'Strategy' ? ' aria-current="page"' : ''}>${svg('brain')}<span>Brain</span></a>
+      <a href="Connections.html"${page === 'Connections' ? ' aria-current="page"' : ''}>${svg('integrations')}<span>Integrations</span></a>
     </nav>`;
   document.body.append(moreMenu);
   const accountButton = rail.querySelector('.mojo-nav-account');
