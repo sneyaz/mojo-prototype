@@ -211,7 +211,7 @@
   }
   const scanFindings={
     campaigns:[['6 campaigns','Conversion tracking stopped after Nov 3','FIX'],['9 of 22 flights','Underpacing this quarter','OPTIMIZE'],['3 ended flights','Buyer follow-up to plan','OPTIMIZE']],
-    audiences:[['1,146 engaged','Most reached one buyer role'],['3 target lists','Imported from Demandbase'],['Buying groups','Mapped across target accounts']],
+    audiences:[['1,146 engaged','Most reached one buyer role'],['3 target lists','Imported from your connected sources'],['Buying groups','Mapped across target accounts']],
     aeo:[['24 questions','Drawn from buyer intent'],['Cited sources','Compared with Acme pages'],['Content gaps','Ready for review']]
   };
   const scanRecords={
@@ -219,7 +219,7 @@
     audiences:[['Helio Systems','engaged'],['Northgate','evaluation'],['Brightline','engaged'],['Kestrel Labs','evaluation']],
     aeo:[['Reaching buying groups','cited #3'],['Best ABM tools','not cited'],['Security integrations','source checked'],['Revenue operations','content gap']]
   };
-  const scanStatus=['Connecting Demandbase','Reading target account lists','Mapping buying groups','Reading live campaigns','Checking conversion events','Comparing flight pacing','Checking buyer questions','Ranking what needs your attention'];
+  const scanStatus=['Connecting your ad platforms','Reading target account lists','Mapping buying groups','Reading live campaigns','Checking conversion events','Comparing flight pacing','Checking buyer questions','Ranking what needs your attention'];
   let scanAnimation=0,scanRun=0;
   const scanValue=(card,index,step=progress)=>{const begin=index===0?0:index===1?1:2;const span=index===0?7:index===1?4:4;return Math.max(0,Math.min(1,(step-begin)/span))*[42,6400,24][index]};
   function scanCard(card,index){
@@ -242,11 +242,19 @@
       requestAnimationFrame(tick);
     });
   }
-  function scanIntegrations(){const sources=[];if(selectedAdPlatforms.has('linkedin')||extras.linkedin)sources.push('<span><img src="assets/linkedin.png" alt="">LinkedIn Ads <i>✓</i></span>');if(selectedAdPlatforms.has('google')||extras.google)sources.push('<span><img src="assets/google-ads.svg" alt="">Google Ads <i>✓</i></span>');if(extras.crm)sources.push('<span><img src="assets/salesforce.png" alt="">Salesforce <i>✓</i></span>');return sources.length?`<div class="fr-scan-integrations" aria-label="Other connected sources">${sources.join('')}</div>`:''}
+  const sourceTotals={demandbase:6214,linkedin:1845,google:2480,meta:1390};
+  const connectedSourceIds=()=>{const ids=adPlatforms.map(p=>p.id).filter(id=>id==='demandbase'?demandbaseAuthorized:(selectedAdPlatforms.has(id)||extras[id]));return ids.length?ids:['demandbase']};
+  const connectedSourceNames=()=>connectedSourceIds().map(id=>adPlatforms.find(p=>p.id===id)?.name).filter(Boolean);
+  const connectedSourcesEcho=()=>{const names=connectedSourceNames();const logos=connectedSourceIds().map(id=>{const p=adPlatforms.find(p=>p.id===id);return sourceLogo(p.name,p.asset)}).join('');return `${logos}${names.length>1?'Platforms connected':`${names[0]} connected`}`};
+  function scanSourceRow(id,ready){
+    const platform=adPlatforms.find(p=>p.id===id);if(!platform)return'';
+    const total=sourceTotals[id]||0;
+    return `<div class="fr-scan-source"><img src="assets/${platform.asset}" alt=""><span class="fr-scan-source-name"><b>${platform.name}</b><small>${ready?'Synced just now':'Syncing'} · <strong class="fr-scan-record-total">${ready?total.toLocaleString('en-US'):'0'}</strong> records</small></span><div class="fr-scan-source-track" role="progressbar" aria-label="${platform.name} first read progress" aria-valuenow="${Math.round(progress/7*100)}" aria-valuemin="0" aria-valuemax="100"><i style="--from:${Math.round(Math.max(0,progress-1)/7*100)}%;--to:${Math.round(progress/7*100)}%"></i></div></div>`;
+  }
   function renderBuilding(){
     const ready=progress>=7;
     nav(ready);
-    view.innerHTML=`<section class="fr-scan"><div class="fr-scan-intro"><span class="fr-kicker">${ready?'Acme Co · first read complete':'Setting up Acme Co'}</span><h1 class="fr-title">${ready?'Your apps are ready. Three things need you.':'Mojo is reading what Acme already runs.'}</h1><div class="fr-scan-status" role="status" aria-live="polite">${ready?'<span class="fr-scan-check" aria-hidden="true">✓</span>':'<span class="fr-scan-pulse" aria-hidden="true"></span>'}${ready?'First read complete':scanStatus[Math.min(progress,scanStatus.length-1)]}</div></div><div class="fr-scan-source"><img src="assets/demandbase.png" alt=""><span class="fr-scan-source-name"><b>Demandbase</b><small>${ready?'Synced just now':'Syncing'} · <strong class="fr-scan-record-total">${ready?'9,119':'0'}</strong> records</small></span>${scanIntegrations()}<div class="fr-scan-source-track" role="progressbar" aria-label="First read progress" aria-valuenow="${Math.round(progress/7*100)}" aria-valuemin="0" aria-valuemax="100"><i style="--from:${Math.round(Math.max(0,progress-1)/7*100)}%;--to:${Math.round(progress/7*100)}%"></i></div></div><div class="fr-scan-grid">${cards.map(scanCard).join('')}</div>${ready?`<div class="fr-scan-next"><div><strong>Start with Campaigns</strong><p>Review the tracking break, underpacing flights and the follow-up idea.</p></div><a id="fr-see-spotted" class="fr-button" href="HomeSystem.html#feed-insights">See what Mojo spotted →</a></div>`:''}</section>`;
+    view.innerHTML=`<section class="fr-scan"><div class="fr-scan-intro"><span class="fr-kicker">${ready?'Acme Co · first read complete':'Setting up Acme Co'}</span><h1 class="fr-title">${ready?'Your apps are ready. Three things need you.':'Mojo is reading what Acme already runs.'}</h1><div class="fr-scan-status" role="status" aria-live="polite">${ready?'<span class="fr-scan-check" aria-hidden="true">✓</span>':'<span class="fr-scan-pulse" aria-hidden="true"></span>'}${ready?'First read complete':scanStatus[Math.min(progress,scanStatus.length-1)]}</div></div><div class="fr-scan-sources">${connectedSourceIds().map(id=>scanSourceRow(id,ready)).join('')}</div><div class="fr-scan-grid">${cards.map(scanCard).join('')}</div>${ready?`<div class="fr-scan-next"><div><strong>Start with Campaigns</strong><p>Review the tracking break, underpacing flights and the follow-up idea.</p></div><a id="fr-see-spotted" class="fr-button" href="HomeSystem.html#feed-insights">See what Mojo spotted →</a></div>`:''}</section>`;
     animateScanCounts();
   }
   function renderInlineDashboard(){renderBuilding()}
@@ -296,7 +304,7 @@
     lastConversationStage=stage;
     if(stage==='building'){
       const receipts=[
-        ['Connected Demandbase',''],
+        [`Connected ${connectedSourceNames().length>1?'your ad platforms':connectedSourceNames()[0]}`,''],
         ['Read 3 target account lists · 6,400 accounts','Reading target account lists…'],
         ['Read 3 audiences and their refresh rules','Checking audience refresh rules…'],
         ['Read 42 live campaigns','Reading your campaigns…'],
@@ -308,10 +316,10 @@
       const receiptMarkup=visible.map(([done,working],i)=>i<=progress
         ?`<div class="done${i===progress?' fr-chat-check-pop':''}"><i aria-hidden="true">✓</i><span>${done}</span></div>`
         :`<div class="working fr-chat-line-enter" role="status"><i aria-hidden="true"></i><span>${working}</span></div>`).join('');
-      story=`<div class="fr-chat-user">${sourceLogo('Demandbase','demandbase.png')}Demandbase connected</div><p>That’s plenty to start. I’m sorting what you already run into Campaigns, Audiences and AEO. Each app will appear as its first pass is ready.</p>${timeline}<div class="fr-chat-receipts fr-build-receipts">${receiptMarkup}</div>${progress>=3?`<p class="fr-chat-status">${progress>=5?'Audiences is ready. I’m checking the AI questions now.':'Campaigns is ready. I’m mapping your audiences next.'}</p>`:''}`;
+      story=`<div class="fr-chat-user">${connectedSourcesEcho()}</div><p>That’s plenty to start. I’m sorting what you already run into Campaigns, Audiences and AEO. Each app will appear as its first pass is ready.</p>${timeline}<div class="fr-chat-receipts fr-build-receipts">${receiptMarkup}</div>${progress>=3?`<p class="fr-chat-status">${progress>=5?'Audiences is ready. I’m checking the AI questions now.':'Campaigns is ready. I’m mapping your audiences next.'}</p>`:''}`;
     }
-    if(stage==='ready')story=`<div class="fr-chat-user">${sourceLogo('Demandbase','demandbase.png')}Demandbase connected</div><p><b>Campaigns, Audiences and AEO are ready.</b> I found 42 live campaigns, $180K in Q4 flights and 3 audiences.</p>${timeline}<div class="fr-chat-receipts"><div class="done">✓ &nbsp; Campaigns: 42 live campaigns</div><div class="done">✓ &nbsp; Audiences: 3 audiences and buying groups</div><div class="done">✓ &nbsp; AEO: buyer questions from intent</div></div>`;
-    if(stage==='dashboard')story=`<div class="fr-chat-user">${sourceLogo('Demandbase','demandbase.png')}Demandbase connected</div><p>Campaigns, Audiences and AEO are ready. I found 42 live campaigns, $180K in Q4 flights and 3 audiences.</p>${timeline}<div class="fr-chat-buttons"><a href="Home.html">Open your workspace →</a></div>`;
+    if(stage==='ready')story=`<div class="fr-chat-user">${connectedSourcesEcho()}</div><p><b>Campaigns, Audiences and AEO are ready.</b> I found 42 live campaigns, $180K in Q4 flights and 3 audiences.</p>${timeline}<div class="fr-chat-receipts"><div class="done">✓ &nbsp; Campaigns: 42 live campaigns</div><div class="done">✓ &nbsp; Audiences: 3 audiences and buying groups</div><div class="done">✓ &nbsp; AEO: buyer questions from intent</div></div>`;
+    if(stage==='dashboard')story=`<div class="fr-chat-user">${connectedSourcesEcho()}</div><p>Campaigns, Audiences and AEO are ready. I found 42 live campaigns, $180K in Q4 flights and 3 audiences.</p>${timeline}<div class="fr-chat-buttons"><a href="Home.html">Open your workspace →</a></div>`;
     pane.innerHTML=`<div class="fr-conversation-head"><b>Chats</b><button type="button" id="fr-chat-close" aria-label="Close chat">×</button></div><div class="fr-conversation-body">${story}${chatMessages.map(message=>`<div class="${message.role==='user'?'fr-chat-user':'fr-chat-reply'}">${escape(message.text)}</div>`).join('')}</div><form class="fr-conversation-composer" id="fr-chat-form"><textarea name="message" rows="3" aria-label="Ask Mojo anything" placeholder="Ask Mojo anything…"></textarea><div class="fr-composer-bottom"><div class="fr-composer-modes"><span>Balanced <svg class="fr-composer-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 20 5v6c0 5.3-3 8.8-8 11-5-2.2-8-5.7-8-11V5z"/></svg> Guarded <svg class="fr-composer-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></span><span class="fr-composer-plus" aria-hidden="true">+</span></div><div class="fr-composer-actions"><span class="fr-composer-mic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"/></svg></span><button type="submit" aria-label="Send message">↑</button></div></div></form>`;
     const body=pane.querySelector('.fr-conversation-body');
     body.scrollTop=Math.min(previousScrollTop,body.scrollHeight);
@@ -383,12 +391,17 @@
     root.querySelector('.fr-lead')?.remove();
     root.querySelector('.fr-scan-status').innerHTML='<span class="fr-scan-check" aria-hidden="true">✓</span>First read complete';
     root.querySelector('.fr-scan-card[data-scan-app="campaigns"]')?.classList.add('is-focus');
-    root.querySelector('.fr-scan-source-name small').innerHTML='Synced just now · <strong class="fr-scan-record-total">9,119</strong> records';
+    const readyIds=connectedSourceIds();
+    root.querySelectorAll('.fr-scan-source').forEach((row,i)=>{const id=readyIds[i];if(!id)return;const small=row.querySelector('.fr-scan-source-name small');if(small)small.innerHTML=`Synced just now · <strong class="fr-scan-record-total">${(sourceTotals[id]||0).toLocaleString('en-US')}</strong> records`});
     root.insertAdjacentHTML('beforeend','<div class="fr-scan-next"><div><strong>Start with Campaigns</strong><p>Review the tracking break, underpacing flights and the follow-up idea.</p></div><a id="fr-see-spotted" class="fr-button" href="HomeSystem.html#feed-insights">See what Mojo spotted →</a></div>');
   }
   async function runFirstRead(token){
-    const source=view.querySelector('.fr-scan-source-track');
-    scanFill(source?.querySelector('i'),14500,token,value=>{if(source){source.setAttribute('aria-valuenow',String(value));const total=view.querySelector('.fr-scan-record-total');if(total)total.textContent=Math.round(value*91.19).toLocaleString('en-US')}});
+    const sources=connectedSourceIds();
+    view.querySelectorAll('.fr-scan-source').forEach((row,i)=>{
+      const id=sources[i];if(!id)return;
+      const multiplier=(sourceTotals[id]||0)/100;
+      scanFill(row.querySelector('.fr-scan-source-track i'),14500,token,value=>{row.querySelector('.fr-scan-source-track')?.setAttribute('aria-valuenow',String(value));const total=row.querySelector('.fr-scan-record-total');if(total)total.textContent=Math.round(value*multiplier).toLocaleString('en-US')});
+    });
     (async()=>{for(const label of scanStatus.slice(1)){await scanWait(2400);if(token!==scanRun||stage!=='building')return;const status=view.querySelector('.fr-scan-status');if(status){status.innerHTML=`<span class="fr-scan-pulse" aria-hidden="true"></span>${label}`;status.animate([{opacity:.35,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:360})}}})();
     await Promise.all([scanApp('audiences',300,8500,token),scanApp('aeo',1800,9500,token),scanApp('campaigns',3200,10500,token)]);
     if(token!==scanRun)return;await scanWait(850);complete(token);
