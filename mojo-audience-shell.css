@@ -28,6 +28,7 @@ body.aud-app-body{margin:0;background:#fff;color:var(--aud-ink);font-family:var(
 .aud-app-body .modulenav.aud-app-nav a{height:100%;box-sizing:border-box;padding:0 13px;border-bottom-width:2px;color:#807984;font:600 13px/1.2 var(--sans)}
 .aud-app-body .modulenav.aud-app-nav a:hover{color:#603887}
 .aud-app-body .modulenav.aud-app-nav a[aria-current=page]{color:#302b30;border-bottom-color:#603887}
+.aud-app-body .modulenav.aud-app-nav .aud-create-cta{margin-left:8px}
 .aud-app-body .panes{display:flex;flex:1;min-height:0}
 .aud-app-body .canvaspane{flex:1;min-width:0;overflow:auto;padding:18px 25px 90px;background:#fff}
 .aud-app-body .canvaspane>*{max-width:1320px;margin-left:auto;margin-right:auto}

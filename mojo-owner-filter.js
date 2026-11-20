@@ -68,16 +68,17 @@
   const getHost = root => {
     if (page === 'Home') return root.querySelector('.home-source-filter');
     if (page === 'HomeSystem') return root.querySelector('.mfd-unified-toolbar') || root.querySelector('.mf-feed-toolbar .mf-topline');
-    const tabs = root.querySelector(page === 'HomeSystem' ? '.mf-feed-toolbar .mf-tabs' : '.aud-feed-tabs');
-    if (!tabs) return null;
-    let rail = tabs.parentElement;
-    if (!rail.classList.contains('mojo-feed-rail')) {
-      rail = document.createElement('div');
-      rail.className = 'mojo-feed-rail';
-      tabs.before(rail);
-      rail.append(tabs);
+    const tabs = root.querySelector('.aud-feed-tabs');
+    if (tabs) {
+      let rail = tabs.parentElement;
+      if (!rail.classList.contains('mojo-feed-rail')) {
+        rail = document.createElement('div');
+        rail.className = 'mojo-feed-rail';
+        tabs.before(rail);
+        rail.append(tabs);
+      }
     }
-    return rail;
+    return root.querySelector('.aud-feed-scope');
   };
   const getCards = root => [...root.querySelectorAll(page === 'Home' ? '#home-feed .home-card'
     : page === 'HomeSystem' ? '.mfc-card, .mfd-card, .mfr-card'
@@ -98,7 +99,7 @@
     }
     if (page === 'AppWorkspace' && !root.querySelector('.aud-feed-tabs')) return;
     if (!control || !control.isConnected) control = createControl();
-    if (page === 'HomeSystem') {
+    if (page === 'HomeSystem' || page === 'AppWorkspace') {
       if (control.parentElement !== host) host.append(control);
     } else if (control.parentElement !== host) {
       host.prepend(control);
