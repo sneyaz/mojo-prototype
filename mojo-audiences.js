@@ -128,12 +128,14 @@
         feedAudienceIds=new Set([...root.querySelectorAll('[data-aud-feed-audience]:checked')].map(input=>input.value));
         paint();return;
       }
+      const decisionUndo=event.target.closest('[data-aud-decision-undo]');
+      if(decisionUndo){delete state.actions[decisionUndo.dataset.audDecisionUndo];persist();paint();return;}
       const feedDecision=event.target.closest('[data-aud-feed-decision]');
       if(feedDecision){
         const card=feedDecision.closest('.aud-decision-row'),choice=card?.querySelector('input[name^="aud-decision-"]:checked');
         if(!choice)return;
         state.actions[feedDecision.dataset.audFeedDecision]={text:choice.value,at:snapshot,source:'feed-decision'};
-        persist();location.hash='#feed-receipts';paint();return;
+        persist();paint();return;
       }
       const receiptTool=event.target.closest('[data-aud-receipt-tool]');
       if(receiptTool){
@@ -351,6 +353,8 @@
     const row=(item,kind='insight')=>{
       const feedbackId=`${kind}:${item.id}`;
       if(feedback[feedbackId]?.ignored)return `<div class="aud-ignored-row"><span>Ignored: ${esc(item.title)}</span><button type="button" data-aud-feedback="undo" data-id="${esc(feedbackId)}">Undo</button></div>`;
+      const done=kind==='decision'&&state.actions[item.id]?.source==='feed-decision'?state.actions[item.id]:null;
+      if(done&&window.MojoConfirm)return `<article class="aud-feed-item aud-decision-row is-done">${window.MojoConfirm.html({title:'Review draft saved',detail:done.text,meta:`${item.title}. Nothing changes until you approve it.`,actions:[{label:'See in Recently completed',href:'#feed-receipts'},{label:'Undo',kind:'undo',attrs:`data-aud-decision-undo="${esc(item.id)}"`}]})}</article>`;
       const sourceId={'intent-surge':'refresh','tier-1-named':'overlap','product-retargeting':'suppression'}[item.id];
       const practice=sourceId&&status(sourceId)==='Approved'?ruleData(sourceId):null;
       return `<article class="aud-feed-item ${kind==='decision'?'aud-decision-row':kind==='receipt'?'aud-receipt-row':''}"><div class="aud-feed-main"><div class="aud-feed-meta">${kind==='decision'?'<span class="aud-decision-tag">DECISION</span>':''}<span class="aud-feed-type aud-type-${esc(item.type.toLowerCase().replace(/\s+/g,'-'))}">${esc(item.type)}</span><span class="aud-feed-byline">${kind==='receipt'?'Drafted by Mojo':'Audience watch'}</span></div><h3><a class="aud-feed-title" href="#dashboards:${esc(item.id)}">${esc(item.title)}</a></h3><p>${esc(item.reason)}</p>${kind==='decision'?`<fieldset class="aud-feed-choices"><legend>What should happen next?</legend>${(decisionOptions[item.id]||['Review the audience evidence']).map((choice,index)=>`<label><input type="radio" name="aud-decision-${esc(item.id)}" value="${esc(choice)}" ${index===0?'checked':''}><span>${esc(choice)}</span>${index===0?'<em>Mojo recommends</em>':''}</label>`).join('')}</fieldset>`:''}<div class="aud-feed-actions">${kind==='decision'?`<button type="button" class="aud-feed-primary" data-aud-feed-decision="${esc(item.id)}">Save review draft</button>`:''}<a href="#dashboards:${esc(item.id)}">${esc(item.action)} →</a>${practice?`<a class="aud-source-chip" href="#best-practices:${sourceId}">▣ Best practice · ${esc(practice.title)}</a>`:''}</div><details><summary><span>Details</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3 3.5-3"/></svg></summary><div class="aud-feed-detail"><strong>Why this is here</strong>${esc(item.reason)}<span class="aud-feed-quiet">Source: ${esc(audiences.find(audience=>audience.id===item.id)?.source||'Audience records')} · ${snapshot}</span></div><div class="aud-feedback" role="group" aria-label="Feedback on this item"><span>Was this useful?</span><button type="button" data-aud-feedback="up" data-id="${esc(feedbackId)}" aria-label="Helpful" title="Helpful" aria-pressed="${feedback[feedbackId]?.vote==='up'}">${thumb(true)}</button><button type="button" data-aud-feedback="down" data-id="${esc(feedbackId)}" aria-label="Not helpful" title="Not helpful" aria-pressed="${feedback[feedbackId]?.vote==='down'}">${thumb(false)}</button><button type="button" class="aud-feedback-ignore" data-aud-feedback="ignore" data-id="${esc(feedbackId)}"><span aria-hidden="true">×</span> Ignore this</button>${feedback[feedbackId]?.vote?'<output>Noted</output>':''}</div></details></div>${visualFor(item)}</article>`;

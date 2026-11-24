@@ -51,7 +51,7 @@
       if (anchor) anchor.after(button); else actions.prepend(button);
     }
   }
-  const run = () => document.querySelectorAll('.aud-content .aud-feed-item').forEach(align);
+  const run = () => document.querySelectorAll('.aud-content .aud-feed-item:not(.is-done)').forEach(align);
   document.addEventListener('click', event => {
     const button = event.target.closest('[data-mfa-why]');
     if (!button) return;

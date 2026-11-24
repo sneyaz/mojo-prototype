@@ -53,8 +53,8 @@
   };
   const readJson = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key) || 'null') || fallback; } catch { return fallback; } };
   const quickAnswer = (item, answer) => answer !== 'no'
-    ? `<div class="mfd-quick-receipt" role="status"><span class="mfd-quick-check" aria-hidden="true">✓</span><div><strong>${escape(item.title)} saved as a Best Practice</strong><p>${item.options?`Your choice: ${escape(item.optionLabels?.[answer] || answer)} · `:''}Your team can review this draft before Mojo uses it.</p><div class="mfd-quick-links"><button type="button" data-quick-action="review">Review in chat</button><button type="button" data-quick-action="undo">Undo</button></div></div></div>`
-    : `<div class="mfd-quick-receipt mfd-quick-declined" role="status"><span class="mfd-quick-check" aria-hidden="true">–</span><div><strong>Mojo will leave this out.</strong><p>${escape(item.title)} was not added to Best Practices.</p><div class="mfd-quick-links"><button type="button" data-quick-action="undo">Undo</button></div></div></div>`;
+    ? `<div class="mfd-quick-receipt" role="status"><span class="mfd-quick-check" aria-hidden="true">✓</span><div><strong>Saved to Best Practices</strong><p>${item.options?escape(item.optionLabels?.[answer] || answer):escape(item.title)}</p><small>Your team reviews it before Mojo uses it.</small><div class="mfd-quick-links"><button type="button" data-quick-action="review">Review in chat</button><button type="button" data-quick-action="undo">Undo</button></div></div></div>`
+    : `<div class="mfd-quick-receipt mfd-quick-declined" role="status"><span class="mfd-quick-check" aria-hidden="true">–</span><div><strong>Left out</strong><p>${escape(item.title)}</p><small>Not added to Best Practices.</small><div class="mfd-quick-links"><button type="button" data-quick-action="undo">Undo</button></div></div></div>`;
   const quickAnswers = readJson(quickKey, {});
   let upgradedAnswers = false;
   quickQuestions.forEach(item => {

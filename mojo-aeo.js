@@ -125,13 +125,14 @@
       if(option){const id=option.closest('[data-aeo-select]').dataset.aeoSelect,value=option.dataset.value;if(id==='aeo-engine')engine=value;if(id==='aeo-topic')topic=value;paint();return}
       const vote=event.target.closest('[data-aeo-vote]');
       if(vote){const id=vote.dataset.id,kind=vote.dataset.aeoVote;if(kind==='ignore'){state.ignored[id]=true;save();paint();return}state.votes[id]=state.votes[id]===kind?'':kind;save();vote.closest('.aud-feedback').querySelectorAll('[data-aeo-vote="up"],[data-aeo-vote="down"]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.aeoVote===state.votes[id])));return}
+      const decisionUndo=event.target.closest('[data-aeo-decision-undo]');if(decisionUndo){delete state.drafts[decisionUndo.dataset.aeoDecisionUndo];save();paint();return}
       const undo=event.target.closest('[data-aeo-undo]');if(undo){delete state.ignored[undo.dataset.aeoUndo];save();paint();return}
       const action=event.target.closest('[data-aeo-action]');if(!action)return;
       const id=action.dataset.id;
       if(action.dataset.aeoAction==='feed-decision'){
         const card=action.closest('.aud-decision-row'),choice=card?.querySelector('input[name^="aeo-decision-"]:checked');
         if(!choice)return;
-        state.drafts[id]={at:'Nov 3, 2026',choice:choice.value};save();location.hash='#feed-receipts';paint();return;
+        state.drafts[id]={at:'Nov 3, 2026',choice:choice.value};save();paint();return;
       }
       if(action.dataset.aeoAction==='draft'){state.drafts[id]={at:'Nov 3, 2026'};save();paint();location.hash='#feed-receipts'}
       if(action.dataset.aeoAction==='write'){writeOpen=true;paint()}
@@ -226,6 +227,8 @@
   };
   function feedRow(signal,kind='insight'){
     if(state.ignored[signal.id])return `<div class="aud-ignored-row"><span>Ignored: ${esc(signal.title)}</span><button type="button" data-aeo-undo="${signal.id}">Undo</button></div>`;
+    const done=kind==='decision'&&state.drafts[signal.record]?.choice?state.drafts[signal.record]:null;
+    if(done&&window.MojoConfirm)return `<article class="aud-feed-item aud-decision-row is-done">${window.MojoConfirm.html({title:'Brief saved for the content owner',detail:done.choice,meta:`${signal.title}. Nothing is published until the owner reviews it.`,actions:[{label:'See in Recently completed',href:'#feed-receipts'},{label:'Undo',kind:'undo',attrs:`data-aeo-decision-undo="${esc(signal.record)}"`}]})}</article>`;
     const practice=allPractices().find(row=>row.id===signal.practice&&row.status==='Approved');
     return `<article class="aud-feed-item ${kind==='decision'?'aud-decision-row':kind==='receipt'?'aud-receipt-row':''}" ${kind==='decision'||kind==='receipt'?'data-mojo-owner="Pam Beesly"':''}><div class="aud-feed-main"><div class="aud-feed-meta">${kind==='decision'?'<span class="aud-decision-tag">DECISION</span>':''}<span class="aud-feed-type aeo-type-${signal.type.toLowerCase()}">${esc(signal.type)}</span><span class="aud-feed-byline">${kind==='receipt'?'Drafted by Mojo':'Answer check'}</span></div><h3><a class="aud-feed-title" href="#dashboards:${signal.record}">${esc(signal.title)}</a></h3><p>${esc(signal.reason)}</p>${kind==='decision'?`<fieldset class="aud-feed-choices"><legend>What should happen next?</legend>${(decisionOptions[signal.id.replace(/^decision-/,'')]||['Review the answer evidence']).map((choice,index)=>`<label><input type="radio" name="aeo-decision-${esc(signal.id)}" value="${esc(choice)}" ${index===0?'checked':''}><span>${esc(choice)}</span>${index===0?'<em>Mojo recommends</em>':''}</label>`).join('')}</fieldset>`:''}<div class="aud-feed-actions">${kind==='decision'?`<button type="button" class="aud-feed-primary" data-aeo-action="feed-decision" data-id="${esc(signal.record)}">Save review brief</button>`:''}<a href="#dashboards:${signal.record}">${esc(signal.action)} →</a>${practice?`<a class="aud-source-chip" href="#best-practices:${practice.id}">▣ Best practice · ${esc(practice.title)}</a>`:''}</div><details><summary><span>Details</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3 3.5-3"/></svg></summary><div class="aud-feed-detail"><strong>What Mojo checked</strong>${esc(signal.reason)}<span class="aud-feed-quiet">Buyer questions checked Nov 3</span></div>${feedback(signal.id)}</details></div>${feedVisual(signal,kind)}</article>`;
   }

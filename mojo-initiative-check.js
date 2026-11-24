@@ -62,7 +62,7 @@
         <div class="mic-actions"><button type="submit">Save groupings and goals →</button><a href="Portfolio.html#goals">View configuration</a></div>
       </form>
       </details>
-      <div class="mic-confirmation" role="status" ${state.confirmed ? '' : 'hidden'}><span class="mfd-quick-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"></path></svg></span><div class="mic-saved-content"><strong>Saved as ${escape(state.label)}</strong><p class="mic-saved-names">${state.goals.map(goal=>escape(goal.initiative)).join(' · ')}</p><small>Applies to plans and reports</small><div class="mic-saved-actions"><button type="button" data-mic-edit>Edit in Chat</button><button type="button" class="mojo-see-why" data-mic-saved-why>See why</button><button type="button" data-mic-undo>Undo</button></div></div></div>`;
+      <div class="mic-confirmation" role="status" ${state.confirmed ? '' : 'hidden'}><span class="mfd-quick-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"></path></svg></span><div class="mic-saved-content"><strong>Saved as ${escape(state.label)}</strong><p class="mic-saved-names">${state.goals.map(goal=>escape(goal.initiative)).join(' · ')}</p><small>Used in plans and reports</small><div class="mic-saved-actions"><button type="button" data-mic-edit>Edit in Chat</button><button type="button" class="mojo-see-why" data-mic-saved-why>See why</button><button type="button" data-mic-undo>Undo</button></div></div></div>`;
     section.prepend(card);
     const review=card.querySelector('.mic-review');
     const openReview=()=>{
