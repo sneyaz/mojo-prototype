@@ -19,3 +19,29 @@
 .aud-content .mfa-card .mojo-why-answer { order: 5; margin: 0 0 18px; }
 .aud-content .mfa-card .aud-feed-actions:has(+ .mojo-why-answer) { order: 4; }
 .aud-content .mfa-card .aud-feed-choices { order: 3; }
+
+/* Exact Campaigns values (measured from the Campaigns Feed card) */
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-feed-type,
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-decision-tag { min-height: 0 !important; padding: 3px 7px !important; border-radius: 999px !important; font: 700 10px/12px Inter, Arial, sans-serif !important; letter-spacing: normal !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-feed-type::before { display: none !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-main > h3 { margin-top: 0 !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-visual { border: 1px solid #ebe6dc !important; background: #f7f5f0 !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions { gap: 3px !important; min-height: 55px !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why { margin-left: 18px !important; padding: 4px 0 !important; color: #69636e !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why[aria-expanded="true"] { color: #5d3b96 !important; }
+.aud-app-body .aud-content .mfa-card .mojo-card-tools { display: inline-flex !important; align-items: center !important; gap: 3px !important; height: 30px; }
+.aud-app-body .aud-content .mfa-card .mojo-card-more { display: inline-flex; height: 30px; }
+.aud-app-body .aud-content .mfa-card .mojo-card-more > summary { display: inline-flex !important; align-items: center; justify-content: center; padding: 0 !important; margin: 0 !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions > .aud-feed-primary { margin-right: 18px !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-feed-type,
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-decision-tag { text-transform: none !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why[aria-expanded="true"] { color: #69636e !important; }
+.aud-app-body .aud-content .mfa-card .mojo-card-more > summary svg, .aud-app-body .aud-content .mfa-card .mojo-card-share svg { display: block; margin: auto; }
+.aud-app-body .aud-content .mfa-card .mojo-card-tools .mojo-card-more { margin: 0 !important; }
+/* Spacing to match Campaigns: tag row hugs the tag, bars use the full box, See why sits under the actions without an extra rule */
+.aud-app-body .aud-content .mfa-card .aud-feed-meta { height: auto !important; min-height: 0 !important; flex-wrap: nowrap !important; margin: 0 0 14px !important; }
+.aud-app-body .aud-content .mfa-card .aeo-discovery-visual { gap: 32px !important; padding: 16px 20px !important; }
+.aud-app-body .aud-content .mfa-card .aeo-discovery-bar { width: 100%; justify-self: stretch; }
+.aud-app-body .aud-content .mfa-card .aeo-discovery-track { width: 100%; }
+.aud-app-body .aud-content .mfa-card .mojo-why-answer { margin: 0 0 20px !important; padding-top: 4px !important; border-top: 0 !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-meta .aud-feed-meta { margin: 0 !important; }

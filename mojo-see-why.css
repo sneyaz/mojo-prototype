@@ -20,3 +20,11 @@
 .mfd-main-actions>button.mfd-primary-link{display:inline-flex;align-items:center;min-height:36px;padding:9px 17px;border:0;border-radius:99px;background:#573599;color:#fff;font:700 12px Inter,Arial,sans-serif;cursor:pointer}
 .mfd-main-actions>button.mfd-primary-link:hover{background:#482c80}
 .mfc-chat-source-link{color:#63429a;font-weight:700;text-decoration:none}.mfc-chat-source-link:hover{text-decoration:underline}
+
+/* Quieter explanation text everywhere See why opens (data source keeps its own size) */
+.mojo-why-answer .mojo-why-summary,
+.mojo-why-answer .mojo-why-trigger p,
+.mojo-why-answer .mojo-why-action p { font-size: 12.5px !important; line-height: 1.5 !important; }
+.mojo-why-answer .mojo-why-label { font-size: 11px !important; }
+.mojo-why-answer .mojo-why-action { padding: 11px 13px; }
+.mojo-why-answer .mojo-why-action a { font-size: 12.5px; }

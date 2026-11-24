@@ -280,3 +280,10 @@
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aeo-receipt-actions .aud-feedback{margin:0!important}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aeo-receipt-toggle{order:5}
 @media(max-width:700px){.aeo-receipt-card .aeo-receipt-check{left:-40px;width:29px;height:29px}}
+/* Strategy: what / why it matters / do */
+.aeo-content .aeo-wwd { display: grid; gap: 2px; margin: 8px 0 12px; }
+.aeo-content .aeo-wwd dt { margin-top: 6px; color: #8a8090; font: 700 10px/1.2 Inter, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.aeo-content .aeo-wwd dt:first-child { margin-top: 0; }
+.aeo-content .aeo-wwd dd { margin: 0; color: #4a414e; font: 400 12.5px/1.45 Inter, Arial, sans-serif; }
+.aeo-content .aeo-priority-grid > a { display: flex; flex-direction: column; }
+.aeo-content .aeo-priority-grid > a > b { margin-top: auto; }

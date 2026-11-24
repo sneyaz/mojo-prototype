@@ -66,3 +66,7 @@
 [data-tip] { cursor: help; }
 th [data-tip] { border-bottom: 1px dotted #b8aec0; }
 @media (prefers-reduced-motion: reduce) { .mojo-tip { transition: none; } }
+.mojo-tip.has-links { pointer-events: auto; max-width: 300px; padding: 9px 11px; }
+.mojo-tip-links { display: grid; gap: 4px; margin-top: 7px; padding-top: 7px; border-top: 1px solid #ffffff26; }
+.mojo-tip-links a { color: #fff; font: 600 12px/1.35 Inter, Arial, sans-serif; text-decoration: none; }
+.mojo-tip-links a:hover, .mojo-tip-links a:focus-visible { text-decoration: underline; text-underline-offset: 3px; outline: 0; }

@@ -16,16 +16,18 @@
     const details = main.querySelector(':scope > details:not(.mojo-card-more)');
     const receiptDetail = main.querySelector('.aeo-receipt-detail');
     const detailBox = details?.querySelector('.aud-feed-detail') || receiptDetail;
+    let label;
     const quiet = text(detailBox?.querySelector('.aud-feed-quiet')).replace(/^Source:\s*/i, '');
     const clean = detailBox?.cloneNode(true);
     clean?.querySelectorAll('strong, small, .aud-feed-quiet, .aud-feedback, button, output, a').forEach(node => node.remove());
-    const raw = text(clean);
+    const isSourceBox = /^source record$/i.test(label = text(detailBox?.querySelector('strong')));
+    const raw = isSourceBox ? '' : text(clean);
     const reason = raw.charAt(0).toUpperCase() + raw.slice(1);
     const sentence = value => { const v = value.toLowerCase(); return v.charAt(0).toUpperCase() + v.slice(1); };
     const why = {
       title: text(main.querySelector('h3')),
-      reason: reason || text(main.querySelector(':scope > p')),
-      source: quiet || text(card.closest('.aud-content')?.querySelector('.aud-source')) || 'Sample records',
+      reason: (() => { const intro = text(main.querySelector(':scope > p')), title = text(main.querySelector('h3')); const r = reason && reason !== intro ? reason : ''; return r || `Mojo flagged this because ${/^[A-Z][a-z]/.test(title) ? title.charAt(0).toLowerCase() + title.slice(1) : title}`.replace(/[.?]?$/, '.'); })(),
+      source: (isSourceBox ? text(clean) : '') || quiet || text(card.closest('.aud-content')?.querySelector('.aud-source')) || 'Sample records',
       triggerType: chip ? 'Best practice' : 'Mojo Brain',
       triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : sentence(text(main.querySelector('.aud-feed-type'))),
       nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
@@ -33,6 +35,7 @@
       linkLabel: chip ? 'Open the best practice' : 'Open the record'
     };
     card._mfaWhy = why;
+    main.querySelectorAll('.aud-feed-meta .aud-feed-type, .aud-feed-meta .aud-decision-tag').forEach(tag => { const t = text(tag).toLowerCase(); tag.textContent = t.charAt(0).toUpperCase() + t.slice(1); });
     chip?.setAttribute('hidden', '');
     details?.setAttribute('hidden', '');
     card.querySelector('.aeo-receipt-toggle')?.setAttribute('hidden', '');
