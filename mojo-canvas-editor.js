@@ -127,6 +127,7 @@
       case 'textarea':
         return `<textarea id="${id}" ${name} rows="3"${placeholder}>${escape(value)}</textarea>`;
       case 'select':
+        if (asChoice(field)) return `<div class="mce-chips mce-choice" role="radiogroup" aria-labelledby="${id}-label">${field.options.map(option => `<button type="button" class="mce-chip" role="radio" data-choice="${field.key}" data-value="${escape(option)}" aria-checked="${option === value}" aria-pressed="${option === value}">${option === value ? icon.check : ''}${escape(option)}</button>`).join('')}</div>`;
         /* shadcn-style select (same markup and classes as the app's .mojo-select); a hidden native select keeps the value. */
         return `<div class="mojo-select mce-dd" data-dd="${field.key}"><button type="button" class="mojo-select-trigger" id="${id}" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}-list"><span class="mojo-select-value">${escape(value || field.options[0])}</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="mojo-select-menu" id="${id}-list" role="listbox" aria-labelledby="${id}-label" hidden>${field.options.map((option, i) => `<button type="button" class="mojo-select-option" role="option" data-dd-index="${i}" aria-selected="${option === value}"><span>${escape(option)}</span><span class="mojo-select-check" aria-hidden="true">✓</span></button>`).join('')}</div><select class="mojo-native-select" ${name} tabindex="-1" aria-hidden="true">${field.options.map(option => `<option${option === value ? ' selected' : ''}>${escape(option)}</option>`).join('')}</select></div>`;
       case 'toggle':
@@ -171,11 +172,23 @@
     const picked = field.why && member && !member.touched.has(field.key)
       ? `<span class="mce-picked" tabindex="0" aria-label="Mojo’s pick" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt=""><span class="mce-why" role="tooltip" id="${id}-why"><strong>Mojo’s pick.</strong> ${escape(field.why)}</span></span>` : '';
     if (field.kind === 'toggle') {
-      return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label">${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
+      return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label"${field.help ? ` title="${escape(field.help)}"` : ''}>${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label><small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
     }
-    return `<div class="mce-field${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><div class="mce-label-row"><label for="${id}" id="${id}-label">${escape(field.label)}${required ? '' : ' <span class="mce-optional">Optional</span>'}</label>${picked}${counter(field, values[field.key])}</div>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}${control(field, values[field.key], id)}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
+    return `<div class="mce-field${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><div class="mce-label-row"><label for="${id}" id="${id}-label"${field.help ? ` title="${escape(field.help)}"` : ''}>${escape(field.label)}${required ? '' : ' <span class="mce-optional">Optional</span>'}</label>${picked}${counter(field, values[field.key])}</div>${control(field, values[field.key], id)}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
   }
 
+  /* Settings Mojo sets well almost every time. They sit behind one "Mojo set …" line unless something needs you. */
+  const HANDLED = {tracking: 'tracking', conversion: 'conversion event', validation: 'result check', li_expansion: 'audience expansion', li_bid: 'bidding', li_costcap: 'cost cap',
+    g_bidding: 'bidding', g_cpa: 'target CPA', g_match: 'match type', g_negatives: 'negative keywords', g_path1: 'display path', g_path2: 'display path', db_freq: 'frequency cap', db_pacing: 'pacing', db_cpm: 'max CPM'};
+  /* Short choices render as one-tap chips; long lists keep a dropdown. */
+  const asChoice = field => field.kind === 'select' && field.options.length <= 5 && field.options.every(option => option.length <= 24);
+  /* Ad copy that can be typed straight into the preview. */
+  function inlineKeys(member) {
+    if (!member || member.live) return [];
+    const html = member.platform.preview(effective(member), previewHelpers);
+    const keys = [...new Set([...html.matchAll(/data-edit-field="([a-z_]+)"/g)].map(match => match[1]))];
+    return keys.filter(key => !isShared(key) && ['text', 'textarea'].includes(P.fields(member.platform).find(field => field.key === key)?.kind));
+  }
   /* Routines Mojo runs on every live campaign (see Routines.html). Shown quietly. */
   const ROUTINES = [
     {id: 'weekly', name: 'Weekly Performance Update', schedule: 'Mondays, 9:00 AM'},
@@ -317,16 +330,35 @@
   const perDay = (amount, flight = state.shared.flight) => { const days = flightDays(flight); return days && amount ? `about ${moneyText(amount / days)} a day` : ''; };
   const budgetReadout = () => campaignSpend();
   const campaignSpend = () => P.helpers.spendMath({...state.shared, budget: moneyText(totalBudget())}) || 'Add a flight to see daily spend';
+  /* Fields Mojo handled and nobody needs to look at: tucked behind one line. */
+  const isTucked = (field, values) => HANDLED[field.key] && !P.fieldIssue(field, values[field.key], values) && (!field.showIf || field.showIf(values));
+  function handledHtml(id, fields, values, scope, extra = '') {
+    if (!fields.length) return extra;
+    const names = [...new Set(fields.map(field => HANDLED[field.key]))];
+    const said = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+    const isOpen = state.handledOpen.has(id);
+    return `<details class="mce-handled" data-handled="${id}" ${isOpen ? 'open' : ''}><summary>${mdot}<span>Mojo set ${escape(said)}.</span><em>${isOpen ? 'Hide' : 'Change'}</em></summary><div class="mce-fields">${fields.map(field => fieldHtml(field, id, values, scope)).join('')}</div>${extra}</details>`;
+  }
   function sharedSectionHtml(section) {
     const count = sectionIssueCount(section.id), isOpen = state.openSections.has(section.id), values = valuesFor('shared');
-    const fields = section.fields.map(field => field.kind === 'split' ? splitHtml() : fieldHtml(field, section.id, values, 'shared')).join('');
-    return cardHtml({id: section.id, title: section.title, summary: section.summary(values), description: section.description, count, isOpen, body: `<div class="mce-fields">${fields}</div>${section.watch ? watchNote(section.watch) : ''}`});
+    const shown = section.fields.filter(field => field.kind === 'split' || !isTucked(field, values)), tucked = section.fields.filter(field => field.kind !== 'split' && isTucked(field, values));
+    const fields = shown.map(field => field.kind === 'split' ? splitHtml() : fieldHtml(field, section.id, values, 'shared')).join('');
+    const watch = section.watch ? watchNote(section.watch) : '';
+    return cardHtml({id: section.id, title: section.title, summary: section.summary(values), description: section.description, count, isOpen, body: `<div class="mce-fields">${fields}</div>${tucked.length ? handledHtml(section.id, tucked, values, 'shared', watch) : watch}`});
   }
   function platformCardHtml(member) {
     const id = `p-${member.scope}`, count = platformIssues(member).length, isOpen = state.openSections.has(id), values = effective(member);
-    const groups = platformGroups(member);
+    const groups = platformGroups(member), inline = inlineKeys(member);
+    const inPreview = field => inline.includes(field.key) && !P.fieldIssue(field, values[field.key], values);
+    const tucked = [];
     const body = member.live ? '<p class="mce-section-desc">This platform is live. Changes now happen in the platform.</p>'
-      : groups.map(group => `<div class="mce-group"><h3 class="mce-group-title">${escape(group.title)}</h3><div class="mce-fields">${group.fields.map(field => fieldHtml(field, id, values, member.scope)).join('')}</div></div>`).join('');
+      : groups.map(group => {
+        const copy = group.fields.filter(inPreview);
+        const shown = group.fields.filter(field => !inPreview(field) && !(isTucked(field, values) && tucked.push(field)));
+        const note = copy.length ? `<p class="mce-inline-note">${escape(P.helpers.join(copy.map((field, i) => i ? lowerFirst(field.label) : field.label)))} ${copy.length > 1 ? 'are' : 'is'} edited right in the preview. <button type="button" class="mce-link" data-inline-edit="${copy[0].key}" data-inline-scope="${member.scope}">Edit copy →</button></p>` : '';
+        if (!shown.length && !note) return '';
+        return `<div class="mce-group"><h3 class="mce-group-title">${escape(group.title)}</h3>${note}${shown.length ? `<div class="mce-fields">${shown.map(field => fieldHtml(field, id, values, member.scope)).join('')}</div>` : ''}</div>`;
+      }).join('') + handledHtml(id, tucked, values, member.scope);
     return cardHtml({id, title: member.platform.name, logo: member.platform.logo, summary: platformSummary(member), count, isOpen, live: member.live, body, extraClass: 'mce-platform-card'});
   }
   function cardHtml({id, title: heading, logo, summary, description, count, isOpen, live, body, extraClass = ''}) {
@@ -381,7 +413,10 @@
   function previewHtml() {
     const member = memberOf(state.previewScope) || state.members[0];
     const tabs = state.members.length > 1 ? `<div class="mce-preview-tabs" role="tablist">${state.members.map(m => `<button type="button" role="tab" aria-selected="${m.scope === member.scope}" data-preview-switch="${m.scope}" title="${escape(m.platform.name)}"><img src="${m.platform.logo}" alt="${escape(m.platform.name)}"></button>`).join('')}</div>` : '';
-    return `<div class="mce-card-head"><h3>Preview</h3>${tabs || `<small>${escape(member.platform.context || member.platform.name)}</small>`}</div><div class="mce-preview" data-preview>${member.platform.preview(effective(member), previewHelpers)}</div><p class="mce-preview-hint">Click any part of the ad to edit it.</p>`;
+    let html = member.platform.preview(effective(member), previewHelpers);
+    const inline = inlineKeys(member);
+    inline.forEach(key => { const field = P.fields(member.platform).find(f => f.key === key); html = html.replace(`data-edit-field="${key}"`, `data-edit-field="${key}" data-inline="${key}" data-inline-scope="${member.scope}" contenteditable="plaintext-only" spellcheck="true" role="textbox" aria-label="${escape(field.label)}"`); });
+    return `<div class="mce-card-head"><h3>Preview</h3>${tabs || `<small>${escape(member.platform.context || member.platform.name)}</small>`}</div><div class="mce-preview" data-preview>${html}</div><p class="mce-preview-hint" data-preview-hint>${inline.length ? 'Type right in the ad to change the copy.' : 'Click any part of the ad to edit it.'}</p>`;
   }
   /* Mojo QA: one row for the shared setup and one per platform. Detail only when something is missing. */
   function qaHtml() {
@@ -434,7 +469,7 @@
     el.querySelector('[data-head-actions]').innerHTML = headActionsHtml();
     el.querySelector('[data-qa]').innerHTML = qaHtml();
     el.querySelector('[data-platforms]').innerHTML = platformsHtml();
-    el.querySelector('[data-preview-card]').innerHTML = previewHtml();
+    if (!document.activeElement?.closest?.('[data-inline]')) el.querySelector('[data-preview-card]').innerHTML = previewHtml();
     syncStory();
     el.querySelectorAll('[data-budget-readout]').forEach(node => { node.textContent = campaignSpend(); });
     syncSplit();
@@ -590,7 +625,7 @@
     });
     const source = members.find(member => !member.live) || members[0];
     const shared = Object.fromEntries(SHARED.map(key => [key, source.values[key]]));
-    state = {id: anchor.id, members, shared, openSections: new Set(), sliderBounds: {}, audOpen: '', activeField: '', lastReady: false,
+    state = {id: anchor.id, members, shared, openSections: new Set(), handledOpen: new Set(), sliderBounds: {}, audOpen: '', activeField: '', lastReady: false,
       previewScope: (members.find(member => member.id === anchor.id) || source).scope,
       planAudience: text(anchor.audience || (Array.isArray(anchor.planBlueprint) ? Object.fromEntries(anchor.planBlueprint).Who : '') || source.facts.audience)};
     /* Open only what needs the marketer; everything else reads as a sentence. */
@@ -620,8 +655,10 @@
   function jump(key, scope) {
     const sectionId = sectionOf(key, scope || keyScope(key));
     if (sectionId && !state.openSections.has(sectionId)) setOpen(sectionId, true);
-    const box = el.querySelector(`#mce-s-${sectionId} .mce-field[data-field="${key}"]`) || el.querySelector(`.mce-field[data-field="${key}"]`);
-    if (!box) return null;
+    let box = el.querySelector(`#mce-s-${sectionId} .mce-field[data-field="${key}"]`) || el.querySelector(`.mce-field[data-field="${key}"]`);
+    const tucked = box?.closest('details.mce-handled');
+    if (tucked && !tucked.open) { tucked.open = true; state.handledOpen.add(tucked.dataset.handled); }
+    if (!box) { editInline(key, scope && scope !== 'shared' ? scope : keyScope(key)); return el.querySelector(`[data-inline="${key}"]`); }
     box.scrollIntoView({block: 'center', behavior: 'smooth'});
     const input = box.querySelector('input:not([type="checkbox"]):not([disabled]), textarea, select, button, input');
     input?.focus({preventScroll: true});
@@ -799,6 +836,15 @@
       setValue(key, formatFlight(start, addDays(start, Number(preset.dataset.flightDays) - 1)));
       return changed({structural: true, focus: `[data-flight-days="${preset.dataset.flightDays}"]`});
     }
+    const choice = t.closest('[data-choice]');
+    if (choice) {
+      const key = choice.dataset.choice;
+      if (getValue(key) === choice.dataset.value) return;
+      setValue(key, choice.dataset.value);
+      return changed({structural: true, focus: `[data-choice="${key}"][data-value="${CSS.escape(choice.dataset.value)}"]`});
+    }
+    const inlineEdit = t.closest('[data-inline-edit]');
+    if (inlineEdit) return void editInline(inlineEdit.dataset.inlineEdit, inlineEdit.dataset.inlineScope);
     const chip = t.closest('[data-chip]');
     if (chip) {
       const key = chip.dataset.chip, value = chip.dataset.value, items = list(getValue(key));
@@ -871,6 +917,7 @@
       return;
     }
     if (t.closest('[data-fix-next]')) { const next = allIssues()[0]; if (next) jump(next.key, next.scope || 'shared'); return; }
+    if (t.closest('[data-inline]')) return;
     const hotspot = t.closest('[data-preview] [data-edit-field]');
     if (hotspot) return void jump(hotspot.dataset.editField);
     const jumpTo = t.closest('[data-jump]');
@@ -900,6 +947,49 @@
     }
   });
 
+  /* Typing in the preview: the ad copy is the field. */
+  function editInline(key, scope) {
+    if (!scope || !memberOf(scope)) return;
+    if (state.previewScope !== scope) { state.previewScope = scope; el.querySelector('[data-preview-card]').innerHTML = previewHtml(); markActive(); }
+    const node = el.querySelector(`[data-inline="${key}"]`);
+    if (!node) return;
+    node.scrollIntoView({block: 'center', behavior: calm() ? 'auto' : 'smooth'});
+    node.focus({preventScroll: true});
+    const range = document.createRange(); range.selectNodeContents(node); range.collapse(false);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  }
+  function inlineHint(node) {
+    const member = memberOf(node.dataset.inlineScope), field = member && P.fields(member.platform).find(f => f.key === node.dataset.inline);
+    const hint = el.querySelector('[data-preview-hint]');
+    if (!field || !hint) return;
+    const n = node.textContent.length;
+    hint.innerHTML = `${escape(field.label)} · <span class="${field.max && n > field.max ? 'over' : ''}">${n}${field.max ? `/${field.max}` : ''}</span>`;
+  }
+  el.addEventListener('focusin', event => {
+    const node = event.target.closest?.('[data-inline]');
+    if (!node) return;
+    if (node.querySelector('.mce-muted')) node.textContent = '';
+    node.classList.add('is-typing'); inlineHint(node);
+  });
+  el.addEventListener('focusout', event => {
+    const node = event.target.closest?.('[data-inline]');
+    if (!node) return;
+    setTimeout(() => { if (state && !el.querySelector('[data-inline]:focus')) { el.querySelector('[data-preview-card]').innerHTML = previewHtml(); markActive(); } }, 0);
+  });
+  el.addEventListener('keydown', event => {
+    const node = event.target.closest?.('[data-inline]');
+    if (!node) return;
+    const member = memberOf(node.dataset.inlineScope), field = member && P.fields(member.platform).find(f => f.key === node.dataset.inline);
+    if (event.key === 'Escape' || (event.key === 'Enter' && field?.kind === 'text')) { event.preventDefault(); node.blur(); }
+  });
+  el.addEventListener('input', event => {
+    const node = event.target.closest?.('[data-inline]');
+    if (!node || !state) return;
+    setValue(node.dataset.inline, node.textContent.replace(/\s+\n/g, '\n'), node.dataset.inlineScope);
+    inlineHint(node);
+    changed();
+  });
+
   /* shadcn-style select behavior: open/close, pick, keyboard, click outside. */
   function ddOpen(box) {
     el.querySelectorAll('.mce-dd.is-open').forEach(other => { if (other !== box) ddClose(other); });
@@ -921,6 +1011,12 @@
     select.selectedIndex = index;
     select.dispatchEvent(new Event('change', {bubbles: true}));
   }
+  el.addEventListener('toggle', event => {
+    const box = event.target;
+    if (!box.matches?.('details.mce-handled') || !state) return;
+    if (box.open) state.handledOpen.add(box.dataset.handled); else state.handledOpen.delete(box.dataset.handled);
+    box.querySelector('summary em').textContent = box.open ? 'Hide' : 'Change';
+  }, true);
   el.addEventListener('keydown', event => {
     const box = event.target.closest?.('.mce-dd');
     if (!box) return;

@@ -607,3 +607,67 @@
 .mce .mce-dd .mojo-select-trigger { height: 40px; font-weight: 400; }
 .mce .mce-dd .mojo-select-menu { width: 100%; }
 .mce-field.has-issue .mce-dd .mojo-select-trigger { border-color: #d98c77; }
+
+/* ───── Calmer fields: property rows, quiet inputs, Mojo-handled settings tucked away ───── */
+.mce-section-body { padding-top: 10px; }
+.mce .mce-section[data-open="true"] .mce-section-desc { display: none; }
+.mce .mce-help { display: none; }
+.mce .mce-fields { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.mce .mce-group + .mce-group { margin-top: 20px; padding-top: 0; border-top: 0; }
+.mce .mce-group-title { margin-bottom: 6px; }
+/* Each field is a row: label on the left, value on the right */
+.mce .mce-field { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 18px; align-items: start; padding: 2px 0; }
+.mce .mce-field > .mce-label-row { grid-column: 1; grid-row: 1 / span 4; flex-wrap: wrap; align-content: flex-start; gap: 4px 6px; padding-top: 10px; }
+.mce .mce-field > :not(.mce-label-row) { grid-column: 2; }
+.mce .mce-label-row label { color: var(--mce-ink-2); font-weight: 500; }
+.mce .mce-label-row label[title] { cursor: help; }
+.mce .mce-label-row .mce-count, .mce .mce-label-row [data-count] { flex-basis: 100%; }
+.mce .mce-field > .mce-chips, .mce .mce-field > .mce-dates, .mce .mce-field > .mce-tags, .mce .mce-field > .mce-assets, .mce .mce-field > .mce-list { margin-top: 5px; }
+.mce .mce-field > .mce-issue:empty { display: none; }
+/* Toggle rows: label left, switch right */
+.mce .mce-field-toggle { display: block; }
+.mce .mce-field-toggle > label { display: grid; grid-template-columns: 150px auto auto 1fr; column-gap: 18px; align-items: center; min-height: 36px; }
+.mce .mce-field-toggle > label .mce-label-text { grid-column: 1; grid-row: 1; color: var(--mce-ink-2); font-weight: 500; }
+.mce .mce-field-toggle > label .mce-switch { grid-column: 2; grid-row: 1; }
+.mce .mce-field-toggle > label .mce-picked { grid-column: 3; grid-row: 1; }
+.mce .mce-field-toggle > .mce-issue { margin-left: 168px; }
+/* Quiet inputs: they read as text until you hover or type */
+.mce .mce-field > input:not([type="checkbox"]), .mce .mce-field > textarea, .mce .mce-field .mce-budget > input[type="text"], .mce .mce-split-rows input, .mce .mce-dd .mojo-select-trigger, .mce .mce-aud-trigger, .mce .mce-list input, .mce .mce-dates input {
+  border-color: transparent !important; background: transparent; box-shadow: none; transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease; }
+.mce .mce-field > input:not([type="checkbox"]), .mce .mce-field > textarea, .mce .mce-dd .mojo-select-trigger, .mce .mce-aud-trigger { margin-left: -11px; width: calc(100% + 11px); }
+.mce .mce-field > input:not([type="checkbox"]):hover, .mce .mce-field > textarea:hover, .mce .mce-field .mce-budget > input[type="text"]:hover, .mce .mce-split-rows input:hover, .mce .mce-dd .mojo-select-trigger:hover, .mce .mce-aud-trigger:hover, .mce .mce-list input:hover, .mce .mce-dates input:hover {
+  border-color: var(--mce-line-2) !important; background: #fff; }
+.mce .mce-field > input:not([type="checkbox"]):focus, .mce .mce-field > textarea:focus, .mce .mce-field .mce-budget > input[type="text"]:focus, .mce .mce-split-rows input:focus, .mce .mce-list input:focus, .mce .mce-dates input:focus, .mce .mce-dd.is-open .mojo-select-trigger, .mce .mce-aud.is-open .mce-aud-trigger {
+  border-color: #a98bd1 !important; background: #fff; box-shadow: 0 0 0 3px rgba(111, 78, 179, .12); outline: 0; }
+.mce .mce-field > textarea { resize: none; field-sizing: content; min-height: 40px; }
+.mce .mce-dd .mojo-select-trigger svg, .mce .mce-aud-trigger svg { opacity: .55; }
+.mce .mce-field.has-issue > input:not([type="checkbox"]), .mce .mce-field.has-issue > textarea, .mce .mce-field.has-issue .mojo-select-trigger { border-color: #d98c77 !important; background: #fff; }
+/* "Mojo set …" — one line that opens to the settings */
+.mce-handled { margin-top: 14px; }
+.mce-handled > summary { display: flex; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 4px 0; color: var(--mce-ink-3); font: 400 12px/1.4 Inter, Arial, sans-serif; list-style: none; cursor: pointer; }
+.mce-handled > summary::-webkit-details-marker { display: none; }
+.mce-handled > summary .mce-mdot { width: 10px; height: 10px; }
+.mce-handled > summary em { color: var(--mce-accent); font: 600 12px/1.4 Inter, Arial, sans-serif; font-style: normal; }
+.mce-handled > summary:hover em { text-decoration: underline; text-underline-offset: 3px; }
+.mce-handled[open] > summary { margin-bottom: 6px; }
+.mce-handled > .mce-section-watch { margin-top: 10px; }
+/* Copy edited in the preview */
+.mce-inline-note { margin: 2px 0 6px; color: var(--mce-ink-3); font: 400 12px/1.45 Inter, Arial, sans-serif; }
+.mce-inline-note .mce-link { margin-left: 4px; font: 600 12px/1.45 Inter, Arial, sans-serif !important; }
+.mce-preview [data-inline] { cursor: text; outline: 0; }
+.mce-preview [data-inline]:hover { box-shadow: 0 0 0 2px #fff, 0 0 0 3px #b99fcf; }
+.mce-preview [data-inline]:focus { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--mce-accent); background: #fff; }
+.mce-preview .mce-li-intro[data-inline]:focus { display: block; -webkit-line-clamp: unset; overflow: visible; }
+.mce-preview-hint .over { color: var(--mce-red, #b3463f); font-weight: 600; }
+/* One-tap choices (single select as chips) */
+.mce .mce-choice .mce-chip[aria-checked="true"] { border-color: var(--mce-accent); color: var(--mce-accent) !important; font-weight: 650 !important; }
+@container (max-width: 640px) {
+  .mce .mce-field { grid-template-columns: minmax(0, 1fr); }
+  .mce .mce-field > .mce-label-row { grid-row: auto; padding-top: 0; }
+  .mce .mce-field > :not(.mce-label-row) { grid-column: 1; }
+  .mce .mce-field > input:not([type="checkbox"]), .mce .mce-field > textarea, .mce .mce-dd .mojo-select-trigger, .mce .mce-aud-trigger { margin-left: 0; width: 100%; border-color: var(--mce-line-2) !important; }
+  .mce .mce-field-toggle > label { grid-template-columns: auto auto 1fr; }
+  .mce .mce-field-toggle > label .mce-label-text { grid-column: 2; }
+  .mce .mce-field-toggle > label .mce-switch { grid-column: 1; }
+  .mce .mce-field-toggle > .mce-issue { margin-left: 0; }
+}
