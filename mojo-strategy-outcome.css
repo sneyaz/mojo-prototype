@@ -1263,3 +1263,9 @@ main.canvaspane.mf-strategy-page{padding-left:16px!important;padding-right:16px!
 .mso-canvas-brief-actions{display:flex;gap:8px;margin-top:4px}
 .mso-canvas-brief-form .mso-canvas-brief-actions button{padding:9px 14px;border-radius:99px;font:700 12px/1.2 Inter,Arial,sans-serif}
 .mso-canvas-brief-form .mso-canvas-brief-actions [data-cancel-canvas-brief]{border:1px solid #d7c9e7;background:#fff;color:#65429a}
+
+/* Chat brief actions: one primary, then white bordered secondary buttons (Mojo button style) */
+.mso-brief-actions button{border-radius:7px!important;height:32px;padding:0 13px!important;font:650 12px/1 Inter,Arial,sans-serif!important}
+.mso-brief-actions [data-brief-build]{flex-basis:100%;max-width:max-content;border:1px solid #613d9d!important;background:#613d9d!important;color:#fff!important}
+.mso-brief-actions [data-brief-refine],.mso-brief-actions [data-brief-refine-canvas]{border:1px solid #dcd2e6!important;background:#fff!important;color:#563486!important}
+.mso-brief-actions [data-brief-refine]:hover,.mso-brief-actions [data-brief-refine-canvas]:hover{border-color:#c7b6d9!important;background:#f8f5fb!important}

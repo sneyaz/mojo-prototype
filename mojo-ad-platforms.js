@@ -167,6 +167,8 @@
     match: /LinkedIn/i,
     logo: 'assets/linkedin.png',
     structure: ['Campaign group', 'Campaign', 'Ad'],
+    /* One sentence for the platform card in a multi-platform campaign: only LinkedIn's own choices. */
+    card: (v, h) => `${h.b(v.li_format)} ad for ${h.b(h.join(v.li_seniority) || 'any seniority')} in ${h.b(h.join(v.li_functions) || 'any function')} · “${h.escape(v.li_headline || 'no headline yet')}” · ${h.escape(v.li_bid.toLowerCase())}.`,
     structureValues: (draft, values, ctx) => [ctx.initiative, ctx.title, `${values.li_format} ad`],
     sections: [
       {id: 'setup', title: 'Campaign settings', description: 'How LinkedIn optimizes delivery.', summary: (v, h) => `Optimizing for ${h.b(v.li_objective.toLowerCase())} with a ${h.b(v.li_format.toLowerCase())} ad.`, fields: [
@@ -213,7 +215,7 @@
             ? `<div class="mce-li-carousel" data-edit-field="assets">${(h.assets(values).length ? h.assets(values) : [null, null]).slice(0, 3).map(src => src ? `<img src="${src}" alt="">` : '<span class="mce-asset-empty"></span>').join('')}</div>`
             : h.assets(values)[0] ? `<img class="mce-li-image" data-edit-field="assets" src="${h.assets(values)[0]}" alt="">` : '<span class="mce-asset-empty mce-li-image" data-edit-field="assets"></span>'}
           <div class="mce-li-foot"><div><strong data-edit-field="li_headline">${h.escape(values.li_headline) || 'Headline'}</strong><small data-edit-field="landing">${h.escape(h.host(values.landing)) || '<span class="mce-missing">Add landing page</span>'}</small></div><span class="mce-li-cta" data-edit-field="li_cta">${h.escape(values.li_cta)}</span></div>
-          <div class="mce-li-actions" aria-hidden="true"><span>Like</span><span>Comment</span><span>Repost</span><span>Send</span></div>
+          <div class="mce-li-actions" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M7 11v9H4v-9h3Zm0 0 4-7c1.5 0 2.5 1 2.2 2.6L12.6 10H19a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 17.8 20H7"/></svg>Like</span><span><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/></svg>Comment</span><span><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3M18 7v5M6 17v-5"/></svg>Repost</span><span><svg viewBox="0 0 24 24"><path d="m4 12 16-8-6 16-2.5-6.5L4 12Z"/></svg>Send</span></div>
         </article>
       </div>`
   });
@@ -229,6 +231,7 @@
     match: /Google|Search/i,
     logo: 'assets/google-ads.svg',
     structure: ['Campaign', 'Ad group', 'Responsive search ad'],
+    card: (v, h) => { const k = list(v.keywords); return `${h.b(k.length + ' ' + (k.length === 1 ? 'keyword' : 'keywords'))} on ${h.escape(v.g_match.toLowerCase())} match · ${h.b(list(v.g_headlines).length + ' headlines')}, ${list(v.g_descriptions).length} descriptions · ${h.escape(v.g_bidding.toLowerCase())}.`; },
     structureValues: (draft, values, ctx) => [ctx.title, list(values.keywords)[0] ? `“${list(values.keywords)[0]}” ad group` : 'Ad group', `${list(values.g_headlines).length} headlines · ${list(values.g_descriptions).length} descriptions`],
     sections: [
       {id: 'setup', title: 'Campaign settings', description: 'Search campaigns show when buyers search your keywords.', summary: (v, h) => `${h.b(v.g_type)} campaign, bidding to ${h.b(v.g_bidding.toLowerCase())}${v.g_bidding === 'Target CPA' && v.g_cpa ? ` at ${h.b(v.g_cpa)}` : ''}.`, fields: [
@@ -289,6 +292,7 @@
     match: /Demandbase/i,
     logo: 'assets/demandbase.png',
     structure: ['Campaign', 'Account list', 'Creatives'],
+    card: (v, h) => `${h.b(h.join(v.db_inventory) || 'No inventory')} in ${h.b(list(v.db_sizes).length + ' sizes')} · ${h.escape(v.db_freq)} · ${h.escape(v.db_pacing.toLowerCase())} pacing, max ${h.escape(v.db_cpm)} CPM.`,
     structureValues: (draft, values, ctx) => [ctx.title, values.audience || 'Account list', `${list(values.db_sizes).length} sizes`],
     sections: [
       {id: 'audience', title: 'Accounts', description: 'Ads serve only to people at these accounts.', summary: (v, h) => `${h.b(v.audience || 'No account list yet')} on ${h.b(h.join(v.db_inventory).toLowerCase() || 'no inventory')}, capped at ${h.b(v.db_freq.toLowerCase())}.`, fields: [
