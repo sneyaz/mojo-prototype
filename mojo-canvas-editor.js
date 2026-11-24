@@ -170,7 +170,7 @@
     const picked = field.why && member && !member.touched.has(field.key)
       ? `<span class="mce-picked" tabindex="0" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt="">Mojo picks<span class="mce-why" role="tooltip" id="${id}-why">${escape(field.why)}</span></span>` : '';
     if (field.kind === 'toggle') {
-      return `<div class="mce-field mce-field-toggle${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label">${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
+      return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label">${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
     }
     return `<div class="mce-field${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><div class="mce-label-row"><label for="${id}" id="${id}-label">${escape(field.label)}${required ? '' : ' <span class="mce-optional">Optional</span>'}</label>${picked}${counter(field, values[field.key])}</div>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}${control(field, values[field.key], id)}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
   }
@@ -178,12 +178,12 @@
   /* Routines Mojo runs on every live campaign (see Routines.html). Shown quietly. */
   const ROUTINES = [
     {id: 'weekly', name: 'Weekly Performance Update', schedule: 'Mondays, 9:00 AM'},
-    {id: 'pacing', name: 'Budget Pacing and Optimization', schedule: 'Daily, 9:15 AM', note: 'Mojo checks pacing every morning after launch.'},
-    {id: 'tracking', name: 'Tracking, UTM, and Naming Governance', schedule: 'Daily, 9:30 AM', note: 'Mojo checks links and UTMs every morning after launch.'},
+    {id: 'pacing', name: 'Budget Pacing and Optimization', schedule: 'Daily, 9:15 AM', note: 'Overspend? Not on Mojo’s watch. It checks pacing every morning.'},
+    {id: 'tracking', name: 'Tracking, UTM, and Naming Governance', schedule: 'Daily, 9:30 AM', note: 'Broken links don’t stand a chance. Mojo checks them every morning.'},
     {id: 'goal', name: 'Progress to Goal', schedule: 'Mondays, 9:45 AM'}
   ];
   const mdot = '<img class="mce-mdot" src="assets/moj-mdot.svg" alt="">';
-  const watchNote = id => { const routine = ROUTINES.find(item => item.id === id); return routine ? `<p class="mce-section-watch">${mdot}${escape(routine.note)}</p>` : ''; };
+  const watchNote = id => { const routine = ROUTINES.find(item => item.id === id); return routine ? `<p class="mce-section-watch">${mdot}<span>${escape(routine.note)}</span></p>` : ''; };
 
   /* ───────── campaign model ─────────
      A campaign is the set of drafts that share a plan source, one per platform.
