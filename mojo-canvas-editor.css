@@ -753,3 +753,7 @@
 .mce .mce-handled-values b { margin: 0; line-height: 20px; }
 .mce .mce-handled-values > span { line-height: 20px; }
 .mce .mce-handled > summary em { line-height: 20px; }
+/* Character counts: light until they matter */
+.mce .mce-count { color: #b3abb8; font-weight: 400; }
+.mce .mce-count.long { color: var(--mce-amber); font-weight: 500; }
+.mce .mce-count.over { color: var(--mce-red); font-weight: 600; }
