@@ -161,7 +161,7 @@
     return `${drafts ? `<span class="mbj-batch-needs"><strong>${drafts}</strong> ${drafts === 1 ? 'needs' : 'need'} you</span> · ` : ''}<strong>${readyGroups.length} ready to launch</strong> · ${usd(total)} ready to spend`;
   }
   const selectedGroupCount = () => groupsOf(read()).filter(group => group.stage === 'ready' && group.readyIndices.some(i => selectedReady.has(i))).length;
-  const batchButton = () => selectedReady.size ? `Review launch of ${selectedGroupCount()} →` : 'Select to launch together';
+  const batchButton = () => { const n = groupsOf(read()).filter(group => group.stage === 'ready').length; return n === 1 ? 'Launch campaign →' : `Launch all ${n} →`; };
   /* Fix on the card: when a draft is missing only its landing page or tracking, ask for it right here. */
   const inlineFixes = {landing: {label: 'Landing page URL', placeholder: 'https://acme.com/…', type: 'url'}, tracking: {label: 'Campaign tracking', placeholder: 'utm_campaign=…', type: 'text'}};
   function inlineFix(draft) {
@@ -216,10 +216,8 @@
     const firstIssue = open.map(member => ({member, need: qaNeeds(member.item)[0]})).find(entry => entry.need);
     const sharedNeed = firstIssue && ['Landing page URL', 'Tracking', 'Audience', 'Creative', 'Messaging', 'Budget and flight', 'Budget approval'].includes(firstIssue.need);
     const needText = firstIssue ? firstIssue.need.replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase()) + (!sharedNeed && open.length > 1 ? ` on ${channel(firstIssue.member.item)}` : '') : '';
-    const pill = state === 'recent' ? 'Launched' : state === 'ready' ? 'Mojo QA’d' : `Draft · Needs ${needText || 'a fix'}`;
     const tone = state === 'draft' ? qa(firstIssue?.member.item || draft).tone : 'green';
-    const percent = Math.max(0, Math.round((8 - Math.min(open.reduce((sum, member) => sum + qa(member.item).missing.length, 0), 7)) / 8 * 100));
-    const logos = members.map(member => `<span title="${escape(channel(member.item))}${member.stage === 'recent' || member.stage === 'report' ? ' · live' : ''}">${channelLogo(member.item)}</span>`).join('');
+    const logos = members.map(member => channelLogo(member.item)).join('');
     const platformsRow = members.length > 1 ? `<ul class="mbj-platform-rows">${members.map(member => { const live = member.stage === 'recent' || member.stage === 'report'; const need = qaNeeds(member.item)[0]; return `<li>${channelLogo(member.item)}<span>${escape(channel(member.item))}</span><small>${escape(facts(member.item).budget || '')}</small><em class="${live ? 'live' : need ? 'bad' : 'ok'}">${live ? 'Live' : need ? 'Needs ' + escape(need.replace(/^[A-Z](?=[a-z])/, c => c.toLowerCase())) : check + 'QA’d'}</em></li>`; }).join('')}</ul>` : '';
     const budgetRow = members.length > 1 ? members.map(member => `${channel(member.item).replace(/ Ads$/, '')} ${facts(member.item).budget || '—'}`).join(' · ') : f.budget;
     const tableRows = [['Audience',f.audience],['Creative',f.creative],['Tracking',f.tracking],...(hasSearch ? [['Intent keywords', facts(searchMember.item).keywords]] : []),['Budget',budgetRow],['Flight',f.flight],['Landing page',f.landing],['Message',f.messaging],['Conversion event',f.conversion],['Validation',f.validation]];
@@ -227,12 +225,11 @@
     const launchLabel = open.length > 1 ? `Launch on ${open.length} platforms →` : 'Launch campaign →';
     const action = state==='ready' ? `<button type="button" class="mbj-launch" data-launch>${launchLabel}</button><a href="#" data-review-in-chat>Preview in chat</a>`+canvasLink : state==='recent' ? '' : '<button type="button" data-resolve>Preview in chat</button>'+canvasLink;
     const dataWait = state==='recent' ? '<p class="mbj-data-wait"><strong>Waiting for first data.</strong> The ad platforms have not reported delivery yet. <a href="Portfolio.html#campaigns">Open Report →</a></p>' : '';
-    const allSelected = group.readyIndices.length && group.readyIndices.every(i => selectedReady.has(i));
-    const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select for a shared launch"><input type="checkbox" data-select-ready="${group.readyIndices.join(',')}" ${allSelected?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)} for launch</span></label>` : '';
-    const title = state==='recent' ? `<a href="Portfolio.html#campaigns">${escape(draft.planTitle||draft.name)}</a>` : `<button type="button" data-edit title="Edit in Chat">${escape(draft.planTitle||draft.name)}</button>`;
     const remove = state==='recent' ? '' : '<button type="button" class="mbj-delete-icon" data-delete aria-label="Delete draft" title="Delete draft"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 10v7M14 10v7"/></svg></button>';
     const isNew = state==='recent' && group.indices.some(i => newlyLaunchedIndices.has(i));
-    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><div class="mbj-row">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}<span class="mbj-initiative-separator" aria-hidden="true">·</span><span class="mbj-logos">${logos}</span></span><h3>${title}</h3><p>${escape(f.audience)}</p></div><div class="mbj-row-right"><span class="mbj-qa-wrap"><span class="mbj-qa ${tone}" tabindex="0">${state!=='draft'?check:'<span class="mbj-dot '+tone+'" aria-hidden="true"></span>'}<span>${escape(pill)}</span></span></span>${state==='draft'?`<small>${percent}% complete</small>`:''}</div></div>${dataWait}<div class="mbj-details-row"><details ${isOpen?'open':''}><summary>Deliverables and platform fields <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg></summary>${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${members.map(member => channelLogo(member.item)).join('')}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action?`<div class="mbj-actions">${action}</div>`:''}</details>${remove}</div></article>`;
+    const need = state==='draft' ? `<span class="mbj-need ${tone}"><span class="mbj-dot ${tone}" aria-hidden="true"></span>Needs ${escape(needText || 'a fix')}</span>` : '';
+    const chevron = '<svg class="mbj-chev" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg>';
+    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><details ${isOpen?'open':''}><summary class="mbj-row" aria-label="${escape(draft.planTitle||draft.name)}: show deliverables and platform fields"><div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}</span><h3>${escape(draft.planTitle||draft.name)}</h3><p>${escape(f.audience)}</p>${dataWait}</div><div class="mbj-row-right">${need}<span class="mbj-logos">${logos}</span></div>${chevron}</summary><div class="mbj-details">${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${logos}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action||remove?`<div class="mbj-actions">${action}${remove}</div>`:''}</div></details></article>`;
   }
   function render() {
     const items=read(), lists={draft:[],ready:[],recent:[]};
@@ -242,7 +239,7 @@
     const ready=groups.filter(group=>group.stage==='ready').flatMap(group=>group.readyIndices);
     const readyGroupCount=groups.filter(group=>group.stage==='ready').length;
     for(const index of [...selectedReady])if(!ready.includes(index))selectedReady.delete(index);
-    root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${readyGroupCount>1?`<div class="mbj-batch"><span data-selected-count>${batchLabel()}</span><button type="button" data-review-launch ${selectedReady.size?'':'disabled'}>${batchButton()}</button></div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`${name==='recent'?`<section class="mbj-section mbj-section-recent" data-build-section="recent"><details data-recent-toggle ${recentOpen?'open':''}><summary class="mbj-section-head"><h2>${title}</h2><svg class="mbj-recent-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 5 5 5-5 5"/></svg><span>${lists[name].filter(html=>html.startsWith('<article')).length}</span></summary>${lists[name].length?lists[name].join(''):'<p class="mbj-empty">No launches in the last 7 days.</p>'}</details></section>`:`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?readyGroupCount:lists[name].filter(html=>html.startsWith('<article')).length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`}`).join('')}<div class="mbj-float" data-float ${selectedReady.size?'':'hidden'} role="region" aria-label="Selected campaigns"><span data-float-label>${batchLabel()}</span><button type="button" class="mbj-float-clear" data-clear-selection>Clear</button><button type="button" class="mbj-float-launch" data-review-launch>${batchButton()}</button></div><dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each selected campaign. Confirm the setup before launch.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
+    root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${groups.some(group=>group.stage==='draft'||group.stage==='ready')?`<div class="mbj-batch"><span data-selected-count>${batchLabel()}</span>${readyGroupCount?`<button type="button" data-review-launch>${batchButton()}</button>`:''}</div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`${name==='recent'?`<section class="mbj-section mbj-section-recent" data-build-section="recent"><details data-recent-toggle ${recentOpen?'open':''}><summary class="mbj-section-head"><h2>${title}</h2><svg class="mbj-recent-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 5 5 5-5 5"/></svg><span>${lists[name].filter(html=>html.startsWith('<article')).length}</span></summary>${lists[name].length?lists[name].join(''):'<p class="mbj-empty">No launches in the last 7 days.</p>'}</details></section>`:`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?readyGroupCount:lists[name].filter(html=>html.startsWith('<article')).length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`}`).join('')}<dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each one. Uncheck anything you want to hold back.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
   }
   /* Quick changes happen in Chat; "Edit in canvas" opens the full editor (mojo-canvas-editor.js). */
   const canEditInCanvas = draft => !!window.MojoCanvasEditor?.canEdit(draft);
@@ -371,11 +368,12 @@
   });
   root.addEventListener('click',event=>{
     if(event.target.closest('[data-review-launch]')){
-      reviewIndices=[...selectedReady].filter(index=>stage(read()[index])==='ready');
-      if(!reviewIndices.length)return;
-      const reviewGroups=groupsOf(read()).filter(group=>group.readyIndices.some(i=>reviewIndices.includes(i)));
-      root.querySelector('[data-review-list]').innerHTML=reviewGroups.map(group=>{const items=read(),lead=group.lead.item,f=facts(lead),picked=group.readyIndices.filter(i=>reviewIndices.includes(i));return `<li><strong>${escape(lead.planTitle||lead.name)}</strong><dl class="mbj-review-facts"><div><dt>${picked.length>1?'Platforms':'Channel'}</dt><dd class="mbj-review-channel">${picked.map(i=>`${channelLogo(items[i])}<span>${escape(channel(items[i]))} · ${escape(facts(items[i]).budget||'')}</span>`).join('')}</dd></div><div><dt>Flight</dt><dd>${escape(f.flight||'To confirm')}</dd></div></dl></li>`}).join('');
-      root.querySelector('[data-confirm-launch]').textContent=reviewGroups.length===1?`Launch on ${reviewIndices.length} platform${reviewIndices.length>1?'s':''} →`:`Launch ${reviewGroups.length} campaigns →`;
+      const items=read(),readyGroups=groupsOf(items).filter(group=>group.stage==='ready');
+      if(!readyGroups.length)return;
+      reviewIndices=readyGroups.flatMap(group=>group.readyIndices);
+      const many=readyGroups.length>1;
+      root.querySelector('[data-review-list]').innerHTML=readyGroups.map(group=>{const lead=group.lead.item,f=facts(lead);return `<li${many?' class="has-pick"':''}>${many?`<label class="mbj-review-pick"><input type="checkbox" checked data-review-pick="${group.readyIndices.join(',')}" aria-label="Launch ${escape(lead.planTitle||lead.name)}"></label>`:''}<div><strong>${escape(lead.planTitle||lead.name)}</strong><dl class="mbj-review-facts"><div><dt>${group.readyIndices.length>1?'Platforms':'Channel'}</dt><dd class="mbj-review-channel">${group.readyIndices.map(i=>`<span class="mbj-review-plat">${channelLogo(items[i])}<span>${escape(channel(items[i]))} · ${escape(facts(items[i]).budget||'')}</span></span>`).join('')}</dd></div><div><dt>Flight</dt><dd>${escape(f.flight||'To confirm')}</dd></div></dl></div></li>`}).join('');
+      syncReview();
       root.querySelector('.mbj-launch-review').showModal();return;
     }
     if(event.target.closest('[data-review-details]')){event.preventDefault();root.querySelector('.mbj-launch-review').close();openReviewChat(reviewIndices);return}
@@ -397,7 +395,6 @@
     const fix=event.target.closest('[data-fix-field]');
     if(fix){event.preventDefault();openChat(index,fix.dataset.fixField);return}
     if(event.target.closest('[data-canvas]')){event.preventDefault();editInCanvas(index);return}
-    if(event.target.closest('[data-edit]')){openChat(index);return}
     if(event.target.closest('[data-delete]')){
       const item=read()[index];if(!item||!group)return;
       deleteIndex=group.open.map(member=>member.index);
@@ -409,18 +406,15 @@
     if(event.target.closest('[data-review-in-chat]')){event.preventDefault();openReviewChat(group?group.readyIndices:[index]);return;}
     if(event.target.closest('[data-launch]'))launch(group?group.readyIndices:[index]);
   });
-  /* Keep both launch controls in step: the summary bar at the top and the floating bar at the bottom. */
-  function syncSelection(){
-    root.querySelectorAll('[data-review-launch]').forEach(button=>{button.disabled=!selectedReady.size;button.textContent=batchButton();});
-    const float=root.querySelector('[data-float]');
-    if(float){float.hidden=!selectedReady.size;float.querySelector('[data-float-label]').innerHTML=batchLabel();}
+  /* Launch review: everything ready is picked; unchecking holds a campaign back. */
+  function syncReview(){
+    const picks=[...root.querySelectorAll('[data-review-pick]')];
+    if(picks.length)reviewIndices=picks.filter(input=>input.checked).flatMap(input=>input.dataset.reviewPick.split(',').map(Number));
+    const campaigns=picks.length?picks.filter(input=>input.checked).length:1,spend=usd(reviewIndices.reduce((sum,i)=>sum+moneyOf(facts(read()[i]||{}).budget),0));
+    const button=root.querySelector('[data-confirm-launch]');
+    button.disabled=!reviewIndices.length;
+    button.textContent=!reviewIndices.length?'Pick a campaign':campaigns===1?(reviewIndices.length>1?`Launch on ${reviewIndices.length} platforms · ${spend} →`:`Launch · ${spend} →`):`Launch ${campaigns} campaigns · ${spend} →`;
   }
-  root.addEventListener('click',event=>{
-    if(!event.target.closest('[data-clear-selection]'))return;
-    selectedReady.clear();root.querySelectorAll('[data-select-ready]').forEach(input=>{input.checked=false;});
-    const count=root.querySelector('[data-selected-count]');if(count)count.innerHTML=batchLabel();
-    syncSelection();
-  });
   root.addEventListener('toggle',event=>{if(event.target.matches?.('[data-recent-toggle]'))recentOpen=event.target.open;},true);
   root.addEventListener('submit',event=>{
     const form=event.target.closest('[data-inline-fix]');if(!form)return;
@@ -439,13 +433,7 @@
     qaNotice=null;setTimeout(()=>{justReady=null;root.querySelector('.is-just-ready')?.classList.remove('is-just-ready');},1600);
   });
   root.addEventListener('input',event=>{const form=event.target.closest('[data-inline-fix]');if(form){form.classList.remove('has-error');form.querySelector('.mbj-inline-error').textContent='';}});
-  root.addEventListener('change',event=>{
-    const input=event.target.closest('[data-select-ready]');if(!input)return;
-    input.dataset.selectReady.split(',').map(Number).forEach(index=>{if(input.checked)selectedReady.add(index);else selectedReady.delete(index);});
-    const count=root.querySelector('[data-selected-count]');
-    if(count)count.innerHTML=batchLabel();
-    syncSelection();
-  });
+  root.addEventListener('change',event=>{if(event.target.closest('[data-review-pick]'))syncReview();});
   document.addEventListener('mojo:build-status-changed',event=>{
     const items=read();
     items.forEach(item=>{if(item.buildStatus==='qa')item.buildStatus=qa(item).passed?'ready':'draft'});

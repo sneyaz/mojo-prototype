@@ -281,12 +281,11 @@
     const used = new Set(state.members.map(member => member.platform.id));
     const chips = state.members.map(member => {
       const count = platformIssues(member).length;
-      const mark = member.live ? '<span class="mce-tab-mark live">Live</span>' : count ? `<span class="mce-tab-mark issue" aria-label="${count} to fix">${count}</span>` : `<span class="mce-tab-mark ready" aria-label="ready">${icon.check}</span>`;
+      const mark = member.live ? '<span class="mce-tab-mark live">Live</span>' : count ? `<span class="mce-tab-mark issue" aria-label="${count} to fix">${count}</span>` : '';
       return `<button type="button" class="mce-tab" data-nav="p-${member.scope}"><img src="${member.platform.logo}" alt="">${escape(member.platform.name)}${mark}</button>`;
     }).join('');
     const adds = P.all().filter(platform => !used.has(platform.id)).map(platform => `<button type="button" class="mce-tab mce-tab-add" data-copy="${platform.id}" title="Add ${escape(platform.name)}. Shared settings carry over.">${icon.plus}<img src="${platform.logo}" alt="">${escape(platform.name)}</button>`).join('');
-    const label = state.members.length > 1 ? `Runs on <strong>${state.members.length} platforms</strong> · <strong>${moneyText(totalBudget())}</strong> total` : `Runs on <strong>1 platform</strong> · <strong>${moneyText(totalBudget())}</strong>`;
-    return `<p class="mce-platforms-label">${label}</p><div class="mce-tabs">${chips}</div>${adds ? `<div class="mce-tabs mce-tabs-adds"><span class="mce-tabs-add-label">Add</span>${adds}</div>` : ''}`;
+    return `<div class="mce-tabs">${chips}</div><p class="mce-platforms-label"><strong>${moneyText(totalBudget())}</strong>${state.members.length > 1 ? ' total' : ''}</p>${adds ? `<div class="mce-tabs mce-tabs-adds"><span class="mce-tabs-add-label">Add</span>${adds}</div>` : ''}`;
   }
   function progressHtml() {
     const steps = [...sharedSections().map(section => ({id: section.id, title: section.title})), ...state.members.map(member => ({id: `p-${member.scope}`, title: member.platform.name, logo: member.platform.logo, live: member.live}))];
@@ -366,8 +365,12 @@
       const line = issue ? (issue.empty ? `Add ${lowerFirst(issue.label)}` : `${issue.label}: ${lowerFirst(issue.message)}`) + (row.issues.length > 1 ? ` (+${row.issues.length - 1})` : '') : '';
       return `<li class="${issue ? 'is-bad' : ''}"><span class="mce-qa-mark${row.live ? ' live' : ''}" aria-hidden="true">${row.live ? '●' : issue ? '!' : icon.check}</span><div><strong>${row.logo ? `<img src="${row.logo}" alt="">` : ''}${escape(row.label)}${row.live ? ' <em>Live</em>' : ''}</strong>${issue ? `<small>${escape(line)}</small>` : ''}</div>${issue ? `<button type="button" class="mce-link" data-jump="${issue.key}" data-jump-scope="${row.scope}">Fix</button>` : ''}</li>`;
     };
-    const head = bad ? `<span class="bad">${allIssues().length} to fix</span> · <button type="button" class="mce-link" data-ask-fix>Ask Mojo</button>` : '<span class="ok">All set</span>';
-    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum">${head}</span></div><ul class="mce-qa-checks">${rows.map(item).join('')}</ul>${nonLive().length ? `<p class="mce-qa-watch" title="${escape(ROUTINES.map(routine => `${routine.name} · ${routine.schedule}`).join('\n'))}">${mdot}<span>After launch, Mojo watches pacing, tracking and results for you. <a href="Routines.html">Routines</a></span></p>` : ''}`;
+    const checked = sharedSections().reduce((n, section) => n + section.fields.length, 0) + state.members.reduce((n, member) => n + member.platform.sections.reduce((m, section) => m + section.fields.filter(platformOnly).length, 0), 0);
+    const scope = state.members.length > 1 ? `shared setup and ${state.members.length} platforms` : escape(state.members[0].platform.name);
+    const watch = nonLive().length ? `<p class="mce-qa-watch" title="${escape(ROUTINES.map(routine => `${routine.name} · ${routine.schedule}`).join('\n'))}">${mdot}<span>After launch, Mojo watches pacing, tracking and results for you. <a href="Routines.html">Routines</a></span></p>` : '';
+    if (!bad) return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum"><span class="ok">${icon.check}All set</span></span></div><p class="mce-qa-allset">Mojo checked ${checked} settings across ${scope}.</p>${watch}`;
+    const fine = rows.length - bad;
+    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum"><span class="bad">${allIssues().length} to fix</span> · <button type="button" class="mce-link" data-ask-fix>Ask Mojo</button></span></div><ul class="mce-qa-checks">${rows.filter(row => row.issues.length).map(item).join('')}</ul>${fine ? `<p class="mce-qa-fine">${icon.check}Everything else is all set</p>` : ''}${watch}`;
   }
   const introText = () => allIssues().length ? 'Mojo set up everything it could. The open cards need you.' : 'Mojo set up every card. Open one to change it, or launch.';
   function render() {
@@ -380,7 +383,7 @@
       </div>
       <header class="mce-head">
         <div class="mce-head-main">
-          <span class="mce-platform">${escape(build().initiative(first))}<span aria-hidden="true">·</span>${state.members.map(member => `<img src="${member.platform.logo}" alt="${escape(member.platform.name)}" title="${escape(member.platform.name)}">`).join('')}</span>
+          <span class="mce-platform">${escape(build().initiative(first))}</span>
           <h1>${escape(title(first))}</h1>
         </div>
         <div class="mce-head-actions" data-head-actions>${headActionsHtml()}</div>
@@ -388,8 +391,6 @@
       <section class="mce-platforms" data-platforms aria-label="Platforms">${platformsHtml()}</section>
       <div class="mce-body">
         <div class="mce-main">
-          <nav class="mce-progress" aria-label="Campaign sections" data-progress>${progressHtml()}</nav>
-          <p class="mce-intro" data-intro>${introText()}</p>
           <form class="mce-form" novalidate>${formHtml()}</form>
         </div>
         <aside class="mce-rail">
@@ -407,8 +408,6 @@
   function refresh() {
     el.querySelector('[data-head-actions]').innerHTML = headActionsHtml();
     el.querySelector('[data-qa]').innerHTML = qaHtml();
-    el.querySelector('[data-progress]').innerHTML = progressHtml();
-    el.querySelector('[data-intro]').textContent = introText();
     el.querySelector('[data-platforms]').innerHTML = platformsHtml();
     el.querySelector('[data-preview-card]').innerHTML = previewHtml();
     el.querySelectorAll('[data-budget-readout]').forEach(node => { node.textContent = campaignSpend(); });
