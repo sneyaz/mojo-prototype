@@ -198,14 +198,14 @@
     });
   }
   /* The campaign as one plain sentence, for scanning. */
-  function storyLine(group, rich = false) {
+  function storyLine(group, rich = false, twoLines = false) {
     const f = facts(group.lead.item), members = group.members;
     const total = members.reduce((sum, member) => sum + moneyOf(facts(member.item).budget), 0);
     const page = String(f.landing || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '');
     const who = String(f.audience || 'accounts Mojo is still finding').replace(/^(Up to|About|All|Any|Every|Around|Roughly)\b/, w => w.toLowerCase()).replace(/^([A-Z])(?=[a-z]+ [a-z])/, c => c.toLowerCase());
     const v = text => rich ? `<b class="mbj-v">${escape(text)}</b>` : escape(text);
     const parts = [`Reach ${v(who)}`];
-    if (f.creative) parts.push(` with ${v(`“${f.creative}”`)}`);
+    if (f.creative) parts.push(`${twoLines ? '<br>' : ' '}with ${v(`“${f.creative}”`)}`);
     if (page) parts.push(`, sending them to ${v(page)}`);
     const spend = total ? ` ${v(usd(total))}${f.flight ? ` over ${v(f.flight)}` : ''}.` : '';
     return parts.join('') + '.' + spend;
@@ -244,7 +244,7 @@
     const allSelected = group.readyIndices.length && group.readyIndices.every(i => selectedReady.has(i));
     const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select to launch together"><input type="checkbox" data-select-ready="${group.readyIndices.join(',')}" ${allSelected?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)}</span></label>` : '';
     const chevron = '<svg class="mbj-chev" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg>';
-    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><details ${isOpen?'open':''}><summary class="mbj-row" aria-label="${escape(draft.planTitle||draft.name)}: show deliverables and platform fields">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}</span><h3>${escape(draft.planTitle||draft.name)}${state==='ready'?`<span class="mbj-qa-wrap mbj-title-qa" tabindex="0" aria-label="Mojo QA’d">${check}<span class="mbj-qa-tip" role="tooltip">Mojo QA’d</span></span>`:''}</h3><p class="mbj-story">${storyLine(group, true)}</p>${dataWait}</div><div class="mbj-row-right">${need}<span class="mbj-logos">${logos}</span></div>${chevron}</summary><div class="mbj-details">${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${logos}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action||remove?`<div class="mbj-actions">${action}${remove}</div>`:''}</div></details></article>`;
+    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><details ${isOpen?'open':''}><summary class="mbj-row" aria-label="${escape(draft.planTitle||draft.name)}: show deliverables and platform fields">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}</span><h3>${escape(draft.planTitle||draft.name)}${state==='ready'?`<span class="mbj-qa-wrap mbj-title-qa" tabindex="0" aria-label="Mojo QA’d">${check}<span class="mbj-qa-tip" role="tooltip">Mojo QA’d</span></span>`:''}</h3><p class="mbj-story">${storyLine(group, true, true)}</p>${dataWait}</div><div class="mbj-row-right">${need}<span class="mbj-logos">${logos}</span></div>${chevron}</summary><div class="mbj-details">${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${logos}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action||remove?`<div class="mbj-actions">${action}${remove}</div>`:''}</div></details></article>`;
   }
   function render() {
     const items=read(), lists={draft:[],ready:[],recent:[]};

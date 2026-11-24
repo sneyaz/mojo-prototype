@@ -794,3 +794,5 @@
 /* Build cards: key details dark, connecting words light (same as launch review). */
 .mbj-card p.mbj-story { color: #8a818d; font: 400 13px/1.5 Inter, Arial, sans-serif; }
 .mbj-card p.mbj-story .mbj-v { color: #3a3340; font-weight: 500; }
+.mbj-card p.mbj-story { -webkit-line-clamp: 3 !important; }
+.mbj-card p.mbj-story .mbj-v:last-of-type { white-space: nowrap; }

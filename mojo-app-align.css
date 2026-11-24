@@ -60,7 +60,7 @@ html body .modulenav.board-nav-motion::after, html body .home-tabs::after, html 
 /* Filled buttons: 8px corners and 14px/500 text, like the live app. */
 html body .aud-feed-actions .aud-feed-primary { height: 34px !important; min-height: 34px !important; padding: 0 12px !important; border-radius: 8px !important; background: #5b3fa0 !important; border-color: #5b3fa0 !important; font: 500 14px/1 Inter, Arial, sans-serif !important; }
 html body .aud-feed-actions .aud-feed-primary:hover { background: #4e3590 !important; }
-html body .mbj-launch, html body .mbj-batch button, html body .mbj-actions button { border-radius: 8px !important; font-size: 14px !important; font-weight: 500 !important; min-height: 32px; }
+html body .mbj-launch, html body .mbj-batch button:not(.mbv-toggle), html body .mbj-actions button { border-radius: 8px !important; font-size: 14px !important; font-weight: 500 !important; min-height: 32px; }
 html body .home-actions .home-approve { border-radius: 8px !important; font-size: 13px !important; font-weight: 500 !important; }
 
 /* ---------- Buttons: the three live-app styles, everywhere ----------
@@ -68,7 +68,7 @@ html body .home-actions .home-approve { border-radius: 8px !important; font-size
    Secondary 32px · 14px/500 · r8 · white · 1px #e8e5e1 · #514f58 text
    Small     28px · 12px/500 · r8 (filled or outline), for buttons inside rows and tables */
 html body .mojo-create-cta,
-html body .mbj-batch button,
+html body .mbj-batch button:not(.mbv-toggle),
 html body .mbj-card .mbj-actions button:not(.mbj-delete-icon),
 html body .mbj-launch,
 html body .aud-feed-actions .aud-feed-primary,
@@ -86,7 +86,7 @@ html body .mcc-form2 button[type="submit"] {
   border: 1px solid #5b3fa0 !important; border-radius: 8px !important; background: #5b3fa0 !important; color: #fafafa !important;
   font: 500 14px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; box-shadow: none !important; white-space: nowrap;
 }
-html body .mojo-create-cta:hover, html body .mbj-batch button:hover, html body .mbj-card .mbj-actions button:not(.mbj-delete-icon):hover, html body .mbj-launch:hover,
+html body .mojo-create-cta:hover, html body .mbj-batch button:not(.mbv-toggle):hover, html body .mbj-card .mbj-actions button:not(.mbj-delete-icon):hover, html body .mbj-launch:hover,
 html body .aud-feed-actions .aud-feed-primary:hover, html body .mp-btn:not(.mp-btn-secondary):hover, html body .home-actions .home-approve:hover,
 html body .mr-setup-trigger:hover, html body .mce-fix-button:hover { background: #4e3590 !important; border-color: #4e3590 !important; }
 html body .mp-btn:disabled, html body .aud-detail .mp-btn:disabled, html body .aud-feed-actions .aud-feed-primary:disabled { background: #fff !important; border-color: #e8e5e1 !important; color: #a39ea6 !important; }
