@@ -1,7 +1,9 @@
 /* Home feed cards, matched to the Campaigns Feed card values. */
 .home-card { padding: 21px 23px 0 !important; border-radius: 19px !important; }
 .home-card .home-meta { margin: 0 0 14px !important; gap: 9px !important; }
-.home-card .home-meta > span { padding: 3px 7px !important; border-radius: 999px !important; font: 700 10px/12px Inter, Arial, sans-serif !important; letter-spacing: normal !important; text-transform: none !important; }
+.home-card .home-meta { display: flex !important; align-items: center !important; flex-wrap: wrap; }
+.home-card .home-meta > .mojo-card-owner { margin-left: auto !important; padding: 3px 8px !important; font: 600 10px/1.2 Inter, Arial, sans-serif !important; background: #f8f6fa !important; border: 1px solid #e8e2ed !important; color: #665575 !important; }
+.home-card .home-meta > span:not(.mojo-card-owner) { padding: 3px 7px !important; border-radius: 999px !important; font: 700 10px/12px Inter, Arial, sans-serif !important; letter-spacing: normal !important; text-transform: none !important; }
 .home-card h3 { margin: 0 0 9px !important; font: 500 23px/1.27 Lora, Georgia, serif !important; letter-spacing: -.025em !important; color: #2c2730 !important; }
 .home-card h3 + p { margin: 0 !important; max-width: 70ch; color: #5c5660 !important; font: 400 14px/1.5 Inter, Arial, sans-serif !important; }
 .home-card .home-visual { margin: 16px 0 !important; padding: 16px 18px !important; border: 1px solid #ebe6dc !important; border-radius: 14px !important; background: #f7f5f0 !important; }

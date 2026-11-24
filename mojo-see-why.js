@@ -12,11 +12,11 @@
     const answer = document.createElement('section');
     answer.className = 'mojo-why-answer';
     answer.setAttribute('aria-label', `Why Mojo flagged ${heading}`);
-    const kindNote = kind === 'Mojo Brain' ? '' : ` <span class="mojo-why-kind">${esc(kind)}</span>`;
+    const kindNote = `<span class="mojo-why-kind">${esc(kind)}</span> `;
     answer.innerHTML = `${showTitle ? `<strong class="mojo-why-title">${esc(heading)}</strong>` : ''}
       <p class="mojo-why-summary">${esc(summary)}</p>
       <dl class="mojo-why-rows">
-        <dt>Triggered by</dt><dd>${esc(signal)}${kindNote}</dd>
+        <dt>Triggered by</dt><dd>${kindNote}${esc(signal)}</dd>
         <dt>What to do</dt><dd>${href && linkLabel === action ? `<a href="${esc(href)}">${esc(action)} <span aria-hidden="true">→</span></a>` : `${esc(action)}${href ? ` <a href="${esc(href)}">${esc(linkLabel || 'Open the relevant view')} <span aria-hidden="true">→</span></a>` : ''}`}</dd>
         <dt>Source</dt><dd class="mojo-why-src">${esc(provenance)}</dd>
       </dl>

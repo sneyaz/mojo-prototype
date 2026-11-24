@@ -28,8 +28,8 @@
       title: text(main.querySelector('h3')),
       reason: (() => { const intro = text(main.querySelector(':scope > p')), title = text(main.querySelector('h3')); const r = reason && reason !== intro ? reason : ''; return r || `Mojo spotted this: ${title}`.replace(/[.?]?$/, '.'); })(),
       source: (isSourceBox ? text(clean) : '') || quiet || text(card.closest('.aud-content')?.querySelector('.aud-source')) || 'Sample records',
-      triggerType: chip ? 'Best practice' : 'Mojo Brain',
-      triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : sentence(text(main.querySelector('.aud-feed-type'))),
+      triggerType: (/^(Only count|Set a|Assign an owner|Always|Never)\b/i.test(text(main.querySelector('h3'))) || /modeled on your customers|Without a landing page/i.test(text(main.querySelector(':scope > p')))) && !chip ? 'Inferred Best Practice' : chip ? 'Best practice' : 'Mojo Brain',
+      triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : (text(main.querySelector(':scope > p')) || sentence(text(main.querySelector('.aud-feed-type')))),
       nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
       href: chip?.getAttribute('href') || primary?.getAttribute('href') || '',
       linkLabel: chip ? 'See the rule' : (primary ? text(primary).replace(/\s*→$/, '') : 'Open it')

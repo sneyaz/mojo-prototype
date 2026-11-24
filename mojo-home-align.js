@@ -8,7 +8,11 @@
     const actions = card.querySelector('.home-actions');
     if (!actions) return;
     card.dataset.homeAligned = 'true';
-    card.querySelectorAll('.home-meta > span').forEach(tag => { tag.textContent = sentence(text(tag)); });
+    card.querySelectorAll('.home-meta > span:not(.mojo-card-owner)').forEach(tag => { tag.textContent = sentence(text(tag)); });
+    const meta = card.querySelector('.home-meta');
+    if (meta && !meta.querySelector('.mojo-card-owner')) {
+      meta.insertAdjacentHTML('beforeend', '<span class="mojo-card-owner" aria-label="Owner: Pam Beesly" title="Owner: Pam Beesly"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.3-3.5 2.7-5.5 6.5-5.5s6.2 2 6.5 5.5"/></svg><span>Pam Beesly</span></span>');
+    }
     const primary = actions.querySelector(':scope > a');
     const area = text(card.querySelector('.home-source'));
     const title = text(card.querySelector('h3'));
@@ -16,7 +20,7 @@
       title,
       reason: `Mojo spotted this: ${title}`.replace(/[.?]?$/, '.'),
       source: AREA_SOURCE[area] || 'Connected account and campaign data',
-      triggerType: 'Mojo Brain',
+      triggerType: /^(Only count|Set a|Assign an owner|Always|Never)\b/i.test(title) ? 'Inferred Best Practice' : /\b(standard|rule|threshold|policy|best practice|guardrail|calls for|requires|limit|naming|underpacing|excluded|overlap|end date|UTMs?|assign an owner|only count|measure beyond|malformed|stray tags|launch review)\b/i.test(`${title} ${text(card.querySelector('h3 + p'))}`) ? 'Best practice' : 'Mojo Brain',
       triggerReason: text(card.querySelector('h3 + p')),
       nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
       href: primary?.getAttribute('href') || '',
