@@ -42,8 +42,27 @@
 .mce-secondary { border: 1px solid var(--mce-line-2); background: #fff; color: var(--mce-accent) !important; }
 .mce-secondary:hover { border-color: #bba6d3; }
 
+/* Multichannel: the campaign's platforms as tabs */
+.mce-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 14px 0 16px; border-bottom: 1px solid var(--mce-line); }
+.mce-platforms-label { margin: 0; color: var(--mce-ink-2); font: 400 12px/1.3 Inter, Arial, sans-serif; }
+.mce-platforms-label strong { color: var(--mce-ink); font-weight: 650; }
+.mce-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.mce .mce-tab { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px 6px 9px; border: 1px solid var(--mce-line-2); border-radius: 999px; background: #fff; color: var(--mce-ink-2); font: 600 12px/1.2 Inter, Arial, sans-serif; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease; }
+.mce .mce-tab:hover { border-color: #bba6d3; }
+.mce .mce-tab[aria-current="true"] { border-color: var(--mce-accent); color: var(--mce-ink); box-shadow: 0 0 0 1px var(--mce-accent); cursor: default; }
+.mce-tab img { width: 15px; height: 15px; object-fit: contain; }
+.mce-tab-mark { display: inline-grid; place-items: center; min-width: 17px; height: 17px; padding: 0 4px; border: 1.5px solid #9fcdb0; border-radius: 999px; color: var(--mce-green); font: 700 10px/1 Inter, Arial, sans-serif; }
+.mce-tab-mark svg { width: 10px; height: 10px; stroke-width: 2.6; }
+.mce-tab-mark.issue { border-color: #e2a59d; color: var(--mce-red); }
+.mce-tab-mark.live { border-color: #a9c6d8; color: #2d6c95; }
+.mce .mce-tab-add { border-style: dashed; color: var(--mce-accent); }
+.mce .mce-tab-add img { opacity: .75; }
+.mce-tab-add svg { width: 12px; height: 12px; stroke-width: 2.2; }
+.mce-platforms-note { flex-basis: 100%; margin: 0; color: var(--mce-ink-3); font: 400 11px/1.4 Inter, Arial, sans-serif; }
+
 /* Body layout */
 .mce-body { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; margin-top: 4px; }
+.mce-head { border-bottom: 0 !important; padding-bottom: 6px !important; }
 .mce-main { min-width: 0; }
 .mce .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -217,10 +236,6 @@
 .mce-qa-list button:hover strong { color: var(--mce-accent); text-decoration: underline; text-underline-offset: 3px; }
 .mce-link { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--mce-accent) !important; font: 600 12px/1.3 Inter, Arial, sans-serif !important; cursor: pointer; }
 .mce-link:hover { text-decoration: underline; text-underline-offset: 3px; }
-.mce-copy { display: flex; flex-wrap: wrap; gap: 6px; }
-.mce-copy button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px 5px 8px; border: 1px solid var(--mce-line-2); border-radius: 999px; background: #fff; color: var(--mce-ink) !important; font: 600 12px/1.3 Inter, Arial, sans-serif !important; white-space: nowrap; cursor: pointer; }
-.mce-copy button:hover { border-color: #bba6d3; color: var(--mce-accent) !important; }
-.mce-copy img { width: 14px; height: 14px; object-fit: contain; }
 
 /* Previews (shared). Parts with data-edit-field are click-to-edit. */
 .mce-preview [data-edit-field] { border-radius: 4px; cursor: pointer; transition: box-shadow .15s ease; }
@@ -280,13 +295,31 @@
 .mbj-open-canvas:hover { border-color: #b9a2d6; }
 .mbj-open-canvas svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Narrow canvas (chat open): one column. Preview and QA sit above the form; copying moves below it. */
+/* Build list: summary bar, multichannel line, fix on the card */
+.mbj-batch [data-selected-count] { color: #625a65; }
+.mbj-batch [data-selected-count] strong { color: #322936; }
+.mbj-batch-needs strong { color: #a84641 !important; }
+.mbj-also { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; padding-left: 8px; border-left: 1px solid #e3dce6; color: #8a818d; font-weight: 500; }
+.mbj-also .mbj-channel-logo { width: 14px; height: 14px; }
+.mbj-inline-fix { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; margin: 14px 0 2px; }
+.mbj-inline-fix label { display: flex; flex-direction: column; gap: 5px; flex: 1 1 280px; max-width: 460px; color: #a84641; font: 650 11px/1.3 Inter, Arial, sans-serif; }
+.mbj-inline-fix input { width: 100%; box-sizing: border-box; padding: 9px 11px; border: 1px solid #e2a59d; border-radius: 8px; background: #fff; color: #322936; font: 400 13px/1.3 Inter, Arial, sans-serif; }
+.mbj-inline-fix input:focus { border-color: #a98bd1; outline: 2px solid #c9b5e6; outline-offset: 0; }
+.mbj-inline-fix button { padding: 9px 14px; border: 0; border-radius: 999px; background: #6842a5; color: #fff; font: 650 12px/1.2 Inter, Arial, sans-serif; cursor: pointer; }
+.mbj-inline-error { flex-basis: 100%; min-height: 0; color: #a84641; font: 600 11px/1.3 Inter, Arial, sans-serif; }
+.mbj-inline-error:empty { display: none; }
+.mbj-inline-fix.has-error input { border-color: #a84641; }
+.mbj-card.is-just-ready { animation: mbj-arrive 1.4s ease; }
+@keyframes mbj-arrive { 0% { box-shadow: 0 0 0 0 #28774a55; border-color: #8cc8a1; } 35% { box-shadow: 0 0 0 6px #28774a1f; border-color: #8cc8a1; } 100% { box-shadow: 0 5px 20px #251c2b0b; } }
+.mbj-card.is-just-ready .mbj-qa .mbj-check { animation: mce-pop .5s cubic-bezier(.3, 1.6, .5, 1) .15s both; }
+@media (prefers-reduced-motion: reduce) { .mbj-card.is-just-ready, .mbj-card.is-just-ready .mbj-qa .mbj-check { animation: none; } }
+
+/* Narrow canvas (chat open): one column. Preview and QA sit above the form. */
 @container (max-width: 900px) {
   .mce-body { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .mce-rail { display: contents; }
   .mce-rail-top { order: -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); align-items: start; }
-  .mce-copy-card { order: 1; }
-  .mce-head { flex-direction: column; gap: 14px; }
+    .mce-head { flex-direction: column; gap: 14px; }
   .mce-head-actions { align-items: flex-start; }
   .mce-structure { row-gap: 8px; }
   .mce-progress-label { display: none; }

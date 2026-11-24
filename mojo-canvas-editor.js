@@ -182,6 +182,30 @@
     if (!issues.length) return `<p class="mce-qa-ok">${icon.check}Every ${escape(state.platform.name)} field is set and all your rules are followed.</p>`;
     return `<ul class="mce-qa-list">${issues.map(issue => `<li><button type="button" data-jump="${issue.key}"><strong>${escape(issue.label)}</strong><span>${escape(issue.message)}</span></button></li>`).join('')}</ul><button type="button" class="mce-link" data-ask-fix>${icon.chat}Ask Mojo to fill these in</button>`;
   }
+  /* Multichannel: drafts that share a plan source are one campaign running on several platforms. */
+  const SYNC_KEYS = ['audience', 'creative', 'messaging', 'landing', 'tracking', 'flight', 'conversion', 'validation'];
+  function campaignPlatforms() {
+    const items = build().read();
+    return items.filter(d => d && (d.id === state.draft.id || (state.draft.source && d.source === state.draft.source)) && P.forChannel(build().channel(d)))
+      .map(d => ({draft: d, platform: P.forChannel(build().channel(d))}))
+      .sort((a, b) => P.all().indexOf(a.platform) - P.all().indexOf(b.platform));
+  }
+  const moneyOf = value => { const n = Number(String(value ?? '').replace(/[^0-9.]/g, '')); return Number.isFinite(n) ? n : 0; };
+  function platformsHtml(issues) {
+    const list = campaignPlatforms(), used = new Set(list.map(item => item.platform.id));
+    const total = list.reduce((sum, item) => sum + moneyOf(item.draft.id === state.draft.id ? state.values.budget : build().facts(item.draft).budget), 0);
+    const tabs = list.map(({draft, platform}) => {
+      const current = draft.id === state.draft.id;
+      const live = draft.buildStatus === 'live';
+      const count = current ? issues.length : build().qa(draft).missing.length;
+      const mark = live ? '<span class="mce-tab-mark live">Live</span>' : count ? `<span class="mce-tab-mark issue" aria-label="${count} to fix">${count}</span>` : `<span class="mce-tab-mark ready" aria-label="ready">${icon.check}</span>`;
+      return `<button type="button" class="mce-tab" data-switch="${escape(draft.id)}"${current ? ' aria-current="true"' : ''}><img src="${platform.logo}" alt="">${escape(platform.name)}${mark}</button>`;
+    }).join('');
+    const adds = P.all().filter(platform => !used.has(platform.id)).map(platform => `<button type="button" class="mce-tab mce-tab-add" data-copy="${platform.id}" title="Add ${escape(platform.name)}. Shared settings carry over.">${icon.plus}<img src="${platform.logo}" alt="">${escape(platform.name)}</button>`).join('');
+    const label = list.length > 1 ? `Runs on <strong>${list.length} platforms</strong> · <strong>$${Math.round(total).toLocaleString()}</strong> total` : 'Runs on <strong>1 platform</strong>';
+    const note = list.length > 1 ? 'Accounts, message, creative, landing page, tracking and flight stay in sync across these platforms. Budget and platform settings are set per platform.' : 'Add a platform to run this campaign there too. Mojo carries over the shared settings and fills in the rest.';
+    return `<p class="mce-platforms-label">${label}</p><div class="mce-tabs">${tabs}${adds}</div><p class="mce-platforms-note">${note}</p>`;
+  }
   const introText = issues => issues.length ? 'Mojo set up everything it could. The open sections need you.' : 'Mojo set up every section. Open one to change it, or launch.';
   function progressHtml(issues) {
     const sections = state.platform.sections;
@@ -190,15 +214,6 @@
       const count = sectionIssues(issues, section.id).length;
       return `<li><button type="button" class="mce-step${count ? ' has-issue' : ''}" data-nav="${section.id}"><span class="mce-step-mark" aria-hidden="true">${count || icon.check}</span>${escape(section.title)}<span class="sr-only">${count ? `, ${count} to fix` : ', ready'}</span></button></li>`;
     }).join('')}</ol>`;
-  }
-  function copyHtml() {
-    const items = build().read();
-    const others = P.all().filter(platform => platform.id !== state.platform.id);
-    if (!others.length) return '';
-    return `<section class="mce-card mce-copy-card"><h3>Run on another platform</h3><p>Accounts, creative, landing page, tracking, budget and flight carry over. Mojo fills in the rest for that platform.</p><div class="mce-copy">${others.map(platform => {
-      const existing = items.find(item => item && item.source && item.source === state.draft.source && P.forChannel(build().channel(item))?.id === platform.id && item.buildStatus !== 'live');
-      return `<button type="button" data-copy="${platform.id}"${existing ? ` data-existing="${escape(existing.id)}"` : ''}><img src="${platform.logo}" alt="">${existing ? 'Open in ' : 'Copy to '}${escape(platform.name)}</button>`;
-    }).join('')}</div></section>`;
   }
   function structureHtml() {
     const ctx = {title: title(state.draft), initiative: build().initiative(state.draft)};
@@ -248,6 +263,7 @@
           </div>
         </div>
       </header>
+      <section class="mce-platforms" data-platforms aria-label="Platforms">${platformsHtml(issues)}</section>
       <div class="mce-body">
         <div class="mce-main">
           <nav class="mce-progress" aria-label="Campaign sections" data-progress>${progressHtml(issues)}</nav>
@@ -259,7 +275,6 @@
             <section class="mce-card mce-preview-card"><div class="mce-card-head"><h3>Preview</h3><small>Click to edit</small></div><div class="mce-preview" data-preview>${state.platform.preview(state.values, previewHelpers)}</div></section>
             <section class="mce-card" data-qa-card><h3>Mojo QA</h3><div data-qa>${qaHtml(issues)}</div></section>
           </div>
-          ${copyHtml()}
         </aside>
       </div>
       <div class="mce-toast" data-toast role="status" aria-live="polite"></div>`;
@@ -272,6 +287,7 @@
     el.querySelector('[data-qa]').innerHTML = qaHtml(issues);
     el.querySelector('[data-progress]').innerHTML = progressHtml(issues);
     el.querySelector('[data-intro]').textContent = introText(issues);
+    el.querySelector('[data-platforms]').innerHTML = platformsHtml(issues);
     el.querySelectorAll('[data-budget-readout]').forEach(node => { node.textContent = budgetReadout(); });
     el.querySelector('[data-preview]').innerHTML = state.platform.preview(state.values, previewHelpers);
     const primary = el.querySelector('[data-primary]');
@@ -366,13 +382,26 @@
     item.platformTouched = {...(item.platformTouched || {}), [state.platform.id]: [...state.touched]};
     item.buildSetup = {...(item.buildSetup || {}), audience: core.audience, message: core.creative, channels: build().channel(item), budget: core.budget, utm: core.tracking, conversion: core.conversion, validation: core.validation};
     if (item.buildStatus !== 'live') item.buildStatus = build().qa(item).passed ? 'ready' : 'draft';
+    /* Keep shared settings in sync on the campaign's other platforms (not live ones). */
+    const synced = [];
+    items.forEach(other => {
+      if (!other || other === item || !item.source || other.source !== item.source || other.buildStatus === 'live' || !P.forChannel(build().channel(other))) return;
+      const before = JSON.stringify([other.deliverables, other.creatives]);
+      other.deliverables = {...(other.deliverables || {})};
+      SYNC_KEYS.forEach(key => { other.deliverables[key] = core[key]; });
+      other.creatives = [...item.creatives];
+      other.buildSetup = {...(other.buildSetup || {}), audience: core.audience, message: core.creative, utm: core.tracking, conversion: core.conversion, validation: core.validation};
+      other.buildStatus = build().qa(other).passed ? 'ready' : 'draft';
+      if (JSON.stringify([other.deliverables, other.creatives]) !== before) synced.push(P.forChannel(build().channel(other)).name);
+    });
     build().write(items);
     build().render();
     state.draft = item;
     state.facts = build().facts(item);
     state.savedAt = Date.now();
     const label = el.querySelector('[data-save-state]');
-    if (label) label.textContent = 'Saved · Mojo QA rechecked';
+    if (label) label.textContent = synced.length ? `Saved · synced to ${P.helpers.join(synced)}` : 'Saved · Mojo QA rechecked';
+    if (synced.length) el.querySelector('[data-platforms]').innerHTML = platformsHtml(issueList());
   }
   function changed({structural = false, focus} = {}) {
     const label = el.querySelector('[data-save-state]');
@@ -615,6 +644,8 @@
       if (box && !box.value) { box.value = prompt; box.focus(); }
       return;
     }
+    const switchTo = t.closest('[data-switch]');
+    if (switchTo) { if (switchTo.getAttribute('aria-current') === 'true') return; flush(); location.hash = `edit=${encodeURIComponent(switchTo.dataset.switch)}`; return; }
     const copy = t.closest('[data-copy]');
     if (copy) return copyTo(copy.dataset.copy, copy.dataset.existing);
     if (t.closest('[data-launch]')) {

@@ -133,6 +133,7 @@
   let launchNotice = null;
   let qaNotice = null;
   let newlyLaunchedIndices = new Set();
+  let justReady = null;
   main.append(root);
   main.classList.add('mbj-active');
   function deliverable(label, value, note, required = true, error = false, fixField = '') {
@@ -144,6 +145,29 @@
     const needsLanding = name === 'Landing page' && !facts.landing;
     const link = text => `<a href="#" class="mbj-fix-link" data-fix-field="landing">${escape(text)}</a>`;
     return `<div class="${needsLanding?'mbj-platform-error':''}"><dt>${needsLanding?link(name):escape(name)}</dt><dd>${needsLanding?link(value||'Waiting'):escape(value||'Waiting')}</dd></div>`;
+  }
+  /* Summary bar: what needs you, what's ready, and what it costs. Plain sums of the entered budgets. */
+  const moneyOf = value => { const n = Number(String(value ?? '').replace(/[^0-9.]/g, '')); return Number.isFinite(n) ? n : 0; };
+  const usd = n => '$' + Math.round(n).toLocaleString();
+  function batchLabel() {
+    const items = read(), readyIdx = items.map((item, i) => item?.name && stage(item) === 'ready' ? i : null).filter(i => i !== null);
+    const drafts = items.filter(item => item?.name && stage(item) === 'draft').length;
+    if (selectedReady.size) return `<strong>${selectedReady.size} of ${readyIdx.length}</strong> selected · ${usd([...selectedReady].reduce((sum, i) => sum + moneyOf(facts(items[i] || {}).budget), 0))}`;
+    const total = readyIdx.reduce((sum, i) => sum + moneyOf(facts(items[i]).budget), 0);
+    return `${drafts ? `<span class="mbj-batch-needs"><strong>${drafts}</strong> ${drafts === 1 ? 'needs' : 'need'} you</span> · ` : ''}<strong>${readyIdx.length} ready to launch</strong> · ${usd(total)} ready to spend`;
+  }
+  const batchButton = () => selectedReady.size ? `Review launch of ${selectedReady.size} →` : 'Select to launch together';
+  /* Multichannel: other platforms of the same plan (same source). */
+  const siblingsOf = draft => draft.source ? read().filter(other => other && other.id !== draft.id && other.name && other.source === draft.source) : [];
+  /* Fix on the card: when a draft is missing only its landing page or tracking, ask for it right here. */
+  const inlineFixes = {landing: {label: 'Landing page URL', placeholder: 'https://acme.com/…', type: 'url'}, tracking: {label: 'Campaign tracking', placeholder: 'utm_campaign=…', type: 'text'}};
+  function inlineFix(draft) {
+    const missing = qa(draft).missing;
+    if (missing.length !== 1) return '';
+    const key = {'landing page': 'landing', tracking: 'tracking'}[missing[0]];
+    if (!key) return '';
+    const f = inlineFixes[key];
+    return `<form class="mbj-inline-fix" data-inline-fix="${key}" novalidate><label><span>${f.label}</span><input type="${f.type}" name="value" placeholder="${f.placeholder}" autocomplete="off" aria-label="${f.label}"></label><button type="submit">Save</button><small class="mbj-inline-error" role="alert"></small></form>`;
   }
   function card(draft, index) {
     const f = facts(draft), result = qa(draft), state = stage(draft), alert = issue(draft);
@@ -165,14 +189,14 @@
     const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select for a shared launch"><input type="checkbox" data-select-ready="${index}" ${selectedReady.has(index)?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)} in ${escape(channel(draft))} for launch</span></label>` : '';
     const title = state==='recent' ? `<a href="Portfolio.html#campaigns">${escape(draft.planTitle||draft.name)}</a>` : `<button type="button" data-edit title="Edit in Chat">${escape(draft.planTitle||draft.name)}</button>`;
     const remove = state==='recent' ? '' : '<button type="button" class="mbj-delete-icon" data-delete aria-label="Delete draft" title="Delete draft"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 10v7M14 10v7"/></svg></button>';
-    return `<article class="mbj-card${state==='recent'&&newlyLaunchedIndices.has(index)?' is-new-launch':''}" data-build-index="${index}" data-stage="${state}"><div class="mbj-row">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${alert?'<span class="mbj-dot '+alert.tone+'"></span>':''}${escape(initiative(draft))}<span class="mbj-initiative-separator" aria-hidden="true">·</span>${channelLogo(draft)}</span><h3>${title}</h3><p>${escape(f.audience)}</p></div><div class="mbj-row-right"><span class="mbj-qa-wrap"><span class="mbj-qa ${result.tone}" tabindex="0" aria-describedby="mbj-qa-tip-${index}">${result.passed?check:'<span class="mbj-dot '+result.tone+'" aria-hidden="true"></span>'}<span>${escape(state==='recent'?'Recently launched · '+qaLabel:state==='ready'?'Ready · '+qaLabel:'Draft · '+qaLabel)}</span></span><span class="mbj-qa-tip" role="tooltip" id="mbj-qa-tip-${index}">${escape(qaExplanation)}</span></span>${state==='draft'?`<small>${percent}% complete</small>`:''}</div></div>${dataWait}<div class="mbj-details-row"><details ${isOpen?'open':''}><summary>Deliverables and platform fields <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg></summary><ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>Fields Mojo will fill in ${channelLogo(draft)}</h4><dl>${[['Audience',f.audience],['Creative',f.creative],['Tracking',f.tracking],['Intent keywords',keywordRequired(draft)?f.keywords:'Not used'],['Budget',f.budget],['Flight',f.flight],['Landing page',f.landing],['Message',f.messaging],['Conversion event',f.conversion],['Validation',f.validation]].map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${note}${action?`<div class="mbj-actions">${action}</div>`:''}</details>${remove}</div></article>`;
+    return `<article class="mbj-card${state==='recent'&&newlyLaunchedIndices.has(index)?' is-new-launch':''}${justReady===index?' is-just-ready':''}" data-build-index="${index}" data-stage="${state}"><div class="mbj-row">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${alert?'<span class="mbj-dot '+alert.tone+'"></span>':''}${escape(initiative(draft))}<span class="mbj-initiative-separator" aria-hidden="true">·</span>${channelLogo(draft)}${siblingsOf(draft).length?`<span class="mbj-also">Also on ${siblingsOf(draft).map(other=>channelLogo(other)).join('')}</span>`:''}</span><h3>${title}</h3><p>${escape(f.audience)}</p></div><div class="mbj-row-right"><span class="mbj-qa-wrap"><span class="mbj-qa ${result.tone}" tabindex="0" aria-describedby="mbj-qa-tip-${index}">${result.passed?check:'<span class="mbj-dot '+result.tone+'" aria-hidden="true"></span>'}<span>${escape(state==='recent'?'Recently launched · '+qaLabel:state==='ready'?'Ready · '+qaLabel:'Draft · Needs '+(qaNeeds(draft).length?qaNeeds(draft)[0].replace(/^[A-Z](?=[a-z])/,c=>c.toLowerCase())+(qaNeeds(draft).length>1?' + '+(qaNeeds(draft).length-1)+' more':''):'a fix'))}</span></span><span class="mbj-qa-tip" role="tooltip" id="mbj-qa-tip-${index}">${escape(qaExplanation)}</span></span>${state==='draft'?`<small>${percent}% complete</small>`:''}</div></div>${state==='draft'?inlineFix(draft):''}${dataWait}<div class="mbj-details-row"><details ${isOpen?'open':''}><summary>Deliverables and platform fields <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg></summary><ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>Fields Mojo will fill in ${channelLogo(draft)}</h4><dl>${[['Audience',f.audience],['Creative',f.creative],['Tracking',f.tracking],['Intent keywords',keywordRequired(draft)?f.keywords:'Not used'],['Budget',f.budget],['Flight',f.flight],['Landing page',f.landing],['Message',f.messaging],['Conversion event',f.conversion],['Validation',f.validation]].map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${note}${action?`<div class="mbj-actions">${action}</div>`:''}</details>${remove}</div></article>`;
   }
   function render() {
     const items=read(), lists={draft:[],ready:[],recent:[]};
     items.forEach((item,index)=>{if(!item?.name)return;if(launchNotice?.indices.includes(index))lists.ready.push(`<div class="mbj-launch-confirmation" role="status" tabindex="-1">${check}<div><strong>Campaign launched</strong><span>${escape(item.planTitle||item.name)} moved to Recently launched. Mojo is watching for first data.</span></div></div>`);const status=stage(item);if(qaNotice&&qaNotice.index===index&&lists[status])lists[status].push(`<div class="mbj-qa-confirmation" role="status" tabindex="-1">${check}<div><strong>Mojo QA started</strong><span>${qaNotice.passed?escape(item.planTitle||item.name)+' passed Mojo QA and moved to Ready to launch.':'Mojo will flag any missing setup for '+escape(item.planTitle||item.name)+' before publishing.'}</span></div></div>`);if(lists[status])lists[status].push(card(item,index));});
     const ready=items.map((item,index)=>stage(item)==='ready'?index:null).filter(index=>index!==null);
     for(const index of [...selectedReady])if(!ready.includes(index))selectedReady.delete(index);
-    root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${ready.length>1?`<div class="mbj-batch"><span data-selected-count>${selectedReady.size ? `<strong>${selectedReady.size} of ${ready.length}</strong> ready campaigns selected` : `Select from <strong>${ready.length} ready campaigns</strong> to launch`}</span><button type="button" data-review-launch ${selectedReady.size?'':'disabled'}>Review launch →</button></div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?ready.length:lists[name].length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='recent'?'No launches in the last 7 days.':name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`).join('')}<dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each selected campaign. Confirm the setup before launch.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
+    root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${ready.length>1?`<div class="mbj-batch"><span data-selected-count>${batchLabel()}</span><button type="button" data-review-launch ${selectedReady.size?'':'disabled'}>${batchButton()}</button></div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?ready.length:lists[name].length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='recent'?'No launches in the last 7 days.':name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`).join('')}<dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each selected campaign. Confirm the setup before launch.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
   }
   /* Quick changes happen in Chat; "Edit in canvas" opens the full editor (mojo-canvas-editor.js). */
   const canEditInCanvas = draft => !!window.MojoCanvasEditor?.canEdit(draft);
@@ -336,13 +360,28 @@
     if(event.target.closest('[data-review-in-chat]')){event.preventDefault();openReviewChat([index]);return;}
     if(event.target.closest('[data-launch]'))launch([index]);
   });
+  root.addEventListener('submit',event=>{
+    const form=event.target.closest('[data-inline-fix]');if(!form)return;
+    event.preventDefault();
+    const key=form.dataset.inlineFix,input=form.querySelector('input'),value=input.value.trim(),error=form.querySelector('.mbj-inline-error');
+    const problem=!value?'Add a value first.':key==='landing'&&!/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(value)?'Enter a full URL that starts with https://':key==='tracking'&&!/utm_campaign=\S+/.test(value)?'Include utm_campaign=…':'';
+    if(problem){error.textContent=problem;form.classList.add('has-error');input.focus();return;}
+    const items=read(),index=Number(form.closest('[data-build-index]').dataset.buildIndex),item=items[index];if(!item)return;
+    item.deliverables={...facts(item),...(item.deliverables||{}),[key]:value};delete item.deliverables.assets;
+    item.buildSetup={...(item.buildSetup||{}),...(key==='tracking'?{utm:value}:{})};
+    const passed=qa(item).passed;item.buildStatus=passed?'ready':'draft';
+    write(items);qaNotice={index,passed};justReady=passed?index:null;render();
+    const banner=root.querySelector('.mbj-qa-confirmation');banner?.scrollIntoView({block:'center',behavior:'smooth'});banner?.focus({preventScroll:true});
+    qaNotice=null;setTimeout(()=>{justReady=null;root.querySelector('.is-just-ready')?.classList.remove('is-just-ready');},1600);
+  });
+  root.addEventListener('input',event=>{const form=event.target.closest('[data-inline-fix]');if(form){form.classList.remove('has-error');form.querySelector('.mbj-inline-error').textContent='';}});
   root.addEventListener('change',event=>{
     const input=event.target.closest('[data-select-ready]');if(!input)return;
     const index=Number(input.dataset.selectReady);
     if(input.checked)selectedReady.add(index);else selectedReady.delete(index);
     const count=root.querySelector('[data-selected-count]'),button=root.querySelector('[data-review-launch]');
-    if(count){const total=root.querySelectorAll('[data-select-ready]').length;count.innerHTML=selectedReady.size?`<strong>${selectedReady.size} of ${total}</strong> ready campaigns selected`:`Select from <strong>${total} ready campaigns</strong> to launch`;}
-    if(button)button.disabled=!selectedReady.size;
+    if(count)count.innerHTML=batchLabel();
+    if(button){button.disabled=!selectedReady.size;button.textContent=batchButton();}
   });
   document.addEventListener('mojo:build-status-changed',event=>{
     const items=read();
