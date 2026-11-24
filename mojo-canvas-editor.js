@@ -251,7 +251,7 @@
     }).join('');
     const adds = P.all().filter(platform => !used.has(platform.id)).map(platform => `<button type="button" class="mce-tab mce-tab-add" data-copy="${platform.id}" title="Add ${escape(platform.name)}. Shared settings carry over.">${icon.plus}<img src="${platform.logo}" alt="">${escape(platform.name)}</button>`).join('');
     const label = list.length > 1 ? `Runs on <strong>${list.length} platforms</strong> · <strong>$${Math.round(total).toLocaleString()}</strong> total` : 'Runs on <strong>1 platform</strong>';
-    return `<p class="mce-platforms-label" title="Accounts, message, creative, landing page, tracking and flight stay in sync across platforms. Budget and platform settings are set per platform.">${label}</p><div class="mce-tabs">${tabs}${adds}</div>`;
+    return `<p class="mce-platforms-label" title="Accounts, message, creative, landing page, tracking and flight stay in sync across platforms. Budget and platform settings are set per platform.">${label}</p><div class="mce-tabs">${tabs}</div>${adds ? `<div class="mce-tabs mce-tabs-adds"><span class="mce-tabs-add-label">Add</span>${adds}</div>` : ''}`;
   }
   const introText = issues => issues.length ? 'Mojo set up everything it could. The open sections need you.' : 'Mojo set up every section. Open one to change it, or launch.';
   function progressHtml(issues) {

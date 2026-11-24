@@ -56,8 +56,11 @@
 .mce-tab-mark svg { width: 10px; height: 10px; stroke-width: 2.6; }
 .mce-tab-mark.issue { border-color: #e2a59d; color: var(--mce-red); }
 .mce-tab-mark.live { border-color: #a9c6d8; color: #2d6c95; }
-.mce .mce-tab-add { border-style: dashed; color: var(--mce-accent); }
-.mce .mce-tab-add img { opacity: .75; }
+.mce-tabs-adds { align-items: center; padding-left: 14px; border-left: 1px solid var(--mce-line); }
+.mce-tabs-add-label { color: var(--mce-ink-3); font: 500 11px/1 Inter, Arial, sans-serif; }
+.mce .mce-tab-add { padding: 5px 9px 5px 7px; border-style: dashed; color: var(--mce-ink-3); font-weight: 500; }
+.mce .mce-tab-add:hover { color: var(--mce-accent); }
+.mce .mce-tab-add img { width: 13px; height: 13px; opacity: .6; }
 .mce-tab-add svg { width: 12px; height: 12px; stroke-width: 2.2; }
 
 /* Body layout */
