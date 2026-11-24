@@ -538,3 +538,10 @@
 .mbj-launch-review .mbj-review-facts .mbj-review-channel { display: grid; gap: 6px; }
 .mbj-review-plat { display: inline-flex; align-items: center; gap: 7px; }
 .mbj-review-plat img { width: 18px !important; height: 18px !important; }
+.mbj-card > details > summary.mbj-row .mbj-select-ready { align-self: center; margin-right: -6px; }
+.mbj-card.is-selected { border-color: #b99fcf; box-shadow: 0 0 0 1px #b99fcf55, 0 5px 20px #251c2b0b; }
+.mbj-card h3 .mbj-title-qa { margin-left: 8px; vertical-align: 2px; }
+.mbj-title-qa .mbj-check { width: 17px; height: 17px; font-size: 10px; }
+.mbj-title-qa .mbj-qa-tip { left: 50%; right: auto; transform: translate(-50%, 3px); white-space: nowrap; }
+.mbj-title-qa:hover .mbj-qa-tip, .mbj-title-qa:focus-visible .mbj-qa-tip { transform: translate(-50%, 0); transition-delay: .1s; }
+.mbj-title-qa:focus-visible { outline: 2px solid #7954aa; outline-offset: 2px; border-radius: 50%; }
