@@ -580,3 +580,15 @@
 /* Mojo's side: a quiet cream column behind Preview and QA; cards stay white */
 .mce-rail { margin-top: 14px; padding: 14px; border-radius: 16px; background: var(--mojo-cream, #f8f6f3); }
 .mce-rail .mce-card { border-color: #ebe5dc; }
+/* Budget split: each platform in its own brand color, not shades of purple */
+.mce-split-bar { gap: 3px; height: 8px; }
+.mce-split-seg.s0 { background: #8a8290; } .mce-split-seg.s1 { background: #c4bdc8; } .mce-split-seg.s2 { background: #5f5864; } .mce-split-seg.s3 { background: #ddd8e0; }
+.mce-split-seg.is-linkedin { background: #0a66c2; }
+.mce-split-seg.is-demandbase { background: #1c2052; }
+.mce-split-seg.is-google { background: #1e8e3e; }
+.mce-split-seg.is-meta { background: #0866ff; }
+.mce-split-seg:first-child { border-radius: 99px 0 0 99px; } .mce-split-seg:last-child { border-radius: 0 99px 99px 0; }
+/* Sentence words: always underlined so they don't rely on color alone */
+.mce .mce-story .mce-word { text-decoration-color: #c9bcd6; -webkit-text-decoration-color: #c9bcd6; text-decoration-style: dotted; text-decoration-thickness: 1.5px; }
+.mce .mce-story .mce-word:hover, .mce .mce-story .mce-word:focus-visible, .mce .mce-story .mce-word.is-open { text-decoration-style: solid; text-decoration-color: #5e3d9c; -webkit-text-decoration-color: #5e3d9c; }
+.mce .mce-story .mce-word.is-missing { text-decoration-style: dashed; text-decoration-color: #d98a84; -webkit-text-decoration-color: #d98a84; }
