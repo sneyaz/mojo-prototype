@@ -367,7 +367,7 @@
     const platforms = state.members.map(member => {
       if (member.live) return `${escape(member.platform.name)} (live)`;
       const id = `p-${member.scope}`, count = platformIssues(member).filter(issue => issue.key !== 'budget').length, isOpen = state.openSections.has(id);
-      return `<button type="button" class="mce-word${count ? ' is-missing' : ''}${isOpen ? ' is-open' : ''}" data-story="${id}" aria-expanded="${isOpen}">${escape(member.platform.name)}</button>`;
+      return `<button type="button" class="mce-word mce-word-platform${count ? ' is-missing' : ''}${isOpen ? ' is-open' : ''}" data-story="${id}" aria-expanded="${isOpen}"><img src="${member.platform.logo}" alt="">${escape(member.platform.name)}</button>`;
     });
     const on = platforms.length > 1 ? `${platforms.slice(0, -1).join(', ')} and ${platforms[platforms.length - 1]}` : platforms[0];
     return `<p class="mce-story-text">${lead.replace(/\.$/, '')} on ${on}.</p>`;
@@ -391,12 +391,9 @@
       const line = issue ? (issue.empty ? `Add ${lowerFirst(issue.label)}` : `${issue.label}: ${lowerFirst(issue.message)}`) + (row.issues.length > 1 ? ` (+${row.issues.length - 1})` : '') : '';
       return `<li class="${issue ? 'is-bad' : ''}"><span class="mce-qa-mark${row.live ? ' live' : ''}" aria-hidden="true">${row.live ? '●' : issue ? '!' : icon.check}</span><div><strong>${row.logo ? `<img src="${row.logo}" alt="">` : ''}${escape(row.label)}${row.live ? ' <em>Live</em>' : ''}</strong>${issue ? `<small>${escape(line)}</small>` : ''}</div>${issue ? `<button type="button" class="mce-link" data-jump="${issue.key}" data-jump-scope="${row.scope}">Fix</button>` : ''}</li>`;
     };
-    const checked = sharedSections().reduce((n, section) => n + section.fields.length, 0) + state.members.reduce((n, member) => n + member.platform.sections.reduce((m, section) => m + section.fields.filter(platformOnly).length, 0), 0);
-    const scope = state.members.length > 1 ? `shared setup and ${state.members.length} platforms` : escape(state.members[0].platform.name);
+    const head = bad ? `<span class="bad">${allIssues().length} to fix</span> · <button type="button" class="mce-link" data-ask-fix>Ask Mojo</button>` : `<span class="ok">${icon.check}All set</span>`;
     const watch = nonLive().length ? `<p class="mce-qa-watch" title="${escape(ROUTINES.map(routine => `${routine.name} · ${routine.schedule}`).join('\n'))}">${mdot}<span>After launch, Mojo watches pacing, tracking and results for you. <a href="Routines.html">Routines</a></span></p>` : '';
-    if (!bad) return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum"><span class="ok">${icon.check}All set</span></span></div><p class="mce-qa-allset">Mojo checked ${checked} settings across ${scope}.</p>${watch}`;
-    const fine = rows.length - bad;
-    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum"><span class="bad">${allIssues().length} to fix</span> · <button type="button" class="mce-link" data-ask-fix>Ask Mojo</button></span></div><ul class="mce-qa-checks">${rows.filter(row => row.issues.length).map(item).join('')}</ul>${fine ? `<p class="mce-qa-fine">${icon.check}Everything else is all set</p>` : ''}${watch}`;
+    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="mce-qa-sum">${head}</span></div><ul class="mce-qa-checks">${rows.map(item).join('')}</ul>${watch}`;
   }
   const introText = () => allIssues().length ? 'Mojo set up everything it could. The open cards need you.' : 'Mojo set up every card. Open one to change it, or launch.';
   function render() {

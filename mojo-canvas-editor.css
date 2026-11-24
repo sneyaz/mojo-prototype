@@ -566,3 +566,14 @@
 .mce .mce-story .mce-word { text-decoration-line: underline; text-decoration-style: dotted; text-decoration-color: transparent; -webkit-text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 5px; }
 .mce .mce-story .mce-word:hover, .mce .mce-story .mce-word:focus-visible, .mce .mce-story .mce-word.is-open { text-decoration-color: #b49ccf; -webkit-text-decoration-color: #b49ccf; text-decoration-style: dotted; }
 .mce .mce-story .mce-word.is-missing { text-decoration-line: underline; text-decoration-style: dashed; text-decoration-color: #d98a84; -webkit-text-decoration-color: #d98a84; text-decoration-thickness: 1px; }
+/* QA rows, tidy: one row per area, aligned marks, Fix on the first line */
+.mce-qa-checks { gap: 2px; margin-top: 4px; }
+.mce-qa-checks li { align-items: start; padding: 5px 0; }
+.mce-qa-checks li .mce-qa-mark { margin-top: 1px; }
+.mce-qa-checks li strong { line-height: 16px; }
+.mce-qa-checks li small { margin-top: 2px; }
+.mce-qa-checks li .mce-link { line-height: 16px; }
+.mce-qa-checks li.is-bad .mce-qa-mark { font-size: 8px; }
+/* Platform logos inside the sentence */
+.mce .mce-story .mce-word-platform img { display: inline-block; width: 15px; height: 15px; margin: 0 5px 0 1px; object-fit: contain; vertical-align: -1px; }
+.mce .mce-story .mce-word-platform { white-space: nowrap; }
