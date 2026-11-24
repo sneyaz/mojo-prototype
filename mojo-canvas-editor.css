@@ -757,3 +757,28 @@
 .mce .mce-count { color: #b3abb8; font-weight: 400; }
 .mce .mce-count.long { color: var(--mce-amber); font-weight: 500; }
 .mce .mce-count.over { color: var(--mce-red); font-weight: 600; }
+/* Open "Set by Mojo": drop the summary values entirely (no empty gap) */
+.mce .mce-handled[open] .mce-handled-values { display: none; }
+.mce .mce-handled[open] > summary { grid-template-columns: 150px minmax(0, 1fr) auto; }
+.mce .mce-handled[open] > summary em { grid-column: 3; }
+/* Empty quiet inputs still look fillable */
+.mce .mce-field > input:not([type="checkbox"]):placeholder-shown, .mce .mce-field > textarea:placeholder-shown { border-color: var(--mce-line) !important; border-style: dashed !important; }
+.mce .mce-field > input::placeholder, .mce .mce-field > textarea::placeholder { color: #b3abb8; }
+/* "Optional" and the count sit on one small line under the label */
+.mce .mce-label-row label { display: block; flex-basis: 100%; }
+.mce .mce-label-row .mce-optional { display: inline; margin-right: 8px; color: #b3abb8; font: 400 11px/1.3 Inter, Arial, sans-serif; }
+.mce .mce-label-row label .mce-optional { display: block; margin-top: 2px; }
+.mce .mce-label-row .mce-count { flex-basis: auto; margin-left: 0; }
+/* Label column: label + M on one line; Optional and count on small lines under it */
+.mce .mce-label-row { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 6px; row-gap: 1px; }
+.mce .mce-label-row label { display: inline-block; flex-basis: auto; max-width: 100%; }
+.mce .mce-label-row label .mce-optional { display: block; margin: 2px 0 0 !important; }
+.mce .mce-label-row .mce-picked { align-self: center; }
+.mce .mce-label-row .mce-count { flex-basis: 100%; }
+.mce .mce-field.has-issue > input:not([type="checkbox"]):placeholder-shown, .mce .mce-field.has-issue > textarea:placeholder-shown { border-color: #d98c77 !important; border-style: solid !important; background: #fff; }
+/* Header action: always a button in the same spot — "Fix N things" or "Launch" */
+.mce-fix-button { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border: 1px solid #dcd2e6; border-radius: 7px; background: #fff; color: #563486; font: 700 12px/1.3 Inter, Arial, sans-serif; white-space: nowrap; cursor: pointer; transition: border-color .15s ease; }
+.mce-fix-button:hover { border-color: #b9a3d2; }
+.mce-fix-button:focus-visible { outline: 2px solid #7954aa; outline-offset: 2px; }
+.mce-fix-dot { width: 7px; height: 7px; border-radius: 50%; background: #d08a1e; }
+.mce .mce-fix-button { font: 700 12px/1.3 Inter, Arial, sans-serif !important; color: #563486 !important; }

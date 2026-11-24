@@ -88,7 +88,7 @@
   }
   function control(field, value, id) {
     const name = `name="${field.key}" data-kind="${field.kind}"`;
-    const placeholder = field.placeholder ? ` placeholder="${escape(field.placeholder)}"` : '';
+    const placeholder = ` placeholder="${escape(field.placeholder || `Add ${lowerFirst(field.label)}`)}"`;
     switch (field.kind) {
       case 'audience': {
         /* Picker: Mojo's pick for this plan, then the saved audiences from the Audiences app. */
@@ -295,7 +295,7 @@
   function headActionsHtml() {
     const open = nonLive(), issues = allIssues();
     if (!open.length) return '<span class="mce-status live"><i></i>Live on every platform</span>';
-    if (issues.length) return `<button type="button" class="mce-link mce-fix-link" data-fix-next>${issues.length} to fix →</button>`;
+    if (issues.length) return `<button type="button" class="mce-fix-button" data-fix-next><span class="mce-fix-dot" aria-hidden="true"></span>Fix ${issues.length === 1 ? '1 thing' : `${issues.length} things`} to launch →</button>`;
     return `<button type="button" class="mce-primary is-ready" data-launch>Launch on ${open.length === 1 ? escape(open[0].platform.name) : `${open.length} platforms`} →</button>`;
   }
   function platformsHtml() {
