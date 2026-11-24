@@ -1,8 +1,9 @@
-/* Column labels use lowercase throughout the prototype. Row data keeps its original casing. */
+/* Column labels use sentence case throughout the prototype ("Audience", "Cost per account click", "CTR").
+   Headers are written that way in the source, so no transform is applied. */
 table thead th,
 table thead th *,
 [role="columnheader"],
 [role="columnheader"] *,
 .aq-compare-grid > .aq-compare-grid-header:first-child {
-  text-transform: lowercase !important;
+  text-transform: none !important;
 }

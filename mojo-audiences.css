@@ -222,3 +222,18 @@
 .aud-use svg { width: 13px; height: 13px; fill: none; stroke: #7b6b8c; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .aud-use.is-sales { color: #2d6c95; border-color: #d4e4ef; }
 .aud-use.is-sales svg { stroke: #2d6c95; }
+/* Library table: calmer rows */
+.aud-table th, .aud-table td { vertical-align: top; }
+.aud-table tbody th small { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; max-width: 260px; }
+.aud-table tbody th small + small { display: none; }
+.aud-table .aud-num, .aud-table .aud-nowrap { white-space: nowrap; }
+.aud-table td small { display: block; margin-top: 4px; }
+.aud-match { flex-wrap: nowrap; gap: 10px; }
+.aud-uses { flex-wrap: nowrap; gap: 5px; }
+.aud-use { gap: 4px; padding: 3px 7px; }
+.aud-use.is-sales { padding: 3px 5px; }
+.aud-overlap { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1.2 Inter, Arial, sans-serif; color: #2f2733; font-variant-numeric: tabular-nums; }
+.aud-overlap-bar { position: relative; width: 44px; height: 5px; border-radius: 99px; background: #ece8ef; overflow: hidden; }
+.aud-overlap-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: #a99bb5; }
+.aud-overlap.high { color: #a76b2b; }
+.aud-overlap.high .aud-overlap-bar i { background: #d39a52; }
