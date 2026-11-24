@@ -16,8 +16,8 @@
     answer.innerHTML = `${showTitle ? `<strong class="mojo-why-title">${esc(heading)}</strong>` : ''}
       <p class="mojo-why-summary">${esc(summary)}</p>
       <dl class="mojo-why-rows">
-        <dt>Why now</dt><dd>${esc(signal)}${kindNote}</dd>
-        <dt>Do next</dt><dd>${esc(action)}${href ? ` <a href="${esc(href)}">${esc(linkLabel || 'Open the relevant view')} <span aria-hidden="true">→</span></a>` : ''}</dd>
+        <dt>Triggered by</dt><dd>${esc(signal)}${kindNote}</dd>
+        <dt>What to do</dt><dd>${href && linkLabel === action ? `<a href="${esc(href)}">${esc(action)} <span aria-hidden="true">→</span></a>` : `${esc(action)}${href ? ` <a href="${esc(href)}">${esc(linkLabel || 'Open the relevant view')} <span aria-hidden="true">→</span></a>` : ''}`}</dd>
         <dt>Source</dt><dd class="mojo-why-src">${esc(provenance)}</dd>
       </dl>
       ${owner ? `<small class="mojo-why-owner">${esc(owner)}</small>` : ''}`;

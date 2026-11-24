@@ -1,0 +1,13 @@
+/* Home feed cards, matched to the Campaigns Feed card values. */
+.home-card { padding: 21px 23px 0 !important; border-radius: 19px !important; }
+.home-card .home-meta { margin: 0 0 14px !important; gap: 9px !important; }
+.home-card .home-meta > span { padding: 3px 7px !important; border-radius: 999px !important; font: 700 10px/12px Inter, Arial, sans-serif !important; letter-spacing: normal !important; text-transform: none !important; }
+.home-card h3 { margin: 0 0 9px !important; font: 500 23px/1.27 Lora, Georgia, serif !important; letter-spacing: -.025em !important; color: #2c2730 !important; }
+.home-card h3 + p { margin: 0 !important; max-width: 70ch; color: #5c5660 !important; font: 400 14px/1.5 Inter, Arial, sans-serif !important; }
+.home-card .home-visual { margin: 16px 0 !important; padding: 16px 18px !important; border: 1px solid #ebe6dc !important; border-radius: 14px !important; background: #f7f5f0 !important; }
+.home-card .home-actions { display: flex !important; align-items: center !important; gap: 3px !important; min-height: 55px !important; padding: 12px 0 !important; border-top: 1px solid #f0edea !important; }
+.home-card .home-actions > a { padding: 4px 0; color: #5d3b96 !important; font: 650 12px/1.2 Inter, Arial, sans-serif !important; }
+.home-card .home-actions > .mojo-see-why { margin-left: 18px; padding: 4px 0; color: #69636e !important; font: 650 12px/1.2 Inter, Arial, sans-serif !important; }
+.home-card .home-actions > .mojo-card-tools { margin-left: auto !important; display: inline-flex !important; align-items: center !important; gap: 3px !important; height: 30px; }
+.home-card .home-actions .mojo-card-more { margin: 0 !important; height: 30px; display: inline-flex; }
+.home-card .home-actions + .mojo-why-answer { margin: 0 0 20px !important; padding-top: 4px !important; border-top: 0 !important; }

@@ -32,7 +32,7 @@
       triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : sentence(text(main.querySelector('.aud-feed-type'))),
       nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
       href: chip?.getAttribute('href') || primary?.getAttribute('href') || '',
-      linkLabel: chip ? 'See the rule' : 'Open it'
+      linkLabel: chip ? 'See the rule' : (primary ? text(primary).replace(/\s*→$/, '') : 'Open it')
     };
     card._mfaWhy = why;
     main.querySelectorAll('.aud-feed-meta .aud-feed-type, .aud-feed-meta .aud-decision-tag').forEach(tag => { const t = text(tag).toLowerCase(); tag.textContent = t.charAt(0).toUpperCase() + t.slice(1); });
