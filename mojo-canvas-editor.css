@@ -796,3 +796,4 @@
 .mbj-card p.mbj-story .mbj-v { color: #3a3340; font-weight: 500; }
 .mbj-card p.mbj-story { -webkit-line-clamp: 3 !important; }
 .mbj-card p.mbj-story .mbj-v:last-of-type { white-space: nowrap; }
+.mbj-card p.mbj-story { max-width: none !important; }
