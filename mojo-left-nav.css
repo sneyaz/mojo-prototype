@@ -64,3 +64,7 @@ body.mojo-chat-full .chatfoot .modebar{display:none!important}
 body.mojo-nav-expanded .rail>a[href="Routines.html"]{display:none!important}
 .rail .mojo-nav-divider{display:block;flex:none;width:24px;height:1px;margin:6px 0;background:#c7c4d0}
 body.mojo-nav-expanded .rail .mojo-nav-divider{width:calc(100% - 24px);margin:10px 12px}
+
+/* Share button with icon on every page (mojo-command.css has the same rules where it loads) */
+.mc-share-button{display:inline-flex!important;align-items:center;justify-content:center;gap:6px}
+.mc-share-button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}

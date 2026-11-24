@@ -176,15 +176,11 @@
   /* Routines Mojo runs on every live campaign (see Routines.html). Shown quietly: one card, one line per related section. */
   const ROUTINES = [
     {id: 'weekly', name: 'Weekly Performance Update', schedule: 'Mondays, 9:00 AM', watches: 'Wins, changes, and what moved'},
-    {id: 'pacing', name: 'Budget Pacing and Optimization', schedule: 'Daily, 9:15 AM', watches: 'Pacing ahead of or behind budget, overspend, and spend with no results', section: 'budget', note: 'After launch, Mojo checks pacing every morning at 9:15 and flags overspend or spend with no results.'},
-    {id: 'tracking', name: 'Tracking, UTM, and Naming Governance', schedule: 'Daily, 9:30 AM', watches: 'Broken links, missing or malformed UTMs, and names that drift from your usual pattern', section: 'tracking', note: 'After launch, Mojo checks links, UTMs and naming every morning at 9:30.'},
+    {id: 'pacing', name: 'Budget Pacing and Optimization', schedule: 'Daily, 9:15 AM', watches: 'Pacing ahead of or behind budget, overspend, and spend with no results', section: 'budget', note: 'Mojo checks pacing every morning after launch.'},
+    {id: 'tracking', name: 'Tracking, UTM, and Naming Governance', schedule: 'Daily, 9:30 AM', watches: 'Broken links, missing or malformed UTMs, and names that drift from your usual pattern', section: 'tracking', note: 'Mojo checks links and UTMs every morning after launch.'},
     {id: 'goal', name: 'Progress to Goal', schedule: 'Mondays, 9:45 AM', watches: 'Which campaigns are moving pipeline, and whether you’re drifting off plan'}
   ];
   const mdot = '<img class="mce-mdot" src="assets/moj-mdot.svg" alt="">';
-  function watchHtml() {
-    return `<section class="mce-card mce-watch"><p class="mce-watch-lead">${mdot}<span><strong>Sit back, Mojo’s watching.</strong> ${ROUTINES.length} routines check this campaign after launch.</span></p>
-      <details><summary>See what Mojo watches</summary><ul>${ROUTINES.map(routine => `<li><strong>${escape(routine.name)}</strong><small>${escape(routine.schedule)} · ${escape(routine.watches)}</small></li>`).join('')}</ul><a href="Routines.html">Manage routines →</a></details></section>`;
-  }
   const sectionWatch = section => { const routine = ROUTINES.find(item => item.section === section.id); return routine ? `<p class="mce-section-watch">${mdot}${escape(routine.note)}</p>` : ''; };
 
   /* ───────── page rendering ───────── */
@@ -202,19 +198,16 @@
   /* Name the actual issue, never "1 thing": "landing page URL", "headlines". */
   const lowerFirst = label => /^[A-Z][a-z]/.test(label) ? label.charAt(0).toLowerCase() + label.slice(1) : label;
   const needsText = issues => issues.length === 1 ? lowerFirst(issues[0].label) : `${lowerFirst(issues[0].label)} + ${issues.length - 1} more`;
-  const fixText = issues => issues.length === 1 ? `${issues[0].empty ? 'Add' : 'Fix'} ${lowerFirst(issues[0].label)} →` : `Fix ${issues.length} things →`;
   function statusHtml(issues) {
     if (state.draft.buildStatus === 'live') return '<span class="mce-status live"><i></i>Live</span>';
     return issues.length
-      ? `<span class="mce-status draft" title="${escape(issues.map(issue => `${issue.label}: ${issue.message}`).join('\n'))}"><i></i>Draft · Needs ${escape(needsText(issues))}</span>`
+      ? `<span class="mce-status draft" title="${escape(issues.map(issue => `${issue.label}: ${issue.message}`).join('\n'))}"><i></i>Draft · Needs ${escape(needsText(issues))}</span><button type="button" class="mce-link mce-fix-link" data-fix-next>Fix →</button>`
       : `<span class="mce-status ready" title="Ready to launch. Every ${escape(state.platform.name)} rule checks out.">${icon.check}Mojo QA’d</span>`;
   }
-  /* The primary button always names the next step. */
+  /* One button on the page: Launch, once Mojo QA passes. Fixing is a link beside the status. */
   function primaryHtml(issues) {
-    if (state.draft.buildStatus === 'live') return '';
-    return issues.length
-      ? `<button type="button" class="mce-primary" data-fix-next>${escape(fixText(issues))}</button>`
-      : '<button type="button" class="mce-primary is-ready" data-launch>Launch campaign →</button>';
+    if (state.draft.buildStatus === 'live' || issues.length) return '';
+    return '<button type="button" class="mce-primary is-ready" data-launch>Launch campaign →</button>';
   }
   /* Mojo QA as a checklist, computed from the platform's rules. */
   function qaChecks(issues) {
@@ -242,7 +235,7 @@
       const bad = check.bad[0];
       return `<li class="${bad ? 'is-bad' : ''}"${bad ? '' : ` title="${escape(check.ok)}"`}><span class="mce-qa-mark" aria-hidden="true">${bad ? '!' : icon.check}</span><div><strong>${escape(check.label)}</strong>${bad ? `<small>${escape(`${bad.label}: ${bad.message}` + (check.bad.length > 1 ? ` (+${check.bad.length - 1})` : ''))}</small>` : ''}</div>${bad ? `<button type="button" class="mce-link" data-jump="${bad.key}">Fix</button>` : ''}</li>`;
     }).join('');
-    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="${passed === checks.length ? 'ok' : 'bad'}">${passed} of ${checks.length} passed</span></div><ul class="mce-qa-checks">${rows}</ul>${issues.length ? `<button type="button" class="mce-link mce-qa-ask" data-ask-fix>${icon.chat}Ask Mojo to fill these in</button>` : ''}`;
+    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="${passed === checks.length ? 'ok' : 'bad'}">${passed} of ${checks.length} passed</span></div><ul class="mce-qa-checks">${rows}</ul>${issues.length ? `<button type="button" class="mce-link mce-qa-ask" data-ask-fix>${icon.chat}Ask Mojo to fill these in</button>` : ''}${state.draft.buildStatus === 'live' ? '' : `<p class="mce-qa-watch" title="${escape(ROUTINES.map(routine => `${routine.name} · ${routine.schedule}`).join('\n'))}">${mdot}<span>After launch, Mojo watches pacing, tracking and results for you. <a href="Routines.html">Routines</a></span></p>`}`;
   }
   /* Multichannel: drafts that share a plan source are one campaign running on several platforms. */
   const SYNC_KEYS = ['audience', 'creative', 'messaging', 'landing', 'tracking', 'flight', 'conversion', 'validation'];
@@ -276,17 +269,6 @@
       return `<li><button type="button" class="mce-step${count ? ' has-issue' : ''}" data-nav="${section.id}"><span class="mce-step-mark" aria-hidden="true">${count || icon.check}</span>${escape(section.title)}<span class="sr-only">${count ? `, ${count} to fix` : ', ready'}</span></button></li>`;
     }).join('')}</ol>`;
   }
-  /* Where this lands in the platform, as one quiet line. Values that repeat the title are left out. */
-  function structureHtml() {
-    const ctx = {title: title(state.draft), initiative: build().initiative(state.draft)};
-    const values = state.platform.structureValues ? state.platform.structureValues(state.draft, state.values, ctx) : [];
-    const parts = state.platform.structure.map((level, i) => {
-      const value = text(values[i]);
-      const show = value && value !== ctx.title && value.toLowerCase() !== level.toLowerCase();
-      return `<li><span>${escape(level)}</span>${show ? `<em>${escape(value.replace(/ ad group$/, ''))}</em>` : ''}</li>`;
-    });
-    return `<ol class="mce-structure" aria-label="Where this lands in ${escape(state.platform.name)}">${parts.join('')}</ol>`;
-  }
   /* Each section is a card: collapsed it reads as one sentence; open it shows the fields. */
   function sectionHtml(section, issues) {
     const count = sectionIssues(issues, section.id).length;
@@ -315,18 +297,17 @@
     el.innerHTML = `
       <div class="mce-top">
         <nav class="mce-crumbs" aria-label="Breadcrumb"><button type="button" data-close>Build</button><span aria-hidden="true">/</span><span aria-current="page">${escape(title(state.draft))}</span></nav>
-        <span class="mce-save-state" data-save-state role="status">${state.savedAt ? 'Saved' : 'Mojo saves as you edit'}</span>
+        <span class="mce-save-state" data-save-state role="status"></span>
       </div>
       <header class="mce-head">
         <div class="mce-head-main">
           <span class="mce-platform"><img src="${state.platform.logo}" alt="">${escape(state.platform.name)}<span aria-hidden="true">·</span>${escape(build().initiative(state.draft))}</span>
           <h1>${escape(title(state.draft))}</h1>
-          ${structureHtml()}
         </div>
         <div class="mce-head-actions">
           <span data-status>${statusHtml(issues)}</span>
           <div class="mce-buttons">
-            <button type="button" class="mce-secondary" data-ask>${icon.chat}Ask Mojo</button>
+            <button type="button" class="mce-link mce-ask-link" data-ask>${icon.chat}Ask Mojo</button>
             <span data-primary>${primaryHtml(issues)}</span>
           </div>
         </div>
@@ -343,7 +324,6 @@
             <section class="mce-card mce-preview-card"><div class="mce-card-head"><h3>Preview</h3><small>${escape(state.platform.context || state.platform.name)}</small></div><div class="mce-preview" data-preview>${state.platform.preview(state.values, previewHelpers)}</div><p class="mce-preview-hint">Click any part of the ad to edit it.</p></section>
             <section class="mce-card mce-qa-card" data-qa-card><div data-qa>${qaHtml(issues)}</div></section>
           </div>
-          ${state.draft.buildStatus === 'live' ? '' : watchHtml()}
         </aside>
       </div>
       <div class="mce-toast" data-toast role="status" aria-live="polite"></div>`;
@@ -363,9 +343,6 @@
     const primary = el.querySelector('[data-primary]');
     const wasReady = !state.lastIssueCount, isReady = !issues.length;
     if (primary && wasReady !== isReady) primary.innerHTML = primaryHtml(issues);
-    else if (primary && !isReady) { const b = primary.querySelector('[data-fix-next]'); if (b) b.textContent = fixText(issues); }
-    const structure = el.querySelector('.mce-structure');
-    if (structure) structure.outerHTML = structureHtml();
     state.platform.sections.forEach(section => {
       const card = el.querySelector(`.mce-section[data-section="${section.id}"]`);
       if (!card) return;
@@ -471,12 +448,17 @@
     state.facts = build().facts(item);
     state.savedAt = Date.now();
     const label = el.querySelector('[data-save-state]');
-    if (label) label.textContent = synced.length ? `Saved · synced to ${P.helpers.join(synced)}` : 'Saved · Mojo QA rechecked';
+    if (label) {
+      label.textContent = synced.length ? `Saved · synced to ${P.helpers.join(synced)}` : 'Saved';
+      label.classList.add('is-shown');
+      clearTimeout(state.savedTimer);
+      state.savedTimer = setTimeout(() => label.classList.remove('is-shown'), 2500);
+    }
     if (synced.length) el.querySelector('[data-platforms]').innerHTML = platformsHtml(issueList());
   }
   function changed({structural = false, focus} = {}) {
     const label = el.querySelector('[data-save-state]');
-    if (label) label.textContent = 'Saving…';
+    if (label) { label.textContent = 'Saving…'; label.classList.add('is-shown'); clearTimeout(state.savedTimer); }
     if (structural) rerenderForm(focus); else refresh();
     clearTimeout(state.saveTimer);
     state.saveTimer = setTimeout(persist, 450);
