@@ -791,3 +791,6 @@
 .mbj-launch-review .mbj-review-plats b { color: #2f2733; font-weight: 600; font-variant-numeric: tabular-nums; }
 .mbj-launch-review .mbj-review-sep { color: #c4bcc8; }
 .mbj-launch-review li { padding-top: 14px; padding-bottom: 14px; }
+/* Build cards: key details dark, connecting words light (same as launch review). */
+.mbj-card p.mbj-story { color: #8a818d; font: 400 13px/1.5 Inter, Arial, sans-serif; }
+.mbj-card p.mbj-story .mbj-v { color: #3a3340; font-weight: 500; }
