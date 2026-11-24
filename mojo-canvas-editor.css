@@ -744,3 +744,12 @@
 .mce .mce-budget > * { align-self: center; }
 .mce .mce-budget .mce-slider { margin: 0 !important; }
 .mce .mce-budget > input[type="text"] { margin-top: 0; margin-bottom: 0; }
+/* "Set by Mojo": one setting per line, names aligned; M centered on its label */
+.mce .mce-handled > summary { align-items: start; }
+.mce .mce-handled-label { line-height: 20px; }
+.mce .mce-handled-label .mce-mdot { display: block; width: 10px; height: 10px; flex: none; }
+.mce .mce-handled-values { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 14px; }
+.mce .mce-handled-values > span { display: contents; }
+.mce .mce-handled-values b { margin: 0; line-height: 20px; }
+.mce .mce-handled-values > span { line-height: 20px; }
+.mce .mce-handled > summary em { line-height: 20px; }
