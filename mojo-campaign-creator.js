@@ -58,6 +58,14 @@
   const resumeDraft = item => ({...blank, ...item, id:item.source || 'custom', draftId:item.id, type:'Saved draft', title:item.name, evidence:'Continue the draft you saved in this browser.'});
   let panel, selected = null, saved = null, briefFile = null, briefCounter = 0, reviewedExisting = false;
   const isPlanning = () => document.querySelector('.app')?.classList.contains('mcc-planning');
+  /* Same pair as Build: quick edits in chat, in-depth edits in the campaign canvas. */
+  const openInCanvas = id => {
+    const onBuild = !!window.MojoCanvasEditor && new URLSearchParams(location.search).get('view') === 'build';
+    if (!onBuild) { location.href = `CampaignLifecycle.html?view=build#edit=${encodeURIComponent(id)}`; return; }
+    closePanel();
+    window.MojoBuild?.render?.();
+    location.hash = `edit=${encodeURIComponent(id)}`;
+  };
   const closePanel = () => {
     panel?.remove(); panel = null;
     document.querySelector('.app')?.classList.remove('mcc-planning','mcc-planning-split');
@@ -125,6 +133,7 @@
       if (action.dataset.mcc === 'back-review') { reviewedExisting = false; render(); }
       if (action.dataset.mcc === 'select') { selected = ideas.find(item => item.id === action.dataset.id) || blank; saved = null; render(); }
       if (action.dataset.mcc === 'resume') { const item = readDrafts().find(draft => draft.id === action.dataset.id); if (item) { selected = resumeDraft(item); saved = null; render(); } }
+      if (action.dataset.mcc === 'canvas' && saved) { openInCanvas(saved.id); return; }
       if (action.dataset.mcc === 'edit') { selected = resumeDraft(saved); saved = null; render(); }
       if (action.dataset.mcc === 'chat') { const prompt = `Help me plan a campaign for ${selected?.audience || 'my target accounts'}. `; closePanel(); window.MojoOpenChat?.(prompt, false); }
       if (action.dataset.mcc === 'new') { selected = null; saved = null; reviewedExisting = true; render(); }
@@ -169,6 +178,7 @@
         const drafts = readDrafts().filter(draft => draft.id !== item.id);
         drafts.unshift(item);
         localStorage.setItem(storageKey, JSON.stringify(drafts.slice(0,20)));
+        if (event.submitter?.dataset.mccThen === 'canvas') { saved = null; openInCanvas(item.id); return; }
         saved = item;
         const note = document.createElement('p');
         note.className = 'mcc-user-message';
@@ -195,7 +205,7 @@
     if (saved) {
       const turn = document.createElement('div');
       turn.className = 'mcc-turn';
-      turn.innerHTML = `<div class="mcc-saved" role="status"><p><strong>Saved ${escape(saved.name)} as a draft.</strong> Want to change anything before launch?</p><div class="mcc-saved-summary"><span>${escape(saved.audience)}</span><span class="mcc-saved-channels">${saved.channels.map(logo).join('')}</span><span>$${saved.budget.toLocaleString()} cap</span></div><p class="mcc-preview-note">Saved in this browser; no ad platform campaign was created.</p><div class="mcc-saved-actions"><button type="button" data-mcc="edit">Edit this draft</button><button type="button" data-mcc="new">Explore another idea</button></div></div>`;
+      turn.innerHTML = `<div class="mcc-saved" role="status"><p><strong>Saved ${escape(saved.name)} as a draft.</strong> Want to change anything before launch?</p><div class="mcc-saved-summary"><span>${escape(saved.audience)}</span><span class="mcc-saved-channels">${saved.channels.map(logo).join('')}</span><span>$${saved.budget.toLocaleString()} cap</span></div><p class="mcc-preview-note">Saved in this browser; no ad platform campaign was created.</p><div class="mcc-saved-actions"><button type="button" data-mcc="canvas">Edit in canvas</button><button type="button" data-mcc="edit">Preview in chat</button><button type="button" data-mcc="new">Explore another idea</button></div></div>`;
       panel.replaceChildren(turn);
       requestAnimationFrame(() => turn.scrollIntoView({block:'start'}));
       return;
@@ -203,7 +213,7 @@
     const item = selected;
     const turn = document.createElement('div');
     turn.className = 'mcc-turn';
-    turn.innerHTML = `<div class="mcc-flow-toolbar"><button type="button" data-mcc="new">← Campaign ideas</button></div><div class="mcc-draft-head"><h2>${escape(item.title)}</h2><p>${escape(item.evidence)}</p></div><form class="mcc-form mcc-form2"><div class="mcc-rows"><label class="mcc-row"><span class="mcc-row-label">Name</span><input name="name" required value="${escape(item.name)}" placeholder="Name this campaign"></label><label class="mcc-row"><span class="mcc-row-label">Goal</span><textarea name="goal" required rows="1" placeholder="What should this campaign improve?">${escape(item.goal)}</textarea></label><label class="mcc-row"><span class="mcc-row-label">Success looks like</span><textarea name="success" required rows="1" placeholder="How will you know this worked?">${escape(item.success)}</textarea></label><div class="mcc-row" role="group" aria-labelledby="mcc-platforms-label"><span class="mcc-row-label" id="mcc-platforms-label">Platforms</span><div class="mcc-channel-chips">${Object.keys(icons).map(name => `<label class="mcc-chip"><input type="checkbox" name="channels" value="${escape(name)}" ${item.channels.includes(name)?'checked':''}>${logo(name)}${escape(name)}</label>`).join('')}</div></div><label class="mcc-row"><span class="mcc-row-label">Budget cap</span><span class="mcc-affix"><i>$</i><input name="budget" type="number" required min="100" step="100" value="${escape(item.budget)}" placeholder="0"></span></label><div class="mcc-row mcc-row-when"><span class="mcc-row-label">When</span><span class="mcc-when"><input name="start" type="date" required value="${escape(item.start || dateDefault)}" aria-label="Start date"><span>for</span><span class="mcc-affix mcc-affix-end"><input name="duration" type="number" required min="1" max="365" value="${escape(item.duration)}" aria-label="Flight length in days"><i>days</i></span></span></div></div><div class="mcc-channel-section"><p class="mcc-rows-title">Each platform</p>${channelSections(item)}</div><div class="mcc-form-footer"><p>${item.id === 'custom' ? 'Fill what you know. Mojo can fill the rest.' : 'Everything here is editable before you save.'}</p><output class="mcc-validation" role="status"></output><button type="button" class="mcc-chat" data-mcc="chat">Plan with Mojo</button><button type="submit" class="mcc-save">Save campaign draft</button></div></form>`;
+    turn.innerHTML = `<div class="mcc-flow-toolbar"><button type="button" data-mcc="new">← Campaign ideas</button></div><div class="mcc-draft-head"><h2>${escape(item.title)}</h2><p>${escape(item.evidence)}</p></div><form class="mcc-form mcc-form2"><div class="mcc-rows"><label class="mcc-row"><span class="mcc-row-label">Name</span><input name="name" required value="${escape(item.name)}" placeholder="Name this campaign"></label><label class="mcc-row"><span class="mcc-row-label">Goal</span><textarea name="goal" required rows="1" placeholder="What should this campaign improve?">${escape(item.goal)}</textarea></label><label class="mcc-row"><span class="mcc-row-label">Success looks like</span><textarea name="success" required rows="1" placeholder="How will you know this worked?">${escape(item.success)}</textarea></label><div class="mcc-row" role="group" aria-labelledby="mcc-platforms-label"><span class="mcc-row-label" id="mcc-platforms-label">Platforms</span><div class="mcc-channel-chips">${Object.keys(icons).map(name => `<label class="mcc-chip"><input type="checkbox" name="channels" value="${escape(name)}" ${item.channels.includes(name)?'checked':''}>${logo(name)}${escape(name)}</label>`).join('')}</div></div><label class="mcc-row"><span class="mcc-row-label">Budget cap</span><span class="mcc-affix"><i>$</i><input name="budget" type="number" required min="100" step="100" value="${escape(item.budget)}" placeholder="0"></span></label><div class="mcc-row mcc-row-when"><span class="mcc-row-label">When</span><span class="mcc-when"><input name="start" type="date" required value="${escape(item.start || dateDefault)}" aria-label="Start date"><span>for</span><span class="mcc-affix mcc-affix-end"><input name="duration" type="number" required min="1" max="365" value="${escape(item.duration)}" aria-label="Flight length in days"><i>days</i></span></span></div></div><div class="mcc-channel-section"><p class="mcc-rows-title">Each platform</p>${channelSections(item)}</div><div class="mcc-form-footer"><p>${item.id === 'custom' ? 'Fill what you know. Mojo can fill the rest.' : 'Everything here is editable before you save.'}</p><output class="mcc-validation" role="status"></output><button type="button" class="mcc-chat mcc-link" data-mcc="chat">Plan with Mojo</button><button type="submit" class="mcc-link mcc-canvas-link" data-mcc-then="canvas">Edit in canvas</button><button type="submit" class="mcc-save">Save campaign draft</button></div></form>`;
     addBriefOption(turn.querySelector('.mcc-draft-head'));
     panel.replaceChildren(turn);
     requestAnimationFrame(() => turn.scrollIntoView({block:'start'}));

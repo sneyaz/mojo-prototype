@@ -671,3 +671,43 @@
   .mce .mce-field-toggle > label .mce-switch { grid-column: 1; }
   .mce .mce-field-toggle > .mce-issue { margin-left: 0; }
 }
+/* A card with a single field doesn't repeat its title as a label */
+.mce .mce-section[data-section="accounts"] .mce-section-body > .mce-fields:has(> .mce-field:only-child) > .mce-field { grid-template-columns: minmax(0, 1fr); }
+.mce .mce-section[data-section="accounts"] .mce-section-body > .mce-fields:has(> .mce-field:only-child) > .mce-field > .mce-label-row { display: none; }
+.mce .mce-section[data-section="accounts"] .mce-section-body > .mce-fields:has(> .mce-field:only-child) > .mce-field > :not(.mce-label-row) { grid-column: 1; }
+/* The audience picker is a control: keep its border and chevron close */
+.mce .mce-aud-trigger { margin-left: 0 !important; width: 100% !important; max-width: 560px; border-color: var(--mce-line-2) !important; background: #fff !important; }
+.mce .mce-aud-trigger:hover, .mce .mce-aud.is-open .mce-aud-trigger { border-color: #b9afc8 !important; }
+.mce .mce-aud-trigger svg { opacity: .7; }
+.mce .mce-aud-pop { max-width: 560px; }
+/* "Set by Mojo": a row in the same grid — label left, values right, Edit at the end */
+.mce .mce-handled { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--mce-line); }
+.mce .mce-handled > summary { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; column-gap: 18px; align-items: baseline; width: 100%; padding: 4px 0; color: var(--mce-ink-2); }
+.mce .mce-handled-label { display: inline-flex; align-items: center; gap: 6px; color: var(--mce-ink-2); font: 500 12px/1.4 Inter, Arial, sans-serif; }
+.mce .mce-handled-label .mce-mdot { width: 10px; height: 10px; }
+.mce .mce-handled-values { display: flex; flex-wrap: wrap; gap: 2px 14px; min-width: 0; color: var(--mce-ink); font: 400 12px/1.5 Inter, Arial, sans-serif; }
+.mce .mce-handled-values b { margin-right: 3px; color: var(--mce-ink-3); font-weight: 400; }
+.mce .mce-handled > summary em { color: var(--mce-accent); font: 600 12px/1.4 Inter, Arial, sans-serif; font-style: normal; }
+.mce .mce-handled > summary:hover em { text-decoration: underline; text-underline-offset: 3px; }
+.mce .mce-handled[open] > summary { margin-bottom: 4px; }
+.mce .mce-handled[open] .mce-handled-values { visibility: hidden; }
+/* Multi-select trigger text */
+.mce .mce-dd .mojo-select-value.is-empty { color: var(--mce-ink-3); }
+.mce .mce-dd-multi .mojo-select-menu { max-height: 280px; }
+/* Mojo's-pick mark shows when you look at the row */
+.mce .mce-field .mce-picked { opacity: 0; }
+.mce .mce-field:hover .mce-picked, .mce .mce-field:focus-within .mce-picked, .mce .mce-picked:focus-visible { opacity: .6; }
+.mce .mce-field .mce-picked:hover { opacity: 1; }
+@container (max-width: 640px) { .mce .mce-handled > summary { grid-template-columns: minmax(0, 1fr) auto; } .mce .mce-handled-values { grid-column: 1 / -1; grid-row: 2; } }
+/* Same type and rhythm for every value: inputs, dropdowns, money */
+.mce .mce-dd .mojo-select-trigger, .mce .mce-dd .mojo-select-value { font: 400 13px/1.4 Inter, Arial, sans-serif !important; color: var(--mce-ink); }
+.mce .mce-dd .mojo-select-trigger { height: 36px; padding: 0 11px; }
+.mce .mce-dd .mojo-select-option { min-height: 32px; font: 400 13px/1.3 Inter, Arial, sans-serif; }
+.mce .mce-dd .mojo-select-option[aria-selected="true"] { font-weight: 600; }
+.mce .mce-field > input:not([type="checkbox"]), .mce .mce-field > textarea { font: 400 13px/1.4 Inter, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; }
+.mce .mce-field > .mce-label-row { padding-top: 9px; }
+.mce .mce-field > .mce-chips { margin-top: 4px; }
+.mce .mce-field { row-gap: 0; }
+.mce .mce-field > .mce-issue:not(:empty) { margin-top: 4px; }
+
+.mce .mce-field { padding: 3px 0; }

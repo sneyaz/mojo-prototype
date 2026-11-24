@@ -134,6 +134,8 @@
         return `<span class="mce-switch"><input type="checkbox" role="switch" id="${id}" ${name}${value === true ? ' checked' : ''}><span aria-hidden="true"></span></span>`;
       case 'chips': {
         const chosen = list(value);
+        /* Longer multi-choice lists: a shadcn-style multi-select instead of a wall of chips. */
+        if (field.options.length > 4) return `<div class="mojo-select mce-dd mce-dd-multi" data-dd-multi="${field.key}"><button type="button" class="mojo-select-trigger" id="${id}" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}-list"><span class="mojo-select-value${chosen.length ? '' : ' is-empty'}">${escape(chosen.join(', ') || 'Choose…')}</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="mojo-select-menu" id="${id}-list" role="listbox" aria-multiselectable="true" aria-labelledby="${id}-label" hidden>${field.options.map(option => `<button type="button" class="mojo-select-option" role="option" data-dd-toggle="${field.key}" data-value="${escape(option)}" aria-selected="${chosen.includes(option)}"><span>${escape(option)}</span><span class="mojo-select-check" aria-hidden="true">✓</span></button>`).join('')}</div></div>`;
         return `<div class="mce-chips" role="group" aria-labelledby="${id}-label">${field.options.map(option => `<button type="button" class="mce-chip" data-chip="${field.key}" data-value="${escape(option)}" aria-pressed="${chosen.includes(option)}">${chosen.includes(option) ? icon.check : ''}${escape(option)}</button>`).join('')}</div>`;
       }
       case 'tags': {
@@ -181,7 +183,7 @@
   const HANDLED = {tracking: 'tracking', conversion: 'conversion event', validation: 'result check', li_expansion: 'audience expansion', li_bid: 'bidding', li_costcap: 'cost cap',
     g_bidding: 'bidding', g_cpa: 'target CPA', g_match: 'match type', g_negatives: 'negative keywords', g_path1: 'display path', g_path2: 'display path', db_freq: 'frequency cap', db_pacing: 'pacing', db_cpm: 'max CPM'};
   /* Short choices render as one-tap chips; long lists keep a dropdown. */
-  const asChoice = field => field.kind === 'select' && field.options.length <= 5 && field.options.every(option => option.length <= 24);
+  const asChoice = field => field.kind === 'select' && field.options.length <= 4 && field.options.every(option => option.length <= 16);
   /* Ad copy that can be typed straight into the preview. */
   function inlineKeys(member) {
     if (!member || member.live) return [];
@@ -334,10 +336,11 @@
   const isTucked = (field, values) => HANDLED[field.key] && !P.fieldIssue(field, values[field.key], values) && (!field.showIf || field.showIf(values));
   function handledHtml(id, fields, values, scope, extra = '') {
     if (!fields.length) return extra;
-    const names = [...new Set(fields.map(field => HANDLED[field.key]))];
-    const said = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+    const shown = (field) => { const v = values[field.key]; if (field.kind === 'toggle') return v ? 'On' : 'Off'; const out = Array.isArray(v) ? (v.length ? `${v.length}` : 'None') : text(v); return out || '—'; };
+    const seen = new Set(), parts = fields.filter(field => { const name = HANDLED[field.key]; if (seen.has(name)) return false; seen.add(name); return true; })
+      .map(field => `<span><b>${escape(HANDLED[field.key].charAt(0).toUpperCase() + HANDLED[field.key].slice(1))}</b> ${escape(shown(field))}</span>`);
     const isOpen = state.handledOpen.has(id);
-    return `<details class="mce-handled" data-handled="${id}" ${isOpen ? 'open' : ''}><summary>${mdot}<span>Mojo set ${escape(said)}.</span><em>${isOpen ? 'Hide' : 'Change'}</em></summary><div class="mce-fields">${fields.map(field => fieldHtml(field, id, values, scope)).join('')}</div>${extra}</details>`;
+    return `<details class="mce-handled" data-handled="${id}" ${isOpen ? 'open' : ''}><summary><span class="mce-handled-label">${mdot}Set by Mojo</span><span class="mce-handled-values">${parts.join('')}</span><em>${isOpen ? 'Hide' : 'Edit'}</em></summary><div class="mce-fields">${fields.map(field => fieldHtml(field, id, values, scope)).join('')}</div>${extra}</details>`;
   }
   function sharedSectionHtml(section) {
     const count = sectionIssueCount(section.id), isOpen = state.openSections.has(section.id), values = valuesFor('shared');
@@ -881,6 +884,16 @@
     }
     const ddTrigger = t.closest('.mce-dd .mojo-select-trigger');
     if (ddTrigger) { const box = ddTrigger.closest('.mce-dd'); return void (box.classList.contains('is-open') ? ddClose(box, true) : ddOpen(box)); }
+    const ddToggle = t.closest('[data-dd-toggle]');
+    if (ddToggle) {
+      const key = ddToggle.dataset.ddToggle, value = ddToggle.dataset.value, items = list(getValue(key));
+      const next = items.includes(value) ? items.filter(item => item !== value) : field_order(key, [...items, value]);
+      setValue(key, next);
+      ddToggle.setAttribute('aria-selected', String(next.includes(value)));
+      const label = ddToggle.closest('.mce-dd').querySelector('.mojo-select-value');
+      label.textContent = next.join(', ') || 'Choose…'; label.classList.toggle('is-empty', !next.length);
+      return changed();
+    }
     const ddOption = t.closest('.mce-dd .mojo-select-option');
     if (ddOption) return void ddPick(ddOption.closest('.mce-dd'), Number(ddOption.dataset.ddIndex));
     const storyWord = t.closest('[data-story]');
@@ -990,6 +1003,8 @@
     changed();
   });
 
+  /* Keep multi-select values in the field's own option order. */
+  function field_order(key, items) { const options = findField(key)?.options || []; return options.filter(option => items.includes(option)); }
   /* shadcn-style select behavior: open/close, pick, keyboard, click outside. */
   function ddOpen(box) {
     el.querySelectorAll('.mce-dd.is-open').forEach(other => { if (other !== box) ddClose(other); });
@@ -1015,7 +1030,7 @@
     const box = event.target;
     if (!box.matches?.('details.mce-handled') || !state) return;
     if (box.open) state.handledOpen.add(box.dataset.handled); else state.handledOpen.delete(box.dataset.handled);
-    box.querySelector('summary em').textContent = box.open ? 'Hide' : 'Change';
+    box.querySelector('summary em').textContent = box.open ? 'Hide' : 'Edit';
   }, true);
   el.addEventListener('keydown', event => {
     const box = event.target.closest?.('.mce-dd');
