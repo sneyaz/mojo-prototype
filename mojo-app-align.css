@@ -126,3 +126,8 @@ html body .mojo-owner-trigger, html body .mojo-owner-trigger span { font: 600 12
 html body .aud-feed-scope-trigger:hover, html body .mojo-scope-chip.mqr-trigger:hover, html body .mf-dashboard-range-trigger:hover, html body .aud-select-trigger:hover, html body .mg-picker-trigger:hover { border-color: #d8d4ce !important; }
 html body [data-aeo-cohort-action] { height: 28px !important; min-height: 28px !important; padding: 0 10px !important; border: 1px solid #5b3fa0 !important; border-radius: 8px !important; background: #5b3fa0 !important; color: #fafafa !important; font: 500 12px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; }
 html body .mso-lb-decision-list article button { height: 32px !important; min-height: 32px !important; padding: 0 10px !important; border: 1px solid #e8e5e1 !important; border-radius: 8px !important; background: #fff !important; color: #514f58 !important; font: 500 14px/1 Inter, Arial, sans-serif !important; }
+
+/* More menu: narrower, and Apps shows a › because it opens a second menu. */
+html body .mojo-rail-flyout.mojo-more-menu { width: 200px !important; }
+html body .mojo-more-menu .mojo-flyout-list a { display: flex; align-items: center; }
+html body .mojo-more-menu .mojo-flyout-chev { width: 14px !important; height: 14px !important; margin-left: auto; fill: none; stroke: #8a818d; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

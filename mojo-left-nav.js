@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   moreMenu.hidden = true;
   moreMenu.innerHTML = `<div class="mojo-flyout-head"><strong>More</strong></div>
     <nav class="mojo-flyout-list" aria-label="More destinations">
-      <a href="Apps.html"${page === 'Apps' ? ' aria-current="page"' : ''}>${svg('apps')}<span>Apps</span></a>
+      <a href="Apps.html" aria-haspopup="true"${page === 'Apps' ? ' aria-current="page"' : ''}>${svg('apps')}<span>Apps</span><svg class="mojo-flyout-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 4 4 4-4 4"/></svg></a>
       <a href="BestPractices.html"${page === 'BestPractices' ? ' aria-current="page"' : ''}>${svg('library')}<span>Library</span></a>
       <a href="Strategy.html"${page === 'Strategy' ? ' aria-current="page"' : ''}>${svg('brain')}<span>Brain</span></a>
       <a href="Connections.html"${page === 'Connections' ? ' aria-current="page"' : ''}>${svg('integrations')}<span>Integrations</span></a>
