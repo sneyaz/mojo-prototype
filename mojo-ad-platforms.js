@@ -59,7 +59,7 @@
     validation: {key:'validation', label:'How Mojo will check the result', kind:'text', shared:true},
     budget: {key:'budget', label:'Total budget', kind:'money', shared:true, required:true, slider:true},
     flight: {key:'flight', label:'Flight', kind:'daterange', shared:true, required:true, wide:true, validate:v => text(v) && !flightDays(v) ? 'Pick a start and end date' : ''},
-    budgetApproved: {key:'budgetApproved', label:'Budget approved under company rules', kind:'toggle', shared:true, required:true, validate:v => v === false ? 'Approve the budget, or ask your approver in Chat' : ''}
+    budgetApproved: {key:'budgetApproved', label:'Budget approved under company rules', short:'Approval', kind:'toggle', shared:true, required:true, validate:v => v === false ? 'Approve the budget, or ask your approver in Chat' : ''}
   };
   const use = (field, overrides = {}) => ({...field, ...overrides});
 

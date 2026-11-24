@@ -711,3 +711,36 @@
 .mce .mce-field > .mce-issue:not(:empty) { margin-top: 4px; }
 
 .mce .mce-field { padding: 3px 0; }
+
+/* ───── Schedule and budget, tidied ───── */
+/* Flight: one line of dates, then a small segmented control */
+.mce .mce-dates2 { display: grid; gap: 8px; margin-top: 0 !important; }
+.mce .mce-range { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-height: 36px; }
+.mce .mce-date2 { position: relative; display: inline-flex; align-items: center; height: 34px; margin-left: -11px; padding: 0 11px; border: 1px solid transparent; border-radius: 8px; cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
+.mce .mce-date2 + .mce-range-sep + .mce-date2 { margin-left: 0; }
+.mce .mce-date2:hover { border-color: var(--mce-line-2); background: #fff; }
+.mce .mce-date2:focus-within { border-color: #a98bd1; background: #fff; box-shadow: 0 0 0 3px rgba(111, 78, 179, .12); }
+.mce .mce-date2 input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }
+.mce .mce-date-face { color: var(--mce-ink); font: 400 13px/1 Inter, Arial, sans-serif; white-space: nowrap; }
+.mce .mce-date-face.is-empty { color: var(--mce-ink-3); }
+.mce .mce-range-sep { color: var(--mce-ink-3); font: 400 13px/1 Inter, Arial, sans-serif; }
+.mce .mce-range-days { margin-left: 8px; color: var(--mce-ink-3); font: 400 12px/1 Inter, Arial, sans-serif; }
+.mce .mce-seg { display: inline-flex; width: fit-content; padding: 2px; border: 1px solid var(--mce-line); border-radius: 8px; }
+.mce .mce-seg button { padding: 5px 11px; border: 0; border-radius: 6px; background: none; color: var(--mce-ink-3); font: 500 12px/1.2 Inter, Arial, sans-serif; cursor: pointer; transition: color .15s ease, box-shadow .15s ease; }
+.mce .mce-seg button:hover { color: var(--mce-ink); }
+.mce .mce-seg button[aria-pressed="true"] { color: var(--mce-accent); font-weight: 650; box-shadow: inset 0 0 0 1px #b99fcf; background: #fff; }
+.mce .mce-seg button:focus-visible { outline: 2px solid #7954aa; outline-offset: 1px; }
+.mce .mce-dates2 .mce-date-past { margin: 0; color: var(--mce-red, #b3463f); font: 500 12px/1.4 Inter, Arial, sans-serif; }
+/* Budget: amount and slider on one line, no min/max labels */
+.mce .mce-budget { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 16px; }
+.mce .mce-budget > input[type="text"] { margin-left: -11px; width: calc(100% + 11px); font: 500 14px/1.4 Inter, Arial, sans-serif !important; }
+.mce .mce-budget .mce-slider { margin: 0; }
+.mce .mce-budget .mce-slider-scale { display: none; }
+.mce .mce-budget-readout { margin: 2px 0 0; color: var(--mce-ink-3); font: 400 12px/1.4 Inter, Arial, sans-serif; }
+/* Approval: short label left; switch and sentence right */
+.mce .mce-field-toggle > label { grid-template-columns: 150px auto auto auto 1fr; }
+.mce .mce-field-toggle > label .mce-toggle-text { grid-column: 3; grid-row: 1; color: var(--mce-ink); font: 400 13px/1.4 Inter, Arial, sans-serif; }
+.mce .mce-field-toggle > label .mce-picked { grid-column: 4; }
+.mce .mce-budget > * { align-self: center; }
+.mce .mce-budget .mce-slider { margin: 0 !important; }
+.mce .mce-budget > input[type="text"] { margin-top: 0; margin-bottom: 0; }

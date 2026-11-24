@@ -116,13 +116,18 @@
         const range = parseFlight(value), start = range?.start, end = range?.end;
         const days = start && end && end >= start ? spanDays(start, end) : 0;
         const presets = [14, 28, 42, 56];
-        return `<div class="mce-dates" data-dates="${field.key}">
-          <label class="mce-date"><span>Start</span><input type="date" id="${id}" data-date-start="${field.key}" value="${start ? isoDate(start) : ''}"></label>
-          <span class="mce-date-arrow" aria-hidden="true">→</span>
-          <label class="mce-date"><span>End</span><input type="date" data-date-end="${field.key}" value="${end ? isoDate(end) : ''}" ${start ? `min="${isoDate(start)}"` : ''}></label>
-          <div class="mce-date-presets" role="group" aria-label="Flight length">${presets.map(n => `<button type="button" class="mce-chip" data-flight-days="${n}" data-flight-key="${field.key}" aria-pressed="${days === n}">${n / 7} weeks</button>`).join('')}</div>
-        </div>
-        <p class="mce-date-readout">${days ? `<strong>${days} days</strong> · ${shortDate(start)} – ${shortDate(end)}${start < dayStart(new Date()) ? ' · <span class="mce-date-past">starts in the past</span>' : ''}` : 'Pick a start and end date'}</p>`;
+        const longDate = date => `${shortDate(date)}, ${date.getFullYear()}`;
+        const face = (date, word) => date ? `<span class="mce-date-face">${longDate(date)}</span>` : `<span class="mce-date-face is-empty">${word}</span>`;
+        return `<div class="mce-dates mce-dates2" data-dates="${field.key}">
+          <div class="mce-range">
+            <label class="mce-date2" title="Start date">${face(start, 'Start date')}<input type="date" id="${id}" data-date-start="${field.key}" value="${start ? isoDate(start) : ''}" aria-label="Start date"></label>
+            <span class="mce-range-sep" aria-hidden="true">–</span>
+            <label class="mce-date2" title="End date">${face(end, 'End date')}<input type="date" data-date-end="${field.key}" value="${end ? isoDate(end) : ''}" ${start ? `min="${isoDate(start)}"` : ''} aria-label="End date"></label>
+            ${days ? `<span class="mce-range-days">${days} days</span>` : ''}
+          </div>
+          <div class="mce-seg" role="group" aria-label="Flight length">${presets.map(n => `<button type="button" data-flight-days="${n}" data-flight-key="${field.key}" aria-pressed="${days === n}">${n / 7} weeks</button>`).join('')}</div>
+          ${start && start < dayStart(new Date()) ? '<p class="mce-date-past">Starts in the past. Pick a new start date.</p>' : ''}
+        </div>`;
       }
       case 'textarea':
         return `<textarea id="${id}" ${name} rows="3"${placeholder}>${escape(value)}</textarea>`;
@@ -174,7 +179,7 @@
     const picked = field.why && member && !member.touched.has(field.key)
       ? `<span class="mce-picked" tabindex="0" aria-label="Mojo’s pick" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt=""><span class="mce-why" role="tooltip" id="${id}-why"><strong>Mojo’s pick.</strong> ${escape(field.why)}</span></span>` : '';
     if (field.kind === 'toggle') {
-      return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label"${field.help ? ` title="${escape(field.help)}"` : ''}>${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label><small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
+      return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label"${field.help ? ` title="${escape(field.help)}"` : ''}>${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.short || field.label)}</span>${field.short ? `<span class="mce-toggle-text">${escape(field.label)}</span>` : ''}${picked}</label><small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
     }
     return `<div class="mce-field${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><div class="mce-label-row"><label for="${id}" id="${id}-label"${field.help ? ` title="${escape(field.help)}"` : ''}>${escape(field.label)}${required ? '' : ' <span class="mce-optional">Optional</span>'}</label>${picked}${counter(field, values[field.key])}</div>${control(field, values[field.key], id)}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
   }
@@ -352,7 +357,7 @@
   function platformCardHtml(member) {
     const id = `p-${member.scope}`, count = platformIssues(member).length, isOpen = state.openSections.has(id), values = effective(member);
     const groups = platformGroups(member), inline = inlineKeys(member);
-    const inPreview = field => inline.includes(field.key) && !P.fieldIssue(field, values[field.key], values);
+    const inPreview = () => false;
     const tucked = [];
     const body = member.live ? '<p class="mce-section-desc">This platform is live. Changes now happen in the platform.</p>'
       : groups.map(group => {
@@ -839,6 +844,8 @@
       setValue(key, formatFlight(start, addDays(start, Number(preset.dataset.flightDays) - 1)));
       return changed({structural: true, focus: `[data-flight-days="${preset.dataset.flightDays}"]`});
     }
+    const dateFace = t.closest('.mce-date2');
+    if (dateFace && !t.matches('input')) { const input = dateFace.querySelector('input'); try { input.showPicker(); } catch { input.focus(); } return; }
     const choice = t.closest('[data-choice]');
     if (choice) {
       const key = choice.dataset.choice;
@@ -998,7 +1005,13 @@
   el.addEventListener('input', event => {
     const node = event.target.closest?.('[data-inline]');
     if (!node || !state) return;
-    setValue(node.dataset.inline, node.textContent.replace(/\s+\n/g, '\n'), node.dataset.inlineScope);
+    const typed = node.textContent.replace(/\s+\n/g, '\n');
+    setValue(node.dataset.inline, typed, node.dataset.inlineScope);
+    const box = el.querySelector(`#mce-s-p-${node.dataset.inlineScope} .mce-field[data-field="${node.dataset.inline}"]`);
+    const control = box?.querySelector('input, textarea');
+    if (control) { control.value = typed; control.dispatchEvent(new Event('mce-sync')); }
+    const count = box?.querySelector('[data-count], .mce-count');
+    if (count) { const max = (count.textContent.split('/')[1] || '').trim(); count.textContent = max ? `${typed.length}/${max}` : String(typed.length); }
     inlineHint(node);
     changed();
   });
