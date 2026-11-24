@@ -127,7 +127,8 @@
       case 'textarea':
         return `<textarea id="${id}" ${name} rows="3"${placeholder}>${escape(value)}</textarea>`;
       case 'select':
-        return `<span class="mce-select"><select id="${id}" ${name}>${field.options.map(option => `<option${option === value ? ' selected' : ''}>${escape(option)}</option>`).join('')}</select></span>`;
+        /* shadcn-style select (same markup and classes as the app's .mojo-select); a hidden native select keeps the value. */
+        return `<div class="mojo-select mce-dd" data-dd="${field.key}"><button type="button" class="mojo-select-trigger" id="${id}" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}-list"><span class="mojo-select-value">${escape(value || field.options[0])}</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="mojo-select-menu" id="${id}-list" role="listbox" aria-labelledby="${id}-label" hidden>${field.options.map((option, i) => `<button type="button" class="mojo-select-option" role="option" data-dd-index="${i}" aria-selected="${option === value}"><span>${escape(option)}</span><span class="mojo-select-check" aria-hidden="true">✓</span></button>`).join('')}</div><select class="mojo-native-select" ${name} tabindex="-1" aria-hidden="true">${field.options.map(option => `<option${option === value ? ' selected' : ''}>${escape(option)}</option>`).join('')}</select></div>`;
       case 'toggle':
         return `<span class="mce-switch"><input type="checkbox" role="switch" id="${id}" ${name}${value === true ? ' checked' : ''}><span aria-hidden="true"></span></span>`;
       case 'chips': {
@@ -168,7 +169,7 @@
     /* "Mojo picks" marks a default the marketer hasn't changed yet, with Mojo's reason. */
     const member = memberOf(scope);
     const picked = field.why && member && !member.touched.has(field.key)
-      ? `<span class="mce-picked" tabindex="0" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt="">Mojo picks<span class="mce-why" role="tooltip" id="${id}-why">${escape(field.why)}</span></span>` : '';
+      ? `<span class="mce-picked" tabindex="0" aria-label="Mojo’s pick" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt=""><span class="mce-why" role="tooltip" id="${id}-why"><strong>Mojo’s pick.</strong> ${escape(field.why)}</span></span>` : '';
     if (field.kind === 'toggle') {
       return `<div class="mce-field mce-field-toggle wide${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label">${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
     }
@@ -716,7 +717,7 @@
       setValue(key, formatFlight(start, end));
       return changed({structural: true, focus: target.dataset.dateStart ? `[data-date-start="${key}"]` : `[data-date-end="${key}"]`});
     }
-    if (target.tagName === 'SELECT' && target.name) { setValue(target.name, target.value); return changed({structural: true, focus: `select[name="${target.name}"]`}); }
+    if (target.tagName === 'SELECT' && target.name) { setValue(target.name, target.value); return changed({structural: true, focus: `[data-dd="${target.name}"] .mojo-select-trigger`}); }
     if (target.type === 'checkbox' && target.name) { setValue(target.name, target.checked); return changed({structural: true, focus: `input[name="${target.name}"]`}); }
   });
   el.addEventListener('keydown', event => {
@@ -832,6 +833,10 @@
       setValue(key, items);
       return changed({structural: true, focus: `[data-list-add="${key}"]`});
     }
+    const ddTrigger = t.closest('.mce-dd .mojo-select-trigger');
+    if (ddTrigger) { const box = ddTrigger.closest('.mce-dd'); return void (box.classList.contains('is-open') ? ddClose(box, true) : ddOpen(box)); }
+    const ddOption = t.closest('.mce-dd .mojo-select-option');
+    if (ddOption) return void ddPick(ddOption.closest('.mce-dd'), Number(ddOption.dataset.ddIndex));
     const storyWord = t.closest('[data-story]');
     if (storyWord) {
       const id = storyWord.dataset.story;
@@ -894,6 +899,42 @@
       if (!started) { button.disabled = false; button.innerHTML = headActionsHtml(); }
     }
   });
+
+  /* shadcn-style select behavior: open/close, pick, keyboard, click outside. */
+  function ddOpen(box) {
+    el.querySelectorAll('.mce-dd.is-open').forEach(other => { if (other !== box) ddClose(other); });
+    const trigger = box.querySelector('.mojo-select-trigger'), menu = box.querySelector('.mojo-select-menu'), items = [...menu.querySelectorAll('.mojo-select-option')];
+    const below = window.innerHeight - trigger.getBoundingClientRect().bottom;
+    box.classList.toggle('opens-up', below < Math.min(items.length * 36 + 20, 290));
+    menu.hidden = false; box.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true');
+    (items.find(item => item.getAttribute('aria-selected') === 'true') || items[0])?.focus();
+  }
+  function ddClose(box, refocus = false) {
+    box.querySelector('.mojo-select-menu').hidden = true; box.classList.remove('is-open', 'opens-up');
+    box.querySelector('.mojo-select-trigger').setAttribute('aria-expanded', 'false');
+    if (refocus) box.querySelector('.mojo-select-trigger').focus();
+  }
+  function ddPick(box, index) {
+    const select = box.querySelector('select');
+    ddClose(box, true);
+    if (select.selectedIndex === index) return;
+    select.selectedIndex = index;
+    select.dispatchEvent(new Event('change', {bubbles: true}));
+  }
+  el.addEventListener('keydown', event => {
+    const box = event.target.closest?.('.mce-dd');
+    if (!box) return;
+    if (event.target.matches('.mojo-select-trigger')) {
+      if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) { event.preventDefault(); ddOpen(box); }
+      return;
+    }
+    const items = [...box.querySelectorAll('.mojo-select-option')], at = items.indexOf(document.activeElement);
+    const move = {ArrowDown: Math.min(at + 1, items.length - 1), ArrowUp: Math.max(at - 1, 0), Home: 0, End: items.length - 1}[event.key];
+    if (move !== undefined) { event.preventDefault(); items[move]?.focus(); }
+    else if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); ddClose(box, true); }
+    else if (event.key === 'Tab') ddClose(box);
+  });
+  document.addEventListener('pointerdown', event => { el.querySelectorAll('.mce-dd.is-open').forEach(box => { if (!box.contains(event.target)) ddClose(box); }); });
 
   /* Add a platform: a new draft with the campaign's shared settings and a fair share of budget. */
   function copyTo(platformId) {

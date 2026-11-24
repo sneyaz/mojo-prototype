@@ -595,3 +595,15 @@
 /* No "open" emphasis in the sentence: only hover/focus changes the underline */
 .mce .mce-story .mce-word.is-open:not(:hover):not(:focus-visible) { text-decoration-style: dotted; text-decoration-color: #c9bcd6; -webkit-text-decoration-color: #c9bcd6; }
 .mce .mce-story .mce-word.is-missing.is-open:not(:hover):not(:focus-visible) { text-decoration-style: dashed; text-decoration-color: #d98a84; -webkit-text-decoration-color: #d98a84; }
+/* One dropdown arrow: the app theme's. */
+.mce-select::after { display: none; }
+/* Mojo's pick: just the M mark; hover explains why. */
+.mce-picked { width: 16px; height: 16px; padding: 0; justify-content: center; border: 0; border-radius: 4px; opacity: .55; transition: opacity .15s ease; }
+.mce-picked:hover, .mce-picked:focus-visible { opacity: 1; }
+.mce-picked img { width: 10px; height: 10px; transform: none; }
+.mce-why strong { font-weight: 650; }
+/* shadcn-style selects in the canvas: full width, same height as inputs */
+.mce .mce-dd { display: block; width: 100%; min-width: 0; }
+.mce .mce-dd .mojo-select-trigger { height: 40px; font-weight: 400; }
+.mce .mce-dd .mojo-select-menu { width: 100%; }
+.mce-field.has-issue .mce-dd .mojo-select-trigger { border-color: #d98c77; }
