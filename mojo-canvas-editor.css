@@ -427,3 +427,12 @@
 @keyframes mbj-float-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .mbj-float { animation: none; } }
 .mce [data-primary]:empty { display: none; }
+
+/* Recently launched: collapsed by default */
+.mbj-section-recent summary { cursor: pointer; list-style: none; }
+.mbj-section-recent summary::-webkit-details-marker { display: none; }
+.mbj-section-recent .mbj-recent-chevron { order: 0; width: 13px; height: 13px; flex: none; fill: none; stroke: #817883; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s ease; }
+.mbj-section-recent details[open] .mbj-recent-chevron { transform: rotate(90deg); }
+.mbj-section-recent summary:hover h2 { color: #322936; }
+.mbj-section-recent details[open] > summary { margin-bottom: 12px; }
+.mbj-section-recent details:not([open]) > summary { margin-bottom: 0; }
