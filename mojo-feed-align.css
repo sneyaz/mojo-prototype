@@ -7,7 +7,7 @@
 .aud-content .mfa-card .aud-feed-type::before { display: none !important; }
 .aud-content .mfa-card .aud-feed-byline { color: #77717b; font: 500 12px/1.2 Inter, Arial, sans-serif; }
 .aud-content .mfa-card .aud-feed-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 3px; min-height: 55px; margin: 0; padding: 12px 0; border-top: 1px solid #f0edea; }
-.aud-content .mfa-card .aud-feed-actions > a.mfa-primary { display: inline-flex; align-items: center; gap: 5px; padding: 4px 0; color: #5d3b96; font: 650 12px/1.2 Inter, Arial, sans-serif; text-decoration: none; }
+.aud-content .mfa-card .aud-feed-actions > a.mfa-primary { display: inline-flex; align-items: center; gap: 5px; padding: 4px 0; color: #5b3fa0; font: 650 12px/1.2 Inter, Arial, sans-serif; text-decoration: none; }
 .aud-content .mfa-card .aud-feed-actions > a.mfa-primary:hover { text-decoration: underline; text-underline-offset: 3px; }
 .aud-content .mfa-card .aud-feed-actions > .mojo-see-why { margin-left: 18px; font: 650 12px/1.2 Inter, Arial, sans-serif; }
 .aud-content .mfa-card .aud-feed-actions > .mojo-card-tools { margin-left: auto; }
@@ -28,7 +28,7 @@
 .aud-app-body .aud-content .mfa-card .aud-feed-visual { border: 1px solid #ebe6dc !important; background: #f7f5f0 !important; }
 .aud-app-body .aud-content .mfa-card .aud-feed-actions { gap: 3px !important; min-height: 55px !important; }
 .aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why { margin-left: 18px !important; padding: 4px 0 !important; color: #69636e !important; }
-.aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why[aria-expanded="true"] { color: #5d3b96 !important; }
+.aud-app-body .aud-content .mfa-card .aud-feed-actions > .mojo-see-why[aria-expanded="true"] { color: #5b3fa0 !important; }
 .aud-app-body .aud-content .mfa-card .mojo-card-tools { display: inline-flex !important; align-items: center !important; gap: 3px !important; height: 30px; }
 .aud-app-body .aud-content .mfa-card .mojo-card-more { display: inline-flex; height: 30px; }
 .aud-app-body .aud-content .mfa-card .mojo-card-more > summary { display: inline-flex !important; align-items: center; justify-content: center; padding: 0 !important; margin: 0 !important; }

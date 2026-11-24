@@ -6,10 +6,10 @@
 .aeo-content .aud-section-head>span{padding-bottom:5px;color:#8c8390;font:600 11px var(--sans);white-space:nowrap}
 .aeo-content .aud-feed-item h3{margin:5px 0 7px;font:400 25px/1.15 var(--serif)}
 .aeo-content .aud-feed-title{color:var(--aud-ink);text-decoration:none;font:inherit}
-.aeo-content .aud-feed-title:hover{color:#67428d;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.aeo-content .aud-feed-title:hover{color:#5b3fa0;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .aeo-content .aud-feed-item p{max-width:75ch;margin:0 0 9px;color:#716976;font:400 12px/1.45 var(--sans)}
 .aeo-content .aud-feed-type{border-radius:4px}
-.aeo-content .aeo-type-visibility{background:#eee9f6;color:#67428d}
+.aeo-content .aeo-type-visibility{background:#eee9f6;color:#5b3fa0}
 .aeo-content .aeo-type-citations{background:#e8eff9;color:#456a9b}
 .aeo-content .aeo-type-accuracy{background:#faeee7;color:#a45c35}
 .aeo-content .aeo-type-sources{background:#e8f2ec;color:#307358}
@@ -18,7 +18,7 @@
 .aeo-content .aud-feed-item .aud-source-chip{font:600 10px var(--sans)}
 .aeo-content .aud-feed-visual{min-height:78px}
 .aeo-content .aud-source{max-width:80ch;margin:16px 0 0;color:#8b828d;font:400 10px/1.5 var(--sans)}
-.aeo-content .aud-source a{color:#67428d;text-decoration:none}
+.aeo-content .aud-source a{color:#5b3fa0;text-decoration:none}
 .aeo-content .aud-source a:hover{text-decoration:underline}
 .aeo-content .aud-controls{margin-top:15px;margin-bottom:13px}
 .aeo-content .aud-select{width:200px}
@@ -26,7 +26,7 @@
 .aeo-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:18px 0 8px;border:1px solid #e4dce8;border-radius:9px;background:#faf9fb}
 .aeo-metrics>div{padding:16px 18px}
 .aeo-metrics>div+div{border-left:1px solid #e4dce8}
-.aeo-metrics strong{display:block;color:#5d397d;font:400 29px/1 var(--serif)}
+.aeo-metrics strong{display:block;color:#5b3fa0;font:400 29px/1 var(--serif)}
 .aeo-metrics span{display:block;margin-top:6px;color:#7b7180;font:600 10px var(--sans)}
 .aeo-table{min-width:1000px}
 .aeo-table thead th:first-child,.aeo-table tbody th{min-width:280px;max-width:320px}
@@ -72,9 +72,9 @@
 .aeo-prompt-table thead th:first-child,.aeo-prompt-table tbody th{min-width:290px;max-width:400px}
 .aeo-prompt-table td,.aeo-source-table td{white-space:nowrap}
 .aeo-prompt-table td:nth-child(6){min-width:145px}
-.aeo-prompt-table a,.aeo-source-table a{color:#67428d;text-decoration:none;font-weight:650}
+.aeo-prompt-table a,.aeo-source-table a{color:#5b3fa0;text-decoration:none;font-weight:650}
 .aeo-prompt-table a:hover,.aeo-source-table a:hover{text-decoration:underline}
-.aeo-intent,.aeo-source-type{display:inline-block;padding:4px 6px;border-radius:4px;background:#f0eaf6;color:#67428d;font:700 10px/1 var(--sans)}
+.aeo-intent,.aeo-source-type{display:inline-block;padding:4px 6px;border-radius:4px;background:#f0eaf6;color:#5b3fa0;font:700 10px/1 var(--sans)}
 .aeo-intent.informational,.aeo-source-type.owned{background:#e8f2ec;color:#307358}
 .aeo-intent.transactional{background:#faeee7;color:#a45c35}
 .aeo-source-type.third-party{background:#f1eef3;color:#776c7b}
@@ -85,20 +85,20 @@
 .aeo-prompt-form label{display:grid;gap:5px;color:#65596d;font:650 11px var(--sans)}
 .aeo-prompt-form input,.aeo-prompt-form select{width:100%;height:34px;padding:0 9px;border:1px solid #ddd3e4;border-radius:6px;background:#fff;color:#342c3a;font:400 12px var(--sans)}
 .aeo-prompt-form footer{display:flex;gap:8px}
-.aeo-prompt-form footer button{padding:7px 10px;border:1px solid #d7c8e2;border-radius:6px;background:#fff;color:#67428d;font:650 11px var(--sans);cursor:pointer}
-.aeo-prompt-form footer button[type=submit]{border-color:#67428d;background:#67428d;color:#fff}
+.aeo-prompt-form footer button{padding:7px 10px;border:1px solid #d7c8e2;border-radius:6px;background:#fff;color:#5b3fa0;font:650 11px var(--sans);cursor:pointer}
+.aeo-prompt-form footer button[type=submit]{border-color:#5b3fa0;background:#5b3fa0;color:#fff}
 .aeo-form-error{min-height:0;margin:0;color:#aa4b38;font:500 11px var(--sans)}
-.aeo-gap-toggle[aria-pressed=true]{border-color:#bda8cf;background:#eee7f5;color:#5d397d}
+.aeo-gap-toggle[aria-pressed=true]{border-color:#bda8cf;background:#eee7f5;color:#5b3fa0}
 .aeo-sources{margin-top:29px}
 .aeo-source-table th:first-child{min-width:210px}
 .aeo-source-table td:nth-child(4){min-width:210px;white-space:normal}
 .aeo-source-table td:nth-child(5){max-width:260px;overflow:hidden;text-overflow:ellipsis}
-.aeo-practice .mps-facts a{color:#67428d;text-decoration:none;font-weight:650}
+.aeo-practice .mps-facts a{color:#5b3fa0;text-decoration:none;font-weight:650}
 .aeo-practice .mps-facts a:hover{text-decoration:underline}
 .aeo-practice-body>p{margin:13px 0 0}
 .aeo-practice-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-.aeo-practice-body button,.aeo-practice-body form button{padding:8px 11px;border:1px solid #d8c8e3;border-radius:6px;background:#fff;color:#67428d;font:650 11px var(--sans);cursor:pointer}
-.aeo-practice-actions button:first-child,.aeo-practice-body form button{border-color:#67428d;background:#67428d;color:#fff}
+.aeo-practice-body button,.aeo-practice-body form button{padding:8px 11px;border:1px solid #d8c8e3;border-radius:6px;background:#fff;color:#5b3fa0;font:650 11px var(--sans);cursor:pointer}
+.aeo-practice-actions button:first-child,.aeo-practice-body form button{border-color:#5b3fa0;background:#5b3fa0;color:#fff}
 .aeo-exception-button{margin:4px 0 10px}
 .aeo-practice-body form{display:grid;gap:8px;max-width:600px;margin:8px 0 14px;padding:12px;border:1px solid #e4dce8;border-radius:8px;background:#faf8fb}
 .aeo-practice-body form[hidden]{display:none}
@@ -116,7 +116,7 @@
 .aeo-topic-grid>a{display:block;padding:18px 18px 18px 0;color:#302a35;text-decoration:none}
 .aeo-topic-grid>a+a{padding-left:18px;border-left:1px solid #e7dfe9}
 .aeo-topic-grid strong{display:block;font:400 23px var(--serif)}
-.aeo-topic-grid span{display:block;margin:7px 0;color:#67428d;font:700 11px var(--sans)}
+.aeo-topic-grid span{display:block;margin:7px 0;color:#5b3fa0;font:700 11px var(--sans)}
 .aeo-topic-grid p{max-width:38ch;margin:0;color:#736a76;font:400 11px/1.5 var(--sans)}
 .aeo-topic-grid>a:hover strong{text-decoration:underline}
 .aeo-leadership>p{max-width:90ch;margin:0;padding:19px 21px;border-radius:8px;background:#f6f1e8;color:#403647;font:400 14px/1.55 var(--sans)}
@@ -220,7 +220,7 @@
 .aeo-cohort-loop h2{margin:6px 0;color:#302839;font:500 27px/1.15 var(--serif)}
 .aeo-loop-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:18px 0;padding:0;list-style:none}
 .aeo-loop-steps li{padding:13px;border:1px solid #e6dfe9;border-radius:9px;background:#fff}.aeo-loop-steps b{display:block;color:#543875;font:700 11px/1.3 var(--sans)}.aeo-loop-steps span{display:block;margin-top:5px;color:#706675;font:400 10px/1.45 var(--sans)}
-.aeo-cohort-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.aeo-cohort-card{padding:17px;border:1px solid #e3dbe7;border-radius:11px;background:#fff}.aeo-cohort-card h3{margin:7px 0;color:#302839;font:700 15px var(--sans)}.aeo-cohort-card p{min-height:34px;color:#6c6170;font:400 11px/1.45 var(--sans)}.aeo-cohort-card>a{color:#68438d;font:650 11px var(--sans);text-decoration:none}.aeo-cohort-card>div{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.aeo-cohort-card button{padding:8px 10px;border:1px solid #67428d;border-radius:7px;background:#fff;color:#67428d;font:700 10px var(--sans);cursor:pointer}.aeo-cohort-card button:first-child{background:#67428d;color:#fff}
+.aeo-cohort-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.aeo-cohort-card{padding:17px;border:1px solid #e3dbe7;border-radius:11px;background:#fff}.aeo-cohort-card h3{margin:7px 0;color:#302839;font:700 15px var(--sans)}.aeo-cohort-card p{min-height:34px;color:#6c6170;font:400 11px/1.45 var(--sans)}.aeo-cohort-card>a{color:#5b3fa0;font:650 11px var(--sans);text-decoration:none}.aeo-cohort-card>div{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.aeo-cohort-card button{padding:8px 10px;border:1px solid #5b3fa0;border-radius:7px;background:#fff;color:#5b3fa0;font:700 10px var(--sans);cursor:pointer}.aeo-cohort-card button:first-child{background:#5b3fa0;color:#fff}
 @media(max-width:760px){.aeo-audience-context{align-items:start;flex-direction:column}.aeo-traffic-readiness,.aeo-cohort-grid,.aeo-loop-steps{grid-template-columns:1fr}}
 
 /* Keep the landing-page measures beside their paths instead of stretching across the canvas. */
@@ -232,7 +232,7 @@
 
 /* Answer evidence expands directly under the selected sample row. */
 .aeo-table .aeo-answer-toggle{display:flex;align-items:start;justify-content:space-between;gap:12px;width:100%;padding:0;border:0;background:none;color:#302a34;text-align:left;font:650 12px/1.3 var(--sans);cursor:pointer}
-.aeo-table .aeo-answer-toggle:hover{color:#68438d;text-decoration:underline}
+.aeo-table .aeo-answer-toggle:hover{color:#5b3fa0;text-decoration:underline}
 .aeo-table .aeo-answer-toggle span{flex:none;color:#6b4b89;transition:transform .16s ease}
 .aeo-table .aeo-answer-toggle[aria-expanded=true] span{transform:rotate(180deg)}
 .aeo-table .aeo-expanded-row>td{padding:0 12px 15px;background:#faf7fc;white-space:normal}
@@ -249,9 +249,9 @@
 .aeo-content .aeo-receipt-card .aud-feed-type{display:inline-flex;padding:6px 10px;border-radius:99px;background:#efece7;color:#665f58;font:750 10px/1 var(--sans)}
 .aeo-content .aeo-receipt-card .aud-feed-byline{color:#746d76;font:500 12px var(--sans)}
 .aeo-content .aeo-receipt-actions{display:flex;align-items:center;gap:10px;min-height:50px;padding:10px 0;border-top:1px solid #eee9e2}
-.aeo-content .aeo-receipt-actions>a{color:#5d3b96;font:700 12px var(--sans)}
+.aeo-content .aeo-receipt-actions>a{color:#5b3fa0;font:700 12px var(--sans)}
 .aeo-receipt-toggle{display:inline-flex;align-items:center;align-self:flex-start;gap:5px;margin:0 0 16px;padding:9px 0;border:0;background:none;color:#6d6670;font:650 12px var(--sans);cursor:pointer}
-.aeo-receipt-toggle:hover{color:#5d3b96}
+.aeo-receipt-toggle:hover{color:#5b3fa0}
 .aeo-receipt-toggle svg{display:block;flex:none;width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
 .aeo-receipt-toggle[aria-expanded=true] svg{transform:rotate(180deg)}
 .aeo-receipt-detail[hidden]{display:none}

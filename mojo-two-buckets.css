@@ -3,7 +3,7 @@ body.mojo-global-page .modulenav.mojo-ia-nav{display:flex!important}
 .modulenav.mojo-ia-nav[hidden],body.mojo-global-page .modulenav.mojo-ia-nav[hidden]{display:none!important}
 .modulenav.mojo-ia-nav>a{font-weight:600!important;font-size:13px!important;line-height:1.3!important;padding:0 13px!important}
 .modulenav.mojo-ia-nav a.mojo-practices-nav{box-sizing:border-box;height:31px!important;min-height:31px;margin-left:auto;padding:0 13px!important;border:1px solid #dcd2e6!important;border-radius:7px!important;background:#fff!important;color:#63418f!important;font:650 12px/1 Inter,Arial,sans-serif!important;white-space:nowrap;box-shadow:0 1px 2px #34204d0b}
-.modulenav.mojo-ia-nav a.mojo-practices-nav:hover,.modulenav.mojo-ia-nav a.mojo-practices-nav.on{border-color:#c7b6d9!important;background:#f8f5fb!important;color:#563486!important}
+.modulenav.mojo-ia-nav a.mojo-practices-nav:hover,.modulenav.mojo-ia-nav a.mojo-practices-nav.on{border-color:#c7b6d9!important;background:#f8f5fb!important;color:#4e3590!important}
 .modulenav.board-nav-motion:has(.mojo-practices-nav.on)::after{display:none}
 .modulenav.mojo-ia-nav .mojo-create-cta{margin-left:0}
 .mojo-management-heading{margin:0 0 22px;padding:12px 0 15px;border-bottom:1px solid #e8e2eb}

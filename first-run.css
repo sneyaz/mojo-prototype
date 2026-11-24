@@ -217,8 +217,8 @@
 .fr-pane-controls button:focus-visible{outline:2px solid #7956bb;outline-offset:2px}
 /* Match the original zip's small, neutral chat suggestion chips. */
 .fr-chat-buttons button,.fr-chat-buttons button:first-child,.fr-chat-buttons a,.fr-chat-action,.fr-chat-adjust button,.fr-chat-source-actions button{width:max-content;max-width:100%;min-height:32px;padding:8px 12px;border:1px solid #ded9e1;border-radius:999px;background:#fff;color:#403a45;box-shadow:none;font:500 11px/1.3 Inter,Arial,sans-serif;text-decoration:none;text-align:left;cursor:pointer}
-.fr-chat-buttons button:hover,.fr-chat-buttons a:hover,.fr-chat-action:hover,.fr-chat-adjust button:hover,.fr-chat-source-actions button:not(:disabled):hover{border-color:#b99fca;background:#f8f5fa;color:#68438d}
-.fr-chat-buttons button:focus-visible,.fr-chat-buttons a:focus-visible,.fr-chat-action:focus-visible,.fr-chat-adjust button:focus-visible,.fr-chat-source-actions button:focus-visible{outline:2px solid #68438d;outline-offset:2px}
+.fr-chat-buttons button:hover,.fr-chat-buttons a:hover,.fr-chat-action:hover,.fr-chat-adjust button:hover,.fr-chat-source-actions button:not(:disabled):hover{border-color:#b99fca;background:#f8f5fa;color:#5b3fa0}
+.fr-chat-buttons button:focus-visible,.fr-chat-buttons a:focus-visible,.fr-chat-action:focus-visible,.fr-chat-adjust button:focus-visible,.fr-chat-source-actions button:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 .fr-chat-source-actions button{display:inline-flex;align-items:center;gap:5px}
 @media(max-width:700px){.fr-home-tabs{padding:0 12px}.fr-workspace{height:calc(100dvh - 48px)}}
 

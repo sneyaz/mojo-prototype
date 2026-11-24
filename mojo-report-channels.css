@@ -52,7 +52,7 @@
 .mrc-campaigns li{padding:8px 0}
 .mrc-campaigns li small{flex-basis:95px}
 .mrc-campaigns details{margin:8px 0 0}
-.mrc-campaigns details summary{list-style:none;display:inline-flex;align-items:center;gap:5px;color:#68438d}
+.mrc-campaigns details summary{list-style:none;display:inline-flex;align-items:center;gap:5px;color:#5b3fa0}
 .mrc-campaigns details summary::-webkit-details-marker{display:none}
 .mrc-campaigns details summary::before{content:'▸';font-size:11px}
 .mrc-campaigns details[open] summary::before{content:'▾'}

@@ -2,10 +2,10 @@
 #mf-decisions .mf-rail-placeholder{min-height:1px}
 #mf-decisions .mf-decision-filters{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 17px}
 #mf-decisions .mf-decision-filters button{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid #e8e1ec;border-radius:20px;background:#fff;color:#756d79;font:650 11px/1.2 Inter,Arial,sans-serif;cursor:pointer}
-#mf-decisions .mf-decision-filters button:hover{border-color:#cdbdda;color:#624089}
+#mf-decisions .mf-decision-filters button:hover{border-color:#cdbdda;color:#5b3fa0}
 #mf-decisions .mf-decision-filters button[aria-pressed=true]{border-color:#d9c9e5;background:#f4eef8;color:#583579}
 #mf-decisions .mf-decision-filters button span{font-variant-numeric:tabular-nums;color:#8e8098;font-size:10px}
-#mf-decisions .mf-decision-filters button:focus-visible{outline:2px solid #624089;outline-offset:2px}
+#mf-decisions .mf-decision-filters button:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 #mf-decisions .mf-decision-item[hidden]{display:none!important}
 #mf-decisions:has(.today-queue.wr-mode) .mf-decision-filters{display:none}
 
@@ -53,7 +53,7 @@ main.mf-feed-page #mf-decisions .today-queue-group[data-queue-group="decisions"]
 .mf-source-icons{display:flex;align-items:center;gap:4px}
 .mf-source-icons a{display:grid;place-items:center;width:26px;height:26px;border:1px solid #e9e3eb;border-radius:50%;background:#fff}
 .mf-source-icons a:hover{border-color:#cbbbd8;background:#faf8fc}
-.mf-source-icons a:focus-visible{outline:2px solid #624089;outline-offset:2px}
+.mf-source-icons a:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 .mf-source-icons img{display:block;max-width:17px;max-height:17px;object-fit:contain}
 .mf-source-icons a img[src*="salesforce"]{max-width:19px;max-height:19px}
 .mf-source-icons .mf-connect-more{border-style:dashed;border-color:#cbbbd8;background:#f5eff9;color:#69438a;font:600 16px/1 Inter,Arial,sans-serif;text-decoration:none}
@@ -81,7 +81,7 @@ main.mf-strategy-page .mf-strategy-brief{background:#f6f1e8}
 @media(max-width:560px){.mf-influence-drill{display:block}.mf-influence-drill span{display:block;margin-top:3px}}
 .mf-crm-source{display:inline-flex;align-items:center;gap:6px;padding:4px 8px 4px 5px;border:1px solid #dce9e3;border-radius:20px;background:#f7fbf9;color:#315b48;text-decoration:none;white-space:nowrap}
 .mf-crm-source:hover{border-color:#a8cbb9}
-.mf-crm-source:focus-visible{outline:2px solid #624089;outline-offset:2px}
+.mf-crm-source:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 .mf-crm-source img{width:18px;height:18px;object-fit:contain}
 .mf-crm-source b{font:650 11px/1 Inter,Arial,sans-serif}
 .mf-crm-source i{width:6px;height:6px;border-radius:50%;background:#39966a}
@@ -90,6 +90,6 @@ main.mf-strategy-page .mf-strategy-brief{background:#f6f1e8}
 /* A cited practice appears beside the Feed action only when an approved rule drove the finding. */
 #mf-insights .mf-story a.mf-practice-chip{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:5px 8px;border:1px solid #e7e4e8;border-radius:6px;background:#f5f4f5;color:#635d66;font:600 10px/1.2 Inter,Arial,sans-serif;vertical-align:middle;text-decoration:none}
 #mf-insights .mf-story a.mf-practice-chip:hover{border-color:#cbc5ce;background:#eeecf0;color:#3d3541}
-#mf-insights .mf-story a.mf-practice-chip:focus-visible{outline:2px solid #624089;outline-offset:2px}
+#mf-insights .mf-story a.mf-practice-chip:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 #mf-insights .mf-practice-chip svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:700px){#mf-insights .mf-story a.mf-practice-chip{margin:8px 0 0}}

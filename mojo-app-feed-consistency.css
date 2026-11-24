@@ -22,7 +22,7 @@
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item:hover .aud-feed-actions .aud-feedback,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-item:focus-within .aud-feed-actions .aud-feedback{opacity:1;pointer-events:auto}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-actions .aud-feedback button{width:30px;height:30px;border-radius:8px}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-detail .aud-feedback-ignore{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:4px 6px;border:0;border-radius:6px;background:transparent;color:#776b7f;font:600 11px Inter,Arial,sans-serif;cursor:pointer}
-.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-detail .aud-feedback-ignore:hover{background:#f1ebf6;color:#5d3b96}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-detail .aud-feedback-ignore:hover{background:#f1ebf6;color:#5b3fa0}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row){position:relative;padding-left:43px}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed:has(.aud-receipt-row)::before{content:"";position:absolute;top:18px;bottom:36px;left:16px;width:1px;background:#f1ede8}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row{position:relative}
@@ -36,7 +36,7 @@
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row .aud-receipt-utility{display:inline-flex;align-items:center;gap:3px;flex:none;margin-left:auto;opacity:0;pointer-events:none;transition:opacity .15s ease}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row:hover .aud-receipt-utility,.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-row:focus-within .aud-receipt-utility{opacity:1;pointer-events:auto}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button{display:grid;place-items:center;flex:none;width:30px;height:30px;margin:0;padding:0;border:0;border-radius:8px;background:transparent;color:#69636e;cursor:pointer}
-.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:hover{background:#f2eef7;color:#5d3b96}
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:hover{background:#f2eef7;color:#5b3fa0}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button:focus-visible{outline:2px solid #6a43b2;outline-offset:1px}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .aud-app-body .aud-content:has(.aud-feed-tabs) .aud-receipt-utility>button[data-state="copied"]{color:#287b37;background:#e8f5e8}

@@ -10,15 +10,15 @@
 .mojo-app-flyout-row{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;gap:7px;min-width:0;padding:7px 4px 7px 8px;border-radius:8px;color:#302937;text-decoration:none}
 .mojo-app-flyout-row:hover,.mojo-app-flyout-row:focus-visible,.mojo-app-flyout-row.is-current{background:#f5f0fa;outline:0}
 .mojo-app-pin{display:grid;place-items:center;width:26px;height:28px;padding:0;border:0;border-radius:7px;background:transparent;color:#a79aad;cursor:pointer}
-.mojo-app-pin:hover,.mojo-app-pin:focus-visible{background:#f0eaf7;color:#65418b;outline:0}
-.mojo-app-pin.is-pinned{color:#65418b;background:transparent}
+.mojo-app-pin:hover,.mojo-app-pin:focus-visible{background:#f0eaf7;color:#5b3fa0;outline:0}
+.mojo-app-pin.is-pinned{color:#5b3fa0;background:transparent}
 .mojo-app-pin svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mojo-app-pin.is-pinned svg path:first-child{fill:currentColor}
 .mojo-app-flyout-icon{display:grid;place-items:center;width:29px;height:29px;color:#6c4997}
 .mojo-app-flyout-icon svg{width:17px;height:17px}
 .mojo-app-flyout-copy{min-width:0}.mojo-app-flyout-copy strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:650 12px/1.25 var(--sans,Inter,Arial,sans-serif)}
 .mojo-app-flyout-copy small{display:block;margin-top:2px;color:#817986;font:400 10.5px/1.2 var(--sans,Inter,Arial,sans-serif)}
-.mojo-app-flyout-all{display:flex;justify-content:space-between;padding:12px 8px 5px;border-top:1px solid #eee9f0;color:#65418b;text-decoration:none;font:650 12px var(--sans,Inter,Arial,sans-serif)}
+.mojo-app-flyout-all{display:flex;justify-content:space-between;padding:12px 8px 5px;border-top:1px solid #eee9f0;color:#5b3fa0;text-decoration:none;font:650 12px var(--sans,Inter,Arial,sans-serif)}
 .mojo-app-flyout-all:hover,.mojo-app-flyout-all:focus-visible{text-decoration:underline;outline:0}
 .rail .mojo-pinned-apps{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:0;max-height:calc(100vh - 344px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#d6c9e2 transparent}
 .rail .mojo-pinned-apps[hidden]{display:none!important}

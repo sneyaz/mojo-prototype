@@ -8,7 +8,7 @@
 .home-card h3 + p { margin: 0 !important; max-width: 70ch; color: #5c5660 !important; font: 400 14px/1.5 Inter, Arial, sans-serif !important; }
 .home-card .home-visual { margin: 16px 0 !important; padding: 16px 18px !important; border: 1px solid #ebe6dc !important; border-radius: 14px !important; background: #f7f5f0 !important; }
 .home-card .home-actions { display: flex !important; align-items: center !important; gap: 3px !important; min-height: 55px !important; padding: 12px 0 !important; border-top: 1px solid #f0edea !important; }
-.home-card .home-actions > a { padding: 4px 0; color: #5d3b96 !important; font: 650 12px/1.2 Inter, Arial, sans-serif !important; }
+.home-card .home-actions > a { padding: 4px 0; color: #5b3fa0 !important; font: 650 12px/1.2 Inter, Arial, sans-serif !important; }
 .home-card .home-actions > .mojo-see-why { margin-left: 18px; padding: 4px 0; color: #69636e !important; font: 650 12px/1.2 Inter, Arial, sans-serif !important; }
 .home-card .home-actions > .mojo-card-tools { margin-left: auto !important; display: inline-flex !important; align-items: center !important; gap: 3px !important; height: 30px; }
 .home-card .home-actions .mojo-card-more { margin: 0 !important; height: 30px; display: inline-flex; }

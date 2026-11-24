@@ -151,7 +151,7 @@ body:has(.app.mcc-planning) .mcc-turn{scroll-margin-top:18px}
 
 /* Brief attachment is part of the conversation, not a separate modal. */
 .mcc-brief{margin:0 17px 17px}
-.mcc-brief-link{padding:4px 0;border:0;background:none;color:#654087;font:700 12px Inter,Arial,sans-serif;cursor:pointer}
+.mcc-brief-link{padding:4px 0;border:0;background:none;color:#5b3fa0;font:700 12px Inter,Arial,sans-serif;cursor:pointer}
 .mcc-brief-link:hover{text-decoration:underline}
 .mcc-brief-tray{max-width:520px;margin-top:10px;padding:16px;border:1px solid #e5dbe9;border-radius:13px;background:#fcfafd;box-shadow:0 6px 20px #3522400b}
 .mcc-brief-tray[hidden],.mcc-brief-picked[hidden]{display:none!important}
@@ -248,7 +248,7 @@ body:has(.app.mcc-planning-split) .mcc-brief-tray{padding:12px}
 .mcc-form2 .mcc-channel-fields .mcc-row { grid-template-columns: 126px minmax(0, 1fr); }
 .mcc-form2 .mcc-form-footer p { color: #8a8090; font: 400 12px/1.4 Inter, Arial, sans-serif; }
 .mcc-form2 .mcc-form-footer button { border-radius: 7px !important; }
-.mcc-form2 .mcc-form-footer .mcc-chat { border: 1px solid #dcd2e6 !important; background: #fff !important; color: #563486 !important; }
+.mcc-form2 .mcc-form-footer .mcc-chat { border: 1px solid #dcd2e6 !important; background: #fff !important; color: #4e3590 !important; }
 @container (max-width: 520px) { .mcc-form2 .mcc-row { grid-template-columns: minmax(0, 1fr); } .mcc-form2 .mcc-row-label { padding-top: 6px; } }
 .mcc-form2 .mcc-channel-fields.mcc-rows { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
 .mcc-form2 .mcc-channel-fields .mcc-row > textarea { width: calc(100% + 11px); }

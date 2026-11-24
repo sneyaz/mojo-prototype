@@ -95,7 +95,7 @@
 #mf-receipts .brief-done-list li.mfr-card .mfr-body>strong a{color:inherit}
 #mf-receipts .brief-done-list li.mfr-card .mfr-body>p{margin:0 0 8px;color:#5f5863;font:400 12px/1.4 Inter,Arial,sans-serif}
 #mf-receipts .brief-done-list li.mfr-card .mfr-actions{display:flex;flex-direction:row;align-items:center;gap:3px!important;flex-wrap:wrap;min-height:38px;padding:5px 0;border-top:1px solid #eee9e2}
-#mf-receipts .brief-done-list li.mfr-card .mfr-actions>a{color:#5d3b96;font:700 12px Inter,Arial,sans-serif;text-decoration:none}
+#mf-receipts .brief-done-list li.mfr-card .mfr-actions>a{color:#5b3fa0;font:700 12px Inter,Arial,sans-serif;text-decoration:none}
 .mfr-actions>button{padding:4px 0;border:0;background:transparent;color:#6d6670;font:650 12px Inter,Arial,sans-serif;cursor:pointer}
 #mf-receipts .mfr-actions .mf-receipt-expand{margin-left:auto;color:#6d6670;font:650 12px Inter,Arial,sans-serif}
 #mf-receipts .brief-done-list li.mfr-card .mf-receipt-detail{box-sizing:border-box;width:100%;max-width:none;margin:0;padding:0 0 17px}
@@ -108,7 +108,7 @@
 .mfc-actions .mfc-utility-group,.mfd-footer .mfc-utility-group,.mfr-actions .mfc-utility-group{display:inline-flex;align-items:center;gap:3px;flex:none;margin-left:auto;opacity:0;pointer-events:none;transition:opacity .15s ease}
 .mfc-card:hover .mfc-utility-group,.mfc-card:focus-within .mfc-utility-group,.mfd-card:hover .mfc-utility-group,.mfd-card:focus-within .mfc-utility-group,.mfr-card:hover .mfc-utility-group,.mfr-card:focus-within .mfc-utility-group{opacity:1;pointer-events:auto}
 .mfc-actions .mfc-utility-group>button,.mfd-footer .mfc-utility-group>button,.mfr-actions .mfc-utility-group>button{display:grid;place-items:center;flex:none;width:30px;height:30px;margin:0;padding:0;border:0;border-radius:8px;background:transparent;color:#69636e;cursor:pointer}
-.mfc-actions .mfc-utility-group>button:hover,.mfd-footer .mfc-utility-group>button:hover,.mfr-actions .mfc-utility-group>button:hover{background:#f2eef7;color:#5d3b96;text-decoration:none}
+.mfc-actions .mfc-utility-group>button:hover,.mfd-footer .mfc-utility-group>button:hover,.mfr-actions .mfc-utility-group>button:hover{background:#f2eef7;color:#5b3fa0;text-decoration:none}
 .mfc-utility-group>button:focus-visible{outline:2px solid #6a43b2;outline-offset:1px}
 .mfc-utility-group>button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mfc-utility-group>button[data-state="copied"]{color:#287b37;background:#e8f5e8}

@@ -37,9 +37,9 @@
 .md-pacing-toolbar>div{display:inline-flex;gap:3px;padding:4px;border-radius:10px;background:#f3f0f5}
 .md-pacing-toolbar button{min-height:34px;padding:8px 12px;border:0;border-radius:8px;background:transparent;color:#655b6c;font:650 12px/1.2 Inter,Arial,sans-serif;cursor:pointer}
 .md-pacing-toolbar button[aria-pressed=true]{background:#fff;color:#493258;box-shadow:0 1px 5px #2d1a3317}
-.md-pacing-toolbar .md-pacing-review{border:1px solid #65418b;background:#65418b;color:#fff}
+.md-pacing-toolbar .md-pacing-review{border:1px solid #5b3fa0;background:#5b3fa0;color:#fff}
 .md-pacing-toolbar .md-pacing-review:hover{background:#523372}
-.md-pacing-toolbar button:focus-visible,.md-pacing-receipt button:focus-visible{outline:2px solid #65418b;outline-offset:2px}
+.md-pacing-toolbar button:focus-visible,.md-pacing-receipt button:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 .md-pacing-table{min-width:970px}
 .md-pacing-table th small{display:block;margin-top:2px;color:#8d8190;font:500 10px/1.2 Inter,Arial,sans-serif}
 .md-pacing-table th:first-child,.md-pacing-table td:first-child{position:sticky;left:0;z-index:1;min-width:240px;background:#fff}

@@ -10,7 +10,7 @@
 .ms-connected-logos{display:flex;align-items:center;gap:4px}
 .ms-connected-logos a{display:grid;place-items:center;width:26px;height:26px;box-sizing:border-box;border:1px solid #e9e3eb;border-radius:50%;background:#fff;text-decoration:none}
 .ms-connected-logos a:hover{border-color:#cbbbd8;background:#faf8fc}
-.ms-connected-logos a:focus-visible{outline:2px solid #624089;outline-offset:2px}
+.ms-connected-logos a:focus-visible{outline:2px solid #5b3fa0;outline-offset:2px}
 .ms-connected-logos img{display:block;max-width:17px;max-height:17px;object-fit:contain}
 .ms-connected-logos img[src*="salesforce"]{max-width:19px;max-height:19px}
 .ms-connected-logos .ms-connect-more{border-style:dashed;border-color:#cbbbd8;background:#f5eff9;color:#69438a;font:600 16px/1 Inter,Arial,sans-serif;letter-spacing:0}

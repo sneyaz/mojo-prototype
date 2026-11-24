@@ -23,7 +23,7 @@ main.mf-feed-page #mf-insights article.mfc-card[hidden]{display:none!important}
 #mf-insights .mfc-card .mf-kind{position:relative;display:inline-flex;align-items:center;gap:6px;min-height:25px;padding:5px 10px;border-radius:999px;font:750 10px/1 Inter,Arial,sans-serif;letter-spacing:.035em}
 #mf-insights .mfc-card .mf-kind:before{content:"";display:block;width:6px;height:6px;flex:none;border-radius:50%;background:currentColor}
 #mf-insights .mfc-card[data-finding-id="flight-allocation"] .mf-kind,#mf-insights .mfc-card[data-finding-id="ended-live"] .mf-kind,#mf-insights .mfc-card[data-finding-id="ctv-measure"] .mf-kind{background:#fff0df;color:#a75414}
-#mf-insights .mfc-card[data-finding-id="q4-pacing"] .mf-kind,#mf-insights .mfc-card[data-finding-id="traffic-baseline"] .mf-kind,#mf-insights .mfc-card[data-finding-id="weekly-efficiency"] .mf-kind{background:#eee9fa;color:#5e4097}
+#mf-insights .mfc-card[data-finding-id="q4-pacing"] .mf-kind,#mf-insights .mfc-card[data-finding-id="traffic-baseline"] .mf-kind,#mf-insights .mfc-card[data-finding-id="weekly-efficiency"] .mf-kind{background:#eee9fa;color:#5b3fa0}
 #mf-insights .mfc-card[data-finding-id="unreached"] .mf-kind,#mf-insights .mfc-card[data-finding-id="lifted"] .mf-kind,#mf-insights .mfc-card[data-finding-id="engagement-checks"] .mf-kind{background:#e2f3ee;color:#166e67}
 #mf-insights .mfc-card .mfc-highlight{margin-left:auto;padding:5px 9px;border-radius:999px;background:#fff2df;color:#9d4b12;font:750 11px/1 Inter,Arial,sans-serif}
 main.mf-feed-page #mf-insights .mfc-card h2{margin:0 0 9px;color:#2c2730!important;font:700 clamp(18px,2.3vw,22px)/1.23 Inter,Arial,sans-serif!important;letter-spacing:-.025em!important}
@@ -65,7 +65,7 @@ main.mf-feed-page #mf-insights .mfc-card p{max-width:70ch;margin:0;color:#5c5660
 .mfc-checks strong{font:700 20px/1 Lora,Georgia,serif}
 .mfc-actions{display:flex;align-items:center;gap:3px;flex-wrap:wrap;min-height:55px;padding:12px 0;border-top:1px solid #eee9e2}
 .mfc-actions a,.mfc-actions button{display:inline-flex;align-items:center;gap:5px;padding:4px 0;border:0;background:transparent;color:#69636e;font:650 12px/1.2 Inter,Arial,sans-serif;text-decoration:none;cursor:pointer}
-.mfc-actions a.mfc-primary{color:#5d3b96}
+.mfc-actions a.mfc-primary{color:#5b3fa0}
 .mfc-actions>.mojo-see-why{margin-left:18px}
 
 /* Insight actions open a scoped conversation in the docked chat. */
@@ -92,7 +92,7 @@ main.mf-feed-page #mf-insights .mfc-card p{max-width:70ch;margin:0;color:#5c5660
 .mfc-mojo-mark{display:block;width:25px;height:25px;padding:4px;border-radius:50%;background:#fff;object-fit:contain}
 #mf-insights .mfc-mojo-note p{margin:0;align-self:center;font-size:12px;line-height:1.4}
 .mfc-mojo-note p strong{color:#5e3c96}
-.mfc-mojo-note a{grid-column:2;width:max-content;margin-top:-2px;color:#5d3b96;font:700 11px/1.2 Inter,Arial,sans-serif;text-decoration:none}
+.mfc-mojo-note a{grid-column:2;width:max-content;margin-top:-2px;color:#5b3fa0;font:700 11px/1.2 Inter,Arial,sans-serif;text-decoration:none}
 #mf-insights .mfc-card .mf-insight-more{width:100%;margin:0 0 14px;grid-column:auto}
 #mf-insights .mfc-card .mf-insight-more>summary{font-size:11px}
 .mfc-snoozed{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 14px;padding:14px 18px;border:1px dashed #d9d0c5;border-radius:12px;color:#6d6570;font:500 12px/1.4 Inter,Arial,sans-serif}

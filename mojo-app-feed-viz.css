@@ -17,7 +17,7 @@
 .aud-viz-dots span{display:block;width:24px;height:24px;border-radius:50%;background:#e6deef}
 .aud-viz-dots span.is-filled{background:#6849a3}
 .aud-viz-shareline{display:flex;width:100%;align-items:baseline;gap:10px;margin-bottom:11px}
-.aud-app-body .aud-content .aud-viz-shareline strong{color:#5e4097;font:650 27px/1 Lora,Georgia,serif}
+.aud-app-body .aud-content .aud-viz-shareline strong{color:#5b3fa0;font:650 27px/1 Lora,Georgia,serif}
 .aud-viz-shareline span{color:#625c65;font:500 11px/1.3 var(--sans)}
 .aud-viz-scale{display:flex;width:100%;justify-content:space-between;gap:10px;margin-top:7px;color:#756e78;font:500 10px/1.3 var(--sans)}
 @media(max-width:600px){.aud-viz-bars>div{grid-template-columns:90px minmax(0,1fr) 45px;gap:7px;font-size:10px}.aud-viz-dots span{width:20px;height:20px}}

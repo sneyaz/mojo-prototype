@@ -35,7 +35,7 @@
 .mojo-card-tools :is(.mf-feedback,.aud-feedback,.aud-receipt-utility){display:inline-flex!important;align-items:center;gap:3px;margin:0!important;opacity:1!important;pointer-events:auto!important}
 .mojo-card-tools :is(.mf-feedback,.aud-feedback)>span,.mojo-card-tools :is(.mf-feedback,.aud-feedback)>output{display:none}
 .mojo-card-tools button{position:relative;display:inline-grid!important;place-items:center;flex:none;width:30px!important;height:30px!important;min-width:30px!important;margin:0!important;padding:0!important;border:0!important;border-radius:8px!important;background:transparent;color:#69636e;cursor:pointer;text-decoration:none!important}
-.mojo-card-tools button:hover,.mojo-card-tools button[aria-pressed="true"]{background:#f2eef7!important;color:#5d3b96!important}
+.mojo-card-tools button:hover,.mojo-card-tools button[aria-pressed="true"]{background:#f2eef7!important;color:#5b3fa0!important}
 .mojo-card-tools button:focus-visible{outline:2px solid #6a43b2!important;outline-offset:1px}
 .mojo-card-tools button svg{display:block;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mojo-card-tools button::after{content:attr(aria-label);position:absolute;bottom:calc(100% + 7px);left:50%;z-index:10;width:max-content;padding:5px 7px;border-radius:5px;background:#302a36;color:#fff;font:600 11px/1.2 var(--sans,Inter,Arial,sans-serif);white-space:nowrap;box-shadow:0 3px 9px #302a3626;opacity:0;pointer-events:none;transform:translateX(-50%) translateY(3px);transition:opacity .12s ease,transform .12s ease}
@@ -43,7 +43,7 @@
 .mojo-card-tools .mojo-card-more{position:relative;display:inline-flex;align-items:center}
 .mojo-card-tools .mojo-card-more>summary{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;color:#69636e;cursor:pointer;list-style:none}
 .mojo-card-tools .mojo-card-more>summary::-webkit-details-marker{display:none}
-.mojo-card-tools .mojo-card-more>summary:hover,.mojo-card-tools .mojo-card-more[open]>summary{background:#f2eef7;color:#5d3b96}
+.mojo-card-tools .mojo-card-more>summary:hover,.mojo-card-tools .mojo-card-more[open]>summary{background:#f2eef7;color:#5b3fa0}
 .mojo-card-tools .mojo-card-more>summary svg{width:17px;height:17px;fill:currentColor}
 .mojo-card-tools button svg,.mojo-card-tools .mojo-card-more>summary svg,.mojo-card-share svg,.mojo-card-ignore svg{width:13px!important;height:13px!important}
 .mojo-card-tools .mojo-card-more-menu{position:absolute;right:0;bottom:calc(100% + 7px);z-index:40;display:grid;gap:2px;box-sizing:border-box;width:226px;max-width:calc(100vw - 24px);padding:6px;border:1px solid #e5dfe9;border-radius:10px;background:#fff;box-shadow:0 9px 25px #302a3626}
@@ -56,7 +56,7 @@
 @media(hover:none){.mojo-card-tools{opacity:1;pointer-events:auto}}
 .mojo-feedback-legacy{display:none!important}
 [data-mojo-share-ready] :is(.mf-feedback,.aud-feedback,button[data-home-action="up"],button[data-home-action="down"]){display:none!important}
-.mojo-card-tools .mojo-card-more-menu button[data-card-feedback][aria-pressed="true"]{background:#f2eef7!important;color:#5d3b96!important}
+.mojo-card-tools .mojo-card-more-menu button[data-card-feedback][aria-pressed="true"]{background:#f2eef7!important;color:#5b3fa0!important}
 .mojo-card-tools .mojo-card-more-menu:not([data-reasons-open="true"]) .mojo-card-feedback-reasons{display:none!important}
 .mojo-card-tools .mojo-card-more-menu[data-reasons-open="true"]>button{display:none!important}
 .mojo-card-tools .mojo-card-more-menu[data-reasons-open="true"] .mojo-card-feedback-reasons{display:grid!important;gap:2px;min-width:0}

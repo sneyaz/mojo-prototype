@@ -19,7 +19,7 @@
 .strategy-blueprint-lane-head{display:flex;align-items:center;gap:8px}
 .strategy-blueprint-mark{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;font:700 12px var(--sans);background:#e9f5ec;color:#22744c}
 .is-exposed .strategy-blueprint-mark{background:#fbf0e6;color:#9f5b20}
-.is-missing .strategy-blueprint-mark{background:#f0eaf8;color:#6842a5}
+.is-missing .strategy-blueprint-mark{background:#f0eaf8;color:#5b3fa0}
 .strategy-blueprint-lane h3{margin:0;font:650 13px/1.35 var(--sans)}
 .strategy-blueprint-lead{margin:15px 0 5px;color:#817986;font:600 10px/1.35 var(--sans);letter-spacing:.035em;text-transform:uppercase}
 .strategy-blueprint-lane strong{font:600 14px/1.4 var(--sans);color:#29232f}

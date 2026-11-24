@@ -1,10 +1,10 @@
 .modulenav .mojo-create-cta,.aud-app-body .modulenav .mojo-create-cta{
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   box-sizing:border-box;flex:none;align-self:center;height:31px;min-height:31px;margin-left:auto;padding:0 13px;
-  border:1px solid #dcd2e6;border-radius:7px;background:#fff;color:#563486;
+  border:1px solid #dcd2e6;border-radius:7px;background:#fff;color:#4e3590;
   font:650 12px/1 Inter,Arial,sans-serif;white-space:nowrap;cursor:pointer;
 }
-.modulenav .mojo-create-cta:hover,.aud-app-body .modulenav .mojo-create-cta:hover{border-color:#c7b6d9;background:#f8f5fb;color:#563486}
+.modulenav .mojo-create-cta:hover,.aud-app-body .modulenav .mojo-create-cta:hover{border-color:#c7b6d9;background:#f8f5fb;color:#4e3590}
 .modulenav .mojo-create-cta:focus-visible,.aud-app-body .modulenav .mojo-create-cta:focus-visible{outline:2px solid #9c76d3;outline-offset:2px}
 .modulenav .mojo-create-cta svg{display:block;width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .aud-app-body .modulenav .aud-create-cta[hidden]{display:none!important}
