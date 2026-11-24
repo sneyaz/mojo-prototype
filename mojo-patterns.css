@@ -59,3 +59,10 @@
 .mp-source { margin: 22px 0 0; color: #8a8090; font: 400 12px/1.45 Inter, Arial, sans-serif; }
 @media (prefers-reduced-motion: reduce) { .mp-card, .mp-chev { transition: none; } }
 @media (max-width: 760px) { .mp-page { padding: 28px 18px 56px; } .mp-card > details > summary { flex-wrap: wrap; } .mp-facts { grid-template-columns: 1fr; } }
+
+/* Tooltip (mojo-tooltip.js) */
+.mojo-tip { position: fixed; z-index: 1000; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: #231d27; color: #fff; font: 500 12px/1.4 Inter, Arial, sans-serif; box-shadow: 0 6px 18px #0000002a; pointer-events: none; opacity: 0; transform: translateY(2px); transition: opacity .12s ease, transform .12s ease; }
+.mojo-tip.is-on { opacity: 1; transform: none; }
+[data-tip] { cursor: help; }
+th [data-tip] { border-bottom: 1px dotted #b8aec0; }
+@media (prefers-reduced-motion: reduce) { .mojo-tip { transition: none; } }

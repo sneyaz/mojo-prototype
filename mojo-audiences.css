@@ -237,3 +237,19 @@
 .aud-overlap-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: #a99bb5; }
 .aud-overlap.high { color: #a76b2b; }
 .aud-overlap.high .aud-overlap-bar i { background: #d39a52; }
+/* Audience detail, scannable: callout → key numbers → where used → actions */
+.aud-detail2 .aud-callout { display: flex; align-items: center; gap: 12px; margin: 14px 0 0; padding: 12px 14px; border: 1px solid #f0d9b5; border-radius: 12px; background: #fff; }
+.aud-callout-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: #d08a1e; }
+.aud-detail2 .aud-callout p { flex: 1; margin: 0; color: #2f2733; font: 500 13px/1.45 Inter, Arial, sans-serif; }
+.aud-detail2 .aud-callout .mp-btn { flex: none; }
+.aud-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 14px 0 0; border: 1px solid #ece7ef; border-radius: 12px; }
+.aud-tiles > div { display: grid; gap: 4px; align-content: start; min-width: 0; padding: 12px 14px; }
+.aud-tiles > div + div { border-left: 1px solid #ece7ef; }
+.aud-tiles small { color: #776e7b; font: 600 11px/1.2 Inter, Arial, sans-serif; }
+.aud-tiles strong { color: #2f2733; font: 600 15px/1.3 Inter, Arial, sans-serif; }
+.aud-tiles strong .mp-status { font-size: 14px; }
+.aud-tiles span:not(.mp-status):not(.aud-match):not(.aud-match *) { color: #8a8090; font: 400 11px/1.35 Inter, Arial, sans-serif; }
+.aud-detail2 .aud-detail-facts { margin-top: 14px; }
+.aud-detail2 .aud-detail-facts dt { padding-top: 3px; }
+.aud-detail2 .aud-rule-link { margin-left: auto; color: #776e7b; font-weight: 500; }
+@media (max-width: 900px) { .aud-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .aud-tiles > div:nth-child(3) { border-left: 0; } }
