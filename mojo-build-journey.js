@@ -197,6 +197,18 @@
       if (other.buildStatus !== 'live') other.buildStatus = qa(other).passed ? 'ready' : 'draft';
     });
   }
+  /* The campaign as one plain sentence, for scanning. */
+  function storyLine(group) {
+    const f = facts(group.lead.item), members = group.members;
+    const total = members.reduce((sum, member) => sum + moneyOf(facts(member.item).budget), 0);
+    const page = String(f.landing || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '');
+    const who = String(f.audience || 'accounts Mojo is still finding').replace(/^(Up to|About|All|Any|Every|Around|Roughly)\b/, w => w.toLowerCase());
+    const parts = [`Reach ${who}`];
+    if (f.creative) parts.push(` with “${f.creative}”`);
+    if (page) parts.push(`, sending them to ${page}`);
+    const spend = total ? ` ${usd(total)}${f.flight ? ` over ${f.flight}` : ''}.` : '';
+    return escape(parts.join('') + '.' + spend);
+  }
   function groupCard(group) {
     const {lead, members, open} = group, draft = lead.item, index = lead.index, state = group.stage, f = facts(draft);
     const indexAttr = group.indices.join(',');
@@ -231,7 +243,7 @@
     const allSelected = group.readyIndices.length && group.readyIndices.every(i => selectedReady.has(i));
     const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select to launch together"><input type="checkbox" data-select-ready="${group.readyIndices.join(',')}" ${allSelected?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)}</span></label>` : '';
     const chevron = '<svg class="mbj-chev" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg>';
-    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><details ${isOpen?'open':''}><summary class="mbj-row" aria-label="${escape(draft.planTitle||draft.name)}: show deliverables and platform fields">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}</span><h3>${escape(draft.planTitle||draft.name)}${state==='ready'?`<span class="mbj-qa-wrap mbj-title-qa" tabindex="0" aria-label="Mojo QA’d">${check}<span class="mbj-qa-tip" role="tooltip">Mojo QA’d</span></span>`:''}</h3><p>${escape(f.audience)}</p>${dataWait}</div><div class="mbj-row-right">${need}<span class="mbj-logos">${logos}</span></div>${chevron}</summary><div class="mbj-details">${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${logos}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action||remove?`<div class="mbj-actions">${action}${remove}</div>`:''}</div></details></article>`;
+    return `<article class="mbj-card${isNew?' is-new-launch':''}${group.indices.includes(justReady)?' is-just-ready':''}" data-build-index="${index}" data-build-group="${indexAttr}" data-stage="${state}"><details ${isOpen?'open':''}><summary class="mbj-row" aria-label="${escape(draft.planTitle||draft.name)}: show deliverables and platform fields">${selectReady}<div class="mbj-row-main"><span class="mbj-initiative">${escape(initiative(draft))}</span><h3>${escape(draft.planTitle||draft.name)}${state==='ready'?`<span class="mbj-qa-wrap mbj-title-qa" tabindex="0" aria-label="Mojo QA’d">${check}<span class="mbj-qa-tip" role="tooltip">Mojo QA’d</span></span>`:''}</h3><p class="mbj-story">${storyLine(group)}</p>${dataWait}</div><div class="mbj-row-right">${need}<span class="mbj-logos">${logos}</span></div>${chevron}</summary><div class="mbj-details">${platformsRow}<ul class="mbj-deliverables">${progress}</ul>${creativePreviews(draft,f.creative)}<div class="mbj-platform"><h4>${state==='recent'?'Fields sent to':'Fields Mojo will fill in'} <span class="mbj-logos">${logos}</span></h4><dl>${tableRows.map(([name,value])=>platformField(name,value,f)).join('')}</dl></div>${action||remove?`<div class="mbj-actions">${action}${remove}</div>`:''}</div></details></article>`;
   }
   function render() {
     const items=read(), lists={draft:[],ready:[],recent:[]};
@@ -374,7 +386,7 @@
       if(!readyGroups.length)return;
       reviewIndices=readyGroups.flatMap(group=>group.readyIndices).filter(i=>!selectedReady.size||selectedReady.has(i));
       const many=readyGroups.length>1;
-      root.querySelector('[data-review-list]').innerHTML=readyGroups.map(group=>{const lead=group.lead.item,f=facts(lead);return `<li${many?' class="has-pick"':''}>${many?`<label class="mbj-review-pick"><input type="checkbox" ${!selectedReady.size||group.readyIndices.some(i=>selectedReady.has(i))?'checked':''} data-review-pick="${group.readyIndices.join(',')}" aria-label="Launch ${escape(lead.planTitle||lead.name)}"></label>`:''}<div><strong>${escape(lead.planTitle||lead.name)}</strong><dl class="mbj-review-facts"><div><dt>${group.readyIndices.length>1?'Platforms':'Channel'}</dt><dd class="mbj-review-channel">${group.readyIndices.map(i=>`<span class="mbj-review-plat">${channelLogo(items[i])}<span>${escape(channel(items[i]))} · ${escape(facts(items[i]).budget||'')}</span></span>`).join('')}</dd></div><div><dt>Flight</dt><dd>${escape(f.flight||'To confirm')}</dd></div></dl></div></li>`}).join('');
+      root.querySelector('[data-review-list]').innerHTML=readyGroups.map(group=>{const lead=group.lead.item,f=facts(lead);return `<li${many?' class="has-pick"':''}>${many?`<label class="mbj-review-pick"><input type="checkbox" ${!selectedReady.size||group.readyIndices.some(i=>selectedReady.has(i))?'checked':''} data-review-pick="${group.readyIndices.join(',')}" aria-label="Launch ${escape(lead.planTitle||lead.name)}"></label>`:''}<div><strong>${escape(lead.planTitle||lead.name)}</strong><p class="mbj-review-story">${storyLine(group)}</p><dl class="mbj-review-facts"><div><dt>${group.readyIndices.length>1?'Platforms':'Channel'}</dt><dd class="mbj-review-channel">${group.readyIndices.map(i=>`<span class="mbj-review-plat">${channelLogo(items[i])}<span>${escape(channel(items[i]))} · ${escape(facts(items[i]).budget||'')}</span></span>`).join('')}</dd></div><div><dt>Flight</dt><dd>${escape(f.flight||'To confirm')}</dd></div></dl></div></li>`}).join('');
       syncReview();
       root.querySelector('.mbj-launch-review').showModal();return;
     }

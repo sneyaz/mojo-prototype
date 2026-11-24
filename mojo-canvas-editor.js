@@ -350,6 +350,32 @@
       <p class="mce-group-label">${multi ? 'Each platform' : `${escape(state.members[0].platform.name)} settings`}</p>${state.members.map(platformCardHtml).join('')}
       ${add.length ? `<div class="mce-add-platforms">${add.map(platform => `<button type="button" class="mce-add-platform" data-copy="${platform.id}">${icon.plus}<img src="${platform.logo}" alt="">Add ${escape(platform.name)}</button>`).join('')}</div>` : ''}`;
   }
+  /* Story view: the campaign as one sentence. Each underlined word opens just that section below it. */
+  function storyHtml() {
+    const v = valuesFor('shared'), missing = new Set(sharedIssues().map(issue => issue.key));
+    const budgetMissing = nonLive().some(member => memberIssues(member).some(issue => issue.key === 'budget'));
+    const word = (id, value, placeholder, keys) => {
+      const isMissing = keys.some(key => missing.has(key)) || !value;
+      const isOpen = state.openSections.has(id);
+      return `<button type="button" class="mce-word${isMissing ? ' is-missing' : ''}${isOpen ? ' is-open' : ''}" data-story="${id}" aria-expanded="${isOpen}">${escape(value || placeholder)}</button>`;
+    };
+    const conversion = text(v.conversion);
+    const goal = conversion ? lowerFirst(conversion) + (/s$/i.test(conversion) ? '' : 's') : '';
+    const landing = v.landing ? host(v.landing) + (summaryHelpers.path(v.landing) || '') : '';
+    const total = totalBudget();
+    const lead = `Reach ${word('accounts', text(v.audience).replace(/^(Up to|About|All|Any|Every|Around|Roughly)\b/, w => w.toLowerCase()), 'which accounts?', ['audience'])} with ${word('creative', v.creative ? `“${text(v.creative)}”` : '', 'what message?', ['creative', 'messaging', 'assets'])}, sending them to ${word('landing', landing, 'which page?', ['landing', 'tracking'])}${goal || missing.has('conversion') ? ` for ${word('landing', goal, 'what result?', ['conversion'])}` : ''}. Spend ${word('schedule', total ? moneyText(total) : '', 'how much?', ['budgetApproved']).replace('class="mce-word', `class="mce-word${budgetMissing ? ' is-missing' : ''}`)} over ${word('schedule', v.flight ? text(v.flight) : '', 'when?', ['flight'])}.`;
+    const platforms = state.members.map(member => {
+      if (member.live) return `${escape(member.platform.name)} (live)`;
+      const id = `p-${member.scope}`, count = platformIssues(member).filter(issue => issue.key !== 'budget').length, isOpen = state.openSections.has(id);
+      return `<button type="button" class="mce-word${count ? ' is-missing' : ''}${isOpen ? ' is-open' : ''}" data-story="${id}" aria-expanded="${isOpen}">${escape(member.platform.name)}</button>`;
+    });
+    const on = platforms.length > 1 ? `${platforms.slice(0, -1).join(', ')} and ${platforms[platforms.length - 1]}` : platforms[0];
+    return `<p class="mce-story-text">${lead.replace(/\.$/, '')} on ${on}.</p>`;
+  }
+  function syncStory() {
+    const node = el.querySelector('[data-story-text]');
+    if (node) node.innerHTML = storyHtml();
+  }
   /* Preview: one platform at a time, switchable. */
   function previewHtml() {
     const member = memberOf(state.previewScope) || state.members[0];
@@ -391,6 +417,7 @@
       <section class="mce-platforms" data-platforms aria-label="Platforms">${platformsHtml()}</section>
       <div class="mce-body">
         <div class="mce-main">
+          <section class="mce-story" aria-label="Campaign summary" data-story-text>${storyHtml()}</section>
           <form class="mce-form" novalidate>${formHtml()}</form>
         </div>
         <aside class="mce-rail">
@@ -410,6 +437,7 @@
     el.querySelector('[data-qa]').innerHTML = qaHtml();
     el.querySelector('[data-platforms]').innerHTML = platformsHtml();
     el.querySelector('[data-preview-card]').innerHTML = previewHtml();
+    syncStory();
     el.querySelectorAll('[data-budget-readout]').forEach(node => { node.textContent = campaignSpend(); });
     syncSplit();
     sharedSections().forEach(section => refreshCard(section.id, section.summary(valuesFor('shared'))));
@@ -466,6 +494,7 @@
     card.querySelector('[data-toggle]').setAttribute('aria-expanded', String(open));
     card.querySelector('.mce-section-body').hidden = !open;
     syncAction(card);
+    syncStory();
   }
   const calm = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   function celebrateMark(card) {
@@ -805,6 +834,19 @@
       items.splice(Number(listRemove.dataset.index), 1);
       setValue(key, items);
       return changed({structural: true, focus: `[data-list-add="${key}"]`});
+    }
+    const storyWord = t.closest('[data-story]');
+    if (storyWord) {
+      const id = storyWord.dataset.story;
+      setOpen(id, true);
+      {
+        if (id.startsWith('p-')) { state.previewScope = id.slice(2); el.querySelector('[data-preview-card]').innerHTML = previewHtml(); }
+        const card = el.querySelector(`#mce-s-${id}`);
+        card?.classList.remove('is-arriving'); void card?.offsetWidth; card?.classList.add('is-arriving');
+        card?.scrollIntoView({block: 'start', behavior: calm() ? 'auto' : 'smooth'});
+        el.querySelector(`#mce-b-${id} .mce-field input:not([type="checkbox"]):not([disabled]), #mce-b-${id} .mce-field textarea, #mce-b-${id} .mce-field select, #mce-b-${id} .mce-aud-trigger`)?.focus({preventScroll: true});
+      }
+      return;
     }
     const previewSwitch = t.closest('[data-preview-switch]');
     if (previewSwitch) { state.previewScope = previewSwitch.dataset.previewSwitch; el.querySelector('[data-preview-card]').innerHTML = previewHtml(); markActive(); return; }

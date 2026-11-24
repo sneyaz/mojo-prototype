@@ -545,3 +545,19 @@
 .mbj-title-qa .mbj-qa-tip { left: 50%; right: auto; transform: translate(-50%, 3px); white-space: nowrap; }
 .mbj-title-qa:hover .mbj-qa-tip, .mbj-title-qa:focus-visible .mbj-qa-tip { transform: translate(-50%, 0); transition-delay: .1s; }
 .mbj-title-qa:focus-visible { outline: 2px solid #7954aa; outline-offset: 2px; border-radius: 50%; }
+
+/* Story: the campaign as one sentence above the cards; each underlined word jumps to its card */
+.mce-story { margin: 22px 0 6px; padding: 0 0 22px; border-bottom: 1px solid var(--mce-line); }
+.mce-story-text { margin: 0; color: #2f2733; font: 400 23px/1.62 Lora, Georgia, serif; letter-spacing: -.005em; text-wrap: pretty; }
+.mce .mce-story .mce-word { display: inline; padding: 0; border: 0; background: none; color: #5e3d9c; font: inherit; letter-spacing: inherit; cursor: pointer; text-align: left;
+  text-decoration: underline dotted #b49ccf; text-decoration-thickness: 1.5px; text-underline-offset: 6px; transition: text-decoration-color .15s ease; }
+.mce .mce-story .mce-word:hover, .mce .mce-story .mce-word.is-open { text-decoration-style: solid; text-decoration-color: #5e3d9c; }
+.mce .mce-story .mce-word.is-missing { color: #b3463f; font-style: italic; text-decoration: underline dashed #d98a84; text-decoration-thickness: 1.5px; text-underline-offset: 6px; }
+.mce .mce-story .mce-word.is-missing:hover { text-decoration-style: solid; text-decoration-color: #b3463f; }
+.mce .mce-story .mce-word:focus-visible { outline: 2px solid #7954aa; outline-offset: 3px; border-radius: 3px; }
+.mce-section.is-arriving { animation: mce-card-arrive .9s ease; }
+@keyframes mce-card-arrive { 0% { border-color: #9d7fc4; box-shadow: 0 0 0 3px #b99fcf40; } 100% { } }
+@media (prefers-reduced-motion: reduce) { .mce-section.is-arriving { animation: none; } }
+/* Build list + launch review: the same sentence, plain */
+.mbj-card p.mbj-story { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 640px; }
+.mbj-review-story { margin: 3px 0 10px; color: #726a76; font: 400 12px/1.45 Inter, Arial, sans-serif; }
