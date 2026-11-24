@@ -68,3 +68,12 @@ body.mojo-nav-expanded .rail .mojo-nav-divider{width:calc(100% - 24px);margin:10
 /* Share button with icon on every page (mojo-command.css has the same rules where it loads) */
 .mc-share-button{display:inline-flex!important;align-items:center;justify-content:center;gap:6px}
 .mc-share-button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Share: icon + text, no button chrome (matches Chat / Canvas / Sidebar) */
+.topbar .btn.outline.mc-share-button, .trust-topbar .mc-share-button, .aud-app-body .aud-share, .home-pane-controls .home-share-button {
+  display: inline-flex !important; align-items: center; gap: 6px; height: 30px !important; min-height: 30px; padding: 0 8px !important;
+  border: 0 !important; border-radius: 7px !important; background: transparent !important; box-shadow: none !important;
+  color: #6b626f !important; font: 500 12px/1 Inter, Arial, sans-serif !important; cursor: pointer;
+}
+.topbar .btn.outline.mc-share-button:hover, .trust-topbar .mc-share-button:hover, .aud-app-body .aud-share:hover, .home-pane-controls .home-share-button:hover { background: #f4f2f5 !important; color: #322936 !important; }
+.mc-share-button svg, .aud-share svg, .home-share-button svg { width: 13px !important; height: 13px !important; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
