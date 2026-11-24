@@ -10,8 +10,10 @@
 
 /* Top bar */
 .mce-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
-.mce-back { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px 4px 2px; border: 0; border-radius: 6px; background: none; color: var(--mce-accent); font: 600 12px/1.3 Inter, Arial, sans-serif; cursor: pointer; }
-.mce-back:hover { text-decoration: underline; text-underline-offset: 3px; }
+.mce-crumbs { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--mce-ink-3); font: 500 12px/1.3 Inter, Arial, sans-serif; }
+.mce .mce-crumbs button { padding: 0; border: 0; background: none; color: var(--mce-accent); font: 600 12px/1.3 Inter, Arial, sans-serif; cursor: pointer; }
+.mce .mce-crumbs button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.mce-crumbs [aria-current] { overflow: hidden; color: var(--mce-ink-2); text-overflow: ellipsis; white-space: nowrap; }
 .mce-save-state { color: var(--mce-ink-3); font: 500 11px/1.3 Inter, Arial, sans-serif; }
 
 /* Header */
@@ -130,6 +132,34 @@
 .mce-switch input:checked + span::after { transform: translateX(14px); background: var(--mce-accent); }
 .mce-switch input:focus-visible + span { outline: 2px solid #8f6cc4; outline-offset: 2px; }
 
+/* Flight date range */
+.mce-dates { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; }
+.mce-date { display: flex; flex-direction: column; gap: 4px; }
+.mce-date span { color: var(--mce-ink-3); font: 600 10px/1.2 Inter, Arial, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mce-field .mce-date input { width: 170px; padding: 9px 10px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.mce-date input::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .55; }
+.mce-date-arrow { padding-bottom: 10px; color: var(--mce-ink-3); }
+.mce-date-presets { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 3px; }
+.mce-date-readout { margin: 2px 0 0; color: var(--mce-ink-2); font: 400 12px/1.4 Inter, Arial, sans-serif; }
+.mce-date-readout strong { color: var(--mce-ink); font-weight: 650; }
+.mce-date-past { color: var(--mce-amber); font-weight: 600; }
+
+/* Budget slider */
+.mce-budget { display: grid; grid-template-columns: 150px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 16px; align-items: center; }
+.mce-budget > input[type="text"] { grid-row: 1 / 3; font-variant-numeric: tabular-nums; font-weight: 600 !important; }
+.mce-field .mce-budget input.mce-slider { width: 100%; height: 22px; margin: 0; padding: 0; border: 0; outline: none; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; }
+.mce-slider::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: linear-gradient(to right, var(--mce-accent) var(--fill, 0%), #e6e0ea var(--fill, 0%)); }
+.mce-slider::-moz-range-track { height: 4px; border-radius: 999px; background: #e6e0ea; }
+.mce-slider::-moz-range-progress { height: 4px; border-radius: 999px; background: var(--mce-accent); }
+.mce-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; margin-top: -7px; border: 2px solid var(--mce-accent); border-radius: 50%; background: #fff; box-shadow: 0 1px 4px #251c2b26; transition: transform .12s ease; }
+.mce-slider::-moz-range-thumb { width: 14px; height: 14px; border: 2px solid var(--mce-accent); border-radius: 50%; background: #fff; }
+.mce-slider:active::-webkit-slider-thumb { transform: scale(1.15); }
+.mce-slider:focus-visible { outline: none; }
+.mce-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px #c9b5e6; }
+.mce-slider-scale { display: flex; justify-content: space-between; color: var(--mce-ink-3); font: 500 10px/1 Inter, Arial, sans-serif; font-variant-numeric: tabular-nums; }
+.mce-budget-readout { margin: 6px 0 0; color: var(--mce-ink-2); font: 400 12px/1.4 Inter, Arial, sans-serif; }
+@media (prefers-reduced-motion: reduce) { .mce-slider::-webkit-slider-thumb { transition: none; } }
+
 /* Chips */
 .mce-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .mce-chip { display: inline-flex; align-items: center; gap: 5px; padding: 6px 11px; border: 1px solid var(--mce-line-2); border-radius: 999px; background: #fff; color: var(--mce-ink-2) !important; font: 500 12px/1.2 Inter, Arial, sans-serif !important; cursor: pointer; }
@@ -187,10 +217,10 @@
 .mce-qa-list button:hover strong { color: var(--mce-accent); text-decoration: underline; text-underline-offset: 3px; }
 .mce-link { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--mce-accent) !important; font: 600 12px/1.3 Inter, Arial, sans-serif !important; cursor: pointer; }
 .mce-link:hover { text-decoration: underline; text-underline-offset: 3px; }
-.mce-copy { display: flex; flex-direction: column; gap: 6px; }
-.mce-copy button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 11px; border: 1px solid var(--mce-line-2); border-radius: 9px; background: #fff; color: var(--mce-ink) !important; font: 600 12px/1.3 Inter, Arial, sans-serif !important; text-align: left; cursor: pointer; }
-.mce-copy button:hover { border-color: #bba6d3; }
-.mce-copy img { width: 16px; height: 16px; object-fit: contain; }
+.mce-copy { display: flex; flex-wrap: wrap; gap: 6px; }
+.mce-copy button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px 5px 8px; border: 1px solid var(--mce-line-2); border-radius: 999px; background: #fff; color: var(--mce-ink) !important; font: 600 12px/1.3 Inter, Arial, sans-serif !important; white-space: nowrap; cursor: pointer; }
+.mce-copy button:hover { border-color: #bba6d3; color: var(--mce-accent) !important; }
+.mce-copy img { width: 14px; height: 14px; object-fit: contain; }
 
 /* Previews (shared). Parts with data-edit-field are click-to-edit. */
 .mce-preview [data-edit-field] { border-radius: 4px; cursor: pointer; transition: box-shadow .15s ease; }
@@ -245,8 +275,6 @@
 @media (prefers-reduced-motion: reduce) { .mce-toast { transition: none; } .mce-primary.is-arrive { animation: none; } }
 
 /* Entry points on Build and in the chat editor */
-.mbj-actions .mbj-canvas-link { border: 1px solid #d7c9e7; background: #fff; color: #6842a5; }
-.mbj-actions .mbj-canvas-link:hover { border-color: #b9a2d6; }
 .mbj-editor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .mbj-open-canvas { display: inline-flex; flex: none; align-items: center; gap: 5px; margin-top: 2px; padding: 5px 9px; border: 1px solid #d7c9e7; border-radius: 999px; background: #fff; color: #6842a5; font: 650 11px/1.2 Inter, Arial, sans-serif; cursor: pointer; white-space: nowrap; }
 .mbj-open-canvas:hover { border-color: #b9a2d6; }

@@ -158,8 +158,8 @@
     const total = result.missing.length, percent = Math.max(0,Math.round((8-Math.min(total,7))/8*100));
     const qaLabel = result.passed ? 'Mojo QA passed' : 'Mojo QA · ' + (result.tone==='red'?'Needs a fix':'Checking');
     const qaExplanation = result.passed ? 'Mojo checked the campaign setup and found no missing deliverables.' : `Mojo is waiting for ${result.missing.map(item => qaField[item] || item).join(', ')} before this campaign can launch.`;
-    const canvasLink = state!=='recent' && canEditInCanvas(draft) ? '<button type="button" class="mbj-canvas-link" data-canvas>Edit in canvas</button>' : '';
-    const action = state==='ready' ? '<button type="button" class="mbj-launch" data-launch>Launch campaign →</button><a href="#" data-review-in-chat>Preview in chat</a>'+canvasLink+'<span class="mbj-rule-ok">'+check+'All your rules followed</span>' : state==='recent' ? '' : '<button type="button" data-resolve>Preview in chat</button>'+canvasLink;
+    const canvasLink = state!=='recent' && canEditInCanvas(draft) ? '<a href="#" class="mbj-canvas-link" data-canvas>Edit in canvas</a>' : '';
+    const action = state==='ready' ? '<button type="button" class="mbj-launch" data-launch>Launch campaign →</button><a href="#" data-review-in-chat>Preview in chat</a>'+canvasLink : state==='recent' ? '' : '<button type="button" data-resolve>Preview in chat</button>'+canvasLink;
     const note = state==='recent' ? '' : alert ? `<p class="mbj-feed-match"><span class="mbj-dot ${alert.tone}"></span><button type="button" data-edit>Ask Mojo to ${escape(alert.label.toLowerCase())} →</button></p>` : '';
     const dataWait = state==='recent' ? '<p class="mbj-data-wait"><strong>Waiting for first data.</strong> The ad platform has not reported delivery yet. <a href="Portfolio.html#campaigns">Open Report →</a></p>' : '';
     const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select for a shared launch"><input type="checkbox" data-select-ready="${index}" ${selectedReady.has(index)?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)} in ${escape(channel(draft))} for launch</span></label>` : '';
@@ -324,7 +324,7 @@
     const row=event.target.closest('[data-build-index]');if(!row)return;const index=Number(row.dataset.buildIndex);
     const fix=event.target.closest('[data-fix-field]');
     if(fix){event.preventDefault();openChat(index,fix.dataset.fixField);return}
-    if(event.target.closest('[data-canvas]')){editInCanvas(index);return}
+    if(event.target.closest('[data-canvas]')){event.preventDefault();editInCanvas(index);return}
     if(event.target.closest('[data-edit]')){openChat(index);return}
     if(event.target.closest('[data-delete]')){
       const item=read()[index];if(!item)return;

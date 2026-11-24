@@ -17,6 +17,42 @@
   const {text, list} = P.helpers;
   const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[char]));
   const host = url => { try { return new URL(text(url)).host.replace(/^www\./, ''); } catch { return ''; } };
+  /* Flight dates: stored as "Nov 11–Dec 18" (or a legacy "28 days"), edited with real date pickers. */
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dayStart = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const addDays = (date, n) => new Date(date.getFullYear(), date.getMonth(), date.getDate() + n);
+  const isoDate = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  const fromIso = value => { const m = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; };
+  const shortDate = date => `${MONTHS[date.getMonth()]} ${date.getDate()}`;
+  const spanDays = (start, end) => Math.round((end - start) / 86400000) + 1;
+  function parseFlight(value) {
+    const v = text(value), today = dayStart(new Date());
+    const days = v.match(/^(\d+)\s*days?$/i);
+    if (days) return {start: today, end: addDays(today, Number(days[1]) - 1)};
+    const parts = v.split(/\s*[–-]\s*/);
+    if (parts.length !== 2) return null;
+    const year = today.getFullYear();
+    const start = new Date(`${parts[0]} ${year}`);
+    let end = new Date(/^\d+$/.test(parts[1]) ? `${parts[0].replace(/\d+$/, '')}${parts[1]} ${year}` : `${parts[1]} ${year}`);
+    if (isNaN(start) || isNaN(end)) return null;
+    if (end < start) end = new Date(end.getFullYear() + 1, end.getMonth(), end.getDate());
+    return {start: dayStart(start), end: dayStart(end)};
+  }
+  /* Budget slider: bounds are set once per open so the track doesn't jump while dragging. */
+  const moneyValue = value => { const n = Number(String(value ?? '').replace(/[^0-9.]/g, '')); return Number.isFinite(n) ? n : 0; };
+  const moneyText = n => '$' + Math.round(n).toLocaleString();
+  function sliderBounds(key, value) {
+    state.sliderBounds = state.sliderBounds || {};
+    if (!state.sliderBounds[key]) {
+      const current = moneyValue(value) || 10000;
+      const step = current >= 50000 ? 1000 : current >= 5000 ? 500 : 100;
+      const max = Math.max(step * 10, Math.ceil((current * 2.5) / (step * 10)) * step * 10);
+      state.sliderBounds[key] = {min: step, max, step};
+    }
+    return state.sliderBounds[key];
+  }
+  const budgetReadout = () => P.helpers.spendMath(state.values) || 'Add a flight to see daily spend';
+  const formatFlight = (start, end) => `${shortDate(start)}–${shortDate(end)}`;
   const assetSrc = key => P.assetLibrary.find(item => item.key === key)?.src || '';
   const previewHelpers = {escape, host, assets: values => list(values.assets).map(assetSrc).filter(Boolean)};
   const icon = {
@@ -51,6 +87,18 @@
     const name = `name="${field.key}" data-kind="${field.kind}"`;
     const placeholder = field.placeholder ? ` placeholder="${escape(field.placeholder)}"` : '';
     switch (field.kind) {
+      case 'daterange': {
+        const range = parseFlight(value), start = range?.start, end = range?.end;
+        const days = start && end && end >= start ? spanDays(start, end) : 0;
+        const presets = [14, 28, 42, 56];
+        return `<div class="mce-dates" data-dates="${field.key}">
+          <label class="mce-date"><span>Start</span><input type="date" id="${id}" data-date-start="${field.key}" value="${start ? isoDate(start) : ''}"></label>
+          <span class="mce-date-arrow" aria-hidden="true">→</span>
+          <label class="mce-date"><span>End</span><input type="date" data-date-end="${field.key}" value="${end ? isoDate(end) : ''}" ${start ? `min="${isoDate(start)}"` : ''}></label>
+          <div class="mce-date-presets" role="group" aria-label="Flight length">${presets.map(n => `<button type="button" class="mce-chip" data-flight-days="${n}" data-flight-key="${field.key}" aria-pressed="${days === n}">${n / 7} weeks</button>`).join('')}</div>
+        </div>
+        <p class="mce-date-readout">${days ? `<strong>${days} days</strong> · ${shortDate(start)} – ${shortDate(end)}${start < dayStart(new Date()) ? ' · <span class="mce-date-past">starts in the past</span>' : ''}` : 'Pick a start and end date'}</p>`;
+      }
       case 'textarea':
         return `<textarea id="${id}" ${name} rows="3"${placeholder}>${escape(value)}</textarea>`;
       case 'select':
@@ -76,6 +124,10 @@
         return `<div class="mce-assets" role="group" aria-labelledby="${id}-label">${P.assetLibrary.map(asset => `<button type="button" class="mce-asset" data-asset="${asset.key}" data-single="${single}" aria-pressed="${chosen.includes(asset.key)}" title="${escape(asset.title)}"><img src="${asset.src}" alt="${escape(asset.title)}"><span class="mce-asset-mark">${chosen.includes(asset.key) ? (single ? icon.check : chosen.indexOf(asset.key) + 1) : ''}</span></button>`).join('')}</div>`;
       }
       default: {
+        if (field.kind === 'money' && field.slider) {
+          const b = sliderBounds(field.key, value), n = Math.min(Math.max(moneyValue(value), b.min), b.max);
+          return `<div class="mce-budget"><input id="${id}" type="text" ${name} value="${escape(value)}" inputmode="decimal"><input type="range" class="mce-slider" data-slider="${field.key}" min="${b.min}" max="${b.max}" step="${b.step}" value="${n}" aria-label="${escape(field.label)}" aria-valuetext="${escape(moneyText(n))}" style="--fill:${((n - b.min) / (b.max - b.min)) * 100}%"><span class="mce-slider-scale"><span>${moneyText(b.min)}</span><span>${moneyText(b.max)}</span></span></div><p class="mce-budget-readout" data-budget-readout>${escape(budgetReadout())}</p>`;
+        }
         const type = field.kind === 'url' ? 'url' : 'text';
         const mode = field.kind === 'money' ? ' inputmode="decimal"' : '';
         return `<input id="${id}" type="${type}" ${name} value="${escape(value)}"${placeholder}${mode}>`;
@@ -86,7 +138,7 @@
     if (field.showIf && !field.showIf(values)) return '';
     const id = `mce-${section.id}-${field.key}`;
     const issue = P.fieldIssue(field, values[field.key], values);
-    const wide = ['textarea', 'chips', 'tags', 'list', 'assets'].includes(field.kind) || field.wide;
+    const wide = ['textarea', 'chips', 'tags', 'list', 'assets', 'daterange'].includes(field.kind) || field.slider || field.wide;
     const required = typeof field.required === 'function' ? field.required(values) : field.required;
     /* "Mojo picked" marks a default the marketer hasn't changed yet, with Mojo's reason. */
     const picked = field.why && !P.isCore(field.key) && !state.touched.has(field.key)
@@ -109,17 +161,21 @@
     if (section.summary) { try { return section.summary(state.values, summaryHelpers); } catch { /* fall through */ } }
     return section.fields.filter(field => !field.showIf || field.showIf(state.values)).slice(0, 3).map(field => escape(list(state.values[field.key]).join(', ') || state.values[field.key] || '')).filter(Boolean).join(' · ');
   }
+  /* Name the actual issue, never "1 thing": "landing page URL", "headlines". */
+  const lowerFirst = label => /^[A-Z][a-z]/.test(label) ? label.charAt(0).toLowerCase() + label.slice(1) : label;
+  const needsText = issues => issues.length === 1 ? lowerFirst(issues[0].label) : `${lowerFirst(issues[0].label)} + ${issues.length - 1} more`;
+  const fixText = issues => issues.length === 1 ? `${issues[0].empty ? 'Add' : 'Fix'} ${lowerFirst(issues[0].label)} →` : `Fix ${issues.length} things →`;
   function statusHtml(issues) {
     if (state.draft.buildStatus === 'live') return '<span class="mce-status live"><i></i>Live</span>';
     return issues.length
-      ? `<span class="mce-status draft"><i></i>Draft · ${issues.length} ${issues.length === 1 ? 'thing needs' : 'things need'} you</span>`
+      ? `<span class="mce-status draft" title="${escape(issues.map(issue => `${issue.label}: ${issue.message}`).join('\n'))}"><i></i>Draft · Needs ${escape(needsText(issues))}</span>`
       : `<span class="mce-status ready">${icon.check}Ready · Mojo QA passed</span>`;
   }
   /* The primary button always names the next step. */
   function primaryHtml(issues) {
     if (state.draft.buildStatus === 'live') return '';
     return issues.length
-      ? `<button type="button" class="mce-primary" data-fix-next>Fix ${issues.length === 1 ? '1 thing' : `${issues.length} things`} →</button>`
+      ? `<button type="button" class="mce-primary" data-fix-next>${escape(fixText(issues))}</button>`
       : '<button type="button" class="mce-primary is-ready" data-launch>Launch campaign →</button>';
   }
   function qaHtml(issues) {
@@ -175,7 +231,7 @@
     el.dataset.platform = state.platform.id;
     el.innerHTML = `
       <div class="mce-top">
-        <button type="button" class="mce-back" data-close>${icon.back}Build</button>
+        <nav class="mce-crumbs" aria-label="Breadcrumb"><button type="button" data-close>Build</button><span aria-hidden="true">/</span><span aria-current="page">${escape(title(state.draft))}</span></nav>
         <span class="mce-save-state" data-save-state role="status">${state.savedAt ? 'Saved' : 'Mojo saves as you edit'}</span>
       </div>
       <header class="mce-head">
@@ -216,11 +272,12 @@
     el.querySelector('[data-qa]').innerHTML = qaHtml(issues);
     el.querySelector('[data-progress]').innerHTML = progressHtml(issues);
     el.querySelector('[data-intro]').textContent = introText(issues);
+    el.querySelectorAll('[data-budget-readout]').forEach(node => { node.textContent = budgetReadout(); });
     el.querySelector('[data-preview]').innerHTML = state.platform.preview(state.values, previewHelpers);
     const primary = el.querySelector('[data-primary]');
     const wasReady = !state.lastIssueCount, isReady = !issues.length;
     if (primary && wasReady !== isReady) primary.innerHTML = primaryHtml(issues);
-    else if (primary && !isReady) { const b = primary.querySelector('[data-fix-next]'); if (b) b.textContent = `Fix ${issues.length === 1 ? '1 thing' : `${issues.length} things`} →`; }
+    else if (primary && !isReady) { const b = primary.querySelector('[data-fix-next]'); if (b) b.textContent = fixText(issues); }
     const structure = el.querySelector('.mce-structure');
     if (structure) structure.outerHTML = structureHtml();
     state.platform.sections.forEach(section => {
@@ -337,7 +394,7 @@
     const facts = build().facts(draft);
     const values = P.valuesFor(platform, draft, facts);
     state = {id: draft.id, platform, draft, facts, values, savedAt: null, saveTimer: null, activeField: '', lastIssueCount: 0,
-      touched: new Set(draft.platformTouched?.[platform.id] || []), openSections: new Set()};
+      touched: new Set(draft.platformTouched?.[platform.id] || []), openSections: new Set(), sliderBounds: {}};
     /* Open only what needs the marketer; everything else reads as a summary. */
     P.issues(draft, facts, values).forEach(issue => state.openSections.add(issue.section));
     if (focusKey) { const section = sectionOf(focusKey); if (section) state.openSections.add(section); }
@@ -407,16 +464,42 @@
       if (count) { count.textContent = `${target.value.length}/${field.itemMax}`; count.classList.toggle('over', target.value.length > field.itemMax); }
       return changed();
     }
+    if (target.matches('[data-slider]')) {
+      const key = target.dataset.slider, n = Number(target.value);
+      setValue(key, moneyText(n));
+      const box = target.closest('.mce-budget');
+      box.querySelector(`input[name="${key}"]`).value = moneyText(n);
+      syncSlider(target, n);
+      return changed();
+    }
     if (target.matches('[data-tag-input]')) return;
     if (!target.name || !findField(target.name)) return;
     if (target.type === 'checkbox') return;
     if (target.tagName === 'SELECT') return;
     setValue(target.name, target.value);
+    const slider = target.closest('.mce-budget')?.querySelector('[data-slider]');
+    if (slider) { const b = state.sliderBounds[slider.dataset.slider]; const n = Math.min(Math.max(moneyValue(target.value), b.min), b.max); slider.value = n; syncSlider(slider, n); }
     changed();
   });
+  function syncSlider(slider, n) {
+    const b = state.sliderBounds[slider.dataset.slider];
+    slider.style.setProperty('--fill', `${((n - b.min) / (b.max - b.min)) * 100}%`);
+    slider.setAttribute('aria-valuetext', moneyText(n));
+  }
   el.addEventListener('change', event => {
     if (!state) return;
     const target = event.target;
+    if (target.matches('[data-date-start], [data-date-end]')) {
+      const key = target.dataset.dateStart || target.dataset.dateEnd, box = target.closest('[data-dates]');
+      const prev = parseFlight(state.values[key]), length = prev ? spanDays(prev.start, prev.end) : 28;
+      let start = fromIso(box.querySelector('[data-date-start]').value), end = fromIso(box.querySelector('[data-date-end]').value);
+      if (target.dataset.dateStart && start) end = addDays(start, length - 1); /* moving the start keeps the length */
+      if (start && end && end < start) end = start;
+      if (start && !end) end = addDays(start, 27);
+      if (!start || !end) return;
+      setValue(key, formatFlight(start, end));
+      return changed({structural: true, focus: target.dataset.dateStart ? `[data-date-start="${key}"]` : `[data-date-end="${key}"]`});
+    }
     if (target.tagName === 'SELECT' && target.name) { setValue(target.name, target.value); return changed({structural: true, focus: `select[name="${target.name}"]`}); }
     if (target.type === 'checkbox' && target.name) { setValue(target.name, target.checked); return changed({structural: true, focus: `input[name="${target.name}"]`}); }
   });
@@ -461,6 +544,12 @@
       history.pushState(null, '', location.pathname + location.search);
       close();
       return;
+    }
+    const preset = t.closest('[data-flight-days]');
+    if (preset) {
+      const key = preset.dataset.flightKey, start = parseFlight(state.values[key])?.start || dayStart(new Date());
+      setValue(key, formatFlight(start, addDays(start, Number(preset.dataset.flightDays) - 1)));
+      return changed({structural: true, focus: `[data-flight-days="${preset.dataset.flightDays}"]`});
     }
     const chip = t.closest('[data-chip]');
     if (chip) {

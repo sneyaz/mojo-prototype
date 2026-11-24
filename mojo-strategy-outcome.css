@@ -1256,3 +1256,10 @@ main.canvaspane.mf-strategy-page{padding-left:16px!important;padding-right:16px!
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option{min-height:136px}
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option .mso-option-copy{display:flex;flex-direction:column;align-items:flex-start;gap:5px;align-self:stretch}
 .mso-overview .mso-ideas-plan .mso-option-grid .mso-option .mso-option-status{margin-top:auto}
+
+/* Refine in canvas: brief form inside the Campaign blueprint card */
+.mso-brief-actions [data-brief-refine-canvas]{background:#f2eee8;color:#5f4980}
+.mso-plan-preview .mso-canvas-brief-form{padding:0;border:0;background:transparent}
+.mso-canvas-brief-actions{display:flex;gap:8px;margin-top:4px}
+.mso-canvas-brief-form .mso-canvas-brief-actions button{padding:9px 14px;border-radius:99px;font:700 12px/1.2 Inter,Arial,sans-serif}
+.mso-canvas-brief-form .mso-canvas-brief-actions [data-cancel-canvas-brief]{border:1px solid #d7c9e7;background:#fff;color:#65429a}

@@ -57,8 +57,8 @@
     tracking: {key:'tracking', label:'Campaign tracking', kind:'text', shared:true, required:true, placeholder:'utm_campaign=…', help:'Added to every link so Report can match visits to this campaign.', validate:v => text(v) && !/utm_campaign=\S+/.test(text(v)) ? 'Include utm_campaign=…' : ''},
     conversion: {key:'conversion', label:'Conversion event', kind:'text', shared:true, help:'What counts as success in the CRM.'},
     validation: {key:'validation', label:'How Mojo will check the result', kind:'text', shared:true},
-    budget: {key:'budget', label:'Total budget', kind:'money', shared:true, required:true},
-    flight: {key:'flight', label:'Flight', kind:'text', shared:true, required:true, placeholder:'28 days or Nov 11–Dec 18'},
+    budget: {key:'budget', label:'Total budget', kind:'money', shared:true, required:true, slider:true},
+    flight: {key:'flight', label:'Flight', kind:'daterange', shared:true, required:true, wide:true, validate:v => text(v) && !flightDays(v) ? 'Pick a start and end date' : ''},
     budgetApproved: {key:'budgetApproved', label:'Budget approved under company rules', kind:'toggle', shared:true, required:true, validate:v => v === false ? 'Approve the budget, or ask your approver in Chat' : ''}
   };
   const use = (field, overrides = {}) => ({...field, ...overrides});
