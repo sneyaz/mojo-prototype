@@ -173,6 +173,20 @@
     return `<div class="mce-field${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><div class="mce-label-row"><label for="${id}" id="${id}-label">${escape(field.label)}${required ? '' : ' <span class="mce-optional">Optional</span>'}</label>${picked}${counter(field, values[field.key])}</div>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}${control(field, values[field.key], id)}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
   }
 
+  /* Routines Mojo runs on every live campaign (see Routines.html). Shown quietly: one card, one line per related section. */
+  const ROUTINES = [
+    {id: 'weekly', name: 'Weekly Performance Update', schedule: 'Mondays, 9:00 AM', watches: 'Wins, changes, and what moved'},
+    {id: 'pacing', name: 'Budget Pacing and Optimization', schedule: 'Daily, 9:15 AM', watches: 'Pacing ahead of or behind budget, overspend, and spend with no results', section: 'budget', note: 'After launch, Mojo checks pacing every morning at 9:15 and flags overspend or spend with no results.'},
+    {id: 'tracking', name: 'Tracking, UTM, and Naming Governance', schedule: 'Daily, 9:30 AM', watches: 'Broken links, missing or malformed UTMs, and names that drift from your usual pattern', section: 'tracking', note: 'After launch, Mojo checks links, UTMs and naming every morning at 9:30.'},
+    {id: 'goal', name: 'Progress to Goal', schedule: 'Mondays, 9:45 AM', watches: 'Which campaigns are moving pipeline, and whether you’re drifting off plan'}
+  ];
+  const mdot = '<img class="mce-mdot" src="assets/moj-mdot.svg" alt="">';
+  function watchHtml() {
+    return `<section class="mce-card mce-watch"><p class="mce-watch-lead">${mdot}<span><strong>Sit back, Mojo’s watching.</strong> ${ROUTINES.length} routines check this campaign after launch.</span></p>
+      <details><summary>See what Mojo watches</summary><ul>${ROUTINES.map(routine => `<li><strong>${escape(routine.name)}</strong><small>${escape(routine.schedule)} · ${escape(routine.watches)}</small></li>`).join('')}</ul><a href="Routines.html">Manage routines →</a></details></section>`;
+  }
+  const sectionWatch = section => { const routine = ROUTINES.find(item => item.section === section.id); return routine ? `<p class="mce-section-watch">${mdot}${escape(routine.note)}</p>` : ''; };
+
   /* ───────── page rendering ───────── */
   const summaryHelpers = {
     escape, host, join: P.helpers.join, spend: P.helpers.spendMath,
@@ -193,7 +207,7 @@
     if (state.draft.buildStatus === 'live') return '<span class="mce-status live"><i></i>Live</span>';
     return issues.length
       ? `<span class="mce-status draft" title="${escape(issues.map(issue => `${issue.label}: ${issue.message}`).join('\n'))}"><i></i>Draft · Needs ${escape(needsText(issues))}</span>`
-      : `<span class="mce-status ready">${icon.check}Ready · Mojo QA passed</span>`;
+      : `<span class="mce-status ready" title="Ready to launch. Every ${escape(state.platform.name)} rule checks out.">${icon.check}Mojo QA’d</span>`;
   }
   /* The primary button always names the next step. */
   function primaryHtml(issues) {
@@ -289,6 +303,7 @@
       </header>
       <div class="mce-section-body" id="mce-b-${section.id}" ${isOpen ? '' : 'hidden'}>
         <div class="mce-fields">${section.fields.map(field => fieldHtml(field, section, state.values)).join('')}</div>
+        ${sectionWatch(section)}
       </div>
     </section>`;
   }
@@ -328,6 +343,7 @@
             <section class="mce-card mce-preview-card"><div class="mce-card-head"><h3>Preview</h3><small>${escape(state.platform.context || state.platform.name)}</small></div><div class="mce-preview" data-preview>${state.platform.preview(state.values, previewHelpers)}</div><p class="mce-preview-hint">Click any part of the ad to edit it.</p></section>
             <section class="mce-card mce-qa-card" data-qa-card><div data-qa>${qaHtml(issues)}</div></section>
           </div>
+          ${state.draft.buildStatus === 'live' ? '' : watchHtml()}
         </aside>
       </div>
       <div class="mce-toast" data-toast role="status" aria-live="polite"></div>`;
