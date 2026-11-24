@@ -592,3 +592,6 @@
 .mce .mce-story .mce-word { text-decoration-color: #c9bcd6; -webkit-text-decoration-color: #c9bcd6; text-decoration-style: dotted; text-decoration-thickness: 1.5px; }
 .mce .mce-story .mce-word:hover, .mce .mce-story .mce-word:focus-visible, .mce .mce-story .mce-word.is-open { text-decoration-style: solid; text-decoration-color: #5e3d9c; -webkit-text-decoration-color: #5e3d9c; }
 .mce .mce-story .mce-word.is-missing { text-decoration-style: dashed; text-decoration-color: #d98a84; -webkit-text-decoration-color: #d98a84; }
+/* No "open" emphasis in the sentence: only hover/focus changes the underline */
+.mce .mce-story .mce-word.is-open:not(:hover):not(:focus-visible) { text-decoration-style: dotted; text-decoration-color: #c9bcd6; -webkit-text-decoration-color: #c9bcd6; }
+.mce .mce-story .mce-word.is-missing.is-open:not(:hover):not(:focus-visible) { text-decoration-style: dashed; text-decoration-color: #d98a84; -webkit-text-decoration-color: #d98a84; }
