@@ -62,3 +62,67 @@ html body .aud-feed-actions .aud-feed-primary { height: 34px !important; min-hei
 html body .aud-feed-actions .aud-feed-primary:hover { background: #4e3590 !important; }
 html body .mbj-launch, html body .mbj-batch button, html body .mbj-actions button { border-radius: 8px !important; font-size: 14px !important; font-weight: 500 !important; min-height: 32px; }
 html body .home-actions .home-approve { border-radius: 8px !important; font-size: 13px !important; font-weight: 500 !important; }
+
+/* ---------- Buttons: the three live-app styles, everywhere ----------
+   Primary   36px · 14px/500 · r8 · #5b3fa0 fill · #fafafa text
+   Secondary 32px · 14px/500 · r8 · white · 1px #e8e5e1 · #514f58 text
+   Small     28px · 12px/500 · r8 (filled or outline), for buttons inside rows and tables */
+html body .mojo-create-cta,
+html body .mbj-batch button,
+html body .mbj-card .mbj-actions button:not(.mbj-delete-icon),
+html body .mbj-launch,
+html body .aud-feed-actions .aud-feed-primary,
+html body .aud-detail .mp-btn,
+html body .aud-callout .mp-btn,
+html body .mp-btn:not(.mp-btn-secondary),
+html body .home-actions .home-approve,
+html body .mr-setup-trigger,
+html body .aac-open-actions .mp-btn:not(.mp-btn-secondary),
+html body .aac-wwd .mp-btn,
+html body .mce-fix-button,
+html body .mcc-form2 button[type="submit"] {
+  display: inline-flex !important; align-items: center !important; justify-content: center; gap: 6px !important;
+  height: 36px !important; min-height: 36px !important; padding: 0 12px !important;
+  border: 1px solid #5b3fa0 !important; border-radius: 8px !important; background: #5b3fa0 !important; color: #fafafa !important;
+  font: 500 14px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; box-shadow: none !important; white-space: nowrap;
+}
+html body .mojo-create-cta:hover, html body .mbj-batch button:hover, html body .mbj-card .mbj-actions button:not(.mbj-delete-icon):hover, html body .mbj-launch:hover,
+html body .aud-feed-actions .aud-feed-primary:hover, html body .mp-btn:not(.mp-btn-secondary):hover, html body .home-actions .home-approve:hover,
+html body .mr-setup-trigger:hover, html body .mce-fix-button:hover { background: #4e3590 !important; border-color: #4e3590 !important; }
+html body .mp-btn:disabled, html body .aud-detail .mp-btn:disabled, html body .aud-feed-actions .aud-feed-primary:disabled { background: #fff !important; border-color: #e8e5e1 !important; color: #a39ea6 !important; }
+
+html body .mojo-practices-nav, html body .aud-practices-link,
+html body .mp-btn-secondary,
+html body .mso-lb-share button, html body .mps-button, html body .mr-edit-with-mojo, html body .mn-tool button,
+html body .aac-pager button[data-aac-page] {
+  height: 32px !important; min-height: 32px !important; padding: 0 10px !important;
+  border: 1px solid #e8e5e1 !important; border-radius: 8px !important; background: #fff !important; color: #514f58 !important;
+  font: 500 14px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; box-shadow: none !important;
+}
+html body .aac-pager button[data-aac-page] { min-width: 32px; justify-content: center; }
+html body .aac-pager button.is-on { border-color: #5b3fa0 !important; color: #5b3fa0 !important; }
+html body .aac-pager button:disabled { color: #c9c4cc !important; }
+html body .mojo-scope-chip.mqr-trigger:hover, html body .mf-dashboard-range-trigger:hover, html body .mso-lb-share button:hover, html body .mps-button:hover,
+html body .mr-edit-with-mojo:hover, html body .mn-tool button:hover, html body .aud-feed-scope-trigger:hover, html body .mp-btn-secondary:hover { border-color: #d8d4ce !important; color: #262626 !important; }
+
+html body .mbj-inline-fix button, html body .aeo-content .aud-feed-actions button:not(.aud-feed-primary):not(.mojo-see-why):not([class*="mojo-card"]),
+html body .mojo-app-action {
+  height: 28px !important; min-height: 28px !important; padding: 0 10px !important; border-radius: 8px !important;
+  font: 500 12px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important;
+}
+html body .mbj-inline-fix button { border: 1px solid #5b3fa0 !important; background: #5b3fa0 !important; color: #fafafa !important; }
+html body .mojo-app-action { border: 1px solid #e8e5e1 !important; background: #fff !important; color: #514f58 !important; }
+
+/* ---------- Filter dropdowns: same text everywhere (matches the Campaigns feed) ----------
+   12px/600 #262626 label, 32px bordered trigger, 8px corners. */
+html body .aud-feed-scope-trigger, html body .mojo-scope-chip.mqr-trigger, html body .mf-dashboard-range-trigger, html body .aud-select-trigger, html body .mg-picker-trigger {
+  height: 32px !important; min-height: 32px !important; padding: 0 10px !important; border: 1px solid #e8e5e1 !important; border-radius: 8px !important;
+  background: #fff !important; color: #262626 !important; font: 600 12px/1 Inter, Arial, sans-serif !important; box-shadow: none !important; }
+html body .aud-feed-scope-trigger strong, html body .aud-feed-scope-trigger span:not(.mojo-filter-icon),
+html body .mojo-scope-chip strong, html body .mojo-scope-chip span:not(.mojo-filter-icon),
+html body .mf-dashboard-range-trigger span, html body .aud-select-trigger span, html body .mg-picker-trigger span,
+html body .mojo-select-trigger, html body .mojo-select-trigger .mojo-select-value,
+html body .mojo-owner-trigger, html body .mojo-owner-trigger span { font: 600 12px/1.2 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; }
+html body .aud-feed-scope-trigger:hover, html body .mojo-scope-chip.mqr-trigger:hover, html body .mf-dashboard-range-trigger:hover, html body .aud-select-trigger:hover, html body .mg-picker-trigger:hover { border-color: #d8d4ce !important; }
+html body [data-aeo-cohort-action] { height: 28px !important; min-height: 28px !important; padding: 0 10px !important; border: 1px solid #5b3fa0 !important; border-radius: 8px !important; background: #5b3fa0 !important; color: #fafafa !important; font: 500 12px/1 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; }
+html body .mso-lb-decision-list article button { height: 32px !important; min-height: 32px !important; padding: 0 10px !important; border: 1px solid #e8e5e1 !important; border-radius: 8px !important; background: #fff !important; color: #514f58 !important; font: 500 14px/1 Inter, Arial, sans-serif !important; }
