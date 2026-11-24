@@ -215,3 +215,10 @@
 .aud-detail .mp-link:disabled { background: none; color: #28774a; }
 .aud-detail .mp-btn { padding: 0 14px; font: 650 12px/1.2 Inter, Arial, sans-serif; }
 .mp-page .mp-section { border-top: 0 !important; padding-top: 0 !important; }
+/* Used in: icon counts, names on hover */
+.aud-uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.aud-use { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px 3px 6px; border: 1px solid #e6e0ea; border-radius: 999px; color: #5d5463; font: 500 11px/1.2 Inter, Arial, sans-serif; white-space: nowrap; cursor: default; }
+.aud-use b { color: #2f2733; font-weight: 700; font-variant-numeric: tabular-nums; }
+.aud-use svg { width: 13px; height: 13px; fill: none; stroke: #7b6b8c; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.aud-use.is-sales { color: #2d6c95; border-color: #d4e4ef; }
+.aud-use.is-sales svg { stroke: #2d6c95; }
