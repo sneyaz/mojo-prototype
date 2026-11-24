@@ -577,3 +577,6 @@
 /* Platform logos inside the sentence */
 .mce .mce-story .mce-word-platform img { display: inline-block; width: 15px; height: 15px; margin: 0 5px 0 1px; object-fit: contain; vertical-align: -1px; }
 .mce .mce-story .mce-word-platform { white-space: nowrap; }
+/* Mojo's side: a quiet cream column behind Preview and QA; cards stay white */
+.mce-rail { margin-top: 14px; padding: 14px; border-radius: 16px; background: var(--mojo-cream, #f8f6f3); }
+.mce-rail .mce-card { border-color: #ebe5dc; }
