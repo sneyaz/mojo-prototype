@@ -1,0 +1,61 @@
+/* Shared Build/Report patterns, taken from Campaigns (the most current app).
+   Use in Audiences and AEO so all three apps look and behave the same:
+   page head · summary bar · small-caps section heads · expandable cards · 7px CTAs · links for secondary actions. */
+
+.mp-page { max-width: 928px; margin: 0 auto; padding: 44px 0 72px; color: #322936; }
+.mp-head h1 { margin: 0 0 6px; color: #2f2733; font: 400 32px/1.15 Lora, Georgia, serif; letter-spacing: -.01em; }
+.mp-head p { margin: 0; color: #655e69; font: 400 14px/1.5 Inter, Arial, sans-serif; }
+.mp-head .mp-link { display: inline-block; margin-top: 8px; }
+
+/* Summary bar: what needs you + one primary action */
+.mp-summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 26px 0 22px; padding: 14px 17px; border: 1px solid #e8e0dc; border-radius: 12px; background: #fff; color: #655e69; font: 500 14px/1.3 Inter, Arial, sans-serif; }
+.mp-summary strong { color: #302b34; font-weight: 700; }
+.mp-summary .mp-needs { color: #a84641; font-weight: 700; }
+
+/* Buttons and links */
+.mp-btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: 1px solid #6842a5; border-radius: 7px; background: #6842a5; color: #fff; font: 650 12px/1.2 Inter, Arial, sans-serif; white-space: nowrap; cursor: pointer; text-decoration: none; }
+.mp-btn:hover { background: #573790; }
+.mp-btn-secondary { border-color: #dcd2e6; background: #fff; color: #563486; }
+.mp-btn-secondary:hover { border-color: #b9a3d2; background: #fff; }
+.mp-btn:disabled { border-color: #e6e0ea; background: #fff; color: #a79fab; cursor: default; }
+.mp-link { padding: 0; border: 0; background: none; color: #6842a5; font: 650 12px/1.3 Inter, Arial, sans-serif; text-decoration: none; cursor: pointer; }
+.mp-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.mp-btn:focus-visible, .mp-link:focus-visible { outline: 2px solid #7954aa; outline-offset: 2px; }
+
+/* Section heads: small caps, rule, count */
+.mp-section { margin-top: 26px; }
+.mp-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.mp-section-head h2 { margin: 0; color: #625a65; font: 700 11px/1.3 Inter, Arial, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.mp-section-head::after { content: ""; flex: 1; height: 1px; background: #e8e4e2; }
+.mp-section-head > span { order: 3; color: #817883; font: 600 11px/1 Inter, Arial, sans-serif; }
+
+/* Cards: the whole header opens the details */
+.mp-card { margin: 0 0 10px; border: 1px solid #e7e1e6; border-radius: 16px; background: #fff; box-shadow: 0 5px 20px #251c2b0b; transition: border-color .18s ease, box-shadow .18s ease; }
+.mp-card:hover { border-color: #ddd3e3; }
+.mp-card > details > summary { display: flex; align-items: center; gap: 20px; padding: 16px 20px; list-style: none; cursor: pointer; border-radius: 16px; }
+.mp-card > details > summary::-webkit-details-marker { display: none; }
+.mp-card > details > summary:focus-visible { outline: 2px solid #7954aa; outline-offset: -2px; }
+.mp-card-main { flex: 1; min-width: 0; }
+.mp-eyebrow { color: #786e7c; font: 650 11px/1.3 Inter, Arial, sans-serif; }
+.mp-card h3 { margin: 4px 0 3px; color: #322936; font: 500 19px/1.3 Lora, Georgia, serif; }
+.mp-card-main > p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 640px; margin: 0; color: #655e69; font: 400 12px/1.45 Inter, Arial, sans-serif; }
+.mp-card-side { display: flex; align-items: center; gap: 14px; flex: none; color: #4a414e; font: 600 12px/1.3 Inter, Arial, sans-serif; font-variant-numeric: tabular-nums; }
+.mp-logos { display: inline-flex; align-items: center; gap: 6px; }
+.mp-logos img { width: 18px; height: 18px; object-fit: contain; }
+.mp-chev { flex: none; width: 16px; height: 16px; fill: none; stroke: #8a7f8e; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform .16s ease; }
+.mp-card details[open] .mp-chev { transform: rotate(180deg); }
+.mp-card-body { padding: 0 20px 18px; }
+.mp-facts { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 6px 18px; margin: 4px 0 0; padding: 14px 0 0; border-top: 1px solid #eee9ef; font: 400 13px/1.45 Inter, Arial, sans-serif; }
+.mp-facts dt { color: #776e7b; font-weight: 500; font-size: 12px; padding-top: 1px; }
+.mp-facts dd { margin: 0; color: #2f2733; }
+.mp-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+.mp-actions .mp-btn { margin-left: auto; }
+
+/* Status: a dot and words, never a filled pill */
+.mp-status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font: 600 12px/1.2 Inter, Arial, sans-serif; }
+.mp-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.mp-status.ok { color: #28774a; } .mp-status.warn { color: #a76b2b; } .mp-status.bad { color: #b3463f; } .mp-status.quiet { color: #8a8090; } .mp-status.info { color: #2d6c95; }
+
+.mp-source { margin: 22px 0 0; color: #8a8090; font: 400 12px/1.45 Inter, Arial, sans-serif; }
+@media (prefers-reduced-motion: reduce) { .mp-card, .mp-chev { transition: none; } }
+@media (max-width: 760px) { .mp-page { padding: 28px 18px 56px; } .mp-card > details > summary { flex-wrap: wrap; } .mp-facts { grid-template-columns: 1fr; } }

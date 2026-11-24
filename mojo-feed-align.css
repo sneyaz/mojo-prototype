@@ -1,0 +1,21 @@
+/* AEO and Audiences Feed cards, matched to the Campaigns Feed (see mojo-feed-align.js). */
+.aud-content .mfa-card .aud-feed-meta { display: flex; align-items: center; gap: 9px; margin: 0 0 13px; }
+.aud-content .mfa-card .aud-feed-type,
+.aud-content .mfa-card .aud-decision-tag { display: inline-flex; align-items: center; width: auto; padding: 3px 8px; border-radius: 999px; background: #f3eff8; color: #684796; font: 700 10px/1.2 Inter, Arial, sans-serif; letter-spacing: 0; text-transform: lowercase; }
+.aud-content .mfa-card .aud-feed-type::first-letter,
+.aud-content .mfa-card .aud-decision-tag::first-letter { text-transform: uppercase; }
+.aud-content .mfa-card .aud-feed-type::before { display: none !important; }
+.aud-content .mfa-card .aud-feed-byline { color: #77717b; font: 500 12px/1.2 Inter, Arial, sans-serif; }
+.aud-content .mfa-card .aud-feed-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 3px; min-height: 55px; margin: 0; padding: 12px 0; border-top: 1px solid #f0edea; }
+.aud-content .mfa-card .aud-feed-actions > a.mfa-primary { display: inline-flex; align-items: center; gap: 5px; padding: 4px 0; color: #5d3b96; font: 650 12px/1.2 Inter, Arial, sans-serif; text-decoration: none; }
+.aud-content .mfa-card .aud-feed-actions > a.mfa-primary:hover { text-decoration: underline; text-underline-offset: 3px; }
+.aud-content .mfa-card .aud-feed-actions > .mojo-see-why { margin-left: 18px; font: 650 12px/1.2 Inter, Arial, sans-serif; }
+.aud-content .mfa-card .aud-feed-actions > .mojo-card-tools { margin-left: auto; }
+.aud-content .mfa-card .aud-feed-actions > .aud-feed-primary { margin-right: 14px; border-radius: 7px; }
+.aud-content .mfa-card .aud-feed-actions + .mojo-why-answer { margin-top: 0; }
+.aud-content .mfa-card .aud-feedback:not(.mojo-feedback-legacy) { display: none; }
+.aud-content .mfa-card [hidden] { display: none !important; }
+.aud-content .mfa-card .aud-feed-actions + .mojo-why-answer,
+.aud-content .mfa-card .mojo-why-answer { order: 5; margin: 0 0 18px; }
+.aud-content .mfa-card .aud-feed-actions:has(+ .mojo-why-answer) { order: 4; }
+.aud-content .mfa-card .aud-feed-choices { order: 3; }
