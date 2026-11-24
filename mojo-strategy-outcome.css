@@ -190,7 +190,7 @@
 .chatpane .chatbody .mso-evidence-chat .mc-suggestion-chips button{font-size:13px}
 .chatpane .chatbody .mso-answer-visibility{margin:12px 0 2px;padding:14px;border:1px solid #e8e0ed;border-radius:12px;background:#fff}
 .chatpane .chatbody .mso-answer-visibility-score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.chatpane .chatbody .mso-answer-visibility-score strong{color:#41314e;font:400 30px/1.1 Georgia,serif}
+.chatpane .chatbody .mso-answer-visibility-score strong{color:#41314e;font:400 30px/1.1 Lora, Georgia, serif}
 .chatpane .chatbody .mso-answer-visibility-score span{color:#62576a;font:600 12px/1.35 Inter,Arial,sans-serif}
 .chatpane .chatbody .mso-answer-visibility-answers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:13px}
 .chatpane .chatbody .mso-answer-visibility-answers span{display:grid;place-items:center;height:30px;border:1px solid #e0d9e6;border-radius:7px;background:#f5f2f7;color:#9a8fa2;font:700 15px/1 Inter,Arial,sans-serif}

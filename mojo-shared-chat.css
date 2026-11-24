@@ -11,7 +11,7 @@
 #mojo-panel-views .mojo-fish-chat-user{align-self:flex-end;padding:12px 14px;border-radius:15px 15px 5px 15px;background:#f1ece6;color:#29262d}
 #mojo-panel-views .mojo-fish-chat-log p{margin:0}
 #mojo-panel-views .mojo-fish-chat-empty{margin:auto 0;text-align:center;color:#342e37}
-#mojo-panel-views .mojo-fish-chat-empty strong{font:400 22px/1.25 Georgia,serif}
+#mojo-panel-views .mojo-fish-chat-empty strong{font:400 22px/1.25 Lora, Georgia, serif}
 #mojo-panel-views .mojo-fish-chat-empty p{margin-top:9px;color:#857e87;font:400 12px/1.4 Inter,Arial,sans-serif}
 #mojo-panel-views .mojo-fish-chat-form{display:grid;grid-template-columns:minmax(0,1fr) 38px;grid-template-rows:minmax(64px,auto) 38px;align-items:end;gap:6px;margin:0 15px 16px;padding:12px;border:1px solid #e0dbd7;border-radius:16px;background:#fff;box-shadow:0 8px 24px #362b3d18}
 #mojo-panel-views .mojo-fish-chat-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

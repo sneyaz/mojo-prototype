@@ -40,7 +40,7 @@ main.mojo-today.canvaspane:has(.brief-view-root) .brief-ledger-layout>section>di
 .today-handoff-row summary::-webkit-details-marker{display:none}
 .today-handoff-row summary>span:first-child{grid-column:1/-1;color:#7a6c85;font:700 10px Inter,Arial,sans-serif;letter-spacing:.1em}
 .today-handoff-row summary strong{font:400 clamp(19px,2.3vw,25px)/1.25 Lora,Georgia,serif;color:#2d2734}
-.today-chevron{font:28px Georgia,serif;color:#806b91;line-height:1;transition:transform .15s}
+.today-chevron{font:28px Lora, Georgia, serif;color:#806b91;line-height:1;transition:transform .15s}
 .today-handoff-row[open] .today-chevron{transform:rotate(90deg)}
 .today-handoff-body{padding:4px 4px 22px}
 .today-handoff-body>p{font:400 13px/1.5 Inter,Arial,sans-serif;color:#716a78}

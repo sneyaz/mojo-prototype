@@ -31,7 +31,7 @@ body.mojo-nav-expanded .rail .mojo-pinned-apps>a .mojo-nav-label{min-width:0}
 .mojo-account-menu{position:fixed;z-index:1100;width:270px;max-width:calc(100vw - 72px);overflow:hidden;border:1px solid #e4dedb;border-radius:14px;background:#fff;box-shadow:0 16px 38px rgba(37,31,42,.16);font-family:var(--sans,Inter,Arial,sans-serif)}
 .mojo-account-menu[hidden]{display:none}
 .mojo-account-profile{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #ede8e5}
-.mojo-account-avatar{display:grid;place-items:center;flex:none;width:37px;height:37px;border-radius:50%;background:#7952bc;color:#fff;font-size:21px;font-family:Georgia,serif}
+.mojo-account-avatar{display:grid;place-items:center;flex:none;width:37px;height:37px;border-radius:50%;background:#7952bc;color:#fff;font-size:21px;font-family:Lora, Georgia, serif}
 .mojo-account-profile strong,.mojo-account-profile small{display:block}
 .mojo-account-profile strong{font-size:13px;color:#29252e}
 .mojo-account-profile small{margin-top:3px;font-size:11px;color:#716a76}

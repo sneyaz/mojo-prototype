@@ -1,0 +1,53 @@
+/* One type scale for the prototype, aligned to app.trymojo.ai (Inter + Lora).
+   Page title 24 · section title 21 · card title 23 (feed) · big number 28 / 25 in cards
+   Body 14 (cards) / 13 (UI) · secondary 12 · labels and tags 10–11 · never below 9. Loaded last. */
+
+/* Page titles: 24px Lora, like the live app and the Campaigns feed greeting. */
+.mp-head h1,
+.mbj-root h1,
+.aeo-strategy-intro h1,
+.aud-content > .aud-section-head:first-child h2,
+.md-insight-heading h2 { font-family: Lora, Georgia, serif !important; font-size: 24px !important; font-weight: 400 !important; line-height: 1.25 !important; letter-spacing: -.01em !important; }
+
+/* Section titles: 21px Lora. */
+.aud-content > .aud-section-head:not(:first-child) h2,
+.aud-buying-groups .aud-section-head h2,
+.aeo-work-heading h3,
+.aeo-strategy-priorities h2,
+.aeo-proof-bridge h2,
+.aeo-cohort-loop h2,
+.aac-head h2,
+.mf-market-section h2,
+.aud-strategy-grid h3,
+.aud-leadership h3,
+.aud-compose-head h3 { font-family: Lora, Georgia, serif !important; font-size: 21px !important; font-weight: 500 !important; line-height: 1.25 !important; }
+
+/* Audience detail title reads like a card title. */
+.aud-detail-top h3 { font: 400 23px/1.25 Lora, Georgia, serif !important; letter-spacing: -.01em; }
+
+/* Big numbers: 28px in page sections, 25px inside feed cards (matches Campaigns). */
+.aeo-metrics strong,
+.aeo-discovery-summary strong,
+.aeo-journey-step strong,
+.aud-strategy-pair strong,
+.aud-strategy-metrics strong,
+.md-insight-metrics dd { font-family: Lora, Georgia, serif !important; font-size: 28px !important; line-height: 1.1 !important; }
+.aud-app-body .aud-content:has(.aud-feed-tabs) .aud-feed-visual strong { font-size: 25px !important; }
+
+/* Half-pixel sizes snap to the scale. */
+.mojo-why-rows dd,
+.mojo-why-answer .mojo-why-action p,
+.mojo-why-answer .mojo-why-action a,
+.aeo-content .aeo-wwd dd { font-size: 13px !important; }
+.mf-dashboard-tabs button,
+.mso-tabs.mf-dashboard-tabs button { font-size: 12px !important; }
+
+/* Nothing smaller than 9px. */
+.ms-stories .ms-thumb-label, .ms-thumb-label { font-size: 9px !important; }
+.ms-stories .ms-thumb-play { font-size: 9px !important; }
+
+/* Tables: sentence-case 12px headers and 13px rows, like the live Library table. */
+.aud-table { font: 400 13px/1.4 Inter, Arial, sans-serif !important; }
+.aud-table thead, .aud-table thead th { color: #6b6370 !important; font: 500 12px/1.3 Inter, Arial, sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; }
+.aud-table tbody th a { font: 600 13px/1.3 Inter, Arial, sans-serif !important; }
+.aud-table small { font-size: 11px !important; }
