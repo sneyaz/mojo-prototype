@@ -198,16 +198,17 @@
     });
   }
   /* The campaign as one plain sentence, for scanning. */
-  function storyLine(group) {
+  function storyLine(group, rich = false) {
     const f = facts(group.lead.item), members = group.members;
     const total = members.reduce((sum, member) => sum + moneyOf(facts(member.item).budget), 0);
     const page = String(f.landing || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '');
-    const who = String(f.audience || 'accounts Mojo is still finding').replace(/^(Up to|About|All|Any|Every|Around|Roughly)\b/, w => w.toLowerCase());
-    const parts = [`Reach ${who}`];
-    if (f.creative) parts.push(` with “${f.creative}”`);
-    if (page) parts.push(`, sending them to ${page}`);
-    const spend = total ? ` ${usd(total)}${f.flight ? ` over ${f.flight}` : ''}.` : '';
-    return escape(parts.join('') + '.' + spend);
+    const who = String(f.audience || 'accounts Mojo is still finding').replace(/^(Up to|About|All|Any|Every|Around|Roughly)\b/, w => w.toLowerCase()).replace(/^([A-Z])(?=[a-z]+ [a-z])/, c => c.toLowerCase());
+    const v = text => rich ? `<b class="mbj-v">${escape(text)}</b>` : escape(text);
+    const parts = [`Reach ${v(who)}`];
+    if (f.creative) parts.push(` with ${v(`“${f.creative}”`)}`);
+    if (page) parts.push(`, sending them to ${v(page)}`);
+    const spend = total ? ` ${v(usd(total))}${f.flight ? ` over ${v(f.flight)}` : ''}.` : '';
+    return parts.join('') + '.' + spend;
   }
   function groupCard(group) {
     const {lead, members, open} = group, draft = lead.item, index = lead.index, state = group.stage, f = facts(draft);
@@ -386,7 +387,7 @@
       if(!readyGroups.length)return;
       reviewIndices=readyGroups.flatMap(group=>group.readyIndices).filter(i=>!selectedReady.size||selectedReady.has(i));
       const many=readyGroups.length>1;
-      root.querySelector('[data-review-list]').innerHTML=readyGroups.map(group=>{const lead=group.lead.item,f=facts(lead);return `<li${many?' class="has-pick"':''}>${many?`<label class="mbj-review-pick"><input type="checkbox" ${!selectedReady.size||group.readyIndices.some(i=>selectedReady.has(i))?'checked':''} data-review-pick="${group.readyIndices.join(',')}" aria-label="Launch ${escape(lead.planTitle||lead.name)}"></label>`:''}<div><strong>${escape(lead.planTitle||lead.name)}</strong><p class="mbj-review-story">${storyLine(group)}</p><dl class="mbj-review-facts"><div><dt>${group.readyIndices.length>1?'Platforms':'Channel'}</dt><dd class="mbj-review-channel">${group.readyIndices.map(i=>`<span class="mbj-review-plat">${channelLogo(items[i])}<span>${escape(channel(items[i]))} · ${escape(facts(items[i]).budget||'')}</span></span>`).join('')}</dd></div><div><dt>Flight</dt><dd>${escape(f.flight||'To confirm')}</dd></div></dl></div></li>`}).join('');
+      root.querySelector('[data-review-list]').innerHTML=readyGroups.map(group=>{const lead=group.lead.item,f=facts(lead);return `<li${many?' class="has-pick"':''}>${many?`<label class="mbj-review-pick"><input type="checkbox" ${!selectedReady.size||group.readyIndices.some(i=>selectedReady.has(i))?'checked':''} data-review-pick="${group.readyIndices.join(',')}" aria-label="Launch ${escape(lead.planTitle||lead.name)}"></label>`:''}<div><strong>${escape(lead.planTitle||lead.name)}</strong><p class="mbj-review-story">${storyLine(group, true)}</p><p class="mbj-review-plats">${group.readyIndices.map(i=>`<span class="mbj-review-plat">${channelLogo(items[i])}<span>${escape(channel(items[i]))}${group.readyIndices.length>1?` <b>${escape(facts(items[i]).budget||'')}</b>`:''}</span></span>`).join('<span class="mbj-review-sep" aria-hidden="true">·</span>')}</p></div></li>`}).join('');
       syncReview();
       root.querySelector('.mbj-launch-review').showModal();return;
     }
