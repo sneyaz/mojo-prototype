@@ -49,7 +49,7 @@
 
   /* Fields every platform shares. Platforms pick and relabel them. */
   const core = {
-    audience: {key:'audience', label:'Accounts', kind:'text', shared:true, required:true, help:'Synced from Audiences. Mojo matches it to the platform’s targeting.'},
+    audience: {key:'audience', label:'Accounts', kind:'audience', shared:true, required:true, wide:true, help:'Keep Mojo’s pick for this plan or choose a saved audience.'},
     creative: {key:'creative', label:'Creative concept', kind:'text', shared:true, required:true},
     messaging: {key:'messaging', label:'Core message', kind:'textarea', shared:true, required:true, recommend:120},
     assets: {key:'assets', label:'Creative assets', kind:'assets', shared:true, minItems:1, required:true, default:({facts}) => facts.creative ? ['handoff'] : []},
@@ -86,7 +86,8 @@
     const diff = Math.round((end - start) / 86400000) + 1;
     return diff > 0 ? diff : diff + 365 > 0 && diff + 365 < 366 ? diff + 365 : 0;
   };
-  const accountCount = value => { const m = text(value).match(/\d[\d,]*/); return m ? Number(m[0].replace(/,/g, '')) : 0; };
+  /* The number next to "accounts" ("Tier 1 Named (360 accounts)" is 360), else the first number. */
+  const accountCount = value => { const v = text(value), m = v.match(/(\d[\d,]*)\s+(?:[A-Za-z-]+\s+){0,3}accounts?\b/i) || v.match(/\d[\d,]*/); return m ? Number((m[1] || m[0]).replace(/,/g, '')) : 0; };
   const spendMath = values => {
     const total = money(values.budget), days = flightDays(values.flight), accounts = accountCount(values.audience);
     return [total && days ? `about ${usd(total / days)} a day` : '', total && accounts ? `${usd(total / accounts)} per account` : ''].filter(Boolean).join(' · ');
@@ -201,14 +202,19 @@
         use(core.validation)
       ]}
     ],
+    context: 'LinkedIn feed',
     preview: (values, h) => `
-      <div class="mce-li">
-        <div class="mce-li-head"><span class="mce-li-avatar">A</span><div><strong>Acme Co</strong><small>4,812 followers · Promoted</small></div></div>
-        <p class="mce-li-intro" data-edit-field="li_intro">${h.escape(values.li_intro) || '<span class="mce-muted">Introductory text</span>'}</p>
-        ${values.li_format === 'Carousel'
-          ? `<div class="mce-li-carousel" data-edit-field="assets">${(h.assets(values).length ? h.assets(values) : [null, null]).slice(0, 3).map(src => src ? `<img src="${src}" alt="">` : '<span class="mce-asset-empty"></span>').join('')}</div>`
-          : h.assets(values)[0] ? `<img class="mce-li-image" data-edit-field="assets" src="${h.assets(values)[0]}" alt="">` : '<span class="mce-asset-empty mce-li-image" data-edit-field="assets"></span>'}
-        <div class="mce-li-foot"><div><strong data-edit-field="li_headline">${h.escape(values.li_headline) || 'Headline'}</strong><small data-edit-field="landing">${h.escape(h.host(values.landing)) || '<span class="mce-missing">Add landing page</span>'}</small></div><span class="mce-li-cta" data-edit-field="li_cta">${h.escape(values.li_cta)}</span></div>
+      <div class="mce-ctx mce-ctx-feed">
+        <div class="mce-sk-post" aria-hidden="true"><span class="mce-sk mce-sk-avatar"></span><span class="mce-sk" style="width:46%"></span></div>
+        <article class="mce-li">
+          <div class="mce-li-head"><span class="mce-li-avatar">A</span><div><strong>Acme Co</strong><small>4,812 followers</small><small>Promoted</small></div></div>
+          <p class="mce-li-intro" data-edit-field="li_intro">${h.escape(values.li_intro) || '<span class="mce-muted">Introductory text</span>'}</p>
+          ${values.li_format === 'Carousel'
+            ? `<div class="mce-li-carousel" data-edit-field="assets">${(h.assets(values).length ? h.assets(values) : [null, null]).slice(0, 3).map(src => src ? `<img src="${src}" alt="">` : '<span class="mce-asset-empty"></span>').join('')}</div>`
+            : h.assets(values)[0] ? `<img class="mce-li-image" data-edit-field="assets" src="${h.assets(values)[0]}" alt="">` : '<span class="mce-asset-empty mce-li-image" data-edit-field="assets"></span>'}
+          <div class="mce-li-foot"><div><strong data-edit-field="li_headline">${h.escape(values.li_headline) || 'Headline'}</strong><small data-edit-field="landing">${h.escape(h.host(values.landing)) || '<span class="mce-missing">Add landing page</span>'}</small></div><span class="mce-li-cta" data-edit-field="li_cta">${h.escape(values.li_cta)}</span></div>
+          <div class="mce-li-actions" aria-hidden="true"><span>Like</span><span>Comment</span><span>Repost</span><span>Send</span></div>
+        </article>
       </div>`
   });
 
@@ -256,15 +262,21 @@
         use(core.validation)
       ]}
     ],
+    context: 'Google search',
     preview: (values, h) => {
       const heads = list(values.g_headlines).slice(0, 3);
       const path = [h.host(values.landing) || 'acme.com', values.g_path1, values.g_path2].map(text).filter(Boolean).join(' › ');
+      const query = list(values.keywords)[0] || 'vendor comparison';
       return `
-      <div class="mce-g">
-        <small class="mce-g-sponsored">Sponsored</small>
-        <div class="mce-g-site"><span class="mce-g-favicon">A</span><div><strong>Acme Co</strong><small data-edit-field="landing">${h.escape(path)}</small></div></div>
-        <p class="mce-g-title" data-edit-field="g_headlines">${heads.length ? heads.map(h.escape).join(' | ') : '<span class="mce-muted">Headline 1 | Headline 2 | Headline 3</span>'}</p>
-        <p class="mce-g-desc" data-edit-field="g_descriptions">${h.escape(list(values.g_descriptions)[0] || '')}</p>
+      <div class="mce-ctx mce-ctx-search">
+        <div class="mce-g-bar" data-edit-field="keywords"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3.5 3.5"/></svg><span>${h.escape(query)}</span></div>
+        <div class="mce-g">
+          <small class="mce-g-sponsored">Sponsored</small>
+          <div class="mce-g-site"><span class="mce-g-favicon">A</span><div><strong>Acme Co</strong><small data-edit-field="landing">${h.escape(path)}</small></div></div>
+          <p class="mce-g-title" data-edit-field="g_headlines">${heads.length ? heads.map(h.escape).join(' | ') : '<span class="mce-muted">Headline 1 | Headline 2 | Headline 3</span>'}</p>
+          <p class="mce-g-desc" data-edit-field="g_descriptions">${h.escape(list(values.g_descriptions)[0] || '')}</p>
+        </div>
+        <div class="mce-sk-result" aria-hidden="true"><span class="mce-sk" style="width:38%"></span><span class="mce-sk mce-sk-link" style="width:72%"></span><span class="mce-sk" style="width:92%"></span><span class="mce-sk" style="width:64%"></span></div>
       </div>`;
     }
   });
@@ -304,11 +316,21 @@
         use(core.validation)
       ]}
     ],
+    context: 'Publisher page',
     preview: (values, h) => {
-      const src = h.assets(values)[0];
-      const chosen = list(values.db_sizes).filter(size => ['300×250', '728×90', '160×600'].includes(size));
-      const frame = size => `<figure class="mce-db-frame" data-size="${size}">${src ? `<img src="${src}" alt="">` : '<span class="mce-asset-empty"></span>'}<figcaption>${size}</figcaption></figure>`;
-      return `<div class="mce-db" data-edit-field="assets">${(chosen.length ? chosen : ['300×250']).map(frame).join('')}</div>`;
+      const srcs = h.assets(values), sizes = list(values.db_sizes);
+      const ad = (size, src) => `<figure class="mce-db-ad" data-size="${size}" data-edit-field="assets">${src ? `<img src="${src}" alt="">` : '<span class="mce-asset-empty"></span>'}<figcaption>Ad · ${size}</figcaption></figure>`;
+      const lines = n => Array.from({length: n}, (_, i) => `<span class="mce-sk" style="width:${[96, 88, 92, 70, 84, 60][i % 6]}%"></span>`).join('');
+      return `
+      <div class="mce-ctx mce-ctx-page">
+        <div class="mce-db-page-bar" aria-hidden="true"><span class="mce-sk" style="width:22%"></span><span class="mce-sk" style="width:34%"></span></div>
+        ${sizes.includes('728×90') ? ad('728×90', srcs[0]) : ''}
+        <div class="mce-db-page-body">
+          <div class="mce-db-article" aria-hidden="true"><span class="mce-sk mce-sk-title"></span>${lines(6)}</div>
+          ${sizes.includes('300×250') ? ad('300×250', srcs[1] || srcs[0]) : sizes.includes('160×600') ? ad('160×600', srcs[1] || srcs[0]) : ''}
+        </div>
+        <p class="mce-db-sizes" data-edit-field="db_sizes">${sizes.length} ${sizes.length === 1 ? 'size' : 'sizes'}: ${h.escape(sizes.join(', ') || 'none yet')}</p>
+      </div>`;
     }
   });
 })();

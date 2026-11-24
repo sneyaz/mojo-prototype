@@ -52,6 +52,8 @@
     return state.sliderBounds[key];
   }
   const budgetReadout = () => P.helpers.spendMath(state.values) || 'Add a flight to see daily spend';
+  /* "Enterprise Intent (620 accounts)": readable, and the count stays parseable for budget math. */
+  const audienceText = item => `${item.name} (${Number(item.accounts).toLocaleString()} accounts)`;
   const formatFlight = (start, end) => `${shortDate(start)}–${shortDate(end)}`;
   const assetSrc = key => P.assetLibrary.find(item => item.key === key)?.src || '';
   const previewHelpers = {escape, host, assets: values => list(values.assets).map(assetSrc).filter(Boolean)};
@@ -87,6 +89,28 @@
     const name = `name="${field.key}" data-kind="${field.kind}"`;
     const placeholder = field.placeholder ? ` placeholder="${escape(field.placeholder)}"` : '';
     switch (field.kind) {
+      case 'audience': {
+        /* Picker: Mojo's pick for this plan, then the saved audiences from the Audiences app. */
+        const catalog = window.MojoAudienceCatalog?.all() || [];
+        const planPick = state.planAudience;
+        const match = catalog.find(item => audienceText(item) === text(value) || item.name === text(value));
+        const isPlan = !match && text(value) === text(planPick);
+        const meta = match ? `${match.type} · ${match.source} · updated ${match.updated}` : isPlan ? 'Mojo’s pick for this plan' : 'Custom';
+        const warn = item => item.status === 'Stale' ? `<span class="mce-aud-flag">Stale · ${item.days} days</span>` : item.status === 'Needs review' ? '<span class="mce-aud-flag">Needs review</span>' : item.status === 'Draft' ? '<span class="mce-aud-flag muted">Draft</span>' : '';
+        const option = (label, sub, val, flag = '', selected = false) => `<button type="button" class="mce-aud-option" role="option" aria-selected="${selected}" data-aud-pick="${escape(val)}" data-aud-search-text="${escape((label + ' ' + sub).toLowerCase())}"><span class="mce-aud-option-main"><strong>${escape(label)}</strong>${flag}</span><small>${escape(sub)}</small>${selected ? icon.check : ''}</button>`;
+        const open = state.audOpen === field.key;
+        return `<div class="mce-aud${open ? ' is-open' : ''}" data-aud="${field.key}">
+          <button type="button" class="mce-aud-trigger" id="${id}" data-aud-toggle="${field.key}" aria-haspopup="listbox" aria-expanded="${open}"><span><strong>${escape(value || 'Choose accounts')}</strong><small>${escape(meta)}</small></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4"/></svg></button>
+          <div class="mce-aud-pop" role="listbox" aria-label="Audiences" ${open ? '' : 'hidden'}>
+            <input type="search" class="mce-aud-search" data-aud-search placeholder="Search audiences" aria-label="Search audiences">
+            ${planPick ? `<p class="mce-aud-group">Mojo’s pick for this plan</p>${option(planPick, 'From the plan · matched to this campaign’s goal', planPick, '', isPlan)}` : ''}
+            <p class="mce-aud-group">Your audiences · ${catalog.length}</p>
+            ${catalog.map(item => option(item.name, `${item.accounts.toLocaleString()} accounts · ${item.type} · ${item.campaigns.length ? 'used by ' + item.campaigns.length + ' campaign' + (item.campaigns.length > 1 ? 's' : '') : 'not in a campaign yet'}`, audienceText(item), warn(item), match?.id === item.id)).join('')}
+            <p class="mce-aud-empty" hidden>No audiences match.</p>
+            <a class="mce-aud-foot" href="AppWorkspace.html?app=audience-builder#dashboards">Manage audiences in Audiences →</a>
+          </div>
+        </div>`;
+      }
       case 'daterange': {
         const range = parseFlight(value), start = range?.start, end = range?.end;
         const days = start && end && end >= start ? spanDays(start, end) : 0;
@@ -142,7 +166,7 @@
     const required = typeof field.required === 'function' ? field.required(values) : field.required;
     /* "Mojo picked" marks a default the marketer hasn't changed yet, with Mojo's reason. */
     const picked = field.why && !P.isCore(field.key) && !state.touched.has(field.key)
-      ? `<span class="mce-picked" tabindex="0" aria-describedby="${id}-why">Mojo picked<span class="mce-why" role="tooltip" id="${id}-why">${escape(field.why)}</span></span>` : '';
+      ? `<span class="mce-picked" tabindex="0" aria-describedby="${id}-why"><img src="assets/moj-mdot.svg" alt="">Mojo picks<span class="mce-why" role="tooltip" id="${id}-why">${escape(field.why)}</span></span>` : '';
     if (field.kind === 'toggle') {
       return `<div class="mce-field mce-field-toggle${wide ? ' wide' : ''}${issue ? ' has-issue' : ''}" data-field="${field.key}"><label for="${id}" id="${id}-label">${control(field, values[field.key], id)}<span class="mce-label-text">${escape(field.label)}</span>${picked}</label>${field.help ? `<small class="mce-help">${escape(field.help)}</small>` : ''}<small class="mce-issue" data-issue-for="${field.key}">${escape(issue)}</small></div>`;
     }
@@ -178,9 +202,33 @@
       ? `<button type="button" class="mce-primary" data-fix-next>${escape(fixText(issues))}</button>`
       : '<button type="button" class="mce-primary is-ready" data-launch>Launch campaign →</button>';
   }
+  /* Mojo QA as a checklist, computed from the platform's rules. */
+  function qaChecks(issues) {
+    const visible = P.fields(state.platform).filter(field => !field.showIf || field.showIf(state.values));
+    const own = ['landing', 'tracking', 'budgetApproved'];
+    const isRequired = field => typeof field.required === 'function' ? field.required(state.values) : field.required;
+    const uniq = list => [...new Set(list)];
+    const requiredKeys = uniq(visible.filter(field => isRequired(field) && !own.includes(field.key)).map(field => field.key));
+    const limitKeys = uniq(visible.filter(field => field.max || field.itemMax).map(field => field.key));
+    const isLimit = issue => /over|limit|characters|or fewer/.test(issue.message);
+    const failing = keys => issues.filter(issue => keys.includes(issue.key));
+    const checks = [
+      {label: 'Required fields', bad: failing(requiredKeys).filter(issue => !isLimit(issue)), ok: `${requiredKeys.length} of ${requiredKeys.length} set`},
+      {label: 'Character limits', bad: failing(limitKeys).filter(isLimit), ok: `${limitKeys.length} fields within ${state.platform.name} limits`},
+      {label: 'Landing page', bad: failing(['landing']), ok: host(state.values.landing) + (summaryHelpers.path(state.values.landing) || '')},
+      {label: 'Tracking on every link', bad: failing(['tracking']), ok: text(state.values.tracking)},
+      {label: 'Budget approval', bad: failing(['budgetApproved']), ok: 'Approved under company rules'}
+    ];
+    if (!limitKeys.length) checks.splice(1, 1);
+    return checks;
+  }
   function qaHtml(issues) {
-    if (!issues.length) return `<p class="mce-qa-ok">${icon.check}Every ${escape(state.platform.name)} field is set and all your rules are followed.</p>`;
-    return `<ul class="mce-qa-list">${issues.map(issue => `<li><button type="button" data-jump="${issue.key}"><strong>${escape(issue.label)}</strong><span>${escape(issue.message)}</span></button></li>`).join('')}</ul><button type="button" class="mce-link" data-ask-fix>${icon.chat}Ask Mojo to fill these in</button>`;
+    const checks = qaChecks(issues), passed = checks.filter(check => !check.bad.length).length;
+    const rows = checks.map(check => {
+      const bad = check.bad[0];
+      return `<li class="${bad ? 'is-bad' : ''}"${bad ? '' : ` title="${escape(check.ok)}"`}><span class="mce-qa-mark" aria-hidden="true">${bad ? '!' : icon.check}</span><div><strong>${escape(check.label)}</strong>${bad ? `<small>${escape(`${bad.label}: ${bad.message}` + (check.bad.length > 1 ? ` (+${check.bad.length - 1})` : ''))}</small>` : ''}</div>${bad ? `<button type="button" class="mce-link" data-jump="${bad.key}">Fix</button>` : ''}</li>`;
+    }).join('');
+    return `<div class="mce-qa-head"><h3>Mojo QA</h3><span class="${passed === checks.length ? 'ok' : 'bad'}">${passed} of ${checks.length} passed</span></div><ul class="mce-qa-checks">${rows}</ul>${issues.length ? `<button type="button" class="mce-link mce-qa-ask" data-ask-fix>${icon.chat}Ask Mojo to fill these in</button>` : ''}`;
   }
   /* Multichannel: drafts that share a plan source are one campaign running on several platforms. */
   const SYNC_KEYS = ['audience', 'creative', 'messaging', 'landing', 'tracking', 'flight', 'conversion', 'validation'];
@@ -203,8 +251,7 @@
     }).join('');
     const adds = P.all().filter(platform => !used.has(platform.id)).map(platform => `<button type="button" class="mce-tab mce-tab-add" data-copy="${platform.id}" title="Add ${escape(platform.name)}. Shared settings carry over.">${icon.plus}<img src="${platform.logo}" alt="">${escape(platform.name)}</button>`).join('');
     const label = list.length > 1 ? `Runs on <strong>${list.length} platforms</strong> · <strong>$${Math.round(total).toLocaleString()}</strong> total` : 'Runs on <strong>1 platform</strong>';
-    const note = list.length > 1 ? 'Accounts, message, creative, landing page, tracking and flight stay in sync across these platforms. Budget and platform settings are set per platform.' : 'Add a platform to run this campaign there too. Mojo carries over the shared settings and fills in the rest.';
-    return `<p class="mce-platforms-label">${label}</p><div class="mce-tabs">${tabs}${adds}</div><p class="mce-platforms-note">${note}</p>`;
+    return `<p class="mce-platforms-label" title="Accounts, message, creative, landing page, tracking and flight stay in sync across platforms. Budget and platform settings are set per platform.">${label}</p><div class="mce-tabs">${tabs}${adds}</div>`;
   }
   const introText = issues => issues.length ? 'Mojo set up everything it could. The open sections need you.' : 'Mojo set up every section. Open one to change it, or launch.';
   function progressHtml(issues) {
@@ -215,10 +262,16 @@
       return `<li><button type="button" class="mce-step${count ? ' has-issue' : ''}" data-nav="${section.id}"><span class="mce-step-mark" aria-hidden="true">${count || icon.check}</span>${escape(section.title)}<span class="sr-only">${count ? `, ${count} to fix` : ', ready'}</span></button></li>`;
     }).join('')}</ol>`;
   }
+  /* Where this lands in the platform, as one quiet line. Values that repeat the title are left out. */
   function structureHtml() {
     const ctx = {title: title(state.draft), initiative: build().initiative(state.draft)};
     const values = state.platform.structureValues ? state.platform.structureValues(state.draft, state.values, ctx) : [];
-    return `<ol class="mce-structure" aria-label="Where this lands in ${escape(state.platform.name)}">${state.platform.structure.map((level, i) => `<li><small>${escape(level)}</small><span>${escape(values[i] || '')}</span></li>`).join('')}</ol>`;
+    const parts = state.platform.structure.map((level, i) => {
+      const value = text(values[i]);
+      const show = value && value !== ctx.title && value.toLowerCase() !== level.toLowerCase();
+      return `<li><span>${escape(level)}</span>${show ? `<em>${escape(value.replace(/ ad group$/, ''))}</em>` : ''}</li>`;
+    });
+    return `<ol class="mce-structure" aria-label="Where this lands in ${escape(state.platform.name)}">${parts.join('')}</ol>`;
   }
   /* Each section is a card: collapsed it reads as one sentence; open it shows the fields. */
   function sectionHtml(section, issues) {
@@ -272,13 +325,14 @@
         </div>
         <aside class="mce-rail">
           <div class="mce-rail-top">
-            <section class="mce-card mce-preview-card"><div class="mce-card-head"><h3>Preview</h3><small>Click to edit</small></div><div class="mce-preview" data-preview>${state.platform.preview(state.values, previewHelpers)}</div></section>
-            <section class="mce-card" data-qa-card><h3>Mojo QA</h3><div data-qa>${qaHtml(issues)}</div></section>
+            <section class="mce-card mce-preview-card"><div class="mce-card-head"><h3>Preview</h3><small>${escape(state.platform.context || state.platform.name)}</small></div><div class="mce-preview" data-preview>${state.platform.preview(state.values, previewHelpers)}</div><p class="mce-preview-hint">Click any part of the ad to edit it.</p></section>
+            <section class="mce-card mce-qa-card" data-qa-card><div data-qa>${qaHtml(issues)}</div></section>
           </div>
         </aside>
       </div>
       <div class="mce-toast" data-toast role="status" aria-live="polite"></div>`;
     markActive();
+    requestAnimationFrame(syncStepsFade);
   }
   /* Refresh everything that depends on values without touching focused inputs. */
   function refresh() {
@@ -319,6 +373,7 @@
     if (state.lastIssueCount > 0 && isReady) readyMoment();
     state.lastIssueCount = issues.length;
     markActive();
+    syncStepsFade();
   }
   /* Full re-render of the form for structural changes (a select that shows or hides fields). */
   function rerenderForm(focusSelector) {
@@ -423,7 +478,8 @@
     const facts = build().facts(draft);
     const values = P.valuesFor(platform, draft, facts);
     state = {id: draft.id, platform, draft, facts, values, savedAt: null, saveTimer: null, activeField: '', lastIssueCount: 0,
-      touched: new Set(draft.platformTouched?.[platform.id] || []), openSections: new Set(), sliderBounds: {}};
+      touched: new Set(draft.platformTouched?.[platform.id] || []), openSections: new Set(), sliderBounds: {}, audOpen: '',
+      planAudience: text(draft.audience || (Array.isArray(draft.planBlueprint) ? Object.fromEntries(draft.planBlueprint).Who : '') || facts.audience)};
     /* Open only what needs the marketer; everything else reads as a summary. */
     P.issues(draft, facts, values).forEach(issue => state.openSections.add(issue.section));
     if (focusKey) { const section = sectionOf(focusKey); if (section) state.openSections.add(section); }
@@ -501,6 +557,13 @@
       syncSlider(target, n);
       return changed();
     }
+    if (target.matches('[data-aud-search]')) {
+      const q = target.value.trim().toLowerCase(), pop = target.closest('.mce-aud-pop');
+      let shown = 0;
+      pop.querySelectorAll('[data-aud-pick]').forEach(option => { const hit = !q || option.dataset.audSearchText.includes(q); option.hidden = !hit; if (hit) shown++; });
+      pop.querySelector('.mce-aud-empty').hidden = !!shown;
+      return;
+    }
     if (target.matches('[data-tag-input]')) return;
     if (!target.name || !findField(target.name)) return;
     if (target.type === 'checkbox') return;
@@ -510,6 +573,21 @@
     if (slider) { const b = state.sliderBounds[slider.dataset.slider]; const n = Math.min(Math.max(moneyValue(target.value), b.min), b.max); slider.value = n; syncSlider(slider, n); }
     changed();
   });
+  function syncAudience(key) {
+    const box = el.querySelector(`[data-aud="${key}"]`);
+    if (!box) return;
+    const open = state.audOpen === key;
+    box.classList.toggle('is-open', open);
+    box.querySelector('[data-aud-toggle]').setAttribute('aria-expanded', String(open));
+    box.querySelector('.mce-aud-pop').hidden = !open;
+  }
+  /* Fade the section row's edges when it scrolls sideways. */
+  function syncStepsFade() {
+    const steps = el.querySelector('.mce-steps');
+    if (!steps) return;
+    steps.classList.toggle('fade-right', steps.scrollLeft + steps.clientWidth < steps.scrollWidth - 2);
+    steps.classList.toggle('fade-left', steps.scrollLeft > 2);
+  }
   function syncSlider(slider, n) {
     const b = state.sliderBounds[slider.dataset.slider];
     slider.style.setProperty('--fill', `${((n - b.min) / (b.max - b.min)) * 100}%`);
@@ -534,6 +612,16 @@
   });
   el.addEventListener('keydown', event => {
     if (!state) return;
+    if (state.audOpen) {
+      const box = el.querySelector(`[data-aud="${state.audOpen}"]`);
+      if (event.key === 'Escape') { const key = state.audOpen; state.audOpen = ''; syncAudience(key); box?.querySelector('[data-aud-toggle]')?.focus(); event.preventDefault(); return; }
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        const options = [...box.querySelectorAll('[data-aud-pick]:not([hidden])')], i = options.indexOf(document.activeElement);
+        const next = event.key === 'ArrowDown' ? options[Math.min(i + 1, options.length - 1)] : i <= 0 ? box.querySelector('[data-aud-search]') : options[i - 1];
+        next?.focus(); event.preventDefault(); return;
+      }
+      if (event.key === 'Enter' && event.target.matches('[data-aud-search]')) { box.querySelector('[data-aud-pick]:not([hidden])')?.click(); event.preventDefault(); return; }
+    }
     const input = event.target.closest('[data-tag-input]');
     if (input) {
       const key = input.dataset.tagInput, items = list(state.values[key]);
@@ -574,6 +662,22 @@
       close();
       return;
     }
+    const audToggle = t.closest('[data-aud-toggle]');
+    if (audToggle) {
+      const key = audToggle.dataset.audToggle;
+      state.audOpen = state.audOpen === key ? '' : key;
+      syncAudience(key);
+      if (state.audOpen) el.querySelector(`[data-aud="${key}"] [data-aud-search]`)?.focus({preventScroll: true});
+      return;
+    }
+    const audPick = t.closest('[data-aud-pick]');
+    if (audPick) {
+      const key = audPick.closest('[data-aud]').dataset.aud;
+      state.audOpen = '';
+      setValue(key, audPick.dataset.audPick);
+      return changed({structural: true, focus: `[data-aud-toggle="${key}"]`});
+    }
+    if (state.audOpen && !t.closest('.mce-aud')) { const key = state.audOpen; state.audOpen = ''; syncAudience(key); }
     const preset = t.closest('[data-flight-days]');
     if (preset) {
       const key = preset.dataset.flightKey, start = parseFlight(state.values[key])?.start || dayStart(new Date());
@@ -687,6 +791,8 @@
   }
 
   window.addEventListener('hashchange', route);
+  el.addEventListener('scroll', event => { if (event.target.matches?.('.mce-steps')) syncStepsFade(); }, true);
+  window.addEventListener('resize', () => { if (state) syncStepsFade(); });
   window.addEventListener('beforeunload', flush);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(); });
   /* Build renders before this script loads, so re-render once to show the Edit in canvas buttons. */
