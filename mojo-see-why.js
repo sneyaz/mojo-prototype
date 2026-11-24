@@ -12,11 +12,14 @@
     const answer = document.createElement('section');
     answer.className = 'mojo-why-answer';
     answer.setAttribute('aria-label', `Why Mojo flagged ${heading}`);
+    const kindNote = kind === 'Mojo Brain' ? '' : ` <span class="mojo-why-kind">${esc(kind)}</span>`;
     answer.innerHTML = `${showTitle ? `<strong class="mojo-why-title">${esc(heading)}</strong>` : ''}
       <p class="mojo-why-summary">${esc(summary)}</p>
-      <div class="mojo-why-trigger"><span class="mojo-why-label">Triggered by</span><p>${esc(kind)}: ${esc(signal)}</p></div>
-      <div class="mojo-why-action"><span class="mojo-why-label">Recommended action</span><p>${esc(action)}${href ? ` <a href="${esc(href)}">${esc(linkLabel || 'Open the relevant view')} <span aria-hidden="true">→</span></a>` : ''}</p></div>
-      <div class="mojo-why-source"><span class="mojo-why-label">Data source</span><span>${esc(provenance)}</span></div>
+      <dl class="mojo-why-rows">
+        <dt>Why now</dt><dd>${esc(signal)}${kindNote}</dd>
+        <dt>Do next</dt><dd>${esc(action)}${href ? ` <a href="${esc(href)}">${esc(linkLabel || 'Open the relevant view')} <span aria-hidden="true">→</span></a>` : ''}</dd>
+        <dt>Source</dt><dd class="mojo-why-src">${esc(provenance)}</dd>
+      </dl>
       ${owner ? `<small class="mojo-why-owner">${esc(owner)}</small>` : ''}`;
     return answer;
   }

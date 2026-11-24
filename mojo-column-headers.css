@@ -7,3 +7,8 @@ table thead th *,
 .aq-compare-grid > .aq-compare-grid-header:first-child {
   text-transform: none !important;
 }
+
+/* Row hover: a light tint so it's easy to follow a row, especially in wide tables that scroll sideways */
+table tbody tr { transition: background-color .12s ease; }
+table tbody tr:hover > td, table tbody tr:hover > th { background-color: #f8f5fb !important; }
+@media (prefers-reduced-motion: reduce) { table tbody tr { transition: none; } }

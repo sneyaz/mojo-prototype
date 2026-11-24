@@ -26,13 +26,13 @@
     const sentence = value => { const v = value.toLowerCase(); return v.charAt(0).toUpperCase() + v.slice(1); };
     const why = {
       title: text(main.querySelector('h3')),
-      reason: (() => { const intro = text(main.querySelector(':scope > p')), title = text(main.querySelector('h3')); const r = reason && reason !== intro ? reason : ''; return r || `Mojo flagged this because ${/^[A-Z][a-z]/.test(title) ? title.charAt(0).toLowerCase() + title.slice(1) : title}`.replace(/[.?]?$/, '.'); })(),
+      reason: (() => { const intro = text(main.querySelector(':scope > p')), title = text(main.querySelector('h3')); const r = reason && reason !== intro ? reason : ''; return r || `Mojo spotted this: ${title}`.replace(/[.?]?$/, '.'); })(),
       source: (isSourceBox ? text(clean) : '') || quiet || text(card.closest('.aud-content')?.querySelector('.aud-source')) || 'Sample records',
       triggerType: chip ? 'Best practice' : 'Mojo Brain',
       triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : sentence(text(main.querySelector('.aud-feed-type'))),
       nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
       href: chip?.getAttribute('href') || primary?.getAttribute('href') || '',
-      linkLabel: chip ? 'Open the best practice' : 'Open the record'
+      linkLabel: chip ? 'See the rule' : 'Open it'
     };
     card._mfaWhy = why;
     main.querySelectorAll('.aud-feed-meta .aud-feed-type, .aud-feed-meta .aud-decision-tag').forEach(tag => { const t = text(tag).toLowerCase(); tag.textContent = t.charAt(0).toUpperCase() + t.slice(1); });
