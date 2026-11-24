@@ -43,7 +43,8 @@
       landing: detail.landing || '',
       messaging: detail.messaging || setup.message || plan.Message || draft.creative || option(draft)?.message || '',
       conversion: detail.conversion || setup.conversion || '',
-      validation: detail.validation || setup.validation || ''
+      validation: detail.validation || setup.validation || '',
+      assets: Array.isArray(draft.creatives) ? draft.creatives : option(draft)?.creatives || []
     };
   };
   const keywordRequired = draft => /Google|Search/i.test(channel(draft));
@@ -57,6 +58,8 @@
     if (!f.landing) missing.push('landing page');
     if (!f.messaging) missing.push('messaging');
     if (draft.budgetApproved === false) missing.push('budget approval');
+    /* Platform rules (headline limits, required targeting, URL format...) come from mojo-ad-platforms.js. */
+    (window.MojoAdPlatforms?.issues(draft, f) || []).filter(item => !item.core || !item.empty).forEach(item => { if (!missing.includes(item.label)) missing.push(item.label); });
     const tone = missing.some(item => item === 'tracking' || item === 'landing page') ? 'red' : missing.length ? 'orange' : 'green';
     return {missing, tone, passed: !missing.length};
   };
@@ -152,10 +155,11 @@
       deliverable('Budget and flight',f.budget && f.flight,f.budget && f.flight?'Planned · '+[f.budget,f.flight].filter(Boolean).join(' · '):'Budget or flight dates still needed'),
       deliverable('Landing page and messaging',f.landing && f.messaging,f.landing && f.messaging?'Landing page · '+f.landing:!f.landing?'Landing page URL needed before launch':'Messaging needed before launch',true,!f.landing,!f.landing?'landing':'')
     ].join('');
-    const total = result.missing.length, percent = Math.max(0,Math.round((8-total)/8*100));
+    const total = result.missing.length, percent = Math.max(0,Math.round((8-Math.min(total,7))/8*100));
     const qaLabel = result.passed ? 'Mojo QA passed' : 'Mojo QA · ' + (result.tone==='red'?'Needs a fix':'Checking');
     const qaExplanation = result.passed ? 'Mojo checked the campaign setup and found no missing deliverables.' : `Mojo is waiting for ${result.missing.map(item => qaField[item] || item).join(', ')} before this campaign can launch.`;
-    const action = state==='ready' ? '<button type="button" class="mbj-launch" data-launch>Launch campaign →</button><a href="#" data-review-in-chat>Edit campaign details</a><span class="mbj-rule-ok">'+check+'All your rules followed</span>' : state==='recent' ? '' : '<button type="button" data-resolve>Finish with Mojo →</button>';
+    const canvasLink = state!=='recent' && canEditInCanvas(draft) ? '<button type="button" class="mbj-canvas-link" data-canvas>Edit in canvas</button>' : '';
+    const action = state==='ready' ? '<button type="button" class="mbj-launch" data-launch>Launch campaign →</button><a href="#" data-review-in-chat>Preview in chat</a>'+canvasLink+'<span class="mbj-rule-ok">'+check+'All your rules followed</span>' : state==='recent' ? '' : '<button type="button" data-resolve>Preview in chat</button>'+canvasLink;
     const note = state==='recent' ? '' : alert ? `<p class="mbj-feed-match"><span class="mbj-dot ${alert.tone}"></span><button type="button" data-edit>Ask Mojo to ${escape(alert.label.toLowerCase())} →</button></p>` : '';
     const dataWait = state==='recent' ? '<p class="mbj-data-wait"><strong>Waiting for first data.</strong> The ad platform has not reported delivery yet. <a href="Portfolio.html#campaigns">Open Report →</a></p>' : '';
     const selectReady = state==='ready' ? `<label class="mbj-select-ready" title="Select for a shared launch"><input type="checkbox" data-select-ready="${index}" ${selectedReady.has(index)?'checked':''}><span class="sr-only">Select ${escape(draft.planTitle||draft.name)} in ${escape(channel(draft))} for launch</span></label>` : '';
@@ -170,6 +174,12 @@
     for(const index of [...selectedReady])if(!ready.includes(index))selectedReady.delete(index);
     root.innerHTML=`<header><h1>Build</h1><p>Mojo gathers each campaign’s deliverables, checks the setup, and gets it ready for your launch.</p><a class="mbj-ideas-link" href="Strategy.html#ideas">Browse ideas in Plan →</a></header>${ready.length>1?`<div class="mbj-batch"><span data-selected-count>${selectedReady.size ? `<strong>${selectedReady.size} of ${ready.length}</strong> ready campaigns selected` : `Select from <strong>${ready.length} ready campaigns</strong> to launch`}</span><button type="button" data-review-launch ${selectedReady.size?'':'disabled'}>Review launch →</button></div>`:''}${[['draft','Draft'],['ready','Ready to launch'],['recent','Recently launched']].map(([name,title])=>`<section class="mbj-section" data-build-section="${name}"><div class="mbj-section-head"><h2>${title}</h2><span>${name==='ready'?ready.length:lists[name].length}</span></div>${lists[name].length?lists[name].join(''):`<p class="mbj-empty">${name==='recent'?'No launches in the last 7 days.':name==='ready'?'Mojo is checking campaign deliverables.':'No drafts yet.'}</p>`}</section>`).join('')}<dialog class="mbj-launch-review" aria-labelledby="mbj-review-title"><h2 id="mbj-review-title">Review campaigns to launch</h2><p>Mojo QA passed for each selected campaign. Confirm the setup before launch.</p><ul data-review-list></ul><div class="mbj-review-actions"><button type="button" data-cancel-launch>Cancel</button><a href="#" data-review-details>Review campaign details</a><button type="button" data-confirm-launch>Launch selected campaigns →</button></div></dialog><dialog class="mbj-launch-review mbj-delete-review" aria-labelledby="mbj-delete-title"><h2 id="mbj-delete-title">Delete draft campaign?</h2><p data-delete-description></p><div class="mbj-review-actions"><button type="button" data-cancel-delete>Cancel</button><button type="button" data-confirm-delete>Delete draft</button></div></dialog>`;
   }
+  /* Quick changes happen in Chat; "Edit in canvas" opens the full editor (mojo-canvas-editor.js). */
+  const canEditInCanvas = draft => !!window.MojoCanvasEditor?.canEdit(draft);
+  function editInCanvas(index, field = '') {
+    if (window.MojoCanvasEditor?.open(index, field)) return;
+    openChat(index, field);
+  }
   function openChat(index, fixField = '') {
     const draft=read()[index];if(!draft)return;
     const chatToggle=document.getElementById('chatOn');
@@ -182,7 +192,8 @@
     const fixGuidance={landing:'Add the final landing page URL for this campaign. Save the setup to rerun Mojo QA.',tracking:'Add the campaign tracking value, then save the setup to rerun Mojo QA.'}[fixField];
     const fieldLabels=[['audience','Audience'],['creative','Creative'],['tracking','Tracking'],['keywords','Intent keywords'],['budget','Budget'],['flight','Flight'],['landing','Landing page URL'],['messaging','Messaging'],['conversion','Conversion event'],['validation','Validation check']];
     const orderedFields=fixField?[...fieldLabels.filter(([name])=>name===fixField),...fieldLabels.filter(([name])=>name!==fixField)]:fieldLabels;
-    editor.innerHTML=`<h3>Finish ${escape(draft.planTitle||draft.name)}</h3><p>Mojo checks the setup whenever you save it.</p><p class="mbj-qa-needs" role="status">${qaNeeds(draft).length?'To finish QA: '+escape(qaNeeds(draft).join(' · ')):'All required deliverables are ready.'}</p>${fixGuidance?`<p class="mbj-fix-guidance"><strong>How to fix it</strong> ${escape(fixGuidance)}</p>`:''}${creativePreviews(draft,f.creative)}<form>${orderedFields.map(([name,label])=>`<label data-field="${name}">${label}<input name="${name}" value="${escape(f[name])}"></label>`).join('')}<label class="mbj-approve" data-field="budgetApproved"><input type="checkbox" name="budgetApproved" ${draft.budgetApproved!==false?'checked':''}>Budget approved under company rules</label><button type="submit">Save campaign setup →</button></form>`;
+    const canvasButton=canEditInCanvas(draft)?`<button type="button" class="mbj-open-canvas" data-open-canvas="${index}" data-open-canvas-field="${escape(fixField)}">Edit in canvas<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4v12h12v-4M11 4h5v5M16 4l-7 7"/></svg></button>`:'';
+    editor.innerHTML=`<div class="mbj-editor-head"><h3>Finish ${escape(draft.planTitle||draft.name)}</h3>${canvasButton}</div><p>Quick changes here. Mojo rechecks the setup when you save. For targeting, ad copy and every ${escape(channel(draft))} setting, edit in canvas.</p><p class="mbj-qa-needs" role="status">${qaNeeds(draft).length?'To finish QA: '+escape(qaNeeds(draft).join(' · ')):'All required deliverables are ready.'}</p>${fixGuidance?`<p class="mbj-fix-guidance"><strong>How to fix it</strong> ${escape(fixGuidance)}</p>`:''}${creativePreviews(draft,f.creative)}<form>${orderedFields.map(([name,label])=>`<label data-field="${name}">${label}<input name="${name}" value="${escape(f[name])}"></label>`).join('')}<label class="mbj-approve" data-field="budgetApproved"><input type="checkbox" name="budgetApproved" ${draft.budgetApproved!==false?'checked':''}>Budget approved under company rules</label><button type="submit">Save campaign setup →</button></form>`;
     body.append(editor);editor.scrollIntoView({block:'nearest',behavior:'smooth'});
     const firstMissing = qa(draft).missing[0];
     const fieldName = fixField || {'intent keywords':'keywords','budget and flight':!f.budget?'budget':'flight','landing page':'landing','budget approval':'budgetApproved'}[firstMissing] || firstMissing;
@@ -238,7 +249,7 @@
     body.querySelector('.mbj-review-chat')?.remove();
     const items=read(),panel=document.createElement('section');
     panel.className='mbj-review-chat';
-    panel.innerHTML=`<h2 tabindex="-1">Campaign details for launch</h2><p>Review the complete setup for ${indices.length===1?'this campaign':`these ${indices.length} campaigns`}.</p>${indices.map(index=>{const item=items[index];if(!item)return '';const f=facts(item);const fields=[['Channel',channel(item)],['Budget',f.budget],['Flight',f.flight],['Audience',f.audience],['Creative',f.creative],['Tracking',f.tracking],...(keywordRequired(item)?[['Intent keywords',f.keywords]]:[]),['Landing page',f.landing],['Message',f.messaging],['Conversion event',f.conversion],['Validation',f.validation]];return `<article data-mbj-review-index="${index}"><h3>${escape(item.planTitle||item.name)}</h3><p>Mojo QA passed · Ready to launch</p><dl>${fields.map(([label,value])=>`<div><dt>${escape(label)}</dt><dd${label==='Channel'?' class="mbj-review-chat-channel"':''}>${label==='Channel'?`${channelLogo(item)}<span>${escape(value)}</span>`:escape(value||'To confirm')}</dd></div>`).join('')}</dl><div class="mbj-review-chat-actions"><button type="button" data-mbj-review-edit="${index}">Edit campaign details</button><button type="button" data-mbj-review-launch="${index}">Launch campaign →</button></div></article>`}).join('')}`;
+    panel.innerHTML=`<h2 tabindex="-1">Campaign details for launch</h2><p>Review the complete setup for ${indices.length===1?'this campaign':`these ${indices.length} campaigns`}.</p>${indices.map(index=>{const item=items[index];if(!item)return '';const f=facts(item);const fields=[['Channel',channel(item)],['Budget',f.budget],['Flight',f.flight],['Audience',f.audience],['Creative',f.creative],['Tracking',f.tracking],...(keywordRequired(item)?[['Intent keywords',f.keywords]]:[]),['Landing page',f.landing],['Message',f.messaging],['Conversion event',f.conversion],['Validation',f.validation]];return `<article data-mbj-review-index="${index}"><h3>${escape(item.planTitle||item.name)}</h3><p>Mojo QA passed · Ready to launch</p><dl>${fields.map(([label,value])=>`<div><dt>${escape(label)}</dt><dd${label==='Channel'?' class="mbj-review-chat-channel"':''}>${label==='Channel'?`${channelLogo(item)}<span>${escape(value)}</span>`:escape(value||'To confirm')}</dd></div>`).join('')}</dl><div class="mbj-review-chat-actions"><button type="button" data-mbj-review-edit="${index}">Edit campaign details</button>${canEditInCanvas(item)?`<button type="button" data-open-canvas="${index}">Edit in canvas</button>`:''}<button type="button" data-mbj-review-launch="${index}">Launch campaign →</button></div></article>`}).join('')}`;
     body.append(panel);
     panel.scrollIntoView({block:'start',behavior:'smooth'});
     panel.querySelector('h2').focus({preventScroll:true});
@@ -281,8 +292,10 @@
     return readyIndices.length;
   }
   document.addEventListener('click',event=>{
-    const edit=event.target.closest('[data-mbj-review-edit]');
-    if(edit){openChat(Number(edit.dataset.mbjReviewEdit));return;}
+    const openCanvas=event.target.closest('[data-open-canvas]');
+    if(openCanvas){editInCanvas(Number(openCanvas.dataset.openCanvas),openCanvas.dataset.openCanvasField||'');return;}
+    const reviewEdit=event.target.closest('[data-mbj-review-edit]');
+    if(reviewEdit){openChat(Number(reviewEdit.dataset.mbjReviewEdit));return;}
     const launchButton=event.target.closest('[data-mbj-review-launch]');
     if(launchButton){const index=Number(launchButton.dataset.mbjReviewLaunch);launchButton.disabled=true;launchButton.textContent='Launching…';if(!launch([index],()=>{const article=document.querySelector(`.mbj-review-chat [data-mbj-review-index="${index}"]`);if(article){article.querySelector('p').textContent='Campaign launched · Mojo is watching for first data';article.querySelector('.mbj-review-chat-actions')?.remove();}})){launchButton.disabled=false;launchButton.textContent='Launch campaign →';}return;}
   });
@@ -311,6 +324,7 @@
     const row=event.target.closest('[data-build-index]');if(!row)return;const index=Number(row.dataset.buildIndex);
     const fix=event.target.closest('[data-fix-field]');
     if(fix){event.preventDefault();openChat(index,fix.dataset.fixField);return}
+    if(event.target.closest('[data-canvas]')){editInCanvas(index);return}
     if(event.target.closest('[data-edit]')){openChat(index);return}
     if(event.target.closest('[data-delete]')){
       const item=read()[index];if(!item)return;
@@ -345,5 +359,7 @@
     }
   });
   window.addEventListener('storage',event=>{if(event.key===key)render()});
+  /* Shared with the canvas editor (mojo-canvas-editor.js). */
+  window.MojoBuild = {read, write, facts, qa, stage, channel, initiative, launch, render};
   normalizeSavedCampaigns();seedExamples();syncLaunchTodayIdeas();render();
 })();
