@@ -1,5 +1,6 @@
 /* Home feed cards behave like Campaigns Feed cards: primary link, "See why" beside it, tools on the right. */
 (() => {
+  const lastSentence = t => { const parts = String(t || '').match(/[^.!?]+[.!?]+/g) || []; return (parts.length > 1 ? parts[parts.length - 1] : '').trim(); };
   const text = n => (n?.textContent || '').replace(/\s+/g, ' ').trim();
   const sentence = v => { const t = v.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
   const AREA_SOURCE = {Campaigns: 'Campaign delivery and spend', AEO: 'AI answer checks and GA4 visits', Audiences: 'Audience records and platform match rates'};
@@ -22,7 +23,7 @@
       source: AREA_SOURCE[area] || 'Connected account and campaign data',
       triggerType: /^(Only count|Set a|Assign an owner|Always|Never)\b/i.test(title) ? 'Inferred Best Practice' : /\b(standard|rule|threshold|policy|best practice|guardrail|calls for|requires|limit|naming|underpacing|excluded|overlap|end date|UTMs?|assign an owner|only count|measure beyond|malformed|stray tags|launch review)\b/i.test(`${title} ${text(card.querySelector('h3 + p'))}`) ? 'Best practice' : 'Mojo Brain',
       triggerReason: text(card.querySelector('h3 + p')),
-      nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
+      nextStep: lastSentence(text(card.querySelector('h3 + p'))) || (primary ? text(primary).replace(/\s*→$/, '') : ''),
       href: primary?.getAttribute('href') || '',
       linkLabel: primary ? text(primary).replace(/\s*→$/, '') : 'Open it'
     };

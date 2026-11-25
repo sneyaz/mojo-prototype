@@ -2,6 +2,7 @@
    one primary link, "See why" beside it (expands the same explanation panel), card tools on the right.
    The old "Details" disclosure and best-practice chip become part of See why. */
 (() => {
+  const lastSentence = t => { const parts = String(t || '').match(/[^.!?]+[.!?]+/g) || []; return (parts.length > 1 ? parts[parts.length - 1] : '').trim(); };
   const text = node => (node?.textContent || '').replace(/\s+/g, ' ').trim();
   function align(card) {
     if (card.dataset.feedAligned) return;
@@ -30,7 +31,7 @@
       source: (isSourceBox ? text(clean) : '') || quiet || text(card.closest('.aud-content')?.querySelector('.aud-source')) || 'Sample records',
       triggerType: (/^(Only count|Set a|Assign an owner|Always|Never)\b/i.test(text(main.querySelector('h3'))) || /modeled on your customers|Without a landing page/i.test(text(main.querySelector(':scope > p')))) && !chip ? 'Inferred Best Practice' : chip ? 'Best practice' : 'Mojo Brain',
       triggerReason: chip ? text(chip).replace(/^▣\s*Best practice\s*·\s*/, '') : (text(main.querySelector(':scope > p')) || sentence(text(main.querySelector('.aud-feed-type')))),
-      nextStep: primary ? text(primary).replace(/\s*→$/, '') : '',
+      nextStep: card.dataset.todo || lastSentence(text(main.querySelector(':scope > p'))) || (primary ? text(primary).replace(/\s*→$/, '') : ''),
       href: chip?.getAttribute('href') || primary?.getAttribute('href') || '',
       linkLabel: chip ? 'See the rule' : (primary ? text(primary).replace(/\s*→$/, '') : 'Open it')
     };
